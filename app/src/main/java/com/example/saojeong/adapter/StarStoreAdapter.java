@@ -24,14 +24,12 @@ public class StarStoreAdapter extends RecyclerView.Adapter<StarStoreAdapter.View
         public TextView codeStore;
         public TextView nameStore;
         public LinearLayout stars;
-        public Context context;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.codeStore = itemView.findViewById(R.id.codeStore);
             this.nameStore = itemView.findViewById(R.id.nameStore);
             this.stars = itemView.findViewById(R.id.stars);
-            this.context = stars.getContext();
         }
     }
 
@@ -56,7 +54,6 @@ public class StarStoreAdapter extends RecyclerView.Adapter<StarStoreAdapter.View
         TextView codeStore = holder.codeStore;
         TextView nameStore = holder.nameStore;
         LinearLayout stars = holder.stars;
-        Context context = holder.context;
 
         int rate = starStore.getmRateStore();
         int i = 0;
