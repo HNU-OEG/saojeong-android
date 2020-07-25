@@ -20,7 +20,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
         public ImageView img_like;
-        public TextView numStore;
+        public TextView codeStore;
         public TextView nameStore;
         public TextView rateStore;
         public TextView rateCountStore;
@@ -29,7 +29,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
             super(itemView);
             this.image = itemView.findViewById(R.id.image);
             this.img_like = itemView.findViewById(R.id.img_like);
-            this.numStore = itemView.findViewById(R.id.numStore);
+            this.codeStore = itemView.findViewById(R.id.codeStore);
             this.nameStore = itemView.findViewById(R.id.nameStore);
             this.rateStore = itemView.findViewById(R.id.rateStore);
             this.rateCountStore = itemView.findViewById(R.id.rateCountStore);
@@ -56,14 +56,14 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
 
         ImageView image = holder.image;
         ImageView img_like = holder.img_like;
-        TextView numStore = holder.numStore;
+        TextView codeStore = holder.codeStore;
         TextView nameStore = holder.nameStore;
         TextView rateStore = holder.rateStore;
         TextView rateCountStore = holder.rateCountStore;
 
         image.setImageResource(likeStore.getmImage());
         img_like.setImageResource(likeStore.ismLike()? R.drawable.home : R.drawable.price);
-        numStore.setText(likeStore.getmNumStore()+"번");
+        codeStore.setText(likeStore.getmCodeStore()+"번");
         nameStore.setText(likeStore.getmNameStore());
         rateStore.setText(Double.toString(likeStore.getmRateStore()));
         rateCountStore.setText(likeStore.getmRateCountStore()+"명이 평가하였습니다.");

@@ -1,0 +1,39 @@
+package com.example.saojeong.model;
+
+import android.graphics.Rect;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class RecyclerDecoration {
+
+    public static class LeftDecoration extends RecyclerView.ItemDecoration {
+        private int divHeight;
+
+        public LeftDecoration(int divHeight) {
+            this.divHeight = divHeight;
+        }
+
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+            outRect.left = divHeight;
+        }
+    }
+
+    public static class BottomDecoration extends RecyclerView.ItemDecoration {
+        private int divHeight;
+
+        public BottomDecoration(int divHeight) {
+            this.divHeight = divHeight;
+        }
+
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+            outRect.bottom = divHeight;
+        }
+    }
+
+}

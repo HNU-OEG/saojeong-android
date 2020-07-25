@@ -37,8 +37,8 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/numStore"
-                android:layout_width="match_parent"
+                android:id="@+id/codeStore"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:textSize="12sp"
@@ -46,7 +46,7 @@
 
             <TextView
                 android:id="@+id/nameStore"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:textColor="#777777" />
@@ -54,7 +54,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -66,14 +66,14 @@
 
             <TextView
                 android:id="@+id/rateStore"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="7dp"
                 android:textSize="8sp"/>
 
             <TextView
                 android:id="@+id/rateCountStore"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="6sp"/>
 
