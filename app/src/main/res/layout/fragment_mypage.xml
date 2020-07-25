@@ -1,7 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="35dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="109dp"
+            android:layout_height="109dp"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/img_circle"/>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="17dp"
+            android:paddingBottom="17dp"
+            android:paddingLeft="13dp">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="23sp"
+                android:textColor="#4e4e4e"
+                android:lineSpacingExtra="3sp"
+                android:text="가나다라님"/>
+
+            <Button
+                android:id="@+id/btn_profile"
+                android:layout_width="121dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_round"
+                android:textSize="16sp"
+                android:textColor="#4e4e4e"
+                android:lineSpacingExtra="3sp"
+                android:text="프로필 변경"/>
+            
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout_middle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:layout_marginLeft="21dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/layout_top">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="18sp"
+            android:textColor="#414141"
+            android:lineSpacingExtra="7sp"
+            android:text="좋아하는 점포"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_likeStore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:layout_marginLeft="21dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/layout_middle">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:textSize="18sp"
+            android:textColor="#414141"
+            android:lineSpacingExtra="7sp"
+            android:text="내가 평가한 점포"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_starStore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
