@@ -4,22 +4,26 @@ import com.example.saojeong.R;
 
 import java.util.ArrayList;
 
-public class Contact_Shop {
+public class Contact {
     private String mShopnum;
     private String mShopname;
     private String mStar;
     private String mStarscore;
     private String mEvaluation;
     private int mImage;
+    private int mFImage;
 
-    public Contact_Shop(String mShopnum, String mShopname, String mStar, String mStarscore, String mEvaluation, int mImage) {
+    public Contact(String mShopnum, String mShopname, String mStar, String mStarscore, String mEvaluation, int mImage, int mFImage) {
         this.mShopnum = mShopnum;
         this.mShopname = mShopname;
         this.mStar = mStar;
         this.mStarscore = mStarscore;
         this.mEvaluation= mEvaluation;
         this.mImage = mImage;
+        this.mFImage = mFImage;
     }
+
+
 
     public String getmShopnum() {
         return mShopnum;
@@ -45,14 +49,16 @@ public class Contact_Shop {
         return mImage;
     }
 
-//    private static int lastContactId = 0;
+    public int getmFImage() {
+        return mFImage;
+    }
 
-    public static ArrayList<Contact_Shop> createContactsList(int numContacts) {
-        ArrayList<Contact_Shop> contacts = new ArrayList<Contact_Shop>();
+    public static ArrayList<Contact> createContactsList(int numContacts) {
+        ArrayList<Contact> contacts = new ArrayList<Contact>();
 
 
         for(int i = 1; i <= numContacts; i++) {
-            contacts.add(new Contact_Shop(i+"번","서진 농산시장","★","4.9",(i+62)+"명이 평가하였습니다.", R.drawable.logo_start));
+            contacts.add(new Contact(i+"번","서진 농산시장","★","4.9",(i+62)+"명이 평가하였습니다.", R.drawable.logo_start, R.drawable.favorate));
         }
 
         return contacts;

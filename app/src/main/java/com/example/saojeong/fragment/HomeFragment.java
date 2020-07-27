@@ -1,66 +1,134 @@
 package com.example.saojeong.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.example.saojeong.R;
+import com.example.saojeong.adapter.ContactsAdapter;
+import com.example.saojeong.adapter.FishAdapter;
+import com.example.saojeong.adapter.FruitAdapter;
+import com.example.saojeong.adapter.FullviewAdapter;
+import com.example.saojeong.adapter.VegetableAdapter;
+import com.example.saojeong.model.Contact;
+import com.example.saojeong.model.ContactFish;
+import com.example.saojeong.model.ContactFruit;
+import com.example.saojeong.model.ContactFullview;
+import com.example.saojeong.model.ContactVegetable;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class HomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerShop;
+    private RecyclerView recyclerFruit;
+    private RecyclerView recyclerVegetable;
+    private RecyclerView recyclerFish;
+    private RecyclerView recyclerFullview;
+    private ContactsAdapter shopAdapter;
+    private FruitAdapter fruitAdapter;
+    private VegetableAdapter vegetableAdapter;
+    private FishAdapter fishAdapter;
+    private FullviewAdapter fullviewAdapter;
+    ArrayList<Contact> contacts;
+    ArrayList<ContactFruit> contactFruits;
+    ArrayList<ContactVegetable> contactVegetables;
+    ArrayList<ContactFish> contactFishs;
+    ArrayList<ContactFullview> contactFullviews;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    TabHost tabHost;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.home_fragment, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
+        //매장 Recycler View
+        recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
+        contacts = Contact.createContactsList(20);
+        shopAdapter = new ContactsAdapter(contacts);
+        recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+        recyclerShop.setAdapter(shopAdapter);
+
+        //과일 Recycler View
+        recyclerFruit = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_fragment);
+        contactFruits = ContactFruit.createContactsList(20);
+        fruitAdapter = new FruitAdapter(contactFruits);
+        recyclerFruit.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+        recyclerFruit.setAdapter(fruitAdapter);
+
+        //채소 Recycler View
+        recyclerVegetable = (RecyclerView) rootView.findViewById(R.id.recyclervegetable_fragment);
+        contactVegetables = ContactVegetable.createContactsList(20);
+        vegetableAdapter = new VegetableAdapter(contactVegetables);
+        recyclerVegetable.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+        recyclerVegetable.setAdapter(vegetableAdapter);
+
+        //수산 Recycler View
+        recyclerFish = (RecyclerView) rootView.findViewById(R.id.recyclerfish_fragment);
+        contactFishs = ContactFish.createContactsList(20);
+        fishAdapter = new FishAdapter(contactFishs);
+        recyclerFish.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+        recyclerFish.setAdapter(fishAdapter);
+
+        //전체 보기(공지) Recycler View
+        recyclerFullview = (RecyclerView) rootView.findViewById(R.id.recyclerfullview_fragment);
+        contactFullviews = ContactFullview.createContactsList(20);
+        fullviewAdapter = new FullviewAdapter(contactFullviews);
+        recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+        recyclerFullview.setAdapter(fullviewAdapter);
+
+        tabHost = (TabHost) rootView.findViewById(R.id.tabhost);
+        tabHost.setup();
+
+        TabHost.TabSpec fruit = tabHost.newTabSpec("과일");
+        fruit.setContent(R.id.tabFr);
+        fruit.setIndicator("과일"); //Tab Name
+        TabHost.TabSpec vegetable = tabHost.newTabSpec("채소");
+        vegetable.setContent(R.id.tabVe);
+        vegetable.setIndicator("채소"); //Tab Name
+        TabHost.TabSpec fish = tabHost.newTabSpec("수산");
+        fish.setContent(R.id.tabFi);
+        fish.setIndicator("수산"); //Tab Name
+
+        tabHost.addTab(fruit);
+        tabHost.addTab(vegetable);
+        tabHost.addTab(fish);
+
+        //시작시 Tab Color 지정
+        TextView Cfruit = (TextView) tabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
+        Cfruit.setTextColor(Color.parseColor("#ffffff"));
+        TextView CVegetable = (TextView) tabHost.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
+        CVegetable.setTextColor(Color.parseColor("#ffd6b7"));
+        TextView Cfish = (TextView) tabHost.getTabWidget().getChildAt(2).findViewById(android.R.id.title);
+        Cfish.setTextColor(Color.parseColor("#ffd6b7"));
+
+        //Tab 바꿀 때 마다 색 변경
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String s) {
+                for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
+                    TextView tabcolor = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+                    if (i == tabHost.getCurrentTab()) {
+                        tabcolor.setTextColor(Color.parseColor("#ffffff"));
+                    } else
+                        tabcolor.setTextColor(Color.parseColor("#ffd6b7"));
+
+                }
+            }
+        });
+
+        return rootView;
+
     }
 }
