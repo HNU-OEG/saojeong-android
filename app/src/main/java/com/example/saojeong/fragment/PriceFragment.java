@@ -1,6 +1,8 @@
 package com.example.saojeong.fragment;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,15 +74,22 @@ public class PriceFragment extends Fragment {
             }
         });
 
-        mShopSearch.setOnKeyListener(new View.OnKeyListener() {
+        mShopSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //Enter key Action
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    //Enter키눌렀을떄 처리
-                    return true;
-                }
-                return false;
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // input창에 문자를 입력할때마다 호출된다.
+
+                String text = mShopSearch.getText().toString();
+
             }
         });
 
@@ -108,7 +117,12 @@ public class PriceFragment extends Fragment {
         return view;
     }
 
+    public void Search(String str)
+    {
+        //이름받아와서 출력
 
+    }
 }
+
 
 

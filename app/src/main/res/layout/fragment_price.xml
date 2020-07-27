@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+
+            <ImageView
+                android:id="@+id/iv_price_btn_fruit_price"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="24dp"
+                app:srcCompat="@drawable/logo_no_circle" />
+
+            <ImageView
+                android:id="@+id/iv_price_btn_vegetable_price"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginLeft="34dp"
+                android:layout_marginTop="24dp"
+                android:layout_toRightOf="@+id/iv_price_btn_fruit_price"
+                android:layout_weight="1"
+                android:text="Button"
+                app:srcCompat="@drawable/logo_no_circle" />
+
+            <ImageView
+                android:id="@+id/iv_price_btn_fish_price"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginLeft="36dp"
+                android:layout_marginTop="24dp"
+                android:layout_toRightOf="@+id/iv_price_btn_vegetable_price"
+                android:layout_weight="1"
+                android:text="Button"
+                app:srcCompat="@drawable/logo_no_circle" />
+
+
+            <TextView
+                android:id="@+id/tv_price_fruit_not"
+                android:layout_width="78dp"
+                android:layout_height="10dp"
+                android:layout_below="@+id/iv_price_btn_fruit_price"
+                android:layout_marginLeft="42dp"
+                android:gravity="center"
+                android:text="과일시세"
+
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/tv_price_vegetable_not"
+                android:layout_width="78dp"
+                android:layout_height="10dp"
+                android:layout_below="@+id/iv_price_btn_fruit_price"
+                android:layout_marginLeft="22dp"
+                android:layout_toRightOf="@+id/iv_price_btn_fruit_price"
+                android:gravity="center"
+                android:text="과일시세"
+
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/tv_price_fish_not"
+                android:layout_width="78dp"
+                android:layout_height="10dp"
+                android:layout_below="@+id/iv_price_btn_fruit_price"
+                android:layout_marginLeft="22dp"
+                android:layout_toRightOf="@+id/iv_price_btn_vegetable_price"
+                android:gravity="center"
+                android:text="과일시세"
+
+                android:textSize="8sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+
+                <TextView
+                    android:layout_width="305dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_edittext_gray"></TextView>
+
+                <EditText
+                    android:id="@+id/et_price_shopsearch"
+                    android:layout_width="285dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:hint="    어느 과일의 시세가 궁금하신가요?"
+                    android:inputType="textPersonName" />
+
+
+            </FrameLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/chartview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <!-- 높이 설정해야지 중복실행이 안됨-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

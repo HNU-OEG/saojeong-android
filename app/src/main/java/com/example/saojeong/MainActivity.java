@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frameLayout_main, new CommunityFragment())
+        transaction.replace(R.id.frameLayout_main, new PriceFragment())
                 .commitAllowingStateLoss();
     }
 
