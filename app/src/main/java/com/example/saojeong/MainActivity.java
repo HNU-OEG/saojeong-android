@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.ll_myPage:
-                transaction.replace(R.id.frameLayout_main, myPageFragment) // frameLayout에 홈 Fragment 호출
+                transaction.replace(R.id.frameLayout_main, myPageFragment) // frameLayout에 MyPage Fragment 호출
                         .commitAllowingStateLoss();
                 break;
         }
