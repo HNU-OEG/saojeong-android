@@ -4,6 +4,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.telephony.IccOpenLogicalChannelResponse;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,19 +50,22 @@ public class CommunityFragment extends Fragment {
         mFreeboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //mNotice.setTextColor();
+                mFreeboard.setTextColor(Color.parseColor("#fa8f68"));
+                mNotice.setTextColor(Color.parseColor("#000000"));
             }
         });
         mNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //mFreeboard.setTextColor();
+                mFreeboard.setTextColor(Color.parseColor("#000000"));
+                mNotice.setTextColor(Color.parseColor("#fa8f68"));
             }
         });
         mWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent((MainActivity)getActivity(), CommunityWirteActivity.class);
+
                 startActivity(intent);
             }
         });
@@ -83,11 +87,11 @@ public class CommunityFragment extends Fragment {
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) { //탭 목록
                 switch(position){
                     case 0:{
-                        tab.setText("0"); //
+                        tab.setText("최신"); //
                         break;
                     }
                     case 1:{
-                        tab.setText("1");
+                        tab.setText("인기");
                         break;
                     }
                 }

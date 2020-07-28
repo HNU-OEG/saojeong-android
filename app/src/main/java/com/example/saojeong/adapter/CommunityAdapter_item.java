@@ -1,6 +1,7 @@
 package com.example.saojeong.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.saojeong.CommunityReadActivity;
+import com.example.saojeong.CommunityWirteActivity;
+import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.model.CommunityValue;
 
@@ -20,12 +24,25 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
         public TextView mTextViewTitle;
         public TextView mTextViewName;
         public TextView mTextViewDate;
+        public TextView mTextViewCommentSize;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mTextViewTitle = (TextView) itemView.findViewById(R.id.tv_community_Title_item);
             mTextViewName = (TextView) itemView.findViewById(R.id.tv_community_name_item);
             mTextViewDate = (TextView) itemView.findViewById(R.id.tv_community_date_item);
+            mTextViewCommentSize = (TextView) itemView.findViewById(R.id.tv_community_comment_size);
+
+            //아이템클릭리스너
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context=v.getContext();
+                    Intent intent = new Intent(context, CommunityReadActivity.class);
+                    //intent.putExtra();
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -48,10 +65,14 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
 
     @Override
     public void onBindViewHolder(CommunityAdapter_item.ViewHolder holder, int position) {
-        //Contact contact = mContacts.get(position);
+        CommunityValue contact = mContacts.get(position);
 
-        holder.mTextViewDate.setText("이곳은 날짜");
-        holder.mTextViewName.setText("이름");
+        holder.mTextViewTitle.setText(contact.GetTitle());
+        holder.mTextViewName.setText(contact.GetName());
+        holder.mTextViewDate.setText(contact.GetDate());
+        holder.mTextViewCommentSize.setText(contact.GetComment().size()+"");
+
+
     }
 
     @Override

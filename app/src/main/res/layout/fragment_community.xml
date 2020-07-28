@@ -16,7 +16,6 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/ll_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -31,6 +30,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:background="#ffffff"
+                    android:textColor="@color/colorMain"
                     android:text="자유게시판"/>
 
                 <TextView
@@ -81,11 +81,12 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:theme="@style/AppTheme"
+                app:tabSelectedTextColor="@color/colorMain"
+                app:tabIndicatorColor="@color/colorMain"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:tabGravity="fill"
-                app:tabIndicatorColor="@color/colorPrimary"
                 app:tabMode="fixed"></com.google.android.material.tabs.TabLayout>
 
             <TextView

@@ -29,18 +29,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="" />
+
             <TextView
                 android:id="@+id/tv_oneweekend"
-                android:layout_width="18dp"
+                android:layout_width="30dp"
                 android:layout_height="20dp"
                 android:text="1주"
-                />
+                android:textColor="@color/colorMain"/>
+
             <TextView
                 android:id="@+id/tv_threeweekend"
-                android:layout_width="18dp"
+                android:layout_width="30dp"
                 android:layout_height="20dp"
-                android:text="2주"
-                />
+                android:text="2주" />
         </LinearLayout>
 
         <TextView

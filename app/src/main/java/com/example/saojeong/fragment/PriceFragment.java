@@ -21,6 +21,8 @@ import com.example.saojeong.adapter.ChartAdapter;
 import com.example.saojeong.model.ChartContact;
 import com.github.mikephil.charting.data.Entry;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,6 @@ public class PriceFragment extends Fragment {
     ImageView mVegetable;
     ImageView mFish;
     EditText mShopSearch;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,7 +74,6 @@ public class PriceFragment extends Fragment {
 
             }
         });
-
         mShopSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

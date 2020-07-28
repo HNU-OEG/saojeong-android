@@ -31,7 +31,7 @@
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tv_community_comment_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="9"
@@ -65,5 +65,5 @@
         android:layout_height="2dp"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
-        android:background="#FF0000"/>
+        android:background="#BFBBBB"/>
 </LinearLayout>

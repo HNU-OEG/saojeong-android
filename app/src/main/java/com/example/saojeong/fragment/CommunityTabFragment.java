@@ -16,6 +16,7 @@ import com.example.saojeong.adapter.ChartAdapter;
 import com.example.saojeong.adapter.CommunityAdapter;
 import com.example.saojeong.adapter.CommunityAdapter_item;
 import com.example.saojeong.model.CommunityValue;
+import com.example.saojeong.model.Community_CommentValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +40,21 @@ public class CommunityTabFragment extends Fragment {
 
         RecyclerView mRecyclerView = view.findViewById(R.id.community_board);
         mCommunityValue= new ArrayList<CommunityValue>();
-        mCommunityValue.add(new CommunityValue());
-        mCommunityValue.add(new CommunityValue());
-        mCommunityValue.add(new CommunityValue());
+
+        //test
+        List<Community_CommentValue> CCList;
+        CCList = new ArrayList<>();
+        CCList.add(new Community_CommentValue("a","a","a","a"));
+        CCList.add(new Community_CommentValue("b","b","b","b"));
+        CCList.add(new Community_CommentValue("c","c","c","c"));
+        CCList.add(new Community_CommentValue("d","d","d","d"));
+
+        CommunityValue com=new CommunityValue("1","1","1","1","1");
+        com.SetComment(CCList);
+        mCommunityValue.add(com);
+        mCommunityValue.add(new CommunityValue("1","1","1","1","1"));
+        mCommunityValue.add(new CommunityValue("2","2","2","2","2"));
+        mCommunityValue.add(new CommunityValue("2","2","2","2","2"));
 
         
 

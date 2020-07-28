@@ -34,6 +34,8 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
     ArrayList<ILineDataSet> dataSets = new ArrayList<>();
     private LineChart mLineChart;
     private TextView text;
+    private TextView mSearch_Weekend;
+    private TextView mSearch_ThreeWeekend;
     public ChartAdapter(Context context, List<ChartContact> listvalue) {
         this.context = context;
         mChartList=listvalue;
@@ -46,6 +48,8 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
             super(itemView);
             mLineChart = (LineChart) itemView.findViewById(R.id.chart);
             text = itemView.findViewById(R.id.tv_chart_name);
+            mSearch_Weekend=itemView.findViewById(R.id.tv_oneweekend);
+            mSearch_ThreeWeekend=itemView.findViewById(R.id.tv_threeweekend);
         }
     }
 
@@ -64,6 +68,24 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
         // 반복문 추가필요 (데이터갯수에따라 반복)                  몇번째 차트         차트내부값
         LineDataSet set1 = new LineDataSet(mChartList.get(position).GetChartValue(), "라벨명1");
     //ㅇㅇㅇ
+
+        mSearch_Weekend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearch_Weekend.setTextColor(Color.parseColor("#fa8f68"));
+                mSearch_ThreeWeekend.setTextColor(Color.parseColor("#000000"));
+            }
+        });
+        mSearch_ThreeWeekend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearch_ThreeWeekend.setTextColor(Color.parseColor("#fa8f68"));
+                mSearch_Weekend.setTextColor(Color.parseColor("#000000"));
+
+            }
+        });
+
+
         set1.setColor(Color.rgb(250, 143, 104));
         set1.setCircleColor(Color.rgb(250, 143, 104));
         set1.setValueTextSize(10f);

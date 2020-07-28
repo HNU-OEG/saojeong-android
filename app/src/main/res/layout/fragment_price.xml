@@ -61,7 +61,7 @@
                 android:layout_width="78dp"
                 android:layout_height="10dp"
                 android:layout_below="@+id/iv_price_btn_fruit_price"
-                android:layout_marginLeft="22dp"
+                android:layout_marginLeft="28dp"
                 android:layout_toRightOf="@+id/iv_price_btn_fruit_price"
                 android:gravity="center"
                 android:text="과일시세"
@@ -73,35 +73,36 @@
                 android:layout_width="78dp"
                 android:layout_height="10dp"
                 android:layout_below="@+id/iv_price_btn_fruit_price"
-                android:layout_marginLeft="22dp"
+                android:layout_marginLeft="30dp"
                 android:layout_toRightOf="@+id/iv_price_btn_vegetable_price"
                 android:gravity="center"
                 android:text="과일시세"
 
                 android:textSize="8sp" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp">
-
-                <TextView
-                    android:layout_width="305dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/rounded_edittext_gray"></TextView>
-
-                <EditText
-                    android:id="@+id/et_price_shopsearch"
-                    android:layout_width="285dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:background="@null"
-                    android:hint="    어느 과일의 시세가 궁금하신가요?"
-                    android:inputType="textPersonName" />
-
-
-            </FrameLayout>
         </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <TextView
+                android:layout_width="305dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_edittext_gray"></TextView>
+
+            <EditText
+                android:id="@+id/et_price_shopsearch"
+                android:layout_width="285dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:hint="    어느 과일의 시세가 궁금하신가요?"
+                android:inputType="textPersonName" />
+
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="350dp"
@@ -116,6 +117,7 @@
                 android:layout_height="match_parent">
 
             </androidx.recyclerview.widget.RecyclerView>
+
         </LinearLayout>
 
 
