@@ -5,19 +5,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.CommunityReadActivity;
-import com.example.saojeong.CommunityWirteActivity;
-import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.model.CommunityValue;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -33,7 +29,6 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
             mTextViewDate = (TextView) itemView.findViewById(R.id.tv_community_date_item);
             mTextViewCommentSize = (TextView) itemView.findViewById(R.id.tv_community_comment_size);
 
-            //아이템클릭리스너
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

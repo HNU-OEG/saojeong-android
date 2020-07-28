@@ -14,15 +14,15 @@ public class CommunityAdapter extends FragmentStateAdapter {
 
     @NonNull
     @Override
-    public Fragment createFragment(int position) { //Fragment 생성
+    public Fragment createFragment(int position) {
         position++;
         switch(position){
             case 1:
-                return new CommunityTabFragment(position); //0번째 탭 //이곳에서 뷰 보이기
+                return new CommunityTabFragment(position);
             case 2:
-                return new CommunityTabFragment(position); //1번째 탭
+                return new CommunityTabFragment(position);
             default:
-                return new CommunityTabFragment(position); //2번째 탭
+                return new CommunityTabFragment(position);
         }
 
     }

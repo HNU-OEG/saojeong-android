@@ -3,25 +3,19 @@ package com.example.saojeong.fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.ChartAdapter;
 import com.example.saojeong.model.ChartContact;
 import com.github.mikephil.charting.data.Entry;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +33,6 @@ public class PriceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         final ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_price, container, false);
 
         mFrult=view.findViewById(R.id.iv_price_btn_fruit_price);
@@ -86,7 +79,6 @@ public class PriceFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                // input창에 문자를 입력할때마다 호출된다.
 
                 String text = mShopSearch.getText().toString();
 
@@ -96,10 +88,8 @@ public class PriceFragment extends Fragment {
 
 
         RecyclerView mRecyclerView = view.findViewById(R.id.chartview);
-        //Line_Chartmini =new ArrayList<>();
         mChartContact=new ArrayList<>();
         ArrayList<Entry> list_ChartValue= new ArrayList<>();
-        //그래프에 들어갈 좌표값 입력
         for(int i=0; i<4; ++i)
         {
             Entry entry1 = new Entry(i, 1000+i*20);
@@ -119,7 +109,6 @@ public class PriceFragment extends Fragment {
 
     public void Search(String str)
     {
-        //이름받아와서 출력
 
     }
 }

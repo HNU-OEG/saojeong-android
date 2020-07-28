@@ -8,8 +8,6 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.saojeong.fragment.CommunityFragment;
-
 public class CommunityWirteActivity extends AppCompatActivity {
 
 
@@ -32,11 +30,9 @@ public class CommunityWirteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.btn_community_write_complete:
-                //쓰기버튼눌렀을때
                 this.finish();
-                //데이터전송
                 return true;
-            case android.R.id.home: //뒤로가기버튼
+            case android.R.id.home:
                 this.finish();
                 return true;
         }

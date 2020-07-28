@@ -1,8 +1,6 @@
 package com.example.saojeong;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -42,7 +40,7 @@ public class CommunityReadActivity extends AppCompatActivity {
     //}
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case android.R.id.home: //뒤로가기버튼
+            case android.R.id.home:
                 this.finish();
                 return true;
         }

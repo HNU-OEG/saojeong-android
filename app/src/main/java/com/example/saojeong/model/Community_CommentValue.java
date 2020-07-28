@@ -1,6 +1,5 @@
 package com.example.saojeong.model;
 
-import java.util.List;
 
 public class Community_CommentValue {
 

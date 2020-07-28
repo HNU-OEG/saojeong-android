@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.R;
-import com.example.saojeong.adapter.ChartAdapter;
-import com.example.saojeong.adapter.CommunityAdapter;
 import com.example.saojeong.adapter.CommunityAdapter_item;
 import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.model.Community_CommentValue;

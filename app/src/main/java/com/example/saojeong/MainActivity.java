@@ -6,8 +6,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.View;
-
-import com.example.saojeong.fragment.CommunityFragment;
 import com.example.saojeong.fragment.PriceFragment;
 
 public class MainActivity extends AppCompatActivity {
