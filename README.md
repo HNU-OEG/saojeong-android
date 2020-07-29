@@ -3,9 +3,11 @@
 ![Version - 1.0.0](https://img.shields.io/badge/Version-1.0.0-orange.svg)
 
 ## Authors
-- 🍙 [prayme - Back-End Developer](dbfpzk142@gmail.com)
+- 🍕 [welikeheon - Back-End Developer](https://github.com/welikeheon)
+- 🍙 [prayme - Back-End Developer](https://github.com/plzprayme)
 - 🍔 [DevooKim - Andorid Developer](https://github.com/DevooKim)
-
+- 🐝 [Hitbee - Android Developer](https://github.com/Hitbee)
+- 🍖 [Kimseonju - Android Developer](https://github.com/Kimseonju)
 
 ## Setup
 ### Prerequisites ###
