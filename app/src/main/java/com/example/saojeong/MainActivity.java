@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
     private HomeFragment homeFragment;
     private MyPageFragment myPageFragment;
+    private PriceFragment priceFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         transaction = fragmentManager.beginTransaction();
         homeFragment = new HomeFragment(); // 홈 Fragment 선언
         myPageFragment = new MyPageFragment(); // MyPage Fragment 선언
+        priceFragment = new PriceFragment(); // 시세 Fragment 선언
         transaction.replace(R.id.frameLayout_main, homeFragment)
                 .commitAllowingStateLoss(); //시작화면에 Home 띄우기
     }
@@ -44,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.ll_price:
+                transaction.replace(R.id.frameLayout_main, priceFragment) // frameLayout에 홈 Fragment 호출
+                        .commitAllowingStateLoss();
                 break;
 
             case R.id.ll_community:
