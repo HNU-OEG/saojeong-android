@@ -4,12 +4,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_no_circle"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo_no_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme">
+
+
+        <activity android:name=".IntroPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,6 +23,8 @@
 
         <activity android:name=".CommunityWirteActivity"></activity>
         <activity android:name=".CommunityReadActivity"></activity>
+        <activity android:name=".MainActivity" />
+
     </application>
 
 </manifest>
