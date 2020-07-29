@@ -45,6 +45,22 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
             text = itemView.findViewById(R.id.tv_chart_name);
             mSearch_Weekend=itemView.findViewById(R.id.tv_oneweekend);
             mSearch_ThreeWeekend=itemView.findViewById(R.id.tv_threeweekend);
+            //getAdapterPosition(); 이쪽으로 위치 확인해서 클릭리스너구현
+            mSearch_Weekend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mSearch_Weekend.setTextColor(Color.parseColor("#fa8f68"));
+                    mSearch_ThreeWeekend.setTextColor(Color.parseColor("#000000"));
+                }
+            });
+            mSearch_ThreeWeekend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mSearch_ThreeWeekend.setTextColor(Color.parseColor("#fa8f68"));
+                    mSearch_Weekend.setTextColor(Color.parseColor("#000000"));
+
+                }
+            });
         }
     }
 
@@ -62,21 +78,7 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
     public void onBindViewHolder(ChartAdapter.ViewHolder holder, int position) {
         LineDataSet set1 = new LineDataSet(mChartList.get(position).GetChartValue(), "라벨명1");
 
-        mSearch_Weekend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSearch_Weekend.setTextColor(Color.parseColor("#fa8f68"));
-                mSearch_ThreeWeekend.setTextColor(Color.parseColor("#000000"));
-            }
-        });
-        mSearch_ThreeWeekend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSearch_ThreeWeekend.setTextColor(Color.parseColor("#fa8f68"));
-                mSearch_Weekend.setTextColor(Color.parseColor("#000000"));
 
-            }
-        });
 
 
         set1.setColor(Color.rgb(250, 143, 104));
@@ -89,8 +91,8 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
         ArrayList<String> xAxisValues = new ArrayList<>();
         mLineChart.setExtraRightOffset(40f);
         mLineChart.setExtraBottomOffset(60f);
-        mLineChart.setBorderColor(Color.WHITE);
-        mLineChart.setBackgroundColor(Color.WHITE);
+        //mLineChart.setBackgroundResource(R.drawable.rounded_edittext_gray);
+
         mLineChart.setDragEnabled(true);
         mLineChart.setScaleEnabled(true);
         mLineChart.getAxisRight().setEnabled(false);
@@ -118,7 +120,7 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
         YAxis yAxisLeft = mLineChart.getAxisLeft();
         yAxisLeft.setXOffset(11f);
         yAxisLeft.setTextSize(14f);
-        yAxisLeft.setGranularity(1f);
+        yAxisLeft.setGranularity(3f);
         //mLineChart.getAxisLeft().setAxisMaximum();
         //mLineChart.getAxisLeft().setAxisMinimum(0);
         yAxisLeft.setAxisLineColor(Color.WHITE);

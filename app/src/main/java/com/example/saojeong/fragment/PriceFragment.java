@@ -45,19 +45,12 @@ public class PriceFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                for(int i=0; i<4; ++i)
-                {
-                    ArrayList<Entry> list_ChartValue1= new ArrayList<>();
-                    Entry entry1 = new Entry(i, 1000+i*20);
-                    list_ChartValue1.add(entry1);
-                }
             }
         });
 
         mVegetable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
 

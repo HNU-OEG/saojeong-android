@@ -44,6 +44,27 @@
                 android:text="2주" />
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+            <TextView
+                android:layout_width="280dp"
+                android:layout_height="223dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/rounded_edittext_gray"></TextView>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@null">
+
+            </com.github.mikephil.charting.charts.LineChart>
+
+        </RelativeLayout>
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -51,12 +72,7 @@
             android:text="" />
 
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart"
-                android:layout_width="match_parent"
-                android:layout_height="300dp">
 
-            </com.github.mikephil.charting.charts.LineChart>
 
     </LinearLayout>
 

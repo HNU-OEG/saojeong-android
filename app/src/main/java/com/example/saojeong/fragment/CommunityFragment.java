@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -44,7 +45,14 @@ public class CommunityFragment extends Fragment {
         mNotice=view.findViewById(R.id.tv_community_btn_notice);
         mWrite=view.findViewById(R.id.tv_community_btn_write);
         mBoardSearch=view.findViewById(R.id.et_community_boardsearch);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
 
+
+        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitleTextColor(Color.BLACK);
         mFreeboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
