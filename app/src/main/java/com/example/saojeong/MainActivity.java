@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.View;
+import com.example.saojeong.fragment.PriceFragment;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
