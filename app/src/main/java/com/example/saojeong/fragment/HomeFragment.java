@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         //매장 Recycler View
         recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
         contacts = Contact.createContactsList(20);
