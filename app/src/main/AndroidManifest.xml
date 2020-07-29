@@ -9,9 +9,6 @@
         android:roundIcon="@drawable/logo_no_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivity">
-        android:theme="@style/AppTheme">
-
 
         <activity android:name=".IntroPage">
             <intent-filter>
@@ -23,7 +20,7 @@
 
         <activity android:name=".CommunityWirteActivity"></activity>
         <activity android:name=".CommunityReadActivity"></activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"></activity>
 
     </application>
 
