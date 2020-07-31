@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,8 +12,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/layout_top"
@@ -33,18 +33,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:paddingLeft="13dp"
                     android:paddingTop="17dp"
-                    android:paddingBottom="17dp"
-                    android:paddingLeft="13dp">
+                    android:paddingBottom="17dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textSize="23sp"
-                        android:textColor="#4e4e4e"
+                        android:baselineAligned="false"
                         android:lineSpacingExtra="3sp"
-                        android:text="가나다라님"/>
+                        android:text="가나다라님"
+                        android:textColor="#4e4e4e"
+                        android:textSize="23sp" />
 
                     <Button
                         android:id="@+id/btn_profile"
@@ -52,10 +53,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/btn_round"
-                        android:textSize="16sp"
-                        android:textColor="#4e4e4e"
                         android:lineSpacingExtra="3sp"
-                        android:text="프로필 변경"/>
+                        android:text="프로필 변경"
+                        android:textColor="#4e4e4e"
+                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
 

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:onClick="closeKeyBoard">
 
     <LinearLayout
         android:id="@+id/layout_top"
@@ -20,17 +21,35 @@
             android:layout_height="109dp"
             android:background="@drawable/img_circle" />
 
-        <Button
-            android:id="@+id/btn_change_picture"
-            android:layout_width="121dp"
-            android:layout_height="36dp"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="57dp"
-            android:background="@drawable/btn_round"
-            android:lineSpacingExtra="3sp"
-            android:text="사진 변경"
-            android:textColor="#4e4e4e"
-            android:textSize="16sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="13dp"
+            android:paddingTop="17dp"
+            android:paddingBottom="17dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:lineSpacingExtra="3sp"
+                android:text="가나다라님"
+                android:textColor="#4e4e4e"
+                android:textSize="23sp" />
+
+            <Button
+                android:id="@+id/btn_change_picture"
+                android:layout_width="121dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_round"
+                android:lineSpacingExtra="3sp"
+                android:text="사진 변경"
+                android:textColor="#4e4e4e"
+                android:textSize="16sp" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -47,13 +66,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:gravity="right"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
                 android:lineSpacingExtra="5sp"
                 android:text="별명"
                 android:textColor="#4e4e4e"
@@ -62,10 +80,15 @@
 
             <EditText
                 android:id="@+id/et_name"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="36dp"
-                android:layout_weight="5"
-                android:background="@drawable/btn_round" />
+                android:layout_marginLeft="90dp"
+                android:paddingHorizontal="20dp"
+                android:background="@drawable/btn_round"
+                android:cursorVisible="false"
+                android:singleLine="true"
+                android:maxLength="20"
+                android:maxWidth="150dp" />
         </LinearLayout>
 
         <TextView
@@ -76,10 +99,7 @@
             android:layout_marginTop="6dp"
             android:gravity="end"
             android:lineSpacingExtra="2sp"
-            android:textColor="#f68853"
-            android:textSize="10sp"
-            tools:text="*중복되는 별명입니다. 다른 닉네임으로 작성해주세요." />
-
+            android:textSize="10sp"/>
 
         <Button
             android:id="@+id/btn_save"
@@ -91,7 +111,7 @@
             android:textSize="16sp"
             android:textColor="#ffffff"
             android:lineSpacingExtra="6sp"
-            tools:text="변경완료"/>
+            android:text="변경완료"/>
 
 
     </LinearLayout>
@@ -111,7 +131,7 @@
             android:textSize="12sp"
             android:textColor="#c2c2c2"
             android:lineSpacingExtra="4sp"
-            tools:text="회원정보를 삭제하시겠어요?"/>
+            android:text="회원정보를 삭제하시겠어요?"/>
 
         <!-- 정렬용 더비 View -->
         <View
