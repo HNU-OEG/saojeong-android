@@ -1,16 +1,20 @@
 package com.example.saojeong.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.LikeStoreAdapter;
 import com.example.saojeong.adapter.StarStoreAdapter;
@@ -34,14 +38,25 @@ public class MyPageFragment extends Fragment {
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(15);
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(10);
 
+    private Button btn_profile;
+
+    public static MyPageFragment newInstance() {
+        return new MyPageFragment();
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d("test", "start MyPageFragment");
 
         int numStore = MyPageGetData.getNumStore();
 
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_mypage, container, false);
+
+        btn_profile = view.findViewById(R.id.btn_profile);
+        btn_profile.setOnClickListener((v) -> {
+            ((MainActivity)getActivity()).replaceFragment(ProfileFragment.newInstance());
+        });
 
         recyclerLikes = view.findViewById(R.id.recycler_likeStore);
         likeStores = LikeStore.createLikeStoreList(numStore);
