@@ -58,7 +58,7 @@ public class Contact {
 
 
         for(int i = 1; i <= numContacts; i++) {
-            contacts.add(new Contact(i+"번","서진 농산시장","★","4.9",(i+62)+"명이 평가하였습니다.", R.drawable.logo_start, R.drawable.favorate));
+            contacts.add(new Contact(i+"번","서진 농산시장","★","4.9",(i+62)+"명이 평가하였습니다.", R.drawable.logo_start, R.drawable.like));
         }
 
         return contacts;

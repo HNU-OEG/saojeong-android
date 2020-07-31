@@ -16,7 +16,7 @@
             android:id="@+id/iv_favorate"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:src="@drawable/favorate"
+            android:src="@drawable/like"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
