@@ -62,7 +62,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         TextView rateCountStore = holder.rateCountStore;
 
         image.setImageResource(likeStore.getmImage());
-        img_like.setImageResource(likeStore.ismLike()? R.drawable.home : R.drawable.price);
+        img_like.setImageResource(likeStore.ismLike()? R.drawable.like : R.drawable.unlike);
         codeStore.setText(likeStore.getmCodeStore()+"번");
         nameStore.setText(likeStore.getmNameStore());
         rateStore.setText(Double.toString(likeStore.getmRateStore()));
