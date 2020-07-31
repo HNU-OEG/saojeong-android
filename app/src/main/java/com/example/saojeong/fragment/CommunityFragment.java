@@ -8,11 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.saojeong.CommunityWirteActivity;
@@ -21,6 +24,8 @@ import com.example.saojeong.R;
 import com.example.saojeong.adapter.CommunityAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import static com.example.saojeong.fragment.CommunityTabFragment.swipe;
 
 public class CommunityFragment extends Fragment {
 
@@ -32,6 +37,12 @@ public class CommunityFragment extends Fragment {
     TextView mNotice;
     TextView mWrite;
     EditText mBoardSearch;
+
+    LinearLayout mBottomLeft;
+    LinearLayout mBottomRight;
+    LinearLayout mBottomHome;
+    LinearLayout mBottomRe;
+    LinearLayout mBottomUpScroll;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,14 +56,39 @@ public class CommunityFragment extends Fragment {
         mNotice=view.findViewById(R.id.tv_community_btn_notice);
         mWrite=view.findViewById(R.id.tv_community_btn_write);
         mBoardSearch=view.findViewById(R.id.et_community_boardsearch);
+        mBottomLeft=view.findViewById(R.id.ll_community_left);
+        mBottomRight=view.findViewById(R.id.ll_community_right);
+        mBottomHome=view.findViewById(R.id.ll_community_home);
+        mBottomRe=view.findViewById(R.id.ll_community_re);
+        mBottomUpScroll=view.findViewById(R.id.ll_community_upscroll);
+
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-
-
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitleTextColor(Color.BLACK);
+        final TabLayoutMediator tabLayoutMediator=new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) { //탭 목록
+                switch(position){
+                    case 0:{
+                        tab.setText("최신"); //
+                        break;
+                    }
+                    case 1:{
+                        tab.setText("인기");
+                        break;
+                    }
+                    case 2:{
+                        tab.setText("내가쓴글");
+                        break;
+                    }
+                }
+            }
+
+        });
+        tabLayoutMediator.attach(); //붙임
         mFreeboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,23 +121,48 @@ public class CommunityFragment extends Fragment {
                 return false;
             }
         });
-
-        TabLayoutMediator tabLayoutMediator=new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
+        mBottomLeft.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) { //탭 목록
-                switch(position){
-                    case 0:{
-                        tab.setText("최신"); //
-                        break;
-                    }
-                    case 1:{
-                        tab.setText("인기");
-                        break;
-                    }
+            public void onClick(View view) {
+                tabLayout.setScrollPosition(0,0,true);
+            }
+        });
+        mBottomRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tabLayout.setScrollPosition(1,0,true);
+            }
+        });
+        mBottomHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        mBottomRe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               //직접접근후 새로고침
+            }
+        });
+        mBottomUpScroll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(CommunityTabFragment.scroll!=null)
+                {
+                    CommunityTabFragment.scroll.scrollTo(0,0);
+                }
+                if(Community_Popularity_Fragment.scroll!=null)
+                {
+                    Community_Popularity_Fragment.scroll.scrollTo(0,0);
+                }
+                if(Community_User_Fragment.scroll!=null)
+                {
+                    Community_User_Fragment.scroll.scrollTo(0,0);
                 }
             }
         });
-        tabLayoutMediator.attach(); //붙임
+
 
         return view;
     }

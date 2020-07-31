@@ -1,11 +1,9 @@
 package com.example.saojeong.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -25,13 +22,14 @@ import com.example.saojeong.model.Community_CommentValue;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommunityTabFragment extends Fragment {
+public class Community_User_Fragment extends Fragment {
 
     CommunityAdapter_item mAdapter;
     ArrayList<CommunityValue> mCommunityValue;
     TextView btnLeft;
     TextView btnRight;
     TextView tvBoard;
+
     public static SwipeRefreshLayout swipe;
     public static NestedScrollView scroll;
     int board=0;
@@ -39,7 +37,7 @@ public class CommunityTabFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
-        view=inflater.inflate(R.layout.viewpaper_community, container, false);
+        view=inflater.inflate(R.layout.viewpaper_community, container, false); //0,2,외 이탭
         final RecyclerView mRecyclerViewCommunity = view.findViewById(R.id.community_board);
         mCommunityValue= new ArrayList<>();
         btnLeft=view.findViewById(R.id.tv_community_btn_Left);
@@ -51,33 +49,10 @@ public class CommunityTabFragment extends Fragment {
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mCommunityValue.clear();
-
-                mCommunityValue.add(new CommunityValue("8","333333333331","2","2","2",0,0));
-                mCommunityValue.add(new CommunityValue("8","2","2","2","2",0,0));
-                mCommunityValue.add(new CommunityValue("8","3","2","2","2",0,0));
-                mCommunityValue.add(new CommunityValue("8","4","2","2","2",0,0));
-                mCommunityValue.add(new CommunityValue("8","5","2","2","2",0,0));
-                mAdapter = new CommunityAdapter_item(mCommunityValue, 0);
-                mRecyclerViewCommunity.setAdapter(mAdapter);
-                mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
-                board=0;
                 swipe.setRefreshing(false);
-                if(board==0)
-                {
-                    btnLeft.setVisibility(View.GONE);
-                }
-                else
-                    btnLeft.setVisibility(View.VISIBLE);
-
-                if((board+1)*10>=mCommunityValue.size())
-                {
-                    btnRight.setVisibility(View.GONE);
-                }
-                else
-                    btnRight.setVisibility(View.VISIBLE);
             }
         });
+
         btnLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

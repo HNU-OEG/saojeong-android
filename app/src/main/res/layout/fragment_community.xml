@@ -8,29 +8,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="182dp">
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="#FFFFFF"
-                app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
-                >
+                app:popupTheme="@style/AppTheme.AppBarOverlay">
 
                 <TextView
                     android:id="@+id/tool11bar"
                     android:layout_width="wrap_content"
                     android:layout_height="?attr/actionBarSize"
-                    android:text="커뮤니티"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:textColor="#000000"
-                    />
+                    android:text="커뮤니티"
+                    android:textColor="#000000" />
             </androidx.appcompat.widget.Toolbar>
 
 
@@ -43,7 +45,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="33dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -54,50 +56,58 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:background="#ffffff"
-                    android:textColor="@color/colorMain"
-                    android:text="자유게시판"/>
+                    android:gravity="center"
+                    android:text="자유게시판"
+                    android:textColor="@color/colorMain" />
 
                 <TextView
                     android:id="@+id/tv_community_btn_notice"
                     android:layout_width="210dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:background="#ffffff"
-                    android:text="공지사항"/>
+                    android:gravity="center"
+                    android:text="공지사항" />
             </LinearLayout>
 
 
         </LinearLayout>
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="69dp">
 
             <TextView
-                android:layout_width="320dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:background="@drawable/rounded_edittext_gray"
-                ></TextView>
+                android:id="@+id/et_community_board"
+                android:layout_width="309dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/rounded_edittext_gray"></TextView>
 
             <EditText
                 android:id="@+id/et_community_boardsearch"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:hint="    게시글을 검색하세요"
+                android:layout_width="260dp"
+                android:layout_height="19dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="31dp"
                 android:background="@null"
+                android:hint="게시글을 검색하세요"
                 android:inputType="textPersonName" />
-        </FrameLayout>
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="300dp"
+                android:layout_marginTop="27dp"
+                app:srcCompat="@drawable/search" />
+        </RelativeLayout>
 
         <!-- 프레임 레이아웃 씌워야댐;;-->
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal">
@@ -105,15 +115,16 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tablayout"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:theme="@style/AppTheme"
-                app:tabSelectedTextColor="@color/colorMain"
-                app:tabIndicatorColor="@color/colorMain"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:tabGravity="fill"
-                app:tabMode="fixed"></com.google.android.material.tabs.TabLayout>
+                app:tabIndicatorColor="@color/colorMain"
+                app:tabIndicatorFullWidth="false"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/colorMain"></com.google.android.material.tabs.TabLayout>
 
             <TextView
                 android:id="@+id/textView5"
@@ -121,40 +132,151 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:srcCompat="@tools:sample/avatars" />
             <TextView
                 android:id="@+id/tv_community_btn_write"
-                android:layout_width="20dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="작성"/>
+                android:layout_width="33dp"
+                android:layout_height="21dp"
+                android:layout_alignParentRight="true"
+                android:text="작성" />
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="21dp"
+                android:layout_height="22dp"
+                android:layout_toLeftOf="@+id/tv_community_btn_write"
+                app:srcCompat="@drawable/pensil" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#DFDBDB"/>
+            android:background="#DFDBDB" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
         </LinearLayout>
 
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_community_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/ll_community_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            >
+
+            <ImageView
+                android:src="@drawable/community_left"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="9dp"
+                android:layout_gravity="center"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_community_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            >
+
+            <ImageView
+                android:src="@drawable/community_right"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="9dp"
+                android:layout_gravity="center"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_community_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:onClick="clickHandler"
+            android:background="#FFFFFF"
+            >
+
+            <ImageView
+                android:src="@drawable/community_home"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="9dp"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_community_re"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            >
+
+            <ImageView
+                android:src="@drawable/community_re"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="9dp"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_community_upscroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            >
+
+            <ImageView
+                android:src="@drawable/community_upscroll"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="9dp"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

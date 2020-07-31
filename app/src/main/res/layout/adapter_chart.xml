@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -23,43 +23,24 @@
                 android:text="과일종류"
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/entry1"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/tv_oneweekend"
-                android:layout_width="30dp"
-                android:layout_height="20dp"
-                android:text="1주"
-                android:textColor="@color/colorMain"/>
-
-            <TextView
-                android:id="@+id/tv_threeweekend"
-                android:layout_width="30dp"
-                android:layout_height="20dp"
-                android:text="2주" />
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            >
+            android:layout_width="349dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
             <TextView
-                android:layout_width="280dp"
-                android:layout_height="223dp"
+                android:layout_width="265dp"
+                android:layout_height="170dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="48dp"
                 android:background="@drawable/rounded_edittext_gray"></TextView>
+
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_width="329dp"
+                android:layout_height="181dp"
                 android:background="@null">
 
             </com.github.mikephil.charting.charts.LineChart>

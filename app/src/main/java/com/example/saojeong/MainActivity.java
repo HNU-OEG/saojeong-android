@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.saojeong.fragment.CommunityFragment;
 import com.example.saojeong.fragment.PriceFragment;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
     private MyPageFragment myPageFragment;
     private PriceFragment priceFragment;
+    private CommunityFragment communityFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment(); // 홈 Fragment 선언
         myPageFragment = new MyPageFragment(); // MyPage Fragment 선언
         priceFragment = new PriceFragment(); // 시세 Fragment 선언
+        communityFragment= new CommunityFragment(); // 커뮤니티 Fragment 선언
         transaction.replace(R.id.frameLayout_main, homeFragment)
                 .commitAllowingStateLoss(); //시작화면에 Home 띄우기
     }
@@ -51,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.ll_community:
+                transaction.replace(R.id.frameLayout_main, communityFragment) // frameLayout에 홈 Fragment 호출
+                        .commitAllowingStateLoss();
                 break;
 
             case R.id.ll_chatbot:
