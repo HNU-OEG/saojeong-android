@@ -1,11 +1,13 @@
 package com.example.saojeong;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import com.example.saojeong.fragment.PriceFragment;
 import android.widget.ImageButton;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment(); // 홈 Fragment 선언
         myPageFragment = new MyPageFragment(); // MyPage Fragment 선언
         priceFragment = new PriceFragment(); // 시세 Fragment 선언
+
         transaction.replace(R.id.frameLayout_main, homeFragment)
                 .commitAllowingStateLoss(); //시작화면에 Home 띄우기
     }
@@ -57,9 +60,20 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.ll_myPage:
-                transaction.replace(R.id.frameLayout_main, myPageFragment) // frameLayout에 MyPage Fragment 호출
-                        .commitAllowingStateLoss();
+                transaction.replace(R.id.frameLayout_main, myPageFragment); // frameLayout에 MyPage Fragment 호출
+                transaction.add(R.id.frameLayout_main, myPageFragment.newInstance());
+                transaction.addToBackStack(null);
+                transaction.commit();
+                        //.commitAllowingStateLoss();
                 break;
         }
+    }
+
+    public void replaceFragment(Fragment newFragment) {
+        fragmentManager = getSupportFragmentManager();
+        transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frameLayout_main, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
