@@ -23,6 +23,7 @@
                 android:background="#FFFFFF"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+                app:elevation="0dp"
                 >
 
                 <TextView
@@ -39,16 +40,11 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="제목" />
-
         <FrameLayout
             android:layout_width="350dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginTop="12dp"
             android:background="@drawable/rounded_edittext_gray">
 
             <EditText
@@ -57,14 +53,11 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:paddingTop="12dp"
+                android:paddingLeft="15dp"
+                android:hint="제목을 입력하세요"
+                android:background="@null"/>
         </FrameLayout>
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="내용" />
 
         <FrameLayout
             android:layout_width="350dp"
@@ -77,9 +70,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:paddingTop="12dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:background="@null"
+                android:inputType="textMultiLine"
+                android:hint="내용을 입력하세요" />
         </FrameLayout>
 
     </LinearLayout>

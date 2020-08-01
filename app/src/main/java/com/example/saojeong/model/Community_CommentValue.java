@@ -3,21 +3,25 @@ package com.example.saojeong.model;
 
 public class Community_CommentValue {
 
-    private String mName;
+    private String mID;
     private String mDate;
-    private String mContents;
+    private String mComment;
+    private boolean mReContent;
 
-    public Community_CommentValue(String Title, String Name, String Date, String Contents)
+    public Community_CommentValue(String ID, String Date, String Comment, boolean reContent)
     {
-        mName=Name;
+        mID=ID;
         mDate=Date;
-        mContents=Contents;
+        mComment=Date;
+        mReContent=reContent;
     }
-    public String GetName() {
-        return mName;
+    public String GetID() {
+        return mID;
     }public String GetDate() {
         return mDate;
-    }public String GetContents() {
-        return mContents;
+    }public String GetComment() {
+        return mComment;
+    }public boolean GetReContents() {
+        return mReContent;
     }
 }

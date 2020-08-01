@@ -108,10 +108,10 @@ public class Community_User_Fragment extends Fragment {
         //test
         List<Community_CommentValue> CCList;
         CCList = new ArrayList<>();
-        CCList.add(new Community_CommentValue("a","a","a","a"));
-        CCList.add(new Community_CommentValue("b","b","b","b"));
-        CCList.add(new Community_CommentValue("c","c","c","c"));
-        CCList.add(new Community_CommentValue("d","d","d","d"));
+        CCList.add(new Community_CommentValue("a","a","a",false));
+        CCList.add(new Community_CommentValue("b","b","b",false));
+        CCList.add(new Community_CommentValue("c","c","c",false));
+        CCList.add(new Community_CommentValue("d","d","d",false));
 
         CommunityValue com=new CommunityValue("1","1","1","1","1",0,0);
         CommunityValue com1=new CommunityValue("1","1","1","1","1",0,0);

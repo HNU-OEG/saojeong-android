@@ -27,7 +27,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import static com.example.saojeong.fragment.CommunityTabFragment.swipe;
 
-public class CommunityFragment extends Fragment {
+public class CommunityFragment extends Fragment implements View.OnClickListener, View.OnKeyListener{
 
     CommunityAdapter mAdapter;
     ViewPager2 viewPager2;
@@ -53,14 +53,23 @@ public class CommunityFragment extends Fragment {
         viewPager2.setAdapter(mAdapter);
         tabLayout = view.findViewById(R.id.tablayout);
         mFreeboard=view.findViewById(R.id.tv_community_btn_freeboard);
+        mFreeboard.setOnClickListener(this);
         mNotice=view.findViewById(R.id.tv_community_btn_notice);
+        mNotice.setOnClickListener(this);
         mWrite=view.findViewById(R.id.tv_community_btn_write);
+        mWrite.setOnClickListener(this);
         mBoardSearch=view.findViewById(R.id.et_community_boardsearch);
+        mBoardSearch.setOnKeyListener(this);
         mBottomLeft=view.findViewById(R.id.ll_community_left);
+        mBottomLeft.setOnClickListener(this);
         mBottomRight=view.findViewById(R.id.ll_community_right);
+        mBottomRight.setOnClickListener(this);
         mBottomHome=view.findViewById(R.id.ll_community_home);
+        mBottomHome.setOnClickListener(this);
         mBottomRe=view.findViewById(R.id.ll_community_re);
+        mBottomRe.setOnClickListener(this);
         mBottomUpScroll=view.findViewById(R.id.ll_community_upscroll);
+        mBottomUpScroll.setOnClickListener(this);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
@@ -89,81 +98,70 @@ public class CommunityFragment extends Fragment {
 
         });
         tabLayoutMediator.attach(); //붙임
-        mFreeboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id=view.getId();
+
+        switch(id)
+        {
+            case R.id.tv_community_btn_freeboard:
                 mFreeboard.setTextColor(Color.parseColor("#fa8f68"));
                 mNotice.setTextColor(Color.parseColor("#000000"));
-            }
-        });
-        mNotice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                break;
+            case R.id.tv_community_btn_notice:
                 mFreeboard.setTextColor(Color.parseColor("#000000"));
                 mNotice.setTextColor(Color.parseColor("#fa8f68"));
-            }
-        });
-        mWrite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                break;
+            case R.id.tv_community_btn_write:
                 Intent intent = new Intent((MainActivity)getActivity(), CommunityWirteActivity.class);
 
                 startActivity(intent);
-            }
-        });
-        mBoardSearch.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //Enter key Action
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    return true;
-                }
-                return false;
-            }
-        });
-        mBottomLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                break;
+            case R.id.ll_community_left:
                 tabLayout.setScrollPosition(0,0,true);
-            }
-        });
-        mBottomRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                viewPager2.setCurrentItem(0);
+
+                break;
+            case R.id.ll_community_right:
                 tabLayout.setScrollPosition(1,0,true);
-            }
-        });
-        mBottomHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                viewPager2.setCurrentItem(1);
+                break;
+            case R.id.ll_community_home:
+                break;
+            case R.id.ll_community_re:
+                break;
+            case R.id.ll_community_upscroll:
+                switch(viewPager2.getCurrentItem()) {
+                    case 0:
+                        if (CommunityTabFragment.scroll != null) {
 
-            }
-        });
-        mBottomRe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               //직접접근후 새로고침
-            }
-        });
-        mBottomUpScroll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(CommunityTabFragment.scroll!=null)
-                {
-                    CommunityTabFragment.scroll.scrollTo(0,0);
+                            CommunityTabFragment.scroll.scrollTo(0, 0);
+                        }
+                        break;
+                    case 1:
+                        if (Community_Popularity_Fragment.scroll != null) {
+                            Community_Popularity_Fragment.scroll.scrollTo(0, 0);
+                        }
+                        break;
+                    case 2:
+                        if (Community_User_Fragment.scroll != null) {
+                            Community_User_Fragment.scroll.scrollTo(0, 0);
+                        }
+                        break;
                 }
-                if(Community_Popularity_Fragment.scroll!=null)
-                {
-                    Community_Popularity_Fragment.scroll.scrollTo(0,0);
-                }
-                if(Community_User_Fragment.scroll!=null)
-                {
-                    Community_User_Fragment.scroll.scrollTo(0,0);
-                }
-            }
-        });
+                break;
+        }
 
+    }
 
-        return view;
+    @Override
+    public boolean onKey(View view, int i, KeyEvent keyEvent) {
+        if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
+            return true;
+        }
+        return false;
     }
 }

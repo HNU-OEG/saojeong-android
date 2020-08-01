@@ -20,6 +20,7 @@ public class CommunityWirteActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle("");
+
     }
 
     @Override

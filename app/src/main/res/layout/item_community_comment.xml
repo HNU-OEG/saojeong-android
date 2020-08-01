@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
@@ -19,33 +19,34 @@
             app:srcCompat="@drawable/logo_no_circle"></ImageView>
 
         <TextView
-            android:id="@+id/textView132"
+            android:id="@+id/tv_community_comment_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/textView1322222"
-            android:text="제목" />
+            android:text="아이디" />
 
         <TextView
-            android:id="@+id/textView2348"
+            android:id="@+id/tv_community_comment_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/textView132"
+            android:layout_marginLeft="150dp"
             android:text="시간" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/tv_community_comment_contents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2348"
+            android:layout_below="@+id/tv_community_comment_id"
+            android:layout_toRightOf="@+id/textView1322222"
+            android:layout_marginLeft="10dp"
             android:text="내용" />
 
         <TextView
-            android:id="@+id/dd3333333"
+            android:id="@+id/tv_community_comment_recomment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2348"
+            android:layout_below="@+id/tv_community_comment_contents"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:gravity="right"

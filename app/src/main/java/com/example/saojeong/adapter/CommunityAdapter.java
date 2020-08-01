@@ -30,6 +30,24 @@ public class CommunityAdapter extends FragmentStateAdapter {
     }
 
     @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+    public Fragment setFragment(int position)
+    {
+        position++;
+        switch(position){
+            case 1:
+                return new CommunityTabFragment();
+            case 2:
+                return new Community_Popularity_Fragment();
+            default:
+                return new Community_User_Fragment();
+        }
+    }
+
+
+    @Override
     public int getItemCount() {
         return 3;
     }
