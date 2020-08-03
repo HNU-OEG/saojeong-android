@@ -92,10 +92,6 @@ public class CommunityReadActivity extends AppCompatActivity {
                 float scroll11Y = (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight());
                 if (scrollY >= (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
 
-                    community_Bottom_Down_Ani();
-                }
-                else
-                {
                     community_Bottom_Up_Ani();
                 }
             }
