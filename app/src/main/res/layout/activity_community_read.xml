@@ -3,14 +3,15 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:id="@+id/communityread_appbarlayout">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -35,9 +36,12 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/testscroll"
+        android:layout_below="@+id/communityread_appbarlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
         <LinearLayout
             android:layout_width="310dp"
             android:layout_height="wrap_content"
@@ -103,7 +107,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/community_upscroll"
+                        android:background="@drawable/likeup"
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="24dp"
                         ></ImageView>
@@ -138,7 +142,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/community_upscroll"
+                        android:background="@drawable/likedown"
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="24dp"
                         ></ImageView>
@@ -161,55 +165,69 @@
                 </LinearLayout>\
 
             </RelativeLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="30dp"
-                    android:background="#fcfcfc"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_community_loginuser_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="가나다라" />
-
-                    <TextView
-                        android:id="@+id/tv_community_btn_recomment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_community_loginuser_name"
-                        android:layout_alignParentRight="true"
-                        android:gravity="right"
-                        android:text="작성"
-                        android:foreground="?attr/selectableItemBackground" />
-
-                    <EditText
-                        android:id="@+id/tv_community_loginuser_comment"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_below="@+id/tv_community_btn_recomment"
-                        android:inputType="textMultiLine"
-                        android:background="@null"
-                        android:hint="내용을 입력하세요" />
-
-                </RelativeLayout>
-            </LinearLayout>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="댓글 수"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                ></TextView>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/testRecycle"
                 android:layout_width="match_parent"
-                android:layout_height="400dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                >
 
             </androidx.recyclerview.widget.RecyclerView>
-
         </LinearLayout>
-    </ScrollView>
+
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FA5454" />
+        <LinearLayout
+            android:id="@+id/community_read_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="#FFFFFF"
+                android:text="닉네임ss" />
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <EditText
+                android:id="@+id/et_community_read_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:padding="10dp"
+                android:hint="Write a message..." />
+
+            <ImageView
+                android:id="@+id/btnSendSms"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/likeup" />
+        </LinearLayout>
     </LinearLayout>
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

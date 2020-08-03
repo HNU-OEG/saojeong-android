@@ -63,10 +63,6 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(ChartAdapter.ViewHolder holder, int position) {
         LineDataSet set1 = new LineDataSet(mChartList.get(position).GetChartValue(), "라벨명1");
-
-
-
-
         set1.setColor(Color.rgb(250, 143, 104));
         set1.setCircleColor(Color.rgb(250, 143, 104));
         set1.setValueTextSize(10f);
