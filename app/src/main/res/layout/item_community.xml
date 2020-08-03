@@ -10,36 +10,43 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:foreground="?attr/selectableItemBackground">
-
-        <TextView
-            android:id="@+id/tv_community_Title_popularity"
-            android:layout_width="48dp"
-            android:layout_height="32dp"
-            android:text="인기글"
+        <LinearLayout
+            android:id="@+id/ll_community_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:textColor="#E93333"
-            android:layout_marginLeft="23dp"
-            android:textSize="15sp" />
-        <TextView
-            android:id="@+id/tv_community_Title_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_community_Title_popularity"
-            android:layout_alignTop="@+id/tv_community_Title_popularity"
-            android:layout_marginLeft="48dp"
-            android:textSize="15sp"
-            android:text="제목은 두껍게! 한눈에 보이도록" />
+            >
+            <TextView
+                android:id="@+id/tv_community_Title_popularity"
+                android:layout_width="48dp"
+                android:layout_height="32dp"
+                android:text="인기글  "
+                android:textColor="#E93333"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tv_community_Title_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_community_Title_popularity"
+                android:layout_alignTop="@+id/tv_community_Title_popularity"
+                android:textSize="15sp"
+                android:text="제목은 두껍게! 한눈에 보이도록" />
 
-        <TextView
-            android:id="@+id/tv_community_Title_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_community_Title_item"
-            android:layout_alignTop="@+id/tv_community_Title_popularity"
-            android:layout_marginLeft="10dp"
-            android:text="[0]"
-            android:textColor="#E93333"
-            android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tv_community_Title_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_community_Title_item"
+                android:layout_alignTop="@+id/tv_community_Title_popularity"
+                android:layout_marginLeft="10dp"
+                android:text="[0]"
+                android:textColor="#E93333"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="70dp"
             android:layout_height="wrap_content"
@@ -71,9 +78,8 @@
             android:id="@+id/tv_community_name_item"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_community_Title_popularity"
-            android:layout_alignTop="@+id/tv_community_Title_popularity"
-            android:layout_marginTop="30dp"
+            android:layout_alignLeft="@+id/ll_community_item"
+            android:layout_marginTop="40dp"
             tools:text="작성자 : 가나다라" />
 
         <TextView

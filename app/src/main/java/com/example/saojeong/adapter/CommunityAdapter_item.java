@@ -66,12 +66,13 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
     @Override
     public void onBindViewHolder(CommunityAdapter_item.ViewHolder holder, int position) {
 
-            CommunityValue contact = mContacts.get(position+mBoard*10);
-            holder.mTextViewTitle.setText(contact.GetTitle());
-            holder.mTextViewName.setText(contact.GetName());
-            holder.mTextViewDate.setText(contact.GetDate());
-            holder.mTextViewComment.setText("["+contact.GetComment().size() + "]");
-            holder.mTextViewReCommentSize.setText(contact.GetGoodCommend()+ "");
+        CommunityValue contact = mContacts.get(position+mBoard*10);
+        holder.mTextViewTitle.setText(contact.GetTitle());
+        holder.mTextViewName.setText(contact.GetName());
+        holder.mTextViewDate.setText(contact.GetDate());
+        holder.mTextViewComment.setText("["+contact.GetComment().size() + "]");
+        holder.mTextViewReCommentSize.setText(contact.GetGoodCommend()+ "");
+        CheckPopularity(contact.GetPopular(), holder);
     }
 
     @Override
@@ -91,5 +92,16 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
     {
         if(mBoard!=0)
             --mBoard;
+    }
+    public void CheckPopularity(boolean check, CommunityAdapter_item.ViewHolder holder)
+    {
+        if(check)
+        {
+            holder.mTextViewTitle_Popularity.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            holder.mTextViewTitle_Popularity.setVisibility(View.GONE);
+        }
     }
 }

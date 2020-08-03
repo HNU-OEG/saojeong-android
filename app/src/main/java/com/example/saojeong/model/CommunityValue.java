@@ -14,8 +14,9 @@ public class CommunityValue {
     private int mGoodRecommend;
     private int mBadRecommend;
     private List<Community_CommentValue> mComment=new ArrayList<>();
+    private boolean mPopular;
 
-    public CommunityValue(String Board, String Title, String Name, String Date, String Contents, int GoodRecommend, int BadReCommend)
+    public CommunityValue(String Board, String Title, String Name, String Date, String Contents, int GoodRecommend, int BadReCommend, boolean Popular)
     {
         mBoard=Board;
         mTitle=Title;
@@ -24,6 +25,7 @@ public class CommunityValue {
         mContents=Contents;
         mGoodRecommend=GoodRecommend;
         mBadRecommend=BadReCommend;
+        mPopular=Popular;
     }
     public void SetComment(List<Community_CommentValue> Comment)
     {
@@ -43,7 +45,8 @@ public class CommunityValue {
     }
     public String GetContents() { return mContents; }
     public int GetGoodCommend() { return mGoodRecommend; }
-    public int GetBadCOmmend() { return mBadRecommend; }
+    public int GetBadCommend() { return mBadRecommend; }
+    public boolean GetPopular() { return mPopular; }
 
     public List<Community_CommentValue> GetComment() {
         return mComment;
