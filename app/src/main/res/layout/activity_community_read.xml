@@ -98,6 +98,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/rounded_edittext"
+                    android:foreground="?attr/selectableItemBackground"
                     >
                     <ImageView
                         android:layout_width="wrap_content"
@@ -132,6 +133,7 @@
                     android:layout_marginLeft="170dp"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/rounded_edittext"
+                    android:foreground="?attr/selectableItemBackground"
                     >
                     <ImageView
                         android:layout_width="wrap_content"
@@ -184,7 +186,8 @@
                         android:layout_below="@+id/tv_community_loginuser_name"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
-                        android:text="작성" />
+                        android:text="작성"
+                        android:foreground="?attr/selectableItemBackground" />
 
                     <EditText
                         android:id="@+id/tv_community_loginuser_comment"

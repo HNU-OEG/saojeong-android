@@ -8,7 +8,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:foreground="?attr/selectableItemBackground">
 
         <TextView
             android:id="@+id/tv_community_Title_popularity"

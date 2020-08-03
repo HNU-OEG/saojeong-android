@@ -5,8 +5,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,6 +53,9 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         mAdapter=new CommunityAdapter(getActivity());
         viewPager2=view.findViewById(R.id.viewPager);
         viewPager2.setAdapter(mAdapter);
+
+
+
         tabLayout = view.findViewById(R.id.tablayout);
         mFreeboard=view.findViewById(R.id.tv_community_btn_freeboard);
         mFreeboard.setOnClickListener(this);
@@ -70,7 +75,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         mBottomRe.setOnClickListener(this);
         mBottomUpScroll=view.findViewById(R.id.ll_community_upscroll);
         mBottomUpScroll.setOnClickListener(this);
-
+        viewPager2.setUserInputEnabled(false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);

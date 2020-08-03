@@ -48,6 +48,7 @@
                     android:layout_marginLeft="20dp"
                     android:text="Button"
                     android:background="@drawable/rounded_edittext_gray"
+                    android:foreground="?attr/selectableItemBackground"
                     />
                 <TextView
                     android:id="@+id/tv_community_board"
@@ -67,6 +68,7 @@
                     android:layout_marginRight="20dp"
                     android:text="Button"
                     android:background="@drawable/rounded_edittext_gray"
+                    android:foreground="?attr/selectableItemBackground"
                     />
             </RelativeLayout>
         </LinearLayout>

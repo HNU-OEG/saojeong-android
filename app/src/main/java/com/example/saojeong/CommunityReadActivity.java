@@ -57,12 +57,12 @@ public class CommunityReadActivity extends AppCompatActivity {
         mCommunityCommentValue.add(new Community_CommentValue("8","4","2", false));
         mCommunityCommentValue.add(new Community_CommentValue("8","5","2", false));
         mCommunityCommentValue.add(new Community_CommentValue("8","6","2", false));
-        mCommunityCommentValue.add(new Community_CommentValue("8","7","2", false));
-        mCommunityCommentValue.add(new Community_CommentValue("8","8","2", false));
+        mCommunityCommentValue.add(new Community_CommentValue("8","7","2", true));
+        mCommunityCommentValue.add(new Community_CommentValue("8","8","2", true));
         mCommunityCommentValue.add(new Community_CommentValue("8","9","2", false));
 
 
-        mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, 0);
+        mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue);
         mRecycleview.setAdapter(mAdapter);
         mRecycleview.setLayoutManager(new LinearLayoutManager(this));
     }

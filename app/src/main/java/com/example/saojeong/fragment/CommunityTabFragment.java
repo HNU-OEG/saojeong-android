@@ -22,7 +22,10 @@ import com.example.saojeong.adapter.CommunityAdapter_item;
 import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.model.Community_CommentValue;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CommunityTabFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener{
@@ -37,6 +40,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
 
     RecyclerView mRecyclerViewCommunity;
     int board=0;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,6 +57,8 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
         swipe=view.findViewById(R.id.swipeRefresh);
         swipe.setOnRefreshListener(this);
         tvBoard.setText(board+1+"");
+        swipe.setClipToPadding(false);
+        swipe.setPadding(0, 0, 0, 0);
 
         //test
         List<Community_CommentValue> CCList;
@@ -139,6 +145,51 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
 
         return view;
     }
+   //public void d(JSONObject jSONObject) {
+   //
+   //    if (this.s == null) {
+   //        this.s = new HashMap();
+   //    }
+   //    this.s.clear();
+   //    this.s.put("searchTabName", jSONObject.optString("searchTabName"));
+   //    this.s.put("searchTabUrl", jSONObject.optString("searchTabUrl"));
+   //    this.s.put("searchLogPageId", jSONObject.optString("searchLogPageId"));
+   //    g gVar = this.f1316i;
+   //    if (gVar != null) {
+   //        gVar.r = this.s;
+   //    }
+   //}
+  //private void a(JSONArray jSONArray, String str, int i2) {
+  //    if (str != null) {
+  //        try {
+  //            if (!"".equals(str)) {
+  //                for (int i3 = 0; i3 < jSONArray.length(); i3++) {
+  //                    JSONObject optJSONObject = jSONArray.optJSONObject(i3);
+  //                    char charAt = str.charAt(0);
+  //                    String optString = optJSONObject.optString("APP_CARRIER_KEY");
+  //                    String optString2 = optJSONObject.optString("APP_BLOCK_KEY");
+  //                    if ('0' <= charAt && charAt <= '9') {
+  //                        if (skt.tmall.mobile.util.k.b(optString2)) {
+  //                            String substring = optString2.substring(optString.indexOf(95) + 1);
+  //                            if (substring.startsWith(str + "_")) {
+  //                                this.f1313e = true;
+  //                                this.f1314g.getRefreshableView().setSelectionFromTop(this.f1315h.c(i3), i2);
+  //                                return;
+  //                            }
+  //                        }
+  //                    }
+  //                    if (optString.startsWith(str + "_")) {
+  //                        this.f1313e = true;
+  //                        this.f1314g.getRefreshableView().setSelectionFromTop(this.f1315h.c(i3), i2);
+  //                        return;
+  //                    }
+  //                }
+  //            }
+  //        } catch (Exception e2) {
+  //            skt.tmall.mobile.util.l.a("MainFragment", e2);
+  //        }
+  //    }
+  //}
 
     @Override
     public void onClick(View view) {
