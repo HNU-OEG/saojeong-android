@@ -7,6 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:id="@+id/item_community_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="0dp"
@@ -15,9 +16,9 @@
 
         <ImageView
             android:id="@+id/iv_community_comment_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:srcCompat="@drawable/logo_no_circle"></ImageView>
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:srcCompat="@drawable/recomment"></ImageView>
 
         <TextView
             android:id="@+id/tv_community_comment_id"
