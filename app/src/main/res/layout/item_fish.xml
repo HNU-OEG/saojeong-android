@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#ffffff"
+
     tools:context=".adapter.ContactsAdapter">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +18,8 @@
             android:layout_width="105dp"
             android:layout_height="102dp"
             android:src="@drawable/logo_start"
+            android:background="@drawable/img_round"
+            android:elevation="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
