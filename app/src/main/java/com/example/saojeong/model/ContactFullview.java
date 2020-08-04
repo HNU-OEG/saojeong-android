@@ -33,7 +33,7 @@ public class ContactFullview {
 
 
         for(int i = 1; i <= numContacts; i++) {
-            contacts.add(new ContactFullview(android.R.drawable.ic_media_previous, android.R.drawable.ic_media_next, R.drawable.fullview));
+            contacts.add(new ContactFullview(R.drawable.ar_left, R.drawable.ar_right, R.drawable.fullview));
         }
 
         return contacts;

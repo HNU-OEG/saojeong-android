@@ -37,6 +37,7 @@
             >
 
             <ImageView
+                android:id="@+id/miv_home"
                 android:src="@drawable/home"
                 android:layout_width="29dp"
                 android:layout_height="29dp"
@@ -63,6 +64,7 @@
             >
 
             <ImageView
+                android:id="@+id/miv_price"
                 android:src="@drawable/price"
                 android:layout_width="29dp"
                 android:layout_height="29dp"
@@ -89,6 +91,7 @@
             >
 
             <ImageView
+                android:id="@+id/miv_community"
                 android:src="@drawable/community"
                 android:layout_width="29dp"
                 android:layout_height="29dp"
@@ -115,6 +118,7 @@
             >
 
             <ImageView
+                android:id="@+id/miv_chatbot"
                 android:src="@drawable/chatbot"
                 android:layout_width="29dp"
                 android:layout_height="29dp"
@@ -141,7 +145,8 @@
             >
 
             <ImageView
-                android:src="@drawable/home"
+                android:id="@+id/miv_mypage"
+                android:src="@drawable/mypage"
                 android:layout_width="29dp"
                 android:layout_height="29dp"
                 android:layout_marginTop="7dp"

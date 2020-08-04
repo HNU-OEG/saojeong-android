@@ -90,7 +90,7 @@
                 android:layout_width="305dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_edittext_gray"></TextView>
+                android:background="@drawable/rounded_edittext_gray"/>
 
             <EditText
                 android:id="@+id/et_price_shopsearch"
