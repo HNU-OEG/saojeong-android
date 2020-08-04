@@ -5,33 +5,66 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_community_Title_item"
-            android:layout_width="280dp"
+        android:orientation="horizontal"
+        android:foreground="?attr/selectableItemBackground">
+        <LinearLayout
+            android:id="@+id/ll_community_item"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="제목은 두껍게! 한눈에 보이도록" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:id="@+id/tv_community_Title_popularity"
+                android:layout_width="48dp"
+                android:layout_height="32dp"
+                android:text="인기글  "
+                android:textColor="#E93333"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tv_community_Title_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_community_Title_popularity"
+                android:layout_alignTop="@+id/tv_community_Title_popularity"
+                android:textSize="15sp"
+                android:text="제목은 두껍게! 한눈에 보이도록" />
+
+            <TextView
+                android:id="@+id/tv_community_Title_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_community_Title_item"
+                android:layout_alignTop="@+id/tv_community_Title_popularity"
+                android:layout_marginLeft="10dp"
+                android:text="[0]"
+                android:textColor="#E93333"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            >
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="댓글"
+                android:text="추천"
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/tv_community_comment_size"
+                android:id="@+id/tv_community_comment_recomment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="9"
@@ -39,18 +72,14 @@
                 android:textColor="#FF6950"
                 android:textSize="24sp" />
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_community_name_item"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
+            android:layout_alignLeft="@+id/ll_community_item"
+            android:layout_marginTop="40dp"
             tools:text="작성자 : 가나다라" />
 
         <TextView
@@ -58,12 +87,15 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:paddingLeft="30dp"
+            android:layout_toRightOf="@+id/tv_community_name_item"
+            android:layout_alignTop="@+id/tv_community_name_item"
             tools:text="07.13 03:29" />
-    </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
+        android:layout_below="@+id/tv_community_name_item"
         android:background="#BFBBBB"/>
+    </RelativeLayout>
 </LinearLayout>

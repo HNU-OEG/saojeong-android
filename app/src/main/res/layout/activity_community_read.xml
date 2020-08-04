@@ -3,63 +3,82 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:id="@+id/communityread_appbarlayout">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorMain"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                android:background="#FFFFFF"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:elevation="0dp"
+                >
+
+                <TextView
+                    android:id="@+id/tool11bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/actionBarSize"
+                    android:text="커뮤니티"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    />
+            </androidx.appcompat.widget.Toolbar>
+
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/testscroll"
+        android:layout_below="@+id/communityread_appbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
         <LinearLayout
-            android:layout_width="350dp"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:layout_marginLeft="30dp"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/tv_community_read_title"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="122222222222222"
+                android:layout_width="269dp"
+                android:layout_height="21dp"
                 android:text="제목은두껍게"
-                android:textSize="36sp" />
+                android:textSize="19sp"
+                android:textColor="#4e4e4e"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_community_read_board"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="68dp"
+                    android:layout_height="21dp"
                     android:text="자유게시판" />
 
                 <TextView
                     android:id="@+id/tv_community_read_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="106dp"
+                    android:layout_height="18dp"
                     android:text="날짜" />
 
                 <TextView
                     android:id="@+id/tv_community_read_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="106dp"
+                    android:layout_height="18dp"
                     android:text="가나다라" />
             </LinearLayout>
 
@@ -68,54 +87,147 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="한남내맛집 소개해드림 소ㅑㄹ라소ㅑㄹ라" />
+                android:text="한남내맛집 소개해드림 소ㅑㄹ라소ㅑㄹ라dfsfasdfasfasfasfasfasfsdafsdafsa남내맛집 소개해드림 소ㅑㄹ라소ㅑㄹ라dfsfasdfasfasfasfasfasfsdafsdafsa남내맛집 소개해드림 소ㅑㄹ라소ㅑㄹ라dfsfasdfasfasfasfasfasfsdafsdafsa남내맛집 소개해드림 소ㅑㄹ라소ㅑㄹ라dfsfasdfasfasfasfasfasfsdafsdafsa남내맛집 소개해드림 소ㅑㄹ라소ㅑㄹ라dfsfasdfasfasfasfasfasfsdafsdafsa남내맛집 소개해드림 소ㅑㄹ라소ㅑㄹ라dfsfasdfasfasfasfasfasfsdafsdafsa" />
 
-            <LinearLayout
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="59dp"
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="30dp"
-                    android:layout_weight="122222222222222"
-                    android:background="#fcfcfc"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_community_loginuser_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="가나다라" />
-
-                    <TextView
-                        android:id="@+id/tv_community_btn_recomment"
+                >
+                <LinearLayout
+                    android:layout_width="138dp"
+                    android:layout_height="36dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:foreground="?attr/selectableItemBackground"
+                    >
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_community_loginuser_name"
-                        android:layout_alignParentRight="true"
-                        android:gravity="right"
-                        android:text="작성" />
+                        android:background="@drawable/likeup"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="24dp"
+                        ></ImageView>
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:text="추천" />
 
                     <TextView
-                        android:id="@+id/tv_community_loginuser_comment"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_below="@+id/tv_community_btn_recomment"
-                        android:text="코멘트란" />
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text=" 0"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
-                </RelativeLayout>
-            </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="138dp"
+                    android:layout_height="36dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="170dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:foreground="?attr/selectableItemBackground"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/likedown"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="24dp"
+                        ></ImageView>
+                    <TextView
+                        android:id="@+id/textView71"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:text="비추천" />
+
+                    <TextView
+                        android:id="@+id/textView41"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text=" 0"
+                        android:textSize="16sp" />
+                </LinearLayout>\
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="댓글 수"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                ></TextView>
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/testRecycle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                >
 
             </androidx.recyclerview.widget.RecyclerView>
-
         </LinearLayout>
 
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FA5454" />
+        <LinearLayout
+            android:id="@+id/community_read_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="#FFFFFF"
+                android:text="닉네임ss" />
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <EditText
+                android:id="@+id/et_community_read_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:padding="10dp"
+                android:hint="Write a message..." />
+
+            <ImageView
+                android:id="@+id/btnSendSms"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/likeup" />
+        </LinearLayout>
     </LinearLayout>
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

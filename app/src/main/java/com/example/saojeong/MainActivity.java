@@ -10,6 +10,8 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+
+import com.example.saojeong.fragment.CommunityFragment;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.example.saojeong.fragment.PriceFragment;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //
         mhome = findViewById(R.id.miv_home);
         mprice = findViewById(R.id.miv_price);
         mcommunity = findViewById(R.id.miv_community);

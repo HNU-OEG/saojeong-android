@@ -31,9 +31,11 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
     private TextView text;
     private TextView mSearch_Weekend;
     private TextView mSearch_ThreeWeekend;
-    public ChartAdapter(Context context, List<ChartContact> listvalue) {
+    private int iWeekend;
+    public ChartAdapter(Context context, List<ChartContact> listvalue, int Weekend) {
         this.context = context;
         mChartList=listvalue;
+        iWeekend=Weekend;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -43,8 +45,8 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
             super(itemView);
             mLineChart = (LineChart) itemView.findViewById(R.id.chart);
             text = itemView.findViewById(R.id.tv_chart_name);
-            mSearch_Weekend=itemView.findViewById(R.id.tv_oneweekend);
-            mSearch_ThreeWeekend=itemView.findViewById(R.id.tv_threeweekend);
+            //getAdapterPosition(); 이쪽으로 위치 확인해서 클릭리스너구현
+
         }
     }
 
@@ -61,24 +63,6 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(ChartAdapter.ViewHolder holder, int position) {
         LineDataSet set1 = new LineDataSet(mChartList.get(position).GetChartValue(), "라벨명1");
-
-        mSearch_Weekend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSearch_Weekend.setTextColor(Color.parseColor("#fa8f68"));
-                mSearch_ThreeWeekend.setTextColor(Color.parseColor("#000000"));
-            }
-        });
-        mSearch_ThreeWeekend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSearch_ThreeWeekend.setTextColor(Color.parseColor("#fa8f68"));
-                mSearch_Weekend.setTextColor(Color.parseColor("#000000"));
-
-            }
-        });
-
-
         set1.setColor(Color.rgb(250, 143, 104));
         set1.setCircleColor(Color.rgb(250, 143, 104));
         set1.setValueTextSize(10f);
@@ -88,30 +72,44 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
         set1.setCircleRadius(5f);
         ArrayList<String> xAxisValues = new ArrayList<>();
         mLineChart.setExtraRightOffset(40f);
-        mLineChart.setExtraBottomOffset(60f);
-        mLineChart.setBorderColor(Color.WHITE);
-        mLineChart.setBackgroundColor(Color.WHITE);
+        //mLineChart.setExtraBottomOffset(f);
+        //mLineChart.setBackgroundResource(R.drawable.rounded_edittext_gray);
+        //mLineChart.setExtraTopOffset(10f);
+
         mLineChart.setDragEnabled(true);
         mLineChart.setScaleEnabled(true);
         mLineChart.getAxisRight().setEnabled(false);
-        mLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         mLineChart.getAxisRight().setDrawGridLines(true);
         mLineChart.getXAxis().setDrawGridLines(false);
 
-        for(int i=0; i<4; ++i)
+        for(int i=0; i<30; ++i)
         {
-            xAxisValues.add("얍"+i);
+            xAxisValues.add("7월"+i+"일");
         }
         mLineChart.setScaleMinima(10f, 10f);
         mLineChart.fitScreen();
+        mLineChart.setExtraBottomOffset(-10f);
         XAxis xAxis = mLineChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisValues));
-        xAxis.setPosition(XAxis.XAxisPosition.TOP);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
         xAxis.setTextSize(11f);
-        xAxis.setLabelCount(xAxisValues.size(), true);
-        xAxis.setAvoidFirstLastClipping(true);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        //xAxis.setLabelCount(xAxisValues.size(), true);
+        //xAxis.setAvoidFirstLastClipping(true);
+        xAxis.setLabelCount(4);
+        if(iWeekend==1)
+        {
+            xAxis.setAxisMinimum(0);
+            xAxis.setAxisMaximum(7);
+        }
+        if(iWeekend==3)
+        {
+            xAxis.setAxisMinimum(0);
+            xAxis.setAxisMaximum(21);
+        }
+        //xAxis.setAxisMinimum(1); 주차값변경
+        //xAxis.setAxisMaximum(10);
         mLineChart.setTouchEnabled(true);
         mLineChart.setDragEnabled(true);
         mLineChart.setScaleEnabled(true);
@@ -119,11 +117,11 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
         yAxisLeft.setXOffset(11f);
         yAxisLeft.setTextSize(14f);
         yAxisLeft.setGranularity(1f);
+        yAxisLeft.setLabelCount(4);
         //mLineChart.getAxisLeft().setAxisMaximum();
         //mLineChart.getAxisLeft().setAxisMinimum(0);
         yAxisLeft.setAxisLineColor(Color.WHITE);
         yAxisLeft.setDrawGridLines(false);
-
         mLineChart.getLegend().setEnabled(false);
         mLineChart.getDescription().setEnabled(false);
         dataSets.add(set1);
