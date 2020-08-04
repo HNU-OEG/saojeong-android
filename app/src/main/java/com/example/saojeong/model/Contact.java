@@ -8,12 +8,12 @@ public class Contact {
     private String mShopnum;
     private String mShopname;
     private String mStar;
-    private String mStarscore;
+    private Double mStarscore;
     private String mEvaluation;
     private int mImage;
     private int mFImage;
 
-    public Contact(String mShopnum, String mShopname, String mStar, String mStarscore, String mEvaluation, int mImage, int mFImage) {
+    public Contact(String mShopnum, String mShopname, String mStar, Double mStarscore, String mEvaluation, int mImage, int mFImage) {
         this.mShopnum = mShopnum;
         this.mShopname = mShopname;
         this.mStar = mStar;
@@ -37,7 +37,7 @@ public class Contact {
         return mStar;
     }
 
-   public String getmStarscore() {
+   public Double getmStarscore() {
         return mStarscore;
     }
 
@@ -58,7 +58,7 @@ public class Contact {
 
 
         for(int i = 1; i <= numContacts; i++) {
-            contacts.add(new Contact(i+"번","서진 농산시장","★","4.9",(i+62)+"명이 평가하였습니다.", R.drawable.logo_start, R.drawable.favorate));
+            contacts.add(new Contact(i+"번","서진 농산시장","★",4.9,(i+62)+"명이 평가하였습니다.", R.drawable.logo_start, R.drawable.favorate));
         }
 
         return contacts;

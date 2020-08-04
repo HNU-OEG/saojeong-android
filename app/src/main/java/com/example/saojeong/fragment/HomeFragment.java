@@ -6,14 +6,19 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
-
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.ContactsAdapter;
 import com.example.saojeong.adapter.FishAdapter;
@@ -25,12 +30,18 @@ import com.example.saojeong.model.ContactFish;
 import com.example.saojeong.model.ContactFruit;
 import com.example.saojeong.model.ContactFullview;
 import com.example.saojeong.model.ContactVegetable;
+import com.example.saojeong.model.RecyclerDecoration;
 
 import java.util.ArrayList;
 
 
 public class HomeFragment extends Fragment {
 
+    private FragmentManager fragmentManager;
+    private FragmentTransaction transaction;
+    private FruitFragment fruitFragment;
+    private VegetableFragment vegetableFragment;
+    private FishFragment fishFragment;
     private RecyclerView recyclerShop;
     private RecyclerView recyclerFruit;
     private RecyclerView recyclerVegetable;
@@ -47,16 +58,26 @@ public class HomeFragment extends Fragment {
     ArrayList<ContactFish> contactFishs;
     ArrayList<ContactFullview> contactFullviews;
 
+    RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
+
     TabHost tabHost;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        fragmentManager = getChildFragmentManager();
+        transaction = fragmentManager.beginTransaction();
+
+        fruitFragment = new FruitFragment(); // 과일동 Fragment 선언
+        vegetableFragment = new VegetableFragment(); // 채소동 Fragment 선언
+        fishFragment = new FishFragment(); // 수산동 Fragment 선언
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         //매장 Recycler View
         recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
         contacts = Contact.createContactsList(20);
         shopAdapter = new ContactsAdapter(contacts);
+        recyclerShop.addItemDecoration(leftDecoration);
         recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
         recyclerShop.setAdapter(shopAdapter);
 
@@ -64,6 +85,7 @@ public class HomeFragment extends Fragment {
         recyclerFruit = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_fragment);
         contactFruits = ContactFruit.createContactsList(20);
         fruitAdapter = new FruitAdapter(contactFruits);
+        recyclerFruit.addItemDecoration(leftDecoration);
         recyclerFruit.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
         recyclerFruit.setAdapter(fruitAdapter);
 
@@ -71,6 +93,7 @@ public class HomeFragment extends Fragment {
         recyclerVegetable = (RecyclerView) rootView.findViewById(R.id.recyclervegetable_fragment);
         contactVegetables = ContactVegetable.createContactsList(20);
         vegetableAdapter = new VegetableAdapter(contactVegetables);
+        recyclerVegetable.addItemDecoration(leftDecoration);
         recyclerVegetable.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
         recyclerVegetable.setAdapter(vegetableAdapter);
 
@@ -78,6 +101,7 @@ public class HomeFragment extends Fragment {
         recyclerFish = (RecyclerView) rootView.findViewById(R.id.recyclerfish_fragment);
         contactFishs = ContactFish.createContactsList(20);
         fishAdapter = new FishAdapter(contactFishs);
+        recyclerFish.addItemDecoration(leftDecoration);
         recyclerFish.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
         recyclerFish.setAdapter(fishAdapter);
 
@@ -127,8 +151,43 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-
         return rootView;
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        transaction = fragmentManager.beginTransaction();
+
+        view.findViewById(R.id.btn_fruit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transaction.replace(R.id.frameLayout_home, fruitFragment) // frameLayout에 홈 Fragment 호출
+                        .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .commitAllowingStateLoss();
+            }
+        });
+
+        view.findViewById(R.id.btn_vegetable).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transaction.replace(R.id.frameLayout_home, vegetableFragment) // frameLayout에 홈 Fragment 호출
+                        .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .commitAllowingStateLoss();
+            }
+        });
+
+        view.findViewById(R.id.btn_fish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transaction.replace(R.id.frameLayout_home, fishFragment) // frameLayout에 홈 Fragment 호출
+                        .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .commitAllowingStateLoss();
+            }
+        });
     }
 }

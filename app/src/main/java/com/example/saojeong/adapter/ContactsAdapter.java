@@ -59,19 +59,20 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
         Contact contact = mContacts.get(position);
 
         TextView tv_shopnum = holder.shopnumTextView;
-        tv_shopnum.setText(contact.getmShopnum());
         TextView tv_shopname = holder.shopnameTextView;
-        tv_shopname.setText(contact.getmShopname());
         TextView tv_star = holder.starTextView;
-        tv_star.setText(contact.getmStar());
         TextView tv_starscore = holder.starscoreTextView;
-        tv_starscore.setText(contact.getmStarscore());
         TextView tv_evaluation = holder.evaluationTextView;
-        tv_evaluation.setText(contact.getmEvaluation());
-
         ImageView iv_shop = holder.shopImageView;
-        iv_shop.setImageResource(contact.getmImage());
         ImageView iv_favorate = holder.favorateImageView;
+
+
+        tv_shopnum.setText(contact.getmShopnum());
+        tv_shopname.setText(contact.getmShopname());
+        tv_star.setText(contact.getmStar());
+        tv_starscore.setText(Double.toString(contact.getmStarscore()));
+        tv_evaluation.setText(contact.getmEvaluation());
+        iv_shop.setImageResource(contact.getmImage());
         iv_favorate.setImageResource(contact.getmFImage());
     }
 
