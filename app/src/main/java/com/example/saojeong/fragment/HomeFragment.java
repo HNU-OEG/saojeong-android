@@ -44,6 +44,7 @@ public class HomeFragment extends Fragment {
     private FragmentTransaction transaction;
     private FruitFragment fruitFragment;
     private VegetableFragment vegetableFragment;
+    private HomeFragment homeFragment;
     private FishFragment fishFragment;
     private RecyclerView recyclerShop;
     private RecyclerView recyclerFruit;
@@ -166,6 +167,14 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         transaction = fragmentManager.beginTransaction();
+
+        view.findViewById(R.id.iv_home).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).replaceFragment(homeFragment.newInstance());
+                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+            }
+        });
 
         view.findViewById(R.id.btn_fruit).setOnClickListener(new View.OnClickListener() {
             @Override
