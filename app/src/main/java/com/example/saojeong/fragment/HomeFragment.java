@@ -11,24 +11,18 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
-import com.example.saojeong.adapter.ContactsAdapter;
 import com.example.saojeong.adapter.FishAdapter;
 import com.example.saojeong.adapter.FruitAdapter;
 import com.example.saojeong.adapter.FullviewAdapter;
 import com.example.saojeong.adapter.VegetableAdapter;
-import com.example.saojeong.model.Contact;
 import com.example.saojeong.model.ContactFish;
 import com.example.saojeong.model.ContactFruit;
 import com.example.saojeong.model.ContactFullview;
