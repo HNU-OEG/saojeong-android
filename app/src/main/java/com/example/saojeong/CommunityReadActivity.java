@@ -136,14 +136,14 @@ public class CommunityReadActivity extends AppCompatActivity {
     public void community_Botton_Up()
     {
         Animation bottomUp = AnimationUtils.loadAnimation(this,
-                R.anim.community_bottom_up);
+                R.anim.fragment_fade_enter);
         mLinearLayout.startAnimation(bottomUp);
         mLinearLayout.setVisibility(View.VISIBLE);
     }
     public void community_Botton_Down()
     {
         Animation bottomDown = AnimationUtils.loadAnimation(this,
-                R.anim.community_bottom_down);
+                R.anim.fragment_fade_enter);
         mLinearLayout.startAnimation(bottomDown);
         mLinearLayout.setVisibility(View.GONE);
     }

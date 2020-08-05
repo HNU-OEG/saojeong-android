@@ -152,7 +152,7 @@
                 android:layout_width="21dp"
                 android:layout_height="22dp"
                 android:layout_toLeftOf="@+id/tv_community_btn_write"
-                app:srcCompat="@drawable/pensil" />
+                app:srcCompat="@drawable/search" />
 
         </RelativeLayout>
 
@@ -192,7 +192,7 @@
             >
 
             <ImageView
-                android:src="@drawable/community_left"
+                android:src="@drawable/ar_left"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="9dp"
@@ -212,7 +212,7 @@
             >
 
             <ImageView
-                android:src="@drawable/community_right"
+                android:src="@drawable/ar_right"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="9dp"
@@ -233,7 +233,7 @@
             >
 
             <ImageView
-                android:src="@drawable/community_home"
+                android:src="@drawable/community"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="9dp"
@@ -253,7 +253,7 @@
             >
 
             <ImageView
-                android:src="@drawable/community_re"
+                android:src="@drawable/chatbot"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="9dp"
@@ -273,7 +273,7 @@
             >
 
             <ImageView
-                android:src="@drawable/community_upscroll"
+                android:src="@drawable/community_orange"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="9dp"

@@ -21,7 +21,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/rounded_edittext_gray"
-                app:srcCompat="@drawable/price_icon_fruit_list" />
+                app:srcCompat="@drawable/price" />
             <ImageView
                 android:id="@+id/iv_price_btn_vegetable_price"
                 android:layout_width="65dp"
@@ -31,7 +31,7 @@
                 android:layout_toRightOf="@+id/iv_price_btn_fruit_price"
                 android:layout_weight="1"
                 android:text="Button"
-                app:srcCompat="@drawable/price_icon_vegetable_list" />
+                app:srcCompat="@drawable/price" />
             <ImageView
                 android:id="@+id/iv_price_btn_fish_price"
                 android:layout_width="65dp"
@@ -41,7 +41,7 @@
                 android:layout_toRightOf="@+id/iv_price_btn_vegetable_price"
                 android:layout_weight="1"
                 android:text="Button"
-                app:srcCompat="@drawable/price_icon_fish_list" />
+                app:srcCompat="@drawable/price" />
 
             <TextView
                 android:id="@+id/tv_price_fruit_not"
