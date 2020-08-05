@@ -107,7 +107,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/likeup"
+                        android:background="@drawable/like"
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="24dp"
                         ></ImageView>
@@ -142,7 +142,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/likedown"
+                        android:background="@drawable/unlike"
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="24dp"
                         ></ImageView>
@@ -224,7 +224,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:src="@drawable/likeup" />
+                android:src="@drawable/unlike" />
         </LinearLayout>
     </LinearLayout>
 

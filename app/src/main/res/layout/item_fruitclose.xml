@@ -27,7 +27,7 @@
             android:id="@+id/iv_favorate"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:src="@drawable/favorate"
+            android:src="@drawable/like"
             android:elevation="1dp"
             android:layout_marginTop="3dp"
             android:layout_marginRight="3dp"

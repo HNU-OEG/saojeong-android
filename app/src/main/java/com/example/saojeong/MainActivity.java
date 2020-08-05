@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //
+        // 하단바 클릭시 색상 변경
         mhome = findViewById(R.id.miv_home);
         mprice = findViewById(R.id.miv_price);
         mcommunity = findViewById(R.id.miv_community);
