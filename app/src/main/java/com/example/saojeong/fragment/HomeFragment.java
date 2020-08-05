@@ -22,11 +22,13 @@ import com.example.saojeong.R;
 import com.example.saojeong.adapter.FishAdapter;
 import com.example.saojeong.adapter.FruitAdapter;
 import com.example.saojeong.adapter.FullviewAdapter;
+import com.example.saojeong.adapter.LikeStoreAdapter;
 import com.example.saojeong.adapter.VegetableAdapter;
 import com.example.saojeong.model.ContactFish;
 import com.example.saojeong.model.ContactFruit;
 import com.example.saojeong.model.ContactFullview;
 import com.example.saojeong.model.ContactVegetable;
+import com.example.saojeong.model.LikeStore;
 import com.example.saojeong.model.RecyclerDecoration;
 
 import java.util.ArrayList;
@@ -45,12 +47,12 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerVegetable;
     private RecyclerView recyclerFish;
     private RecyclerView recyclerFullview;
-    private ContactsAdapter shopAdapter;
+    private LikeStoreAdapter likeStoreAdapter;
     private FruitAdapter fruitAdapter;
     private VegetableAdapter vegetableAdapter;
     private FishAdapter fishAdapter;
     private FullviewAdapter fullviewAdapter;
-    ArrayList<Contact> contacts;
+    ArrayList<LikeStore> likeStores;
     ArrayList<ContactFruit> contactFruits;
     ArrayList<ContactVegetable> contactVegetables;
     ArrayList<ContactFish> contactFishs;
@@ -77,11 +79,11 @@ public class HomeFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         //매장 Recycler View
         recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
-        contacts = Contact.createContactsList(20);
-        shopAdapter = new ContactsAdapter(contacts);
+        likeStores = LikeStore.createLikeStoreList(20);
+        likeStoreAdapter = new LikeStoreAdapter(likeStores);
         recyclerShop.addItemDecoration(leftDecoration);
         recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerShop.setAdapter(shopAdapter);
+        recyclerShop.setAdapter(likeStoreAdapter);
 
         //과일 Recycler View
         recyclerFruit = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_fragment);
