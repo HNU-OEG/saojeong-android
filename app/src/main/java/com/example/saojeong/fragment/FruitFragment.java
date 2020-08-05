@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.FruitCloseAdapter;
 import com.example.saojeong.adapter.FruitOpenAdapter;
@@ -42,6 +43,10 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
 
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(50);
 
+    public static FruitFragment newInstance() {
+        return new FruitFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +55,8 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
         transaction = fragmentManager.beginTransaction();
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_fruit, container, false);
+
+        ((MainActivity)getActivity()).closeKeyBoard(rootView);
 
         //순서 나열 Spinner
         selectedText = (TextView) rootView.findViewById(R.id.selected_fruit);

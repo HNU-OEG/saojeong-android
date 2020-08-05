@@ -42,6 +42,10 @@ public class VegetableFragment extends Fragment implements AdapterView.OnItemSel
 
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(50);
 
+    public static VegetableFragment newInstance() {
+        return new VegetableFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -13,7 +13,6 @@
         <activity android:name=".IntroPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -22,9 +21,7 @@
         <activity android:name=".CommunityReadActivity"></activity>
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing"
-            >
-
+            android:windowSoftInputMode="adjustNothing">
         </activity>
 
     </application>

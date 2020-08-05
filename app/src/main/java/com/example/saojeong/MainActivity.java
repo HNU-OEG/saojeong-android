@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         transaction.replace(R.id.frameLayout_main, homeFragment)
-                .addToBackStack(null)
                 .commitAllowingStateLoss(); //시작화면에 Home 띄우기
         mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
     }
@@ -73,10 +72,11 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId())
         {
             case R.id.ll_home:
+//                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
                     transaction.replace(R.id.frameLayout_main, homeFragment) // frameLayout에 홈 Fragment 호출
                             .addToBackStack(null)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .commitAllowingStateLoss();
+
                     mhome.setImageResource(R.drawable.home_orange);
                     mprice.setImageResource(R.drawable.price);
                     mcommunity.setImageResource(R.drawable.community);
@@ -85,10 +85,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.ll_price:
+                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
                     transaction.replace(R.id.frameLayout_main, priceFragment) // frameLayout에 시세 Fragment 호출
                             .addToBackStack(null)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .commitAllowingStateLoss();
+
                     mhome.setImageResource(R.drawable.home);
                     mprice.setImageResource(R.drawable.price_orange);
                     mcommunity.setImageResource(R.drawable.community);
@@ -97,10 +98,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.ll_community:
+                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
                     transaction.replace(R.id.frameLayout_main, communityFragment) // frameLayout에 커뮤니티 Fragment 호출
                             .addToBackStack(null)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .commitAllowingStateLoss();
+
                     mhome.setImageResource(R.drawable.home);
                     mprice.setImageResource(R.drawable.price);
                     mcommunity.setImageResource(R.drawable.community_orange);
@@ -112,10 +114,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.ll_myPage:
+                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
                     transaction.replace(R.id.frameLayout_main, myPageFragment) // frameLayout에 MyPage Fragment 호출
                             .addToBackStack(null)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .commitAllowingStateLoss();
+
                     mhome.setImageResource(R.drawable.home);
                     mprice.setImageResource(R.drawable.price);
                     mcommunity.setImageResource(R.drawable.community);
@@ -125,10 +128,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        //만약 더이상의 백스택이 없다면 홈으로 돌아가기
+        int backstackcount = fragmentManager.getBackStackEntryCount();
+
+        if(backstackcount == 0) {
+            mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
+            mprice.setImageResource(R.drawable.price);
+            mcommunity.setImageResource(R.drawable.community);
+            mchatbot.setImageResource(R.drawable.chatbot);
+            mmypage.setImageResource(R.drawable.mypage);
+        }
+    }
+
     public void replaceFragment(Fragment newFragment) {
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frameLayout_main, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void replaceHomeFragment(Fragment homeFragment) {
+        fragmentManager = getSupportFragmentManager();
+        transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frameLayout_home, homeFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
