@@ -42,6 +42,10 @@ public class FishFragment extends Fragment implements AdapterView.OnItemSelected
 
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(50);
 
+    public static FishFragment newInstance() {
+        return new FishFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

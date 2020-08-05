@@ -15,10 +15,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.ContactsAdapter;
 import com.example.saojeong.adapter.FishAdapter;
@@ -61,6 +64,10 @@ public class HomeFragment extends Fragment {
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
 
     TabHost tabHost;
+
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -163,31 +170,24 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.btn_fruit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transaction.replace(R.id.frameLayout_home, fruitFragment) // frameLayout에 홈 Fragment 호출
-                        .addToBackStack(null)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                        .commitAllowingStateLoss();
+                ((MainActivity)getActivity()).replaceHomeFragment(fruitFragment.newInstance());
             }
         });
 
         view.findViewById(R.id.btn_vegetable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transaction.replace(R.id.frameLayout_home, vegetableFragment) // frameLayout에 홈 Fragment 호출
-                        .addToBackStack(null)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                        .commitAllowingStateLoss();
+                ((MainActivity)getActivity()).replaceHomeFragment(fruitFragment.newInstance());
             }
         });
 
         view.findViewById(R.id.btn_fish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transaction.replace(R.id.frameLayout_home, fishFragment) // frameLayout에 홈 Fragment 호출
-                        .addToBackStack(null)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                        .commitAllowingStateLoss();
+                ((MainActivity)getActivity()).replaceHomeFragment(fruitFragment.newInstance());
             }
         });
     }
+
+
 }
