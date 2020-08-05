@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ import com.example.saojeong.model.LikeStore;
 import com.example.saojeong.model.RecyclerDecoration;
 
 import java.util.ArrayList;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
 public class HomeFragment extends Fragment {
@@ -60,6 +63,8 @@ public class HomeFragment extends Fragment {
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
 
+    private InputMethodManager imm;
+
     TabHost tabHost;
 
     public static HomeFragment newInstance() {
@@ -71,6 +76,8 @@ public class HomeFragment extends Fragment {
 
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
+
+        imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
 
         fruitFragment = new FruitFragment(); // 과일동 Fragment 선언
         vegetableFragment = new VegetableFragment(); // 채소동 Fragment 선언
@@ -194,5 +201,8 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    public void closeKeyBoard(View view) {
+        imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+    }
 
 }
