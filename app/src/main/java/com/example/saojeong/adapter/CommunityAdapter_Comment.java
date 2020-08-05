@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdapter_Comment.ViewHolder>{
 
+    public RelativeLayout mLayout;
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView_ID;
         public TextView mTextView_Date;
@@ -33,6 +35,7 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
             mTextView_Content = (TextView) itemView.findViewById(R.id.tv_community_comment_contents);
             mTextView_Btn_ReComment = (TextView) itemView.findViewById(R.id.tv_community_comment_btn_recomment);
             mImageView_Image=(ImageView)itemView.findViewById(R.id.iv_community_comment_image);
+            mLayout=itemView.findViewById(R.id.item_community_layout);
         }
     }
 
@@ -41,7 +44,6 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
     public CommunityAdapter_Comment(ArrayList<Community_CommentValue> contacts) {
         mContacts = contacts;
     }
-
     @Override
     public CommunityAdapter_Comment.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();

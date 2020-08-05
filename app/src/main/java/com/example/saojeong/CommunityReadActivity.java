@@ -24,7 +24,7 @@ import com.example.saojeong.model.Community_CommentValue;
 import java.util.ArrayList;
 
 public class CommunityReadActivity extends AppCompatActivity {
-
+//
     TextView mtitle;
     TextView mboard;
     TextView mdate;
