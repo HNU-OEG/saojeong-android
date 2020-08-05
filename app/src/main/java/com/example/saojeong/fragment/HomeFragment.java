@@ -11,31 +11,30 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
-import com.example.saojeong.adapter.ContactsAdapter;
 import com.example.saojeong.adapter.FishAdapter;
 import com.example.saojeong.adapter.FruitAdapter;
 import com.example.saojeong.adapter.FullviewAdapter;
+import com.example.saojeong.adapter.LikeStoreAdapter;
 import com.example.saojeong.adapter.VegetableAdapter;
-import com.example.saojeong.model.Contact;
 import com.example.saojeong.model.ContactFish;
 import com.example.saojeong.model.ContactFruit;
 import com.example.saojeong.model.ContactFullview;
 import com.example.saojeong.model.ContactVegetable;
+import com.example.saojeong.model.LikeStore;
 import com.example.saojeong.model.RecyclerDecoration;
 
 import java.util.ArrayList;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
 public class HomeFragment extends Fragment {
@@ -51,18 +50,20 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerVegetable;
     private RecyclerView recyclerFish;
     private RecyclerView recyclerFullview;
-    private ContactsAdapter shopAdapter;
+    private LikeStoreAdapter likeStoreAdapter;
     private FruitAdapter fruitAdapter;
     private VegetableAdapter vegetableAdapter;
     private FishAdapter fishAdapter;
     private FullviewAdapter fullviewAdapter;
-    ArrayList<Contact> contacts;
+    ArrayList<LikeStore> likeStores;
     ArrayList<ContactFruit> contactFruits;
     ArrayList<ContactVegetable> contactVegetables;
     ArrayList<ContactFish> contactFishs;
     ArrayList<ContactFullview> contactFullviews;
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
+
+    private InputMethodManager imm;
 
     TabHost tabHost;
 
@@ -76,6 +77,8 @@ public class HomeFragment extends Fragment {
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
 
+        imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+
         fruitFragment = new FruitFragment(); // 과일동 Fragment 선언
         vegetableFragment = new VegetableFragment(); // 채소동 Fragment 선언
         fishFragment = new FishFragment(); // 수산동 Fragment 선언
@@ -83,11 +86,11 @@ public class HomeFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         //매장 Recycler View
         recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
-        contacts = Contact.createContactsList(20);
-        shopAdapter = new ContactsAdapter(contacts);
+        likeStores = LikeStore.createLikeStoreList(20);
+        likeStoreAdapter = new LikeStoreAdapter(likeStores);
         recyclerShop.addItemDecoration(leftDecoration);
         recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerShop.setAdapter(shopAdapter);
+        recyclerShop.setAdapter(likeStoreAdapter);
 
         //과일 Recycler View
         recyclerFruit = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_fragment);
@@ -198,5 +201,8 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    public void closeKeyBoard(View view) {
+        imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+    }
 
 }

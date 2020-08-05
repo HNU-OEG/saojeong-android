@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff"
+    android:onClick="closeKeyBoard"
     tools:context=".fragment.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,6 +37,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="21dp"
                 android:layout_marginBottom="5dp"
+                android:paddingHorizontal="20dp"
                 android:layout_gravity="center"
                 android:background="@drawable/search"
                 android:hint="   점포 검색"
