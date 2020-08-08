@@ -2,30 +2,31 @@ package com.example.saojeong;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 
 import com.example.saojeong.fragment.CommunityFragment;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import com.example.saojeong.fragment.PriceFragment;
 
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.saojeong.fragment.CommunityFragment;
 import com.example.saojeong.fragment.HomeFragment;
-import com.example.saojeong.fragment.PriceFragment;
 import com.example.saojeong.fragment.MyPageFragment;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.StoreDto;
+import com.example.saojeong.rest.service.StoreService;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,10 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
     private InputMethodManager imm;
 
+    private StoreService storeService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // store service 생성
+        storeService = ServiceGenerator.createService(StoreService.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5NzU4ODU3MSwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.G0SdapZG7h9Lr5kJf0P8ecl71DXiLFHicq6805RHDvY");
 
         // 하단바 클릭시 색상 변경
         mhome = findViewById(R.id.miv_home);
@@ -66,6 +71,30 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frameLayout_main, homeFragment)
                 .commitAllowingStateLoss(); //시작화면에 Home 띄우기
         mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
+
+
+        loadStores();
+    }
+
+    private void loadStores() {
+        Log.d("LOADSTORES HERE", "HERE");
+        storeService.getStoreListOrderByGrade().enqueue(new Callback<List<StoreDto>>() {
+            @Override
+            public void onResponse(Call<List<StoreDto>> call,
+                                   Response<List<StoreDto>> response) {
+                if (response.isSuccessful()) {
+                    // response.body()
+                    // response.body()에서 넘어오는 데이터로 Adapter에 뿌려주기
+                } else {
+                    Log.d("REST FAILED MESSAGE", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<StoreDto>> call, Throwable t) {
+                Log.d("REST ERROR!", t.getMessage());
+            }
+        });
     }
     public void clickHandler(View view) {
         transaction = fragmentManager.beginTransaction();

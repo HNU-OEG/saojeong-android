@@ -31,8 +31,12 @@ import com.example.saojeong.model.ContactFullview;
 import com.example.saojeong.model.ContactVegetable;
 import com.example.saojeong.model.LikeStore;
 import com.example.saojeong.model.RecyclerDecoration;
+import com.example.saojeong.rest.service.StoreService;
 
 import java.util.ArrayList;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -72,7 +76,9 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
