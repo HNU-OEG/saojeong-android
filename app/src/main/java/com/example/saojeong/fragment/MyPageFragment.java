@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +28,8 @@ import com.example.saojeong.model.StarStore;
 import java.util.ArrayList;
 
 public class MyPageFragment extends Fragment {
+
+
 
     private RecyclerView recyclerLikes;
     private RecyclerView recyclerStar;
@@ -77,4 +81,6 @@ public class MyPageFragment extends Fragment {
 
         return view;
     }
+
+
 }

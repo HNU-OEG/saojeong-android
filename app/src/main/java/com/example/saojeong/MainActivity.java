@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.ll_price:
-                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+                //fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
                     transaction.replace(R.id.frameLayout_main, priceFragment) // frameLayout에 시세 Fragment 호출
                             .addToBackStack(null)
                             .commitAllowingStateLoss();
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.ll_community:
-                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+                //fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
                     transaction.replace(R.id.frameLayout_main, communityFragment) // frameLayout에 커뮤니티 Fragment 호출
                             .addToBackStack(null)
                             .commitAllowingStateLoss();
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.ll_myPage:
-                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+                //fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
                     transaction.replace(R.id.frameLayout_main, myPageFragment) // frameLayout에 MyPage Fragment 호출
                             .addToBackStack(null)
                             .commitAllowingStateLoss();

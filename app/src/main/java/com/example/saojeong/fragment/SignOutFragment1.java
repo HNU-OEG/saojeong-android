@@ -29,6 +29,9 @@ public class SignOutFragment1 extends Fragment {
 
         btn_sign_out.setOnClickListener((v) -> {
             ((MainActivity)getActivity()).replaceFragment(SignOutFragment2.newInstance());
+            //todo replace를 add로 변환
+            //https://m.blog.naver.com/PostView.nhn?blogId=0677haha&logNo=60190123453&proxyReferer=https:%2F%2Fwww.google.com%2F
+            //https://jungwoon.github.io/anroid/2017/08/13/Android_Fragment/
         });
 
         return view;
