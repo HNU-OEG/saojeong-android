@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:onClick="closeKeyBoard">
 
     <LinearLayout
@@ -72,23 +73,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:lineSpacingExtra="5sp"
                 android:text="별명"
                 android:textColor="#4e4e4e"
-                android:textSize="16sp"
-                android:gravity="center"/>
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/et_name"
                 android:layout_width="200dp"
                 android:layout_height="36dp"
                 android:layout_marginLeft="90dp"
-                android:paddingHorizontal="20dp"
                 android:background="@drawable/btn_round"
                 android:cursorVisible="false"
-                android:singleLine="true"
+                android:maxWidth="150dp"
                 android:maxLength="20"
-                android:maxWidth="150dp" />
+                android:paddingHorizontal="20dp"
+                android:singleLine="true" />
         </LinearLayout>
 
         <TextView
@@ -99,7 +100,7 @@
             android:layout_marginTop="6dp"
             android:gravity="end"
             android:lineSpacingExtra="2sp"
-            android:textSize="10sp"/>
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/btn_save"
@@ -108,10 +109,10 @@
             android:layout_gravity="right"
             android:layout_marginTop="65dp"
             android:background="@drawable/btn_round_tmp"
-            android:textSize="16sp"
-            android:textColor="#ffffff"
             android:lineSpacingExtra="6sp"
-            android:text="변경완료"/>
+            android:text="변경완료"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
 
 
     </LinearLayout>
@@ -119,19 +120,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:paddingHorizontal="20dp"
-        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:textSize="12sp"
-            android:textColor="#c2c2c2"
             android:lineSpacingExtra="4sp"
-            android:text="회원정보를 삭제하시겠어요?"/>
+            android:text="회원정보를 삭제하시겠어요?"
+            android:textColor="#c2c2c2"
+            android:textSize="12sp" />
 
         <!-- 정렬용 더비 View -->
         <View
@@ -139,16 +140,15 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <TextView
+        <Button
             android:id="@+id/btn_sign_out"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="16dp"
             android:layout_gravity="end"
-            android:textSize="12sp"
-            android:textColor="#c2c2c2"
+            android:background="#00ff0000"
             android:lineSpacingExtra="4sp"
-            android:gravity="end"
             android:text="@string/sign_out"
-            android:onClick="signOut"/>
+            android:textColor="#c2c2c2"
+            android:textSize="12sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

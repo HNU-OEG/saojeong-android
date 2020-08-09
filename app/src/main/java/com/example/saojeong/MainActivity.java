@@ -160,10 +160,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    public void signOut(View view) {
-        Toast.makeText(view.getContext(),"test", Toast.LENGTH_LONG).show();
-    }
-
     public void closeKeyBoard(View view) {
         imm.hideSoftInputFromWindow(view.getWindowToken(),0);
     }
