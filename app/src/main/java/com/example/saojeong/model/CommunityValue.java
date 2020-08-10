@@ -6,7 +6,6 @@ import java.util.List;
 
 public class CommunityValue {
 
-    private String mBoard;
     private String mTitle;
     private String mName;
     private String mContents;
@@ -16,9 +15,8 @@ public class CommunityValue {
     private List<Community_CommentValue> mComment=new ArrayList<>();
     private boolean mPopular;
 
-    public CommunityValue(String Board, String Title, String Name, String Date, String Contents, int GoodRecommend, int BadReCommend, boolean Popular)
+    public CommunityValue(String Title, String Name, String Date, String Contents, int GoodRecommend, int BadReCommend, boolean Popular)
     {
-        mBoard=Board;
         mTitle=Title;
         mName=Name;
         mDate=Date;
@@ -30,9 +28,6 @@ public class CommunityValue {
     public void SetComment(List<Community_CommentValue> Comment)
     {
         mComment=Comment;
-    }
-    public String GetBoard() {
-        return mBoard;
     }
     public String GetTitle() {
         return mTitle;

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.CommunityAdapter_item;
 import com.example.saojeong.model.CommunityValue;
@@ -67,43 +68,17 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
         CCList.add(new Community_CommentValue("b","b","b",false));
         CCList.add(new Community_CommentValue("c","c","c",false));
         CCList.add(new Community_CommentValue("d","d","d",false));
-
-        CommunityValue com=new CommunityValue("1","1","1","1","1",0,0, true);
-        CommunityValue com1=new CommunityValue("1","1","1","1","1",0,0, false);
-        com.SetComment(CCList);
+        CCList.add(new Community_CommentValue("d","d","d",false));
+        CCList.add(new Community_CommentValue("d","d","d",false));
+        CommunityValue com1=new CommunityValue("1","1","1","1",0,0, false);
         com1.SetComment(CCList);
         mCommunityValue.add(com1);
-        mCommunityValue.add(new CommunityValue("8","1","2","2","2",0,0, false));
-        mCommunityValue.add(new CommunityValue("8","2","2","2","2",0,0, false));
-        mCommunityValue.add(new CommunityValue("8","3","2","2","2",0,0, false));
-        mCommunityValue.add(new CommunityValue("8","4","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","5","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","6","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","7","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","8","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","9","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","11011","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","1","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","2","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","3","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","4","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","5","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","6","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","7","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","8","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","9","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","1110","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","1","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","2","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","3","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","4","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","5","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","6","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","7","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","8","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","9","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","110111","2","2","2",0,0, true));
-        mCommunityValue.add(com);
+        for(int i=0; i<40; ++i)
+        {
+            CommunityValue com=new CommunityValue("제목은 두껍게! 한눈에 보이도록!","가나다라","07. 13 03:29","6",0,0, true);
+            com.SetComment(CCList);
+            mCommunityValue.add(com);
+        }
 
 
         if(board==0)
@@ -119,7 +94,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
         }
         else
             btnRight.setVisibility(View.VISIBLE);
-        mAdapter = new CommunityAdapter_item(mCommunityValue, 0);
+        mAdapter = new CommunityAdapter_item(mCommunityValue, 0, (MainActivity)getActivity());
         mRecyclerViewCommunity.setAdapter(mAdapter);
         mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
@@ -175,8 +150,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     public void onClick(View view) {
         int id=view.getId();
 
-        switch(id)
-        {
+        switch(id) {
             case R.id.tv_community_btn_Left:
                 mAdapter.DownBoard();
                 board--;
@@ -184,15 +158,13 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
                 scroll.scrollTo(0,0);
                 mRecyclerViewCommunity.setAdapter(mAdapter);
                 mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
-                if(board==0)
-                {
+                if(board==0) {
                     btnLeft.setVisibility(View.GONE);
                 }
                 else
                     btnLeft.setVisibility(View.VISIBLE);
 
-                if((board+1)*10>=mCommunityValue.size())
-                {
+                if((board+1)*10>=mCommunityValue.size()) {
                     btnRight.setVisibility(View.GONE);
                 }
                 else
@@ -207,15 +179,13 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
                 scroll.scrollTo(0,0);
                 mRecyclerViewCommunity.setAdapter(mAdapter);
                 mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
-                if(board==0)
-                {
+                if(board==0) {
                     btnLeft.setVisibility(View.GONE);
                 }
                 else
                     btnLeft.setVisibility(View.VISIBLE);
 
-                if((board+1)*10>=mCommunityValue.size())
-                {
+                if((board+1)*10>=mCommunityValue.size()) {
                     btnRight.setVisibility(View.GONE);
                 }
                 else
@@ -228,25 +198,22 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     public void onRefresh() {
         mCommunityValue.clear();
 
-        mCommunityValue.add(new CommunityValue("8","333333333331","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","2","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","3","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","4","2","2","2",0,0, true));
-        mCommunityValue.add(new CommunityValue("8","5","2","2","2",0,0, true));
-        mAdapter = new CommunityAdapter_item(mCommunityValue, 0);
+        mCommunityValue.add(new CommunityValue("초기화","2","2","2",0,0, true));
+        mCommunityValue.add(new CommunityValue("초기화","2","2","2",0,0, true));
+        mCommunityValue.add(new CommunityValue("초기화","2","2","2",0,0, true));
+        mCommunityValue.add(new CommunityValue("초기화","2","2","2",0,0, true));
+        mAdapter = new CommunityAdapter_item(mCommunityValue, 0, (MainActivity)getActivity());
         mRecyclerViewCommunity.setAdapter(mAdapter);
         mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
         board=0;
         swipe.setRefreshing(false);
-        if(board==0)
-        {
+        if(board==0) {
             btnLeft.setVisibility(View.GONE);
         }
         else
             btnLeft.setVisibility(View.VISIBLE);
 
-        if((board+1)*10>=mCommunityValue.size())
-        {
+        if((board+1)*10>=mCommunityValue.size()) {
             btnRight.setVisibility(View.GONE);
         }
         else

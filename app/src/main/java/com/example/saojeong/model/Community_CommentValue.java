@@ -12,7 +12,7 @@ public class Community_CommentValue {
     {
         mID=ID;
         mDate=Date;
-        mComment=Date;
+        mComment=Comment;
         mReContent=reContent;
     }
     public String GetID() {
