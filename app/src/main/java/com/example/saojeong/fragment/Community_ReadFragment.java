@@ -68,7 +68,7 @@ public class Community_ReadFragment extends Fragment {
         mcontents = view.findViewById(R.id.tv_community_read_contents);
         mComment_name=view.findViewById(R.id.tv_community_comment_name);
         mComment_comment=view.findViewById(R.id.tv_community_comment_comment);
-        mComment_btn=view.findViewById(R.id.tv_community_btn_comment_write);
+        //mComment_btn=view.findViewById(R.id.tv_community_btn_comment_write);
         mRecycleview=view.findViewById(R.id.testRecycle);
         mNestedScroll=view.findViewById(R.id.testscroll);
 
@@ -83,9 +83,9 @@ public class Community_ReadFragment extends Fragment {
         mRecycleview.setNestedScrollingEnabled(false);
 
 
-        SpannableString content = new SpannableString(mComment_btn.getText());
-        content.setSpan(new UnderlineSpan(), 0, mComment_btn.getText().length(), 0);
-        mComment_btn.setText(content);
+        //SpannableString content = new SpannableString(mComment_btn.getText());
+        //content.setSpan(new UnderlineSpan(), 0, mComment_btn.getText().length(), 0);
+        //mComment_btn.setText(content);
 
         return view;
     }
