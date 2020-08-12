@@ -27,7 +27,7 @@ import com.example.saojeong.model.Community_CommentValue;
 
 import java.util.ArrayList;
 
-public class Community_ReadFragment extends Fragment {
+public class Community_ReadFragment extends Fragment implements View.OnClickListener{
     TextView mtitle;
     TextView mboard;
     TextView mdate;
@@ -41,7 +41,8 @@ public class Community_ReadFragment extends Fragment {
     RecyclerView mRecycleview;
     LinearLayout mLinearLayout;
     NestedScrollView mNestedScroll;
-
+    LinearLayout m_LikeUp;
+    LinearLayout m_LikeDown;
 
 
     public Community_ReadFragment() {
@@ -71,6 +72,8 @@ public class Community_ReadFragment extends Fragment {
         //mComment_btn=view.findViewById(R.id.tv_community_btn_comment_write);
         mRecycleview=view.findViewById(R.id.testRecycle);
         mNestedScroll=view.findViewById(R.id.testscroll);
+        m_LikeUp=view.findViewById(R.id.ll_community_like_up);
+        m_LikeDown=view.findViewById(R.id.ll_community_like_down);
 
         mCommunityCommentValue= new ArrayList<>();
         mCommunityCommentValue.add(new Community_CommentValue("시장이용객23","07. 13   03:29","쓰촨 인정해. 진짜 맛있지.", false));
@@ -96,5 +99,19 @@ public class Community_ReadFragment extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id=view.getId();
+
+        switch(id) {
+            case R.id.ll_community_like_up:
+                //라이크 버튼 이벤트
+                break;
+            case R.id.ll_community_like_down:
+                //라이크 버튼 이벤트
+                break;
+        }
     }
 }
