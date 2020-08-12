@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="#ffffff"
-    tools:context=".adapter.ContactsAdapter">
+    tools:context=".adapter.FishCloseAdapter">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="91dp"

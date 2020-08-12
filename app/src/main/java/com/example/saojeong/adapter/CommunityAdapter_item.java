@@ -15,7 +15,8 @@ import com.example.saojeong.model.CommunityValue;
 
 import java.util.ArrayList;
 
-public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder>{
+public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder> {
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextViewTitle_Popularity;
         public TextView mTextViewTitle;
@@ -23,6 +24,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
         public TextView mTextViewDate;
         public TextView mTextViewComment;
         public TextView mTextViewReCommentSize;
+
         public ViewHolder(View itemView) {
             super(itemView);
             mTextViewTitle_Popularity = (TextView) itemView.findViewById(R.id.tv_community_Title_popularity);
@@ -88,6 +90,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
     {
         ++mBoard;
     }
+
     public void DownBoard()
     {
         if(mBoard!=0)

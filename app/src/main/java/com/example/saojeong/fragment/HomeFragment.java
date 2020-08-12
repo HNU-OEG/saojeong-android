@@ -123,6 +123,7 @@ public class HomeFragment extends Fragment {
         recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
         recyclerFullview.setAdapter(fullviewAdapter);
 
+        //탭 호스트
         tabHost = (TabHost) rootView.findViewById(R.id.tabhost);
         tabHost.setup();
 

@@ -76,7 +76,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         mBottomUpScroll=view.findViewById(R.id.ll_community_upscroll);
         mBottomUpScroll.setOnClickListener(this);
         viewPager2.setUserInputEnabled(false);
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar_community);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("");

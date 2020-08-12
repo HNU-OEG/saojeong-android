@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     mcommunity.setImageResource(R.drawable.community);
                     mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage);
+
                 break;
 
             case R.id.ll_price:
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     mcommunity.setImageResource(R.drawable.community);
                     mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage);
+
                 break;
 
             case R.id.ll_community:
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     mcommunity.setImageResource(R.drawable.community_orange);
                     mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage);
+
                 break;
 
             case R.id.ll_chatbot:
@@ -124,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                     mcommunity.setImageResource(R.drawable.community);
                     mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage_orange);
+
                 break;
         }
     }
