@@ -64,7 +64,7 @@
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/tv_community_comment_recomment"
+                android:id="@+id/tv_community_comment_recommend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="9"

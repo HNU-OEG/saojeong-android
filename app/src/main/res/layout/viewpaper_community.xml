@@ -37,19 +37,23 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#fcfcfc">
 
                 <TextView
                     android:id="@+id/tv_community_btn_Left"
-                    android:descendantFocusability="blocksDescendants"
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="64dp"
+                    android:layout_height="31dp"
                     android:layout_marginLeft="20dp"
-                    android:text="Button"
-                    android:background="@drawable/rounded_edittext_gray"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:descendantFocusability="blocksDescendants"
                     android:foreground="?attr/selectableItemBackground"
-                    />
+                    android:gravity="center"
+                    android:text="이전"
+                    android:textColor="#7d7d7d"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tv_community_board"
                     android:layout_width="38dp"
@@ -57,19 +61,23 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
+                    android:gravity="center"
                     android:text="board"
-                    />
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tv_community_btn_Right"
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
+                    android:layout_width="64dp"
+                    android:layout_height="31dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    android:text="Button"
-                    android:background="@drawable/rounded_edittext_gray"
+                    android:background="@drawable/rounded_edittext"
                     android:foreground="?attr/selectableItemBackground"
-                    />
+                    android:gravity="center"
+                    android:text="다음"
+                    android:textColor="#7d7d7d"
+                    android:textStyle="bold" />
             </RelativeLayout>
         </LinearLayout>
 

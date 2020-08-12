@@ -1,0 +1,240 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fcfcfc">
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/communityread_appbarlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="#FFFFFF"
+                    app:elevation="0dp"
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                    <TextView
+                        android:id="@+id/tool11bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="커뮤니티"
+                        android:textColor="#000000" />
+                </androidx.appcompat.widget.Toolbar>
+
+
+            </com.google.android.material.appbar.AppBarLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+            >
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/testscroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/communityread_appbarlayout"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_community_read_title"
+                        android:layout_width="269dp"
+                        android:layout_height="21dp"
+                        android:text="제목은 두껍게! 한눈에 보이도록!"
+                        android:textColor="#4e4e4e"
+                        android:textSize="19sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_community_read_board"
+                            android:layout_width="91dp"
+                            android:layout_height="21dp"
+                            android:text="자유게시판" />
+
+                        <TextView
+                            android:id="@+id/tv_community_read_date"
+                            android:layout_width="106dp"
+                            android:layout_height="18dp"
+                            android:text="07. 13   03:29" />
+
+                        <TextView
+                            android:id="@+id/tv_community_read_name"
+                            android:layout_width="106dp"
+                            android:layout_height="18dp"
+                            android:text="가나다라" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_community_read_contents"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="내가 가본 한남대 맛집 리스트 소개해드림\n\n
+    1. 쓰촨\n
+    : 일단 중국집은 무조건 쓰촨임. 반박불가. 반박하는 사람 쓰촨 안가본 사람. 안 가본 사람은 있어도 한번만 간 적은 없을거라는 그 쓰촨. 무조건 가보셈\n\n
+    2. 오늘은 닭\n
+    : 말해뭐해\n\n
+    3. 시나브로\n
+    : 그저 갓성비, 2~3000원만으로도 배불리 맛나게 먹고 나올 수 있는 곳. 여길 안 이후로 돈 없어도 편의점은 가지 않는다.\n\n
+    4. 먹소리\n
+    : 내 최애 떡볶이집이었는데 요즘 문 안여는 것 같음.. 수업하다말고 강의실에 가방 놓고 교수님 몰래 먹소리가서 먹방하다가 다시 수업 갔을 정도로 맛있음(그 수업 B+받음 ㅎ)\n
+    " />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="59dp"
+                        android:gravity="center_horizontal">
+
+                        <LinearLayout
+                            android:layout_width="138dp"
+                            android:layout_height="36dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/rounded_edittext"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="29dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/like"></ImageView>
+
+                            <TextView
+                                android:id="@+id/textView7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:gravity="center"
+                                android:text="추천"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/textView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text=" 0"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="138dp"
+                            android:layout_height="36dp"
+                            android:layout_marginLeft="170dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/rounded_edittext"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="24dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/unlike"></ImageView>
+
+                            <TextView
+                                android:id="@+id/textView71"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:gravity="center"
+                                android:text="비추천"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/textView41"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text=" 0"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+                        \
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                ></TextView>
+
+                        <EditText
+                            android:id="@+id/tv_community_comment_comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="내용을 입력하세요"
+                            android:lineSpacingExtra="5sp"
+                            android:textSize="13sp"
+                            android:inputType="textMultiLine"
+                            android:gravity="top"
+                            android:background="@null"/>
+
+
+                    </LinearLayout>
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/testRecycle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
+
+
+            </androidx.core.widget.NestedScrollView>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
