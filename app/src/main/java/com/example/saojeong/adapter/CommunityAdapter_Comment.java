@@ -15,10 +15,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.R;
-import com.example.saojeong.fragment.Community_ReadFragment;
 import com.example.saojeong.model.Community_CommentValue;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 

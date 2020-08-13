@@ -1,12 +1,9 @@
 package com.example.saojeong.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -23,19 +19,11 @@ import com.example.saojeong.R;
 import com.example.saojeong.adapter.CommunityAdapter_item;
 import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.model.Community_CommentValue;
-import com.example.saojeong.rest.ServiceGenerator;
-import com.example.saojeong.rest.dto.CommunityDto;
-import com.example.saojeong.rest.service.Community_Service;
 
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class CommunityTabFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener{
 
@@ -49,7 +37,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     RecyclerView mRecyclerViewCommunity;
     int board=0;
 
-    private Community_Service community_Service;
+    //private Community_Service community_Service;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,7 +58,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
         swipe.setPadding(0, 0, 0, 0);
 
 
-        community_Service = ServiceGenerator.createService(Community_Service.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5NzU4ODU3MSwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.G0SdapZG7h9Lr5kJf0P8ecl71DXiLFHicq6805RHDvY");
+       // community_Service = ServiceGenerator.createService(Community_Service.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5NzU4ODU3MSwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.G0SdapZG7h9Lr5kJf0P8ecl71DXiLFHicq6805RHDvY");
 
 
 
@@ -186,27 +174,27 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     }
 
     private void load_GetPost() {
-        Log.d("LOADSTORES HERE", "HERE");
+     //  Log.d("LOADSTORES HERE", "HERE");
 
-        community_Service.getPostList().enqueue(new Callback<List<CommunityDto>>() {
-            @Override
-            public void onResponse(Call<List<CommunityDto>> call,
-                                   Response<List<CommunityDto>> response) {
-                if (response.isSuccessful()) {
-                    for (CommunityDto dto:response.body()) {
-                        CommunityValue com=new CommunityValue("제목은 두껍게! 한눈에 보이도록!","가나다라","07. 13 03:29","6",0,0, true);
+     //  community_Service.getPostList().enqueue(new Callback<List<CommunityDto>>() {
+     //      @Override
+     //      public void onResponse(Call<List<CommunityDto>> call,
+     //                             Response<List<CommunityDto>> response) {
+     //          if (response.isSuccessful()) {
+     //              for (CommunityDto dto:response.body()) {
+     //                  CommunityValue com=new CommunityValue("제목은 두껍게! 한눈에 보이도록!","가나다라","07. 13 03:29","6",0,0, true);
 
-                    }
-                } else {
-                    Log.d("REST FAILED MESSAGE", response.message());
-                }
-            }
+     //              }
+     //          } else {
+     //              Log.d("REST FAILED MESSAGE", response.message());
+     //          }
+     //      }
 
-            @Override
-            public void onFailure(Call<List<CommunityDto>> call, Throwable t) {
-                Log.d("REST ERROR!", t.getMessage());
-            }
-        });
+     //      @Override
+     //      public void onFailure(Call<List<CommunityDto>> call, Throwable t) {
+     //          Log.d("REST ERROR!", t.getMessage());
+     //      }
+     //  });
     }
 
 

@@ -21,31 +21,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
-import com.example.saojeong.adapter.CommunityAdapter_Comment;
-import com.example.saojeong.model.CommunityValue;
-import com.example.saojeong.model.Community_CommentValue;
-import com.example.saojeong.rest.ServiceGenerator;
-import com.example.saojeong.rest.dto.CommunityDto;
-import com.example.saojeong.rest.dto.Community_CreateBoardPostDto;
-import com.example.saojeong.rest.service.Community_Service;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Community_WriteFragment extends Fragment {
 
-    private Community_Service community_Service;
+ //   private Community_Service community_Service;
 
     EditText et_Title;
     EditText et_Content;
@@ -55,7 +38,7 @@ public class Community_WriteFragment extends Fragment {
         View view;
         view = inflater.inflate(R.layout.fragment_community_write, container, false); //0,2,외 이탭
 
-        community_Service = ServiceGenerator.createService(Community_Service.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5NzU4ODU3MSwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.G0SdapZG7h9Lr5kJf0P8ecl71DXiLFHicq6805RHDvY");
+    //    community_Service = ServiceGenerator.createService(Community_Service.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5NzU4ODU3MSwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.G0SdapZG7h9Lr5kJf0P8ecl71DXiLFHicq6805RHDvY");
 
 
         Toolbar toolbar = view.findViewById(R.id.community_write_toolbar);
@@ -107,25 +90,25 @@ public class Community_WriteFragment extends Fragment {
             //내용을 입력하세요
             return;
         }
-        Call<List<Community_CreateBoardPostDto>> call=community_Service.CreatePost(strTitle, strContent);
-        call.enqueue(new Callback<List<Community_CreateBoardPostDto>>() {
-            @Override
-            public void onResponse(Call<List<Community_CreateBoardPostDto>> call,
-                                   Response<List<Community_CreateBoardPostDto>> response) {
-                if (response.isSuccessful()) {
-                    for (Community_CreateBoardPostDto dto:response.body()) {
-                        CommunityValue com=new CommunityValue("제목은 두껍게! 한눈에 보이도록!","가나다라","07. 13 03:29","6",0,0, true);
+    //   Call<List<Community_CreateBoardPostDto>> call=community_Service.CreatePost(strTitle, strContent);
+    //   call.enqueue(new Callback<List<Community_CreateBoardPostDto>>() {
+    //       @Override
+    //       public void onResponse(Call<List<Community_CreateBoardPostDto>> call,
+    //                              Response<List<Community_CreateBoardPostDto>> response) {
+    //           if (response.isSuccessful()) {
+    //               for (Community_CreateBoardPostDto dto:response.body()) {
+    //                   CommunityValue com=new CommunityValue("제목은 두껍게! 한눈에 보이도록!","가나다라","07. 13 03:29","6",0,0, true);
 
-                    }
-                } else {
-                    Log.d("REST FAILED MESSAGE", response.message());
-                }
-            }
+    //               }
+    //           } else {
+    //               Log.d("REST FAILED MESSAGE", response.message());
+    //           }
+    //       }
 
-            @Override
-            public void onFailure(Call<List<Community_CreateBoardPostDto>> call, Throwable t) {
-                Log.d("REST ERROR!", t.getMessage());
-            }
-        });
+    //       @Override
+    //       public void onFailure(Call<List<Community_CreateBoardPostDto>> call, Throwable t) {
+    //           Log.d("REST ERROR!", t.getMessage());
+    //       }
+    //   });
     }
 }
