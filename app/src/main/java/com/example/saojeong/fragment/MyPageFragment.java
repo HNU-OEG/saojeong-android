@@ -10,7 +10,6 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +34,7 @@ public class MyPageFragment extends Fragment {
     ArrayList<LikeStore> likeStores;
     ArrayList<StarStore> starStores;
 
-    RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(15);
+    RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(10);
 
     private Button btn_profile;
@@ -71,7 +70,7 @@ public class MyPageFragment extends Fragment {
         starStores = StarStore.createLikeStoreList(numStore);
         starStoreAdapter = new StarStoreAdapter(starStores);
 
-        recyclerStar.addItemDecoration(leftDecoration);
+        recyclerStar.addItemDecoration(bottomDecoration);
         recyclerStar.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerStar.setAdapter(starStoreAdapter);
 

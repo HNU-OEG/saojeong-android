@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -34,7 +33,6 @@ import com.example.saojeong.R;
 
 import java.io.InputStream;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment {
@@ -43,6 +41,7 @@ public class ProfileFragment extends Fragment {
 
     private Button btn_change_picture;
     private Button btn_save;
+    private Button btn_sign_out;
     private EditText et_new_name;
     private TextView tv_duplicate_err;
     private ImageView iv_profile;
@@ -62,6 +61,7 @@ public class ProfileFragment extends Fragment {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_edit_profile, container, false);
         btn_change_picture = view.findViewById(R.id.btn_change_picture);
         btn_save = view.findViewById(R.id.btn_save);
+        btn_sign_out = view.findViewById(R.id.btn_sign_out);
         et_new_name = view.findViewById(R.id.et_name);
         tv_duplicate_err = view.findViewById(R.id.tv_duplicate_err);
         iv_profile = view.findViewById(R.id.iv_profile);
@@ -81,6 +81,10 @@ public class ProfileFragment extends Fragment {
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent, REQUEST_CODE);
 
+        });
+
+        btn_sign_out.setOnClickListener((V) -> {
+            ((MainActivity)getActivity()).replaceFragment(SignOutFragment1.newInstance());
         });
 
         et_new_name.addTextChangedListener(new TextWatcher()  {
@@ -137,17 +141,17 @@ public class ProfileFragment extends Fragment {
         //파일 읽기 권한 확인
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             temp += Manifest.permission.READ_EXTERNAL_STORAGE + " "; }
-        //파일 쓰기 권한 확인
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
-        }
-        if (TextUtils.isEmpty(temp) == false) {
-            // 권한 요청
-            ActivityCompat.requestPermissions(activity, temp.trim().split(" "),1);
-        }else {
-            // 모두 허용 상태
-            Toast.makeText(activity, "권한을 모두 허용", Toast.LENGTH_SHORT).show();
-        }
+            //파일 쓰기 권한 확인
+            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
+            }
+            if (TextUtils.isEmpty(temp) == false) {
+                // 권한 요청
+                ActivityCompat.requestPermissions(activity, temp.trim().split(" "),1);
+            }else {
+                // 모두 허용 상태
+                Toast.makeText(activity, "권한을 모두 허용", Toast.LENGTH_SHORT).show();
+            }
     }
 
     @Override

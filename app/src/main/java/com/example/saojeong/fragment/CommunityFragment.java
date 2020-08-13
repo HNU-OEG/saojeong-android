@@ -1,33 +1,27 @@
 package com.example.saojeong.fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.saojeong.CommunityWirteActivity;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.CommunityAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
-import static com.example.saojeong.fragment.CommunityTabFragment.swipe;
 
 public class CommunityFragment extends Fragment implements View.OnClickListener, View.OnKeyListener{
 
@@ -53,7 +47,6 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         mAdapter=new CommunityAdapter(getActivity());
         viewPager2=view.findViewById(R.id.viewPager);
         viewPager2.setAdapter(mAdapter);
-
 
 
         tabLayout = view.findViewById(R.id.tablayout);
@@ -82,6 +75,10 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitleTextColor(Color.BLACK);
+
+        SpannableString content = new SpannableString(mWrite.getText());
+        content.setSpan(new UnderlineSpan(), 0, mWrite.getText().length(), 0);
+        mWrite.setText(content);
         final TabLayoutMediator tabLayoutMediator=new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) { //탭 목록
@@ -110,8 +107,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     public void onClick(View view) {
         int id=view.getId();
 
-        switch(id)
-        {
+        switch(id) {
             case R.id.tv_community_btn_freeboard:
                 mFreeboard.setTextColor(Color.parseColor("#fa8f68"));
                 mNotice.setTextColor(Color.parseColor("#000000"));
@@ -121,9 +117,10 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 mNotice.setTextColor(Color.parseColor("#fa8f68"));
                 break;
             case R.id.tv_community_btn_write:
-                Intent intent = new Intent((MainActivity)getActivity(), CommunityWirteActivity.class);
-
-                startActivity(intent);
+                Community_WriteFragment fragment=new Community_WriteFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment) // frameLayout에 커뮤니티 Fragment 호출
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss();
                 break;
             case R.id.ll_community_left:
                 tabLayout.setScrollPosition(0,0,true);
@@ -142,18 +139,17 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 switch(viewPager2.getCurrentItem()) {
                     case 0:
                         if (CommunityTabFragment.scroll != null) {
-
-                            CommunityTabFragment.scroll.scrollTo(0, 0);
+                            CommunityTabFragment.scroll.fullScroll(View.FOCUS_UP);
                         }
                         break;
                     case 1:
                         if (Community_Popularity_Fragment.scroll != null) {
-                            Community_Popularity_Fragment.scroll.scrollTo(0, 0);
+                            CommunityTabFragment.scroll.fullScroll(View.FOCUS_UP);
                         }
                         break;
                     case 2:
                         if (Community_User_Fragment.scroll != null) {
-                            Community_User_Fragment.scroll.scrollTo(0, 0);
+                            CommunityTabFragment.scroll.fullScroll(View.FOCUS_UP);
                         }
                         break;
                 }

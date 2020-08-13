@@ -19,11 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
-import com.example.saojeong.model.OnItemClickListener;
 import com.example.saojeong.adapter.FruitCloseAdapter;
 import com.example.saojeong.adapter.FruitOpenAdapter;
 import com.example.saojeong.model.ContactFruitClose;
 import com.example.saojeong.model.ContactFruitOpen;
+import com.example.saojeong.model.OnItemClickListener;
 import com.example.saojeong.model.RecyclerDecoration;
 
 import java.util.ArrayList;
@@ -31,6 +31,7 @@ import java.util.ArrayList;
 public class FruitFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+    private FruitShopFragment fruitShopFragment;
     private RecyclerView recyclerFruitopen;
     private RecyclerView recyclerFruitclose;
     private FruitOpenAdapter fruitOpenAdapter;
@@ -85,14 +86,22 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
         recyclerFruitclose.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         recyclerFruitclose.setAdapter(fruitCloseAdapter);
 
-<<<<<<< Updated upstream
-
-
-=======
-
-
->>>>>>> Stashed changes
         return rootView;
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        transaction = fragmentManager.beginTransaction();
+
+        fruitOpenAdapter.setOnItemClicklistener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(FruitOpenAdapter.ViewHolder holder, View view, int position) {
+                ((MainActivity)getActivity()).replaceFragment(fruitShopFragment.newInstance());
+            }
+        });
 
     }
 

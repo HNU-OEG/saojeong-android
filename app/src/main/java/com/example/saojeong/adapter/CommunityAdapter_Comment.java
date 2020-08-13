@@ -1,20 +1,20 @@
 package com.example.saojeong.adapter;
 
 import android.content.Context;
-import android.content.Intent;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.saojeong.CommunityReadActivity;
 import com.example.saojeong.R;
-import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.model.Community_CommentValue;
 
 import java.util.ArrayList;
@@ -28,6 +28,10 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         public TextView mTextView_Content;
         public TextView mTextView_Btn_ReComment;
         public ImageView mImageView_Image;
+        public LinearLayout mCommentLayout;
+        public EditText mEditView_Recomment;
+        public TextView mTextView_Btn_ReComment_Write;
+
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView_ID = (TextView) itemView.findViewById(R.id.tv_community_comment_id);
@@ -35,7 +39,34 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
             mTextView_Content = (TextView) itemView.findViewById(R.id.tv_community_comment_contents);
             mTextView_Btn_ReComment = (TextView) itemView.findViewById(R.id.tv_community_comment_btn_recomment);
             mImageView_Image=(ImageView)itemView.findViewById(R.id.iv_community_comment_image);
+            mEditView_Recomment=itemView.findViewById(R.id.et_community_comment_recomment);
+            mTextView_Btn_ReComment_Write=itemView.findViewById(R.id.tv_community_btn_comment_write);
             mLayout=itemView.findViewById(R.id.item_community_layout);
+            mCommentLayout=itemView.findViewById(R.id.ll_community_recomment);
+            mCommentLayout.setVisibility(View.GONE);
+
+            //    btnLeft.setVisibility(View.VISIBLE);
+            SpannableString content = new SpannableString(mTextView_Btn_ReComment.getText());
+            content.setSpan(new UnderlineSpan(), 0, mTextView_Btn_ReComment.getText().length(), 0);
+            mTextView_Btn_ReComment.setText(content);
+
+            mTextView_Btn_ReComment.setOnClickListener(v -> {
+                if(mCommentLayout.getVisibility()==View.VISIBLE) {
+                    mCommentLayout.setVisibility(View.GONE);
+                }
+                else {
+                    mCommentLayout.setVisibility(View.VISIBLE);
+                }
+                //답글쓰기버튼클릭시 작동
+            });
+
+            mTextView_Btn_ReComment_Write.setOnClickListener(v -> {
+                String str=mEditView_Recomment.getText().toString(); //
+                if(str.length()>0){
+
+                }
+
+            });
         }
     }
 
@@ -72,15 +103,12 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
 
 
 
-    public void CheckReComment(boolean check, CommunityAdapter_Comment.ViewHolder holder)
-    {
-        if(check)
-        {
+    public void CheckReComment(boolean check, CommunityAdapter_Comment.ViewHolder holder) {
+        if(check) {
             holder.mTextView_Btn_ReComment.setVisibility(View.GONE);
             holder.mImageView_Image.setVisibility(View.VISIBLE);
         }
-        else
-        {
+        else {
             holder.mTextView_Btn_ReComment.setVisibility(View.VISIBLE);
             holder.mImageView_Image.setVisibility(View.GONE);
         }
