@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.saojeong.R;
 import com.example.saojeong.model.Community_CommentValue;
 
+
 import java.util.ArrayList;
 
 public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdapter_Comment.ViewHolder>{
