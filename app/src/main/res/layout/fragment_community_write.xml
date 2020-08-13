@@ -17,7 +17,7 @@
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/community_write_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="#FFFFFF"
@@ -41,14 +41,15 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <FrameLayout
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
             android:background="@drawable/rounded_edittext_gray">
 
             <EditText
-                android:id="@+id/editTextTextPersonName3"
+                android:id="@+id/et_community_write_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -60,14 +61,15 @@
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="400dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edittext_gray">
 
             <EditText
-                android:id="@+id/editTextTextPersonName4"
+                android:id="@+id/et_community_write_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"

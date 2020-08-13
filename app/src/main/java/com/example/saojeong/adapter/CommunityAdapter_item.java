@@ -14,6 +14,8 @@ import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.fragment.Community_ReadFragment;
 import com.example.saojeong.model.CommunityValue;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.service.Community_Service;
 
 import java.util.ArrayList;
 
