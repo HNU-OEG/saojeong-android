@@ -41,8 +41,6 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
                     RootActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment) // frameLayout에 커뮤니티 Fragment 호출
                             .addToBackStack(null)
                             .commitAllowingStateLoss();
-
-
                 }
             });
         }

@@ -20,7 +20,6 @@ import com.example.saojeong.adapter.CommunityAdapter_item;
 import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.model.Community_CommentValue;
 
-
 import java.util.ArrayList;
 import java.util.List;
 

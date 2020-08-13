@@ -64,7 +64,7 @@ public class ContactFruitOpen {
 
 
         for(int i = 1; i <= numContacts; i++) {
-            contacts.add(new ContactFruitOpen(i+"번","서진 농산시장","★",4.9,(i+62)+"명이 평가하였습니다.", "오늘 하루도 좋은 일만 ^^*",R.drawable.logo_start, R.drawable.like));
+            contacts.add(new ContactFruitOpen(i+"번","서진 농산시장","★",4.9,(i+62)+"명이 평가하였습니다.", "오늘 하루도 좋은 일만 ^^*", R.drawable.logo_start, R.drawable.like));
         }
 
         return contacts;
