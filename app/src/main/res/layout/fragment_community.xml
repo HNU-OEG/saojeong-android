@@ -145,7 +145,7 @@
                 android:background="#ffffff"
                 android:text="작성"
                 app:elevation="0dp"
-            />
+                />
 
             <ImageView
                 android:id="@+id/imageView"

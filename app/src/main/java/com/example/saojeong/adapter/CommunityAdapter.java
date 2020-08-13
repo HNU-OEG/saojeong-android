@@ -1,54 +1,108 @@
 package com.example.saojeong.adapter;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.example.saojeong.fragment.CommunityTabFragment;
-import com.example.saojeong.fragment.Community_Popularity_Fragment;
-import com.example.saojeong.fragment.Community_User_Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class CommunityAdapter extends FragmentStateAdapter {
-    public CommunityAdapter(FragmentActivity fa){
-        super(fa);
-    }
+import com.example.saojeong.CommunityReadActivity;
+import com.example.saojeong.R;
+import com.example.saojeong.model.CommunityValue;
 
-    @NonNull
-    @Override
-    public Fragment createFragment(int position) {
-        position++;
-        switch(position){
-            case 1:
-                return new CommunityTabFragment();
-            case 2:
-                return new Community_Popularity_Fragment();
-            default:
-                return new Community_User_Fragment();
+import java.util.ArrayList;
+
+public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder> {
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView mTextViewTitle_Popularity;
+        public TextView mTextViewTitle;
+        public TextView mTextViewName;
+        public TextView mTextViewDate;
+        public TextView mTextViewComment;
+        public TextView mTextViewReCommentSize;
+        public ViewHolder(View itemView) {
+            super(itemView);
+            mTextViewTitle_Popularity = (TextView) itemView.findViewById(R.id.tv_community_Title_popularity);
+            mTextViewTitle = (TextView) itemView.findViewById(R.id.tv_community_Title_item);
+            mTextViewName = (TextView) itemView.findViewById(R.id.tv_community_name_item);
+            mTextViewDate = (TextView) itemView.findViewById(R.id.tv_community_date_item);
+            mTextViewComment = (TextView) itemView.findViewById(R.id.tv_community_Title_comment);
+            mTextViewReCommentSize = (TextView) itemView.findViewById(R.id.tv_community_comment_recomment);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context=v.getContext();
+                    Intent intent = new Intent(context, CommunityReadActivity.class);
+                    //intent.putExtra();
+                    context.startActivity(intent);
+                }
+            });
         }
+    }
 
+    private ArrayList<CommunityValue> mContacts;
+    private int mBoard;
+
+    public CommunityAdapter_item(ArrayList<CommunityValue> contacts, int Board) {
+        mContacts = contacts;
+        mBoard=Board;
     }
 
     @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
-    }
-    public Fragment setFragment(int position)
-    {
-        position++;
-        switch(position){
-            case 1:
-                return new CommunityTabFragment();
-            case 2:
-                return new Community_Popularity_Fragment();
-            default:
-                return new Community_User_Fragment();
-        }
+    public CommunityAdapter_item.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        View contactView = inflater.inflate(R.layout.item_community, parent, false);
+
+        ViewHolder viewHolder = new ViewHolder(contactView);
+        return viewHolder;
     }
 
+    @Override
+    public void onBindViewHolder(CommunityAdapter_item.ViewHolder holder, int position) {
+
+        CommunityValue contact = mContacts.get(position+mBoard*10);
+        holder.mTextViewTitle.setText(contact.GetTitle());
+        holder.mTextViewName.setText(contact.GetName());
+        holder.mTextViewDate.setText(contact.GetDate());
+        holder.mTextViewComment.setText("["+contact.GetComment().size() + "]");
+        holder.mTextViewReCommentSize.setText(contact.GetGoodCommend()+ "");
+        CheckPopularity(contact.GetPopular(), holder);
+    }
 
     @Override
     public int getItemCount() {
-        return 3;
+        if(mContacts.size()-mBoard*10>=10)
+            return 9;
+        else {
+            return ((mContacts.size() - mBoard * 10) % 10) ;
+        }
+    }
+
+    public void UpBoard()
+    {
+        ++mBoard;
+    }
+    public void DownBoard()
+    {
+        if(mBoard!=0)
+            --mBoard;
+    }
+    public void CheckPopularity(boolean check, CommunityAdapter_item.ViewHolder holder)
+    {
+        if(check)
+        {
+            holder.mTextViewTitle_Popularity.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            holder.mTextViewTitle_Popularity.setVisibility(View.GONE);
+        }
     }
 }

@@ -35,7 +35,7 @@ public class MyPageFragment extends Fragment {
     ArrayList<LikeStore> likeStores;
     ArrayList<StarStore> starStores;
 
-    RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
+    RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(15);
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(10);
 
     private Button btn_profile;
@@ -71,7 +71,7 @@ public class MyPageFragment extends Fragment {
         starStores = StarStore.createLikeStoreList(numStore);
         starStoreAdapter = new StarStoreAdapter(starStores);
 
-        recyclerStar.addItemDecoration(bottomDecoration);
+        recyclerStar.addItemDecoration(leftDecoration);
         recyclerStar.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerStar.setAdapter(starStoreAdapter);
 

@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId())
         {
             case R.id.ll_home:
+<<<<<<< Updated upstream
                 fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
                     transaction.replace(R.id.frameLayout_main, homeFragment) // frameLayout에 홈 Fragment 호출
                             .addToBackStack(null)
@@ -82,10 +83,23 @@ public class MainActivity extends AppCompatActivity {
                     mcommunity.setImageResource(R.drawable.community);
                     mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage);
+=======
+//                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+                transaction.replace(R.id.frameLayout_main, homeFragment) // frameLayout에 홈 Fragment 호출
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss();
+
+                mhome.setImageResource(R.drawable.home_orange);
+                mprice.setImageResource(R.drawable.price);
+                mcommunity.setImageResource(R.drawable.community);
+                mchatbot.setImageResource(R.drawable.chatbot);
+                mmypage.setImageResource(R.drawable.mypage);
+>>>>>>> Stashed changes
                 break;
 
             case R.id.ll_price:
                 fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+<<<<<<< Updated upstream
                     transaction.replace(R.id.frameLayout_main, priceFragment) // frameLayout에 시세 Fragment 호출
                             .addToBackStack(null)
                             .commitAllowingStateLoss();
@@ -95,10 +109,22 @@ public class MainActivity extends AppCompatActivity {
                     mcommunity.setImageResource(R.drawable.community);
                     mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage);
+=======
+                transaction.replace(R.id.frameLayout_main, priceFragment) // frameLayout에 시세 Fragment 호출
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss();
+
+                mhome.setImageResource(R.drawable.home);
+                mprice.setImageResource(R.drawable.price_orange);
+                mcommunity.setImageResource(R.drawable.community);
+                mchatbot.setImageResource(R.drawable.chatbot);
+                mmypage.setImageResource(R.drawable.mypage);
+>>>>>>> Stashed changes
                 break;
 
             case R.id.ll_community:
                 fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+<<<<<<< Updated upstream
                     transaction.replace(R.id.frameLayout_main, communityFragment) // frameLayout에 커뮤니티 Fragment 호출
                             .addToBackStack(null)
                             .commitAllowingStateLoss();
@@ -108,6 +134,17 @@ public class MainActivity extends AppCompatActivity {
                     mcommunity.setImageResource(R.drawable.community_orange);
                     mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage);
+=======
+                transaction.replace(R.id.frameLayout_main, communityFragment) // frameLayout에 커뮤니티 Fragment 호출
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss();
+
+                mhome.setImageResource(R.drawable.home);
+                mprice.setImageResource(R.drawable.price);
+                mcommunity.setImageResource(R.drawable.community_orange);
+                mchatbot.setImageResource(R.drawable.chatbot);
+                mmypage.setImageResource(R.drawable.mypage);
+>>>>>>> Stashed changes
                 break;
 
             case R.id.ll_chatbot:
@@ -115,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.ll_myPage:
                 fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+<<<<<<< Updated upstream
                     transaction.replace(R.id.frameLayout_main, myPageFragment) // frameLayout에 MyPage Fragment 호출
                             .addToBackStack(null)
                             .commitAllowingStateLoss();
@@ -124,6 +162,17 @@ public class MainActivity extends AppCompatActivity {
                     mcommunity.setImageResource(R.drawable.community);
                     mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage_orange);
+=======
+                transaction.replace(R.id.frameLayout_main, myPageFragment) // frameLayout에 MyPage Fragment 호출
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss();
+
+                mhome.setImageResource(R.drawable.home);
+                mprice.setImageResource(R.drawable.price);
+                mcommunity.setImageResource(R.drawable.community);
+                mchatbot.setImageResource(R.drawable.chatbot);
+                mmypage.setImageResource(R.drawable.mypage_orange);
+>>>>>>> Stashed changes
                 break;
         }
     }
@@ -158,6 +207,10 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frameLayout_home, homeFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void signOut(View view) {
+        Toast.makeText(view.getContext(),"test", Toast.LENGTH_LONG).show();
     }
 
     public void closeKeyBoard(View view) {

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.model.OnItemClickListener;
 import com.example.saojeong.adapter.FruitCloseAdapter;
 import com.example.saojeong.adapter.FruitOpenAdapter;
 import com.example.saojeong.model.ContactFruitClose;
@@ -84,8 +85,13 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
         recyclerFruitclose.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         recyclerFruitclose.setAdapter(fruitCloseAdapter);
 
+<<<<<<< Updated upstream
 
 
+=======
+
+
+>>>>>>> Stashed changes
         return rootView;
 
     }

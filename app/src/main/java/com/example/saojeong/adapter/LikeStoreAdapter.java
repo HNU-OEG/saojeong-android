@@ -27,12 +27,12 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.image = itemView.findViewById(R.id.iv_shop);
-            this.img_like = itemView.findViewById(R.id.iv_like);
-            this.codeStore = itemView.findViewById(R.id.tv_shopnum);
-            this.nameStore = itemView.findViewById(R.id.tv_shopname);
-            this.rateStore = itemView.findViewById(R.id.tv_starscore);
-            this.rateCountStore = itemView.findViewById(R.id.tv_evaluation);
+            this.image = itemView.findViewById(R.id.image);
+            this.img_like = itemView.findViewById(R.id.img_like);
+            this.codeStore = itemView.findViewById(R.id.codeStore);
+            this.nameStore = itemView.findViewById(R.id.nameStore);
+            this.rateStore = itemView.findViewById(R.id.rateStore);
+            this.rateCountStore = itemView.findViewById(R.id.rateCountStore);
         }
     }
 
@@ -46,7 +46,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.item_contact, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_likestore, parent, false);
         return new ViewHolder(view);
     }
 

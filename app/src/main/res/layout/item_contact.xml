@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context=".adapter.LikeStoreAdapter">
+    tools:context=".adapter.ContactsAdapter">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="138dp"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_like"
+            android:id="@+id/iv_favorate"
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:src="@drawable/like"
