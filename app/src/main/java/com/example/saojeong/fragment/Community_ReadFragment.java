@@ -24,6 +24,8 @@ import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.CommunityAdapter_Comment;
 import com.example.saojeong.model.Community_CommentValue;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.service.Community_Service;
 
 import java.util.ArrayList;
 
@@ -44,6 +46,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
     LinearLayout m_LikeUp;
     LinearLayout m_LikeDown;
 
+    private Community_Service community_Service;
 
     public Community_ReadFragment() {
     }
@@ -56,6 +59,9 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
         view=inflater.inflate(R.layout.fragment_community_read, container, false); //0,2,외 이탭
+        community_Service = ServiceGenerator.createService(Community_Service.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5NzU4ODU3MSwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.G0SdapZG7h9Lr5kJf0P8ecl71DXiLFHicq6805RHDvY");
+
+
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
 

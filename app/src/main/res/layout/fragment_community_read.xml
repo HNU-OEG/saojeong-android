@@ -49,8 +49,12 @@
         </RelativeLayout>
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="23dp"
             >
 
             <androidx.core.widget.NestedScrollView
@@ -123,6 +127,7 @@
                         android:gravity="center_horizontal">
 
                         <LinearLayout
+                            android:id="@+id/ll_community_like_up"
                             android:layout_width="138dp"
                             android:layout_height="36dp"
                             android:layout_marginLeft="5dp"
@@ -158,6 +163,7 @@
 
 
                         <LinearLayout
+                            android:id="@+id/ll_community_like_down"
                             android:layout_width="138dp"
                             android:layout_height="36dp"
                             android:layout_marginLeft="170dp"
@@ -200,10 +206,10 @@
                         android:orientation="vertical">
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                ></TextView>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            ></TextView>
 
                         <EditText
                             android:id="@+id/tv_community_comment_comment"
@@ -227,6 +233,11 @@
                         android:layout_marginTop="10dp">
 
                     </androidx.recyclerview.widget.RecyclerView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        ></TextView>
                 </LinearLayout>
 
 

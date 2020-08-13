@@ -32,16 +32,16 @@
             android:layout_gravity="center">
 
             <TextView
-                android:layout_width="265dp"
-                android:layout_height="170dp"
+                android:layout_width="286dp"
+                android:layout_height="104dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="46dp"
+                android:layout_marginLeft="50dp"
                 android:background="@drawable/rounded_edittext_gray"></TextView>
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="181dp"
+                android:layout_height="105dp"
                 android:foregroundGravity="center"
                 android:background="@null">
 

@@ -115,7 +115,8 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
         set1.setFillAlpha(65);
         set1.setCircleRadius(5f);
         ArrayList<String> xAxisValues = new ArrayList<>();
-        mLineChart.setExtraRightOffset(40f);
+        mLineChart.setExtraRightOffset(10f);
+        mLineChart.setExtraLeftOffset(10f);
         //mLineChart.setExtraBottomOffset(f);
         //mLineChart.setBackgroundResource(R.drawable.rounded_edittext_gray);
         //mLineChart.setExtraTopOffset(10f);
@@ -128,7 +129,6 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
         for(int i=0; i<4; ++i) {
             xAxisValues.add("7월"+i+"일");
         }
-        mLineChart.setScaleMinima(10f, 10f);
         mLineChart.fitScreen();
         mLineChart.setExtraBottomOffset(-10f);
         XAxis xAxis = mLineChart.getXAxis();
@@ -155,7 +155,7 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
         mLineChart.setDragEnabled(true);
         mLineChart.setScaleEnabled(true);
         YAxis yAxisLeft = mLineChart.getAxisLeft();
-        yAxisLeft.setTextSize(14f);
+        yAxisLeft.setTextSize(11f);
         yAxisLeft.setGranularity(10f);
         yAxisLeft.setLabelCount(4);
         //mLineChart.getAxisLeft().setAxisMaximum();
