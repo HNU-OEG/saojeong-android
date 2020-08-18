@@ -17,6 +17,9 @@ import com.example.saojeong.model.LikeStore;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.ToString;
+
+@ToString
 public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.ViewHolder> {
     private final RequestManager glide;
 
@@ -40,6 +43,11 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
     }
 
     private List<LikeStore> mLikeStore;
+
+    public LikeStoreAdapter(ArrayList<LikeStore> stores) {
+        this.mLikeStore = stores;
+        glide = null;
+    }
 
     public LikeStoreAdapter(RequestManager glide, List<LikeStore> stores) {
         this.glide = glide;
@@ -65,7 +73,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         TextView rateStore = holder.rateStore;
         TextView rateCountStore = holder.rateCountStore;
 
-        glide.load(likeStore.getMImage()).into((image));
+        glide.load(likeStore.get_mImage()).into((image));
         img_like.setImageResource(likeStore.isMLike()? R.drawable.like : R.drawable.unlike);
         codeStore.setText(likeStore.getMCodeStore()+"번");
         nameStore.setText(likeStore.getMNameStore());

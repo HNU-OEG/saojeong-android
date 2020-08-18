@@ -1,57 +1,115 @@
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <RelativeLayout
-        android:id="@+id/item_community_layout"
+    android:layout_height="wrap_content">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:id="@+id/item_community_layout"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
-        <ImageView
-            android:id="@+id/iv_community_comment_image"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            app:srcCompat="@drawable/recomment"></ImageView>
+            <ImageView
+                android:id="@+id/iv_community_comment_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="14dp"
+                app:srcCompat="@drawable/recomment"></ImageView>
 
-        <TextView
-            android:id="@+id/tv_community_comment_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/iv_community_comment_image"
-            android:text="아이디" />
+            <TextView
+                android:id="@+id/tv_community_comment_id"
+                android:layout_width="87dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="14dp"
+                android:layout_toRightOf="@+id/iv_community_comment_image"
+                android:text="아이디"
+                android:textSize="13sp" />
 
-        <TextView
-            android:id="@+id/tv_community_comment_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="150dp"
-            android:text="시간" />
+            <TextView
+                android:id="@+id/tv_community_comment_date"
+                android:layout_width="87dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="14dp"
+                android:text="시간"
+                android:textSize="13sp" />
 
-        <TextView
-            android:id="@+id/tv_community_comment_contents"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_community_comment_id"
-            android:layout_toRightOf="@+id/iv_community_comment_image"
-            android:layout_marginLeft="10dp"
-            android:text="내용" />
+            <TextView
+                android:id="@+id/tv_community_comment_contents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_community_comment_id"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/iv_community_comment_image"
+                android:text="내용" />
 
-        <TextView
-            android:id="@+id/tv_community_comment_btn_recomment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_community_comment_contents"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:gravity="right"
-            android:text="답글쓰기" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_community_comment_btn_recomment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_community_comment_contents"
+                android:layout_alignParentRight="true"
+                android:text="답글쓰기" />
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/ll_community_recomment"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:layout_marginTop="24.5dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/recomment"></ImageView>
+                <TextView
+                    android:id="@+id/tv_community_comment_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="aaaaa"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_community_btn_comment_write"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="작성"
+                    android:textAlignment="center"
+                    android:textColor="#ff6950"
+                    android:textSize="13.5sp" />
+
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/et_community_comment_recomment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="내용을 입력하세요"
+                android:lineSpacingExtra="5sp"
+                android:textSize="13sp"
+                android:inputType="textMultiLine"
+                android:background="@null"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

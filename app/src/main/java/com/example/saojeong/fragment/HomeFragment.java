@@ -3,6 +3,12 @@ package com.example.saojeong.fragment;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TabHost;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,14 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.TabHost;
-import android.widget.TextView;
+
 
 import com.bumptech.glide.Glide;
+
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.FishAdapter;
@@ -46,8 +48,7 @@ import java.util.Objects;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -106,8 +107,8 @@ public class HomeFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         //매장 Recycler View
+        recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
         loadStores(this);
-//        recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
 //        likeStores = LikeStore.createLikeStoreList(20);
 //        likeStoreAdapter = new LikeStoreAdapter(likeStores);
 //        recyclerShop.addItemDecoration(leftDecoration);
@@ -195,17 +196,16 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<StoreDto>> call,
                                    Response<List<StoreDto>> response) {
                 if (response.isSuccessful()) {
-                    likeStores = LikeStore.createLikeStoreList(Objects.requireNonNull(response.body()));
-                    likeStoreAdapter = new LikeStoreAdapter(Glide.with(homeFragment), likeStores);
-                    recyclerShop.addItemDecoration(leftDecoration);
-                    recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerShop.setAdapter(likeStoreAdapter);
-
-
-
 //                    for (StoreDto dto : response.body()) {
 //                        Log.d("RESPONSE", dto.toString());
 //                    }
+
+                    likeStores = LikeStore._createLikeStoreList(Objects.requireNonNull(response.body()));
+                    likeStoreAdapter = new LikeStoreAdapter(Glide.with(homeFragment), likeStores);
+                    Log.d("WHY", likeStoreAdapter.toString());
+                    recyclerShop.addItemDecoration(leftDecoration);
+                    recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                    recyclerShop.setAdapter(likeStoreAdapter);
                 } else {
                     Log.d("REST FAILED MESSAGE", response.message());
                 }

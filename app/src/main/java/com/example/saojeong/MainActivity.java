@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.saojeong.fragment.CommunityFragment;
@@ -14,19 +13,11 @@ import android.widget.ImageView;
 import com.example.saojeong.fragment.PriceFragment;
 
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
+
 
 import com.example.saojeong.fragment.HomeFragment;
 import com.example.saojeong.fragment.MyPageFragment;
-import com.example.saojeong.rest.ServiceGenerator;
-import com.example.saojeong.rest.dto.StoreDto;
-import com.example.saojeong.rest.service.StoreService;
 
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,41 +68,44 @@ public class MainActivity extends AppCompatActivity {
         {
             case R.id.ll_home:
                 fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
-                    transaction.replace(R.id.frameLayout_main, homeFragment) // frameLayout에 홈 Fragment 호출
-                            .addToBackStack(null)
-                            .commitAllowingStateLoss();
+                transaction.replace(R.id.frameLayout_main, homeFragment) // frameLayout에 홈 Fragment 호출
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss();
 
-                    mhome.setImageResource(R.drawable.home_orange);
-                    mprice.setImageResource(R.drawable.price);
-                    mcommunity.setImageResource(R.drawable.community);
-                    mchatbot.setImageResource(R.drawable.chatbot);
-                    mmypage.setImageResource(R.drawable.mypage);
+                mhome.setImageResource(R.drawable.home_orange);
+                mprice.setImageResource(R.drawable.price);
+                mcommunity.setImageResource(R.drawable.community);
+                mchatbot.setImageResource(R.drawable.chatbot);
+                mmypage.setImageResource(R.drawable.mypage);
+
                 break;
 
             case R.id.ll_price:
                 fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
-                    transaction.replace(R.id.frameLayout_main, priceFragment) // frameLayout에 시세 Fragment 호출
-                            .addToBackStack(null)
-                            .commitAllowingStateLoss();
+                transaction.replace(R.id.frameLayout_main, priceFragment) // frameLayout에 시세 Fragment 호출
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss();
 
-                    mhome.setImageResource(R.drawable.home);
-                    mprice.setImageResource(R.drawable.price_orange);
-                    mcommunity.setImageResource(R.drawable.community);
-                    mchatbot.setImageResource(R.drawable.chatbot);
-                    mmypage.setImageResource(R.drawable.mypage);
+                mhome.setImageResource(R.drawable.home);
+                mprice.setImageResource(R.drawable.price_orange);
+                mcommunity.setImageResource(R.drawable.community);
+                mchatbot.setImageResource(R.drawable.chatbot);
+                mmypage.setImageResource(R.drawable.mypage);
+
                 break;
 
             case R.id.ll_community:
                 fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
-                    transaction.replace(R.id.frameLayout_main, communityFragment) // frameLayout에 커뮤니티 Fragment 호출
-                            .addToBackStack(null)
-                            .commitAllowingStateLoss();
+                transaction.replace(R.id.frameLayout_main, communityFragment) // frameLayout에 커뮤니티 Fragment 호출
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss();
 
-                    mhome.setImageResource(R.drawable.home);
-                    mprice.setImageResource(R.drawable.price);
-                    mcommunity.setImageResource(R.drawable.community_orange);
-                    mchatbot.setImageResource(R.drawable.chatbot);
-                    mmypage.setImageResource(R.drawable.mypage);
+                mhome.setImageResource(R.drawable.home);
+                mprice.setImageResource(R.drawable.price);
+                mcommunity.setImageResource(R.drawable.community_orange);
+                mchatbot.setImageResource(R.drawable.chatbot);
+                mmypage.setImageResource(R.drawable.mypage);
+
                 break;
 
             case R.id.ll_chatbot:
@@ -119,15 +113,16 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.ll_myPage:
                 fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
-                    transaction.replace(R.id.frameLayout_main, myPageFragment) // frameLayout에 MyPage Fragment 호출
-                            .addToBackStack(null)
-                            .commitAllowingStateLoss();
+                transaction.replace(R.id.frameLayout_main, myPageFragment) // frameLayout에 MyPage Fragment 호출
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss();
 
-                    mhome.setImageResource(R.drawable.home);
-                    mprice.setImageResource(R.drawable.price);
-                    mcommunity.setImageResource(R.drawable.community);
-                    mchatbot.setImageResource(R.drawable.chatbot);
-                    mmypage.setImageResource(R.drawable.mypage_orange);
+                mhome.setImageResource(R.drawable.home);
+                mprice.setImageResource(R.drawable.price);
+                mcommunity.setImageResource(R.drawable.community);
+                mchatbot.setImageResource(R.drawable.chatbot);
+                mmypage.setImageResource(R.drawable.mypage_orange);
+
                 break;
         }
     }
@@ -162,10 +157,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frameLayout_home, homeFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-    }
-
-    public void signOut(View view) {
-        Toast.makeText(view.getContext(),"test", Toast.LENGTH_LONG).show();
     }
 
     public void closeKeyBoard(View view) {

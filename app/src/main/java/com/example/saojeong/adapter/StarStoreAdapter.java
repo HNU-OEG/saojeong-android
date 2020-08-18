@@ -16,8 +16,6 @@ import com.example.saojeong.model.StarStore;
 
 import java.util.ArrayList;
 
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-
 public class StarStoreAdapter extends RecyclerView.Adapter<StarStoreAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
