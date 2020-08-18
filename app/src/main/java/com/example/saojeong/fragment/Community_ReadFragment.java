@@ -1,5 +1,6 @@
 package com.example.saojeong.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -39,9 +40,10 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
     CommunityAdapter_Comment mAdapter;
     RecyclerView mRecycleview;
     NestedScrollView mNestedScroll;
-    LinearLayout m_LikeUp;
-    LinearLayout m_LikeDown;
 
+    TextView mComment_btn;
+    TextView mLikeUp;
+    TextView mLikeDown;
    // private Community_Service community_Service;
 
     public Community_ReadFragment() {
@@ -61,8 +63,8 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
 
-         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-         ((MainActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+         //((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+         //((MainActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
          ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
         mtitle = view.findViewById(R.id.tv_community_read_title);
         mboard = view.findViewById(R.id.tv_community_read_board);
@@ -71,18 +73,23 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         mcontents = view.findViewById(R.id.tv_community_read_contents);
         mComment_name=view.findViewById(R.id.tv_community_comment_name);
         mComment_comment=view.findViewById(R.id.tv_community_comment_comment);
-        //mComment_btn=view.findViewById(R.id.tv_community_btn_comment_write);
+        mComment_btn=view.findViewById(R.id.tv_community_btn_inputcomment);
         mRecycleview=view.findViewById(R.id.testRecycle);
         mNestedScroll=view.findViewById(R.id.testscroll);
-        m_LikeUp=view.findViewById(R.id.ll_community_like_up);
-        m_LikeDown=view.findViewById(R.id.ll_community_like_down);
+        mLikeUp=view.findViewById(R.id.tv_community_like_up);
+        mLikeDown=view.findViewById(R.id.tv_community_like_down);
+
+
+        SpannableString content = new SpannableString(mComment_btn.getText());
+        content.setSpan(new UnderlineSpan(), 0, mComment_btn.getText().length(), 0);
+        mComment_btn.setText(content);
 
         mCommunityCommentValue= new ArrayList<>();
         mCommunityCommentValue.add(new Community_CommentValue("시장이용객23","07. 13   03:29","쓰촨 인정해. 진짜 맛있지.", false));
         mCommunityCommentValue.add(new Community_CommentValue("한남대학생","07. 13   03:29","뭐야. 좀 먹을 줄 아는 놈인가?", true));
         mCommunityCommentValue.add(new Community_CommentValue("시장이용객23","07. 13   03:29","쓰촨이 있었기에, 이번 한학기를 버텼다.", true));
         mCommunityCommentValue.add(new Community_CommentValue("시장사용자17","07. 13   03:29","시나브로 사장님 완젼 친절해요", false));
-        mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue);
+        mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext());
         mRecycleview.setAdapter(mAdapter);
         mRecycleview.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecycleview.setNestedScrollingEnabled(false);
@@ -108,10 +115,12 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         int id=view.getId();
 
         switch(id) {
-            case R.id.ll_community_like_up:
+            case R.id.tv_community_like_up:
+                mLikeUp.setTextColor(Color.parseColor("#ff6950"));
                 //라이크 버튼 이벤트
                 break;
-            case R.id.ll_community_like_down:
+            case R.id.tv_community_like_down:
+                mLikeDown.setTextColor(Color.parseColor("#878787"));
                 //라이크 버튼 이벤트
                 break;
         }

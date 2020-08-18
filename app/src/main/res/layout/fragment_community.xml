@@ -54,9 +54,9 @@
 
                 <TextView
                     android:id="@+id/tv_community_btn_freeboard"
-                    android:layout_width="210dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:background="#ffffff"
                     android:foreground="?attr/selectableItemBackground"
@@ -67,7 +67,7 @@
 
                 <TextView
                     android:id="@+id/tv_community_btn_notice"
-                    android:layout_width="210dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="#ffffff"
@@ -82,35 +82,32 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="69dp">
+            android:layout_height="69dp"
+            android:background="#ffffff">
 
             <TextView
                 android:id="@+id/et_community_board"
-                android:layout_width="309dp"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="40dp"
                 android:background="@drawable/rounded_edittext_gray"></TextView>
 
             <EditText
                 android:id="@+id/et_community_boardsearch"
-                android:layout_width="260dp"
+                android:layout_width="match_parent"
                 android:layout_height="19dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="50dp"
                 android:background="@null"
                 android:hint="게시글을 검색하세요"
+                android:drawableRight="@drawable/search1"
                 android:inputType="textPersonName" />
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/et_community_boardsearch"
-                android:layout_marginRight="50dp"
-                app:srcCompat="@drawable/search" />
+
         </RelativeLayout>
 
         <!-- 프레임 레이아웃 씌워야댐;;-->
@@ -140,42 +137,22 @@
                 app:tabSelectedTextColor="@color/colorMain"></com.google.android.material.tabs.TabLayout>
 
             <TextView
-                android:id="@+id/textView5"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <TextView
                 android:id="@+id/tv_community_btn_write"
                 android:layout_width="53dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:drawableLeft="@drawable/likeup"
+                android:drawableLeft="@drawable/pensil"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
                 android:background="#ffffff"
                 android:foreground="?attr/selectableItemBackground"
                 android:text="작성"
-                android:textAllCaps="false"
                 android:textColor="#ff6950"
                 android:textStyle="bold"
                 app:elevation="0dp" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="21dp"
-                android:layout_height="22dp"
-                android:layout_marginTop="10dp"
-                android:layout_toLeftOf="@+id/tv_community_btn_write"
-                app:srcCompat="@drawable/search" />
 
         </RelativeLayout>
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#DFDBDB" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -186,7 +163,8 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginVertical="20dp"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -207,7 +185,7 @@
             >
 
             <ImageView
-                android:src="@drawable/ar_left"
+                android:src="@drawable/community_left"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="9dp"
@@ -227,7 +205,7 @@
             >
 
             <ImageView
-                android:src="@drawable/ar_right"
+                android:src="@drawable/community_right"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="9dp"
@@ -248,7 +226,7 @@
             >
 
             <ImageView
-                android:src="@drawable/community"
+                android:src="@drawable/community_home"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="9dp"
@@ -268,7 +246,7 @@
             >
 
             <ImageView
-                android:src="@drawable/chatbot"
+                android:src="@drawable/community_re"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="9dp"
@@ -288,7 +266,7 @@
             >
 
             <ImageView
-                android:src="@drawable/community_orange"
+                android:src="@drawable/community_upscroll"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="9dp"
