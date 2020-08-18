@@ -5,9 +5,11 @@ import com.google.gson.annotations.SerializedName;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class StoreDto {
     @SerializedName("store_number")
     @Expose
@@ -15,9 +17,12 @@ public class StoreDto {
     @SerializedName("store_name")
     @Expose
     private String storeName;
+    @SerializedName("store_image")
+    @Expose
+    private String storeImage;
     @SerializedName("vote_grade_average")
     @Expose
-    private float voteGradeAverage;
+    private Double voteGradeAverage;
     @SerializedName("vote_grade_count")
     @Expose
     private Integer voteGradeCount;
@@ -27,6 +32,10 @@ public class StoreDto {
     @SerializedName("starred")
     @Expose
     private Integer starred;
+
+    public boolean isStarred() {
+        return starred == 1;
+    }
 
     // Lombok이 없었다면 아래의 코드가 필요합니다.
 

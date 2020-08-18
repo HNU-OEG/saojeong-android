@@ -1,16 +1,19 @@
 package com.example.saojeong.fragment;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.FishAdapter;
@@ -31,10 +35,17 @@ import com.example.saojeong.model.ContactFullview;
 import com.example.saojeong.model.ContactVegetable;
 import com.example.saojeong.model.LikeStore;
 import com.example.saojeong.model.RecyclerDecoration;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.StoreDto;
 import com.example.saojeong.rest.service.StoreService;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -59,11 +70,13 @@ public class HomeFragment extends Fragment {
     private VegetableAdapter vegetableAdapter;
     private FishAdapter fishAdapter;
     private FullviewAdapter fullviewAdapter;
-    ArrayList<LikeStore> likeStores;
+    List<LikeStore> likeStores;
     ArrayList<ContactFruit> contactFruits;
     ArrayList<ContactVegetable> contactVegetables;
     ArrayList<ContactFish> contactFishs;
     ArrayList<ContactFullview> contactFullviews;
+
+    private StoreService storeService;
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
 
@@ -80,6 +93,8 @@ public class HomeFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
+        storeService = ServiceGenerator.createService(StoreService.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5ODkzMTk5MiwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.t7jf9FaSNE8BH6fjboCBbz8YvR9sGDlmSvJL8WQEDYA");
+
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
 
@@ -91,12 +106,13 @@ public class HomeFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         //매장 Recycler View
-        recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
-        likeStores = LikeStore.createLikeStoreList(20);
-        likeStoreAdapter = new LikeStoreAdapter(likeStores);
-        recyclerShop.addItemDecoration(leftDecoration);
-        recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerShop.setAdapter(likeStoreAdapter);
+        loadStores(this);
+//        recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
+//        likeStores = LikeStore.createLikeStoreList(20);
+//        likeStoreAdapter = new LikeStoreAdapter(likeStores);
+//        recyclerShop.addItemDecoration(leftDecoration);
+//        recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+//        recyclerShop.setAdapter(likeStoreAdapter);
 
         //과일 Recycler View
         recyclerFruit = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_fragment);
@@ -169,6 +185,37 @@ public class HomeFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+    private void loadStores(HomeFragment homeFragment) {
+        Log.d("LOADSTORES HERE", "HERE");
+        storeService.getStoreListOrderByGrade().enqueue(new Callback<List<StoreDto>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<List<StoreDto>> call,
+                                   Response<List<StoreDto>> response) {
+                if (response.isSuccessful()) {
+                    likeStores = LikeStore.createLikeStoreList(Objects.requireNonNull(response.body()));
+                    likeStoreAdapter = new LikeStoreAdapter(Glide.with(homeFragment), likeStores);
+                    recyclerShop.addItemDecoration(leftDecoration);
+                    recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                    recyclerShop.setAdapter(likeStoreAdapter);
+
+
+
+//                    for (StoreDto dto : response.body()) {
+//                        Log.d("RESPONSE", dto.toString());
+//                    }
+                } else {
+                    Log.d("REST FAILED MESSAGE", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<StoreDto>> call, Throwable t) {
+                Log.d("REST ERROR!", t.getMessage());
+            }
+        });
     }
 
     @Override

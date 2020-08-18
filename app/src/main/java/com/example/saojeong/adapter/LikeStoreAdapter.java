@@ -10,12 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
 import com.example.saojeong.R;
 import com.example.saojeong.model.LikeStore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.ViewHolder> {
+    private final RequestManager glide;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
@@ -36,9 +39,10 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         }
     }
 
-    private ArrayList<LikeStore> mLikeStore;
+    private List<LikeStore> mLikeStore;
 
-    public LikeStoreAdapter(ArrayList<LikeStore> stores) {
+    public LikeStoreAdapter(RequestManager glide, List<LikeStore> stores) {
+        this.glide = glide;
         this.mLikeStore = stores;
     }
 
@@ -61,12 +65,12 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         TextView rateStore = holder.rateStore;
         TextView rateCountStore = holder.rateCountStore;
 
-        image.setImageResource(likeStore.getmImage());
-        img_like.setImageResource(likeStore.ismLike()? R.drawable.like : R.drawable.unlike);
-        codeStore.setText(likeStore.getmCodeStore()+"번");
-        nameStore.setText(likeStore.getmNameStore());
-        rateStore.setText(Double.toString(likeStore.getmRateStore()));
-        rateCountStore.setText(likeStore.getmRateCountStore()+"명이 평가하였습니다.");
+        glide.load(likeStore.getMImage()).into((image));
+        img_like.setImageResource(likeStore.isMLike()? R.drawable.like : R.drawable.unlike);
+        codeStore.setText(likeStore.getMCodeStore()+"번");
+        nameStore.setText(likeStore.getMNameStore());
+        rateStore.setText(Double.toString(likeStore.getMRateStore()));
+        rateCountStore.setText(likeStore.getMRateCountStore()+"명이 평가하였습니다.");
     }
 
     @Override

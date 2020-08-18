@@ -44,14 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
     private InputMethodManager imm;
 
-    private StoreService storeService;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // store service 생성
-        storeService = ServiceGenerator.createService(StoreService.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5NzU4ODU3MSwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.G0SdapZG7h9Lr5kJf0P8ecl71DXiLFHicq6805RHDvY");
 
         // 하단바 클릭시 색상 변경
         mhome = findViewById(R.id.miv_home);
@@ -73,29 +69,8 @@ public class MainActivity extends AppCompatActivity {
         mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
 
 
-        loadStores();
     }
 
-    private void loadStores() {
-        Log.d("LOADSTORES HERE", "HERE");
-        storeService.getStoreListOrderByGrade().enqueue(new Callback<List<StoreDto>>() {
-            @Override
-            public void onResponse(Call<List<StoreDto>> call,
-                                   Response<List<StoreDto>> response) {
-                if (response.isSuccessful()) {
-                    // response.body()
-                    // response.body()에서 넘어오는 데이터로 Adapter에 뿌려주기
-                } else {
-                    Log.d("REST FAILED MESSAGE", response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<StoreDto>> call, Throwable t) {
-                Log.d("REST ERROR!", t.getMessage());
-            }
-        });
-    }
     public void clickHandler(View view) {
         transaction = fragmentManager.beginTransaction();
         switch (view.getId())
