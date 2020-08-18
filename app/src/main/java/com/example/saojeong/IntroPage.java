@@ -18,7 +18,7 @@ public class IntroPage extends AppCompatActivity {
         handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             public void run() {
-                Intent intent = new Intent(IntroPage.this, MainActivity.class);
+                Intent intent = new Intent(IntroPage.this, TestTutoActivity.class);
                 startActivity(intent);
                 finish();
             }
