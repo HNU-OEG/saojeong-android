@@ -71,9 +71,9 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         viewPager2.setUserInputEnabled(false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitleTextColor(Color.BLACK);
 
         SpannableString content = new SpannableString(mWrite.getText());
@@ -144,12 +144,12 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                         break;
                     case 1:
                         if (Community_Popularity_Fragment.scroll != null) {
-                            CommunityTabFragment.scroll.fullScroll(View.FOCUS_UP);
+                            Community_Popularity_Fragment.scroll.fullScroll(View.FOCUS_UP);
                         }
                         break;
                     case 2:
                         if (Community_User_Fragment.scroll != null) {
-                            CommunityTabFragment.scroll.fullScroll(View.FOCUS_UP);
+                            Community_User_Fragment.scroll.fullScroll(View.FOCUS_UP);
                         }
                         break;
                 }
