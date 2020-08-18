@@ -32,7 +32,7 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         public LinearLayout mCommentLayout;
         public EditText mEditView_Recomment;
         public TextView mTextView_Btn_ReComment_Write;
-
+//
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView_ID = (TextView) itemView.findViewById(R.id.tv_community_comment_id);
