@@ -74,11 +74,11 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         TextView rateCountStore = holder.rateCountStore;
 
         glide.load(likeStore.get_mImage()).into((image));
-        img_like.setImageResource(likeStore.isMLike()? R.drawable.like : R.drawable.unlike);
-        codeStore.setText(likeStore.getMCodeStore()+"번");
+        img_like.setImageResource(likeStore.isMLike() ? R.drawable.like : R.drawable.unlike);
+        codeStore.setText(likeStore.getMCodeStore() + "번");
         nameStore.setText(likeStore.getMNameStore());
         rateStore.setText(Double.toString(likeStore.getMRateStore()));
-        rateCountStore.setText(likeStore.getMRateCountStore()+"명이 평가하였습니다.");
+        rateCountStore.setText(likeStore.getMRateCountStore() + "명이 평가하였습니다.");
     }
 
     @Override

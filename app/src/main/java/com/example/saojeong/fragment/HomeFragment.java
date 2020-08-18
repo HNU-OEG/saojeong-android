@@ -191,7 +191,7 @@ public class HomeFragment extends Fragment {
     private void loadStores(HomeFragment homeFragment) {
         Log.d("LOADSTORES HERE", "HERE");
         storeService.getStoreListOrderByGrade().enqueue(new Callback<List<StoreDto>>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
+//            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<List<StoreDto>> call,
                                    Response<List<StoreDto>> response) {

@@ -53,11 +53,18 @@ public class LikeStore {
         return likeStores;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+//    @RequiresApi(api = Build.VERSION_CODES.N)
     public static List<LikeStore> _createLikeStoreList(List<StoreDto> response) {
-        return response.stream()
-                .map(LikeStore::new)
-                .collect(Collectors.toList());
+        List<LikeStore> likeStores = new ArrayList<>();
+
+        for (StoreDto dto : response) {
+            likeStores.add(new LikeStore(dto));
+        }
+        return likeStores;
+
+//        return response.stream()
+//                .map(LikeStore::new)
+//                .collect(Collectors.toList());
     }
 
 
