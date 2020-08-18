@@ -31,7 +31,6 @@ public class Community_User_Fragment extends Fragment {
     TextView btnRight;
     TextView tvBoard;
 
-    public static SwipeRefreshLayout swipe;
     public static NestedScrollView scroll;
     int board=0;
     @Nullable
@@ -43,16 +42,9 @@ public class Community_User_Fragment extends Fragment {
         mCommunityValue= new ArrayList<>();
         btnLeft=view.findViewById(R.id.tv_community_btn_Left);
         btnRight=view.findViewById(R.id.tv_community_btn_Right);
-     //   scroll=view.findViewById(R.id.scrollns_community);
+        scroll=view.findViewById(R.id.scrollns_community);
         tvBoard=view.findViewById(R.id.tv_community_board);
-        swipe=view.findViewById(R.id.swipeRefresh);
         mRecyclerViewCommunity.setHasTransientState(true);
-        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipe.setRefreshing(false);
-            }
-        });
 
         btnLeft.setOnClickListener(new View.OnClickListener() {
             @Override

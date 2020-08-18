@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="DuplicateIds,MissingConstraints"
-        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
-            <com.example.saojeong.MyNestedScrollView
+            <androidx.core.widget.NestedScrollView
                 android:id="@+id/scrollns_community"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never"
                 android:fillViewport="true"
@@ -36,9 +30,13 @@
                         android:id="@+id/community_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusableInTouchMode="true"/>
+                        android:focusableInTouchMode="true">
+
+
+                    </androidx.recyclerview.widget.RecyclerView>
 
                     <RelativeLayout
+                        android:id="@+id/rl_community_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -89,8 +87,15 @@
                 </LinearLayout>
 
 
-            </com.example.saojeong.MyNestedScrollView>
-
+            </androidx.core.widget.NestedScrollView>
+            <View
+                android:id="@+id/bottomFocus"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnApplyFilters"
+                />
         </LinearLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

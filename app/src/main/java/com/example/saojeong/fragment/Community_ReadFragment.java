@@ -89,7 +89,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         mCommunityCommentValue.add(new Community_CommentValue("한남대학생","07. 13   03:29","뭐야. 좀 먹을 줄 아는 놈인가?", true));
         mCommunityCommentValue.add(new Community_CommentValue("시장이용객23","07. 13   03:29","쓰촨이 있었기에, 이번 한학기를 버텼다.", true));
         mCommunityCommentValue.add(new Community_CommentValue("시장사용자17","07. 13   03:29","시나브로 사장님 완젼 친절해요", false));
-        mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue);
+        mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext());
         mRecycleview.setAdapter(mAdapter);
         mRecycleview.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecycleview.setNestedScrollingEnabled(false);
