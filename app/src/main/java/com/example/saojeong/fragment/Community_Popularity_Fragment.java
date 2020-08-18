@@ -39,11 +39,11 @@ public class Community_Popularity_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
         view=inflater.inflate(R.layout.viewpaper_community, container, false); //0,2,외 이탭
-        final RecyclerView mRecyclerViewCommunity = view.findViewById(R.id.community_board);
+        final RecyclerView mRecyclerViewCommunity = view.findViewById(R.id.community_recycler);
         mCommunityValue= new ArrayList<>();
         btnLeft=view.findViewById(R.id.tv_community_btn_Left);
         btnRight=view.findViewById(R.id.tv_community_btn_Right);
-        scroll=view.findViewById(R.id.scrollns_community);
+       // scroll=view.findViewById(R.id.scrollns_community);
         tvBoard=view.findViewById(R.id.tv_community_board);
         swipe=view.findViewById(R.id.swipeRefresh);
 

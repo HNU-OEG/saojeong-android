@@ -68,7 +68,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         mBottomRe.setOnClickListener(this);
         mBottomUpScroll=view.findViewById(R.id.ll_community_upscroll);
         mBottomUpScroll.setOnClickListener(this);
-        viewPager2.setUserInputEnabled(false);
+       // viewPager2.setUserInputEnabled(false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         //((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -76,6 +76,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
         toolbar.setTitleTextColor(Color.BLACK);
 
+        //밑줄
         SpannableString content = new SpannableString(mWrite.getText());
         content.setSpan(new UnderlineSpan(), 0, mWrite.getText().length(), 0);
         mWrite.setText(content);

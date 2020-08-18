@@ -41,6 +41,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
     RecyclerView mRecycleview;
     NestedScrollView mNestedScroll;
 
+    TextView mComment_btn;
     TextView mLikeUp;
     TextView mLikeDown;
    // private Community_Service community_Service;
@@ -72,11 +73,16 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         mcontents = view.findViewById(R.id.tv_community_read_contents);
         mComment_name=view.findViewById(R.id.tv_community_comment_name);
         mComment_comment=view.findViewById(R.id.tv_community_comment_comment);
-        //mComment_btn=view.findViewById(R.id.tv_community_btn_comment_write);
+        mComment_btn=view.findViewById(R.id.tv_community_btn_inputcomment);
         mRecycleview=view.findViewById(R.id.testRecycle);
         mNestedScroll=view.findViewById(R.id.testscroll);
         mLikeUp=view.findViewById(R.id.tv_community_like_up);
         mLikeDown=view.findViewById(R.id.tv_community_like_down);
+
+
+        SpannableString content = new SpannableString(mComment_btn.getText());
+        content.setSpan(new UnderlineSpan(), 0, mComment_btn.getText().length(), 0);
+        mComment_btn.setText(content);
 
         mCommunityCommentValue= new ArrayList<>();
         mCommunityCommentValue.add(new Community_CommentValue("시장이용객23","07. 13   03:29","쓰촨 인정해. 진짜 맛있지.", false));

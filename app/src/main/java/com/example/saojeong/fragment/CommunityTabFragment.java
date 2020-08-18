@@ -42,7 +42,8 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
         view=inflater.inflate(R.layout.viewpaper_community, container, false);
-        mRecyclerViewCommunity = view.findViewById(R.id.community_board);
+        mRecyclerViewCommunity = view.findViewById(R.id.community_recycler);
+        mRecyclerViewCommunity.setNestedScrollingEnabled(false);
         mCommunityValue= new ArrayList<>();
         btnLeft=view.findViewById(R.id.tv_community_btn_Left);
         btnLeft.setOnClickListener(this);

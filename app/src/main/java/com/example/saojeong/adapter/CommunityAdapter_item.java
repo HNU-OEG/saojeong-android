@@ -16,14 +16,14 @@ import com.example.saojeong.model.CommunityValue;
 import java.util.ArrayList;
 
 public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder>{
-    public MainActivity RootActivity;
+    private MainActivity RootActivity;
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextViewTitle_Popularity;
-        public TextView mTextViewTitle;
-        public TextView mTextViewName;
-        public TextView mTextViewDate;
-        public TextView mTextViewComment;
-        public TextView mTextViewReCommentSize;
+        private TextView mTextViewTitle_Popularity;
+        private TextView mTextViewTitle;
+        private TextView mTextViewName;
+        private TextView mTextViewDate;
+        private TextView mTextViewComment;
+        private TextView mTextViewReCommentSize;
         public ViewHolder(View itemView) {
             super(itemView);
             mTextViewTitle_Popularity = (TextView) itemView.findViewById(R.id.tv_community_Title_popularity);
@@ -36,15 +36,13 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Community_ReadFragment fragment= new Community_ReadFragment();
-                    //RootActivity.getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
-                    RootActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment) // frameLayout에 커뮤니티 Fragment 호출
-                            .addToBackStack(null)
-                            .commitAllowingStateLoss();
+
                 }
             });
         }
+
     }
+
 
     private ArrayList<CommunityValue> mContacts;
     private int mBoard;
@@ -103,4 +101,5 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
             holder.mTextViewTitle_Popularity.setVisibility(View.GONE);
         }
     }
+
 }

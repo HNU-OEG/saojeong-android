@@ -93,5 +93,5 @@
         android:layout_centerInParent="true"
         android:layout_marginHorizontal="10dp"
         android:layout_below="@+id/tv_community_name_item"
-        android:background="#BFBBBB"/>
+        android:background="#f1f1f1"/>
 </RelativeLayout>
