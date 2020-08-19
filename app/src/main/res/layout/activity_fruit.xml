@@ -151,8 +151,13 @@
                                     android:id="@+id/tabDe"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:orientation="vertical"/>
+                                    android:orientation="vertical">
 
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/recyclerfruit_detail"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent" />
+                                </LinearLayout>
                                 <LinearLayout
                                     android:id="@+id/tabSc"
                                     android:layout_width="match_parent"

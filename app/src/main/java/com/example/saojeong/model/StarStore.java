@@ -1,6 +1,7 @@
 package com.example.saojeong.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StarStore {
     private int mCodeStore;

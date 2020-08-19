@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -20,7 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.adapter.FruitDetailAdapter;
 import com.example.saojeong.adapter.FruitSellListAdapter;
+import com.example.saojeong.model.ContactFruitDetail;
 import com.example.saojeong.model.ContactFruitShop;
 import com.example.saojeong.model.RecyclerDecoration;
 
@@ -33,8 +36,11 @@ public class FruitShopFragment extends Fragment {
     private FragmentTransaction transaction;
     private FruitFragment fruitFragment;
     private RecyclerView recyclerFruitSellList;
+    private RecyclerView recyclerFruitDetail;
     private FruitSellListAdapter fruitSellListAdapter;
+    private FruitDetailAdapter fruitDetailAdapter;
     ArrayList<ContactFruitShop> contactFruitShops;
+    ArrayList<ContactFruitDetail> contactFruitDetails;
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(1);
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(50);
@@ -52,7 +58,7 @@ public class FruitShopFragment extends Fragment {
         transaction = fragmentManager.beginTransaction();
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_fruit, container, false);
-        //매장 Recycler View
+        //판매 품목
         recyclerFruitSellList = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_selllist);
         contactFruitShops = ContactFruitShop.createContactsList(10);
         fruitSellListAdapter = new FruitSellListAdapter(contactFruitShops);
@@ -60,6 +66,15 @@ public class FruitShopFragment extends Fragment {
         recyclerFruitSellList.addItemDecoration(bottomDecoration);
         recyclerFruitSellList.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         recyclerFruitSellList.setAdapter(fruitSellListAdapter);
+
+        //상세 설명
+        recyclerFruitDetail = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_detail);
+        contactFruitDetails = ContactFruitDetail.createContactsList(1);
+        fruitDetailAdapter = new FruitDetailAdapter(contactFruitDetails);
+        recyclerFruitDetail.addItemDecoration(leftDecoration);
+        recyclerFruitDetail.addItemDecoration(bottomDecoration);
+        recyclerFruitDetail.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+        recyclerFruitDetail.setAdapter(fruitDetailAdapter);
 
         //상단 액션바
         Toolbar toolbar = rootView.findViewById(R.id.toolbar_fruit);
