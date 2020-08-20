@@ -196,9 +196,9 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<StoreDto>> call,
                                    Response<List<StoreDto>> response) {
                 if (response.isSuccessful()) {
-//                    for (StoreDto dto : response.body()) {
-//                        Log.d("RESPONSE", dto.toString());
-//                    }
+                    for (StoreDto dto : response.body()) {
+                        Log.d("RESPONSE", dto.toString());
+                    }
 
                     likeStores = LikeStore._createLikeStoreList(Objects.requireNonNull(response.body()));
                     likeStoreAdapter = new LikeStoreAdapter(Glide.with(homeFragment), likeStores);
