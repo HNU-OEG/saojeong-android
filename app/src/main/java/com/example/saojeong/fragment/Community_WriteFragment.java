@@ -45,8 +45,8 @@ public class Community_WriteFragment extends Fragment {
         et_Title = view.findViewById(R.id.et_community_write_title);
         et_Content = view.findViewById(R.id.et_community_write_content);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((MainActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        //((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //((MainActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
         setHasOptionsMenu(true);
         return view;

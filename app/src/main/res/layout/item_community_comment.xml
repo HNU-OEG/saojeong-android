@@ -98,16 +98,18 @@
 
             </LinearLayout>
 
-
             <EditText
                 android:id="@+id/et_community_comment_recomment"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="내용을 입력하세요"
                 android:lineSpacingExtra="5sp"
                 android:textSize="13sp"
                 android:inputType="textMultiLine"
-                android:background="@null"/>
+                android:background="@null">
+                <requestFocus />
+            </EditText>
 
 
         </LinearLayout>
