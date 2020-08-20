@@ -18,8 +18,6 @@ public class ContactFruitDetail {
 
     }
 
-
-
     public String getmTime() {
         return mTime;
     }
@@ -32,8 +30,8 @@ public class ContactFruitDetail {
         return mPhoneN2;
     }
 
-    public static List<ContactFruitDetail> createContactsList(int numContacts) {
-        List<ContactFruitDetail> contacts = new ArrayList<ContactFruitDetail>();
+    public static ArrayList<ContactFruitDetail> createContactsList(int numContacts) {
+        ArrayList<ContactFruitDetail> contacts = new ArrayList<ContactFruitDetail>();
 
 
         for(int i = 1; i <= numContacts; i++) {

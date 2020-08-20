@@ -124,8 +124,7 @@
                             <TabWidget
                                 android:id="@android:id/tabs"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:tabStripEnabled="false"/>
+                                android:layout_height="wrap_content" />
 
                             <FrameLayout
                                 android:id="@android:id/tabcontent"
@@ -158,11 +157,19 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:id="@+id/tabSc"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:orientation="vertical"/>
+                                    android:layout_marginLeft="24dp"
+                                    android:orientation="vertical">
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/recyclerfruit_score"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent" />
+                                </LinearLayout>
                             </FrameLayout>
                         </LinearLayout>
                     </TabHost>

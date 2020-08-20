@@ -6,6 +6,7 @@ import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdapter_Comment.ViewHolder>{
 
     public RelativeLayout mLayout;
+    public Context mContext;
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView_ID;
         public TextView mTextView_Date;
@@ -32,7 +34,7 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         public LinearLayout mCommentLayout;
         public EditText mEditView_Recomment;
         public TextView mTextView_Btn_ReComment_Write;
-
+//
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView_ID = (TextView) itemView.findViewById(R.id.tv_community_comment_id);
@@ -45,8 +47,6 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
             mLayout=itemView.findViewById(R.id.item_community_layout);
             mCommentLayout=itemView.findViewById(R.id.ll_community_recomment);
             mCommentLayout.setVisibility(View.GONE);
-
-            //    btnLeft.setVisibility(View.VISIBLE);
             SpannableString content = new SpannableString(mTextView_Btn_ReComment.getText());
             content.setSpan(new UnderlineSpan(), 0, mTextView_Btn_ReComment.getText().length(), 0);
             mTextView_Btn_ReComment.setText(content);
@@ -57,6 +57,9 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
                 }
                 else {
                     mCommentLayout.setVisibility(View.VISIBLE);
+                    mEditView_Recomment.requestFocus();
+                    InputMethodManager  inputMananger = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMananger.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                 }
                 //답글쓰기버튼클릭시 작동
             });
@@ -73,7 +76,8 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
 
     private ArrayList<Community_CommentValue> mContacts;
 
-    public CommunityAdapter_Comment(ArrayList<Community_CommentValue> contacts) {
+    public CommunityAdapter_Comment(ArrayList<Community_CommentValue> contacts, Context context) {
+        mContext=context;
         mContacts = contacts;
     }
     @Override

@@ -3,7 +3,6 @@ package com.example.saojeong.model;
 import com.example.saojeong.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ContactFruitClose {
     private String mShopnum;

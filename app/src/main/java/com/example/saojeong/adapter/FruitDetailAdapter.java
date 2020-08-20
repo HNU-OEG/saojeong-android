@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,15 +20,15 @@ public class FruitDetailAdapter extends RecyclerView.Adapter<FruitDetailAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView timeTextView;
-        public TextView phonen1TextView;
-        public TextView phonen2TextView;
+        public Button phonen1Button;
+        public Button phonen2Button;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             timeTextView = (TextView) itemView.findViewById(R.id.tv_bh);
-            phonen1TextView = (TextView) itemView.findViewById(R.id.tv_phonenum1);
-            phonen2TextView = (TextView) itemView.findViewById(R.id.tv_phonenum2);
+            phonen1Button = (Button) itemView.findViewById(R.id.btn_phonenum1);
+            phonen2Button = (Button) itemView.findViewById(R.id.btn_phonenum2);
         }
     }
 
@@ -53,12 +54,12 @@ public class FruitDetailAdapter extends RecyclerView.Adapter<FruitDetailAdapter.
         ContactFruitDetail contactFruitDetail = mContacts.get(position);
 
         TextView tv_bh = holder.timeTextView;
-        TextView tv_phonen1 = holder.phonen1TextView;
-        TextView tv_phonen2 = holder.phonen2TextView;
+        Button btn_phonen1 = holder.phonen1Button;
+        Button btn_phonen2 = holder.phonen2Button;
 
         tv_bh.setText(contactFruitDetail.getmTime());
-        tv_phonen1.setText(contactFruitDetail.getmPhoneN1());
-        tv_phonen2.setText(contactFruitDetail.getmPhoneN2());
+        btn_phonen1.setText(contactFruitDetail.getmPhoneN1());
+        btn_phonen2.setText(contactFruitDetail.getmPhoneN2());
 
     }
 

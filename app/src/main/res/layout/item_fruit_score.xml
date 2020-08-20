@@ -39,13 +39,40 @@
         android:layout_marginBottom="18dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_fruit_kindstar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="17dp"
-            android:textStyle="bold"
-            android:text="☆☆☆☆☆" />
+        <ImageView
+            android:id="@+id/iv_fruit_kindstar1"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/iv_fruit_kindstar2"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/iv_fruit_kindstar3"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/iv_fruit_kindstar4"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/iv_fruit_kindstar5"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -67,13 +94,40 @@
         android:layout_marginBottom="18dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_fruit_itemstar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="17dp"
-            android:text="☆☆☆☆☆" />
+        <ImageView
+            android:id="@+id/iv_fruit_itemstar1"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/iv_fruit_itemstar2"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/iv_fruit_itemstar3"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/iv_fruit_itemstar4"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/iv_fruit_itemstar5"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -94,13 +148,40 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_fruit_pricestar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="17dp"
-            android:text="☆☆☆☆☆" />
+        <ImageView
+            android:id="@+id/iv_fruit_pricestar1"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/iv_fruit_pricestar2"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/iv_fruit_pricestar3"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/iv_fruit_pricestar4"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/iv_fruit_pricestar5"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:src="@drawable/like" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -133,12 +214,14 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="11dp"
+                android:textColor="#727272"
                 android:text="가게 평가하기" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="9dp"
+                android:textColor="#727272"
                 android:text="다른 사용자에게 의견을 들려주세요." />
         </LinearLayout>
 
@@ -148,8 +231,8 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_fruit_"
+            <Button
+                android:id="@+id/btn_fruit_score"
                 android:layout_width="72dp"
                 android:layout_height="23dp"
                 android:layout_gravity="end|bottom"
@@ -161,5 +244,26 @@
                 android:textSize="11dp"
                 android:text="평점주기" />
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:layout_marginBottom="15dp"
+            android:textStyle="bold"
+            android:textSize="13dp"
+            android:text="평점은 공개되며 수정이 가능합니다." />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_fruit_score"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 </LinearLayout>

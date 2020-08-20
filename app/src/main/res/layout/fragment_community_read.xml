@@ -53,28 +53,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="23dp"
+            android:background="@null"
             >
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/testscroll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/communityread_appbarlayout"
+                android:background="@null"
                 android:fillViewport="true">
 
                 <LinearLayout
-                    android:layout_width="360dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center_horizontal"
-                    >
+                    android:orientation="vertical"
+                    android:background="@null">
 
                     <TextView
                         android:id="@+id/tv_community_read_title"
-                        android:layout_width="269dp"
-                        android:layout_height="21dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"
                         android:text="제목은 두껍게! 한눈에 보이도록!"
                         android:textColor="#4e4e4e"
                         android:textSize="19sp" />
@@ -83,6 +84,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="9dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginHorizontal="30dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -104,10 +107,17 @@
                             android:text="가나다라" />
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_centerInParent="true"
+                        android:layout_below="@+id/tv_community_name_item"
+                        android:background="#f1f1f1"/>
                     <TextView
                         android:id="@+id/tv_community_read_contents"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"
                         android:layout_marginTop="30dp"
                         android:text="내가 가본 한남대 맛집 리스트 소개해드림\n\n
     1. 쓰촨\n
@@ -124,6 +134,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="59dp"
+                        android:background="#fdfdfd"
                         android:gravity="center_horizontal">
 
                         <LinearLayout
@@ -134,31 +145,21 @@
                             android:layout_marginTop="16dp"
                             android:background="@drawable/rounded_edittext"
                             android:foreground="?attr/selectableItemBackground"
-                            android:orientation="horizontal">
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:elevation="1dp">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="29dp"
-                                android:layout_marginTop="10dp"
-                                android:background="@drawable/like"></ImageView>
 
                             <TextView
-                                android:id="@+id/textView7"
+                                android:id="@+id/tv_community_like_up"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
                                 android:gravity="center"
-                                android:text="추천"
+                                android:drawableLeft="@drawable/likeup"
+                                android:text="추천 0"
                                 android:textSize="16sp" />
 
-                            <TextView
-                                android:id="@+id/textView4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text=" 0"
-                                android:textSize="16sp" />
                         </LinearLayout>
 
 
@@ -170,57 +171,80 @@
                             android:layout_marginTop="16dp"
                             android:background="@drawable/rounded_edittext"
                             android:foreground="?attr/selectableItemBackground"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:elevation="1dp">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="24dp"
-                                android:layout_marginTop="10dp"
-                                android:background="@drawable/unlike"></ImageView>
 
                             <TextView
-                                android:id="@+id/textView71"
+                                android:id="@+id/tv_community_like_down"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_gravity="center"
                                 android:gravity="center"
-                                android:text="비추천"
+                                android:drawableLeft="@drawable/likedown"
+                                android:text="비추천 0"
                                 android:textSize="16sp" />
 
-                            <TextView
-                                android:id="@+id/textView41"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text=" 0"
-                                android:textSize="16sp" />
                         </LinearLayout>
-                        \
+
 
                     </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
                         android:orientation="vertical">
 
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            ></TextView>
-
-                        <EditText
-                            android:id="@+id/tv_community_comment_comment"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:hint="내용을 입력하세요"
-                            android:lineSpacingExtra="5sp"
-                            android:textSize="13sp"
-                            android:inputType="textMultiLine"
-                            android:gravity="top"
-                            android:background="@null"/>
+                            android:background="#fcfcfc"
+                            android:orientation="vertical">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="25dp"
+                                android:layout_marginTop="24dp">
+                                <TextView
+                                    android:id="@+id/tv_community_read_commentname"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:lineSpacingExtra="6sp"
+                                    android:textColor="#4e4e4e"
+                                    android:textSize="16sp"
+                                    android:text="가나다라">
+                                </TextView>
+                                <TextView
+                                    android:id="@+id/tv_community_btn_inputcomment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="13.5sp"
+                                    android:textColor="#ff6950"
+                                    android:lineSpacingExtra="5.5sp"
+                                    android:layout_alignParentRight="true"
+                                    android:foreground="?attr/selectableItemBackground"
+                                    android:text="작성"
+                                    android:textStyle="bold"
+
+                                    ></TextView>
+                             </RelativeLayout>
+                            <EditText
+                                android:id="@+id/tv_community_comment_comment"
+                                android:layout_width="match_parent"
+                                android:layout_height="121dp"
+                                android:layout_marginHorizontal="25dp"
+                                android:layout_marginVertical="14dp"
+                                android:background="#ffffff"
+                                android:gravity="top"
+                                android:hint="내용을 입력하세요"
+                                android:inputType="textMultiLine"
+                                android:lineSpacingExtra="5sp"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -230,14 +254,11 @@
                         android:id="@+id/testRecycle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginHorizontal="18dp"
+                        android:layout_marginTop="18dp">
 
                     </androidx.recyclerview.widget.RecyclerView>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        ></TextView>
                 </LinearLayout>
 
 
