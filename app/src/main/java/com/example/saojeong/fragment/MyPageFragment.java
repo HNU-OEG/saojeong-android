@@ -75,11 +75,6 @@ public class MyPageFragment extends Fragment {
 
         recyclerLikes = view.findViewById(R.id.recycler_likeStore);
         loadStores(this);
-//        likeStores = LikeStore.createLikeStoreList(numStore);
-//        likeStoreAdapter = new LikeStoreAdapter(likeStores);
-//        recyclerLikes.addItemDecoration(leftDecoration);
-//        recyclerLikes.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-//        recyclerLikes.setAdapter(likeStoreAdapter);
 
 
         recyclerStar = view.findViewById(R.id.recycler_starStore);
