@@ -10,4 +10,7 @@ import retrofit2.http.GET;
 public interface StoreService {
     @GET("/api/store")
     Call<List<StoreDto>> getStoreListOrderByGrade();
+
+    @GET("/api/store/starred")
+    Call<List<StoreDto>> getStarredStoreList();
 }

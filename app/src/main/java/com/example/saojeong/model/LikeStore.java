@@ -42,7 +42,7 @@ public class LikeStore {
         this.mLike = mLike;
     }
 
-    public static ArrayList<LikeStore> createLikeStoreList(int numLikeStore) {
+    public static ArrayList<LikeStore> _createLikeStoreList(int numLikeStore) {
         ArrayList<LikeStore> likeStores = new ArrayList<LikeStore>();
 
         for (int i = 1; i <= numLikeStore; i++) {
@@ -53,18 +53,13 @@ public class LikeStore {
         return likeStores;
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.N)
-    public static List<LikeStore> _createLikeStoreList(List<StoreDto> response) {
+    public static List<LikeStore> createLikeStoreList(List<StoreDto> response) {
         List<LikeStore> likeStores = new ArrayList<>();
 
         for (StoreDto dto : response) {
             likeStores.add(new LikeStore(dto));
         }
         return likeStores;
-
-//        return response.stream()
-//                .map(LikeStore::new)
-//                .collect(Collectors.toList());
     }
 
 

@@ -31,6 +31,7 @@ import com.example.saojeong.adapter.FruitAdapter;
 import com.example.saojeong.adapter.FullviewAdapter;
 import com.example.saojeong.adapter.LikeStoreAdapter;
 import com.example.saojeong.adapter.VegetableAdapter;
+import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.model.ContactFish;
 import com.example.saojeong.model.ContactFruit;
 import com.example.saojeong.model.ContactFullview;
@@ -85,6 +86,8 @@ public class HomeFragment extends Fragment {
 
     TabHost tabHost;
 
+    private final String TAG = this.getClass().getName();
+
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -93,8 +96,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
-        storeService = ServiceGenerator.createService(StoreService.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5ODkzMTk5MiwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.t7jf9FaSNE8BH6fjboCBbz8YvR9sGDlmSvJL8WQEDYA");
+        storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
 
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
@@ -109,11 +111,6 @@ public class HomeFragment extends Fragment {
         //매장 Recycler View
         recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
         loadStores(this);
-//        likeStores = LikeStore.createLikeStoreList(20);
-//        likeStoreAdapter = new LikeStoreAdapter(likeStores);
-//        recyclerShop.addItemDecoration(leftDecoration);
-//        recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-//        recyclerShop.setAdapter(likeStoreAdapter);
 
         //과일 Recycler View
         recyclerFruit = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_fragment);
@@ -189,31 +186,34 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadStores(HomeFragment homeFragment) {
-        Log.d("LOADSTORES HERE", "HERE");
         storeService.getStoreListOrderByGrade().enqueue(new Callback<List<StoreDto>>() {
-//            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<List<StoreDto>> call,
                                    Response<List<StoreDto>> response) {
                 if (response.isSuccessful()) {
-                    for (StoreDto dto : response.body()) {
-                        Log.d("RESPONSE", dto.toString());
-                    }
-
-                    likeStores = LikeStore._createLikeStoreList(Objects.requireNonNull(response.body()));
+                    likeStores = LikeStore.createLikeStoreList(Objects.requireNonNull(response.body()));
                     likeStoreAdapter = new LikeStoreAdapter(Glide.with(homeFragment), likeStores);
-                    Log.d("WHY", likeStoreAdapter.toString());
                     recyclerShop.addItemDecoration(leftDecoration);
                     recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
                     recyclerShop.setAdapter(likeStoreAdapter);
                 } else {
-                    Log.d("REST FAILED MESSAGE", response.message());
+                    likeStores = LikeStore._createLikeStoreList(20);
+                    likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                    recyclerShop.addItemDecoration(leftDecoration);
+                    recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                    recyclerShop.setAdapter(likeStoreAdapter);
+                    Log.d(TAG, response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<List<StoreDto>> call, Throwable t) {
-                Log.d("REST ERROR!", t.getMessage());
+                likeStores = LikeStore._createLikeStoreList(20);
+                likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                recyclerShop.addItemDecoration(leftDecoration);
+                recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerShop.setAdapter(likeStoreAdapter);
+                Log.d(TAG, t.getMessage());
             }
         });
     }
@@ -227,7 +227,7 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.iv_home).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceFragment(homeFragment.newInstance());
+                ((MainActivity) getActivity()).replaceFragment(homeFragment.newInstance());
                 fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
             }
         });
@@ -235,27 +235,27 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.btn_fruit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceHomeFragment(fruitFragment.newInstance());
+                ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance());
             }
         });
 
         view.findViewById(R.id.btn_vegetable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceHomeFragment(fruitFragment.newInstance());
+                ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance());
             }
         });
 
         view.findViewById(R.id.btn_fish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceHomeFragment(fruitFragment.newInstance());
+                ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance());
             }
         });
     }
 
     public void closeKeyBoard(View view) {
-        imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 }

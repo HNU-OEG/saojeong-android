@@ -44,7 +44,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
 
     private List<LikeStore> mLikeStore;
 
-    public LikeStoreAdapter(ArrayList<LikeStore> stores) {
+    public LikeStoreAdapter(List<LikeStore> stores) {
         this.mLikeStore = stores;
         glide = null;
     }
