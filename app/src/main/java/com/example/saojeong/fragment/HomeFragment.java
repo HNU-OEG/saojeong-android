@@ -39,9 +39,10 @@ import com.example.saojeong.model.RecyclerDecoration;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.SeasonalFoodDto;
 import com.example.saojeong.rest.dto.StoreDto;
+import com.example.saojeong.rest.dto.board.ContentDto;
+import com.example.saojeong.rest.service.BoardService;
 import com.example.saojeong.rest.service.SeasonalFoodService;
 import com.example.saojeong.rest.service.StoreService;
-import com.example.saojeong.util.DateHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,10 +78,11 @@ public class HomeFragment extends Fragment {
     List<ContactFruit> contactFruits;
     List<ContactVegetable> contactVegetables;
     List<ContactFish> contactFishs;
-    ArrayList<ContactFullview> contactFullviews;
+    List<ContactFullview> contactFullviews;
 
     private StoreService storeService;
     private SeasonalFoodService foodService;
+    private BoardService boardService;
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
 
@@ -100,6 +102,7 @@ public class HomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
         foodService = ServiceGenerator.createService(SeasonalFoodService.class, TokenCase.getToken());
+        boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
 
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
@@ -125,10 +128,7 @@ public class HomeFragment extends Fragment {
 
         //전체 보기(공지) Recycler View
         recyclerFullview = (RecyclerView) rootView.findViewById(R.id.recyclerfullview_fragment);
-        contactFullviews = ContactFullview.createContactsList(20);
-        fullviewAdapter = new FullviewAdapter(contactFullviews);
-        recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerFullview.setAdapter(fullviewAdapter);
+        loadNews(this);
 
         tabHost = (TabHost) rootView.findViewById(R.id.tabhost);
         tabHost.setup();
@@ -291,6 +291,33 @@ public class HomeFragment extends Fragment {
                 recyclerFish.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
                 recyclerFish.setAdapter(fishAdapter);
                 Log.d(TAG, t.getMessage());
+            }
+        });
+    }
+
+    private void loadNews(HomeFragment homeFragment) {
+        boardService.getBoardList(10000).enqueue(new Callback<List<ContentDto>>() {
+            @Override
+            public void onResponse(Call<List<ContentDto>> call, Response<List<ContentDto>> response) {
+                if (response.code() != 201) {
+                    contactFullviews = ContactFullview._createContactsList(20);
+                    fullviewAdapter = new FullviewAdapter(contactFullviews);
+                    recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                    recyclerFullview.setAdapter(fullviewAdapter);
+                } else {
+                    contactFullviews = ContactFullview.createContactsList(Objects.requireNonNull(response.body()));
+                    fullviewAdapter = new FullviewAdapter(Glide.with(homeFragment), contactFullviews);
+                    recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                    recyclerFullview.setAdapter(fullviewAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ContentDto>> call, Throwable t) {
+                contactFullviews = ContactFullview._createContactsList(20);
+                fullviewAdapter = new FullviewAdapter(contactFullviews);
+                recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerFullview.setAdapter(fullviewAdapter);
             }
         });
     }
