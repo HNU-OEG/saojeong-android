@@ -16,6 +16,9 @@ public class ContactFruitOpen {
     private Double mStarscore;
     private String mEvaluation;
     private String mSelfintroduction;
+    private int mImage;
+    private int mFImage;
+    private String _mImage;
 
     public String getmShopnum() {
         return mShopnum;
@@ -53,10 +56,6 @@ public class ContactFruitOpen {
         return _mImage;
     }
 
-    private int mImage;
-    private int mFImage;
-    private String _mImage;
-
     public ContactFruitOpen(String mShopnum, String mShopname, String mStar, Double mStarscore, String mEvaluation, String mSelfintroduction, int mImage, int mFImage) {
         this.mShopnum = mShopnum;
         this.mShopname = mShopname;
@@ -92,7 +91,6 @@ public class ContactFruitOpen {
 
     public static List<ContactFruitOpen> createContactsList(List<StoreDto> response) {
         List<ContactFruitOpen> contacts = new ArrayList<>();
-
 
         for (StoreDto dto : response) {
             contacts.add(new ContactFruitOpen(dto));

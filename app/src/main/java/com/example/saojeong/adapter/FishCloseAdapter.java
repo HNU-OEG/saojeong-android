@@ -9,12 +9,14 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactFishClose;
 
 import java.util.List;
 
 public class FishCloseAdapter extends RecyclerView.Adapter<FishCloseAdapter.ViewHolder> {
+    private final RequestManager glide;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView shopnumTextView;
@@ -39,11 +41,17 @@ public class FishCloseAdapter extends RecyclerView.Adapter<FishCloseAdapter.View
         }
     }
 
-    private List<ContactFishClose> mContacts;
-
     public FishCloseAdapter(List<ContactFishClose> contacts) {
         mContacts = contacts;
+        glide = null;
     }
+
+    public FishCloseAdapter(RequestManager glide, List<ContactFishClose> contacts) {
+        mContacts = contacts;
+        this.glide = glide;
+    }
+
+    private List<ContactFishClose> mContacts;
 
     @Override
     public FishCloseAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -75,7 +83,11 @@ public class FishCloseAdapter extends RecyclerView.Adapter<FishCloseAdapter.View
         tv_starscore.setText(Double.toString(contactFishClose.getmStarscore()));
         tv_evaluation.setText(contactFishClose.getmEvaluation());
         tv_selfintroduction.setText(contactFishClose.getmSelfintroduction());
-        iv_shop.setImageResource(contactFishClose.getmImage());
+        if (glide == null) {
+            iv_shop.setImageResource(contactFishClose.getmImage());
+        } else {
+            glide.load(contactFishClose.get_mImage()).into(iv_shop);
+        }
         iv_favorate.setImageResource(contactFishClose.getmFImage());
     }
 

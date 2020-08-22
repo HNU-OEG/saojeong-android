@@ -9,12 +9,14 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactFishOpen;
 
 import java.util.List;
 
 public class FishOpenAdapter extends RecyclerView.Adapter<FishOpenAdapter.ViewHolder> {
+    private final RequestManager glide;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView shopnumTextView;
@@ -43,6 +45,12 @@ public class FishOpenAdapter extends RecyclerView.Adapter<FishOpenAdapter.ViewHo
 
     public FishOpenAdapter(List<ContactFishOpen> contacts) {
         mContacts = contacts;
+        glide = null;
+    }
+
+    public FishOpenAdapter(RequestManager glide, List<ContactFishOpen> contacts) {
+        mContacts = contacts;
+        this.glide = glide;
     }
 
     @Override
@@ -75,7 +83,11 @@ public class FishOpenAdapter extends RecyclerView.Adapter<FishOpenAdapter.ViewHo
         tv_starscore.setText(Double.toString(contactFishOpen.getmStarscore()));
         tv_evaluation.setText(contactFishOpen.getmEvaluation());
         tv_selfintroduction.setText(contactFishOpen.getmSelfintroduction());
-        iv_shop.setImageResource(contactFishOpen.getmImage());
+        if (glide == null) {
+            iv_shop.setImageResource(contactFishOpen.getmImage());
+        } else {
+            glide.load(contactFishOpen.get_mImage()).into(iv_shop);
+        }
         iv_favorate.setImageResource(contactFishOpen.getmFImage());
     }
 

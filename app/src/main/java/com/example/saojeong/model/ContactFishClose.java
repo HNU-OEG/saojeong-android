@@ -1,8 +1,10 @@
 package com.example.saojeong.model;
 
 import com.example.saojeong.R;
+import com.example.saojeong.rest.dto.StoreDto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ContactFishClose {
     private String mShopnum;
@@ -13,6 +15,7 @@ public class ContactFishClose {
     private String mSelfintroduction;
     private int mImage;
     private int mFImage;
+    private String _mImage;
 
     public ContactFishClose(String mShopnum, String mShopname, String mStar, Double mStarscore, String mEvaluation, String mSelfintroduction,int mImage, int mFImage) {
         this.mShopnum = mShopnum;
@@ -25,7 +28,16 @@ public class ContactFishClose {
         this.mFImage = mFImage;
     }
 
-
+    public ContactFishClose(StoreDto dto) {
+        this.mShopnum = dto.getStoreNumber() + "번";
+        this.mShopname = dto.getStoreName();
+        this.mStar = "★";
+        this.mStarscore = dto.getVoteGradeAverage();
+        this.mEvaluation = dto.getVoteGradeCount() + "명이 평가하였습니다.";
+        this.mSelfintroduction = dto.getStoreIntro();
+        this._mImage = dto.getStoreImage();
+        this.mFImage = R.drawable.like;
+    }
 
     public String getmShopnum() {
         return mShopnum;
@@ -59,14 +71,25 @@ public class ContactFishClose {
         return mFImage;
     }
 
-    public static ArrayList<ContactFishClose> createContactsList(int numContacts) {
-        ArrayList<ContactFishClose> contacts = new ArrayList<ContactFishClose>();
+    public String get_mImage() {
+        return _mImage;
+    }
 
+    public static List<ContactFishClose> _createContactsList(int numContacts) {
+        List<ContactFishClose> contacts = new ArrayList<>();
 
         for(int i = 1; i <= numContacts; i++) {
             contacts.add(new ContactFishClose(i+"번","서진 농산시장","★",4.9,(i+62)+"명이 평가하였습니다.", "오늘 하루도 좋은 일만 ^^*", R.drawable.logo_start, R.drawable.like));
         }
+        return contacts;
+    }
 
+    public static List<ContactFishClose> createContactsList(List<StoreDto> response) {
+        List<ContactFishClose> contacts = new ArrayList<>();
+
+        for (StoreDto dto : response) {
+            contacts.add(new ContactFishClose(dto));
+        }
         return contacts;
     }
 }
