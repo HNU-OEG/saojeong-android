@@ -37,7 +37,7 @@ public class TutorialActivity extends AppCompatActivity {
         itemTuto.add(itemOnePage);
         itemTuto.add(itemTwoPage);
         itemTuto.add(itemThreePage);
-        pageradapter=new TutorialAdapter(itemTuto);
+        pageradapter=new TutorialAdapter(itemTuto, this);
     }
 
 }

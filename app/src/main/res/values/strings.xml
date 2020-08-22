@@ -3,4 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_out"><u>회원탈퇴</u></string>
+
+    <!--로그인 ID값입니다.-->
+    <string name="facebook_app_id">1002906453488963</string>
+    <string name="fb_login_protocol_scheme">fb1002906453488963</string>
+    <string name="google_client_id">994676131557-s4v0d31t6ltv3qrmocimipqnqjn701ru.apps.googleusercontent.com</string>
+    <string name="project_id">CRY5caruV6KCqp0A0ddXiaYD</string>
+    <string name="kakao_app_key">0ecd692a4ae184054ef783bbd0f967df</string>
+
 </resources>
