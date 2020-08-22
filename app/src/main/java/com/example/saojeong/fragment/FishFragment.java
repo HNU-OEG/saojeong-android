@@ -17,11 +17,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.FishCloseAdapter;
 import com.example.saojeong.adapter.FishOpenAdapter;
 import com.example.saojeong.model.ContactFishClose;
 import com.example.saojeong.model.ContactFishOpen;
+import com.example.saojeong.model.OnItemClickListener;
 import com.example.saojeong.model.RecyclerDecoration;
 
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 public class FishFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+    private FishShopFragment fishShopFragment;
     private RecyclerView recyclerFishopen;
     private RecyclerView recyclerFishclose;
     private FishOpenAdapter fishOpenAdapter;
@@ -55,12 +58,15 @@ public class FishFragment extends Fragment implements AdapterView.OnItemSelected
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_fish, container, false);
 
-        //순서 나열 Spinner
+        ((MainActivity) getActivity()).closeKeyBoard(rootView);
+
         selectedText = (TextView) rootView.findViewById(R.id.selected_fish);
+
+        //순서 나열 Spinner
         spinner_fish = (Spinner) rootView.findViewById(R.id.spinner_fish);
 
         item_fish = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
-        ArrayAdapter<String> adapter_fishopen = new ArrayAdapter<String >(getContext(), android.R.layout.simple_spinner_item, item_fish);
+        ArrayAdapter<String> adapter_fishopen = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, item_fish);
         adapter_fishopen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner_fish.setAdapter(adapter_fishopen);
@@ -81,9 +87,29 @@ public class FishFragment extends Fragment implements AdapterView.OnItemSelected
         recyclerFishclose.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         recyclerFishclose.setAdapter(fishCloseAdapter);
 
-
-
         return rootView;
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        transaction = fragmentManager.beginTransaction();
+
+        fishOpenAdapter.setOnItemClicklistener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(Object holder, View view, int position) {
+                ((MainActivity) getActivity()).replaceFragment(fishShopFragment.newInstance());
+            }
+        });
+
+        fishCloseAdapter.setOnItemClicklistener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(Object holder, View view, int position) {
+                ((MainActivity) getActivity()).replaceFragment(fishShopFragment.newInstance());
+            }
+        });
 
     }
 
@@ -91,7 +117,7 @@ public class FishFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         selectedText.setText(item_fish[i]);
-        if(selectedText.getText().toString().equals("선택하세요")) {
+        if (selectedText.getText().toString().equals("선택하세요")) {
             selectedText.setText("");
 
         }

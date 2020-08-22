@@ -10,11 +10,11 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.R;
-import com.example.saojeong.model.ContactFruitSellList;
+import com.example.saojeong.model.ContactVegetableSellList;
 
 import java.util.List;
 
-public class FruitSellListAdapter extends RecyclerView.Adapter<FruitSellListAdapter.ViewHolder> {
+public class VegetableSellListAdapter extends RecyclerView.Adapter<VegetableSellListAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView itemnameTextView;
@@ -23,40 +23,40 @@ public class FruitSellListAdapter extends RecyclerView.Adapter<FruitSellListAdap
         public TextView weight3TextView;
         public TextView price1TextView;
         public TextView price2TextView;
-        public ImageView fruitImageView;
+        public ImageView vegetableImageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            itemnameTextView = (TextView) itemView.findViewById(R.id.tv_fruitname);
+            itemnameTextView = (TextView) itemView.findViewById(R.id.tv_vegetablename);
             weight1TextView = (TextView) itemView.findViewById(R.id.tv_weight1);
             weight2TextView = (TextView) itemView.findViewById(R.id.tv_weight2);
             weight3TextView = (TextView) itemView.findViewById(R.id.tv_weight3);
-            price1TextView = (TextView) itemView.findViewById(R.id.tv_price_fruit_shop1);
-            price2TextView = (TextView) itemView.findViewById(R.id.tv_price_fruit_shop2);
-            fruitImageView = (ImageView) itemView.findViewById(R.id.iv_shop);
+            price1TextView = (TextView) itemView.findViewById(R.id.tv_price_vegetable_shop1);
+            price2TextView = (TextView) itemView.findViewById(R.id.tv_price_vegetable_shop2);
+            vegetableImageView = (ImageView) itemView.findViewById(R.id.iv_shop);
         }
     }
 
-    private List<ContactFruitSellList> mContacts;
+    private List<ContactVegetableSellList> mContacts;
 
-    public FruitSellListAdapter(List<ContactFruitSellList> contacts) {
+    public VegetableSellListAdapter(List<ContactVegetableSellList> contacts) {
         mContacts = contacts;
     }
 
     @Override
-    public FruitSellListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VegetableSellListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View contactView = inflater.inflate(R.layout.item_fruit_selllist, parent, false);
+        View contactView = inflater.inflate(R.layout.item_vegetable_selllist, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(contactView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(FruitSellListAdapter.ViewHolder holder, int position) {
-        ContactFruitSellList contactFruitSellList = mContacts.get(position);
+    public void onBindViewHolder(VegetableSellListAdapter.ViewHolder holder, int position) {
+        ContactVegetableSellList contactVegetableSellList = mContacts.get(position);
 
         TextView tv_itemname = holder.itemnameTextView;
         TextView tv_weight1 = holder.weight1TextView;
@@ -64,15 +64,15 @@ public class FruitSellListAdapter extends RecyclerView.Adapter<FruitSellListAdap
         TextView tv_weight3 = holder.weight3TextView;
         TextView tv_price1 = holder.price1TextView;
         TextView tv_price2 = holder.price2TextView;
-        ImageView iv_SellList = holder.fruitImageView;
+        ImageView iv_SellList = holder.vegetableImageView;
 
-        tv_itemname.setText(contactFruitSellList.getmItemname());
-        tv_weight1.setText(contactFruitSellList.getmWeight1());
-        tv_weight2.setText(contactFruitSellList.getmWeight2());
-        tv_weight3.setText(contactFruitSellList.getmWeight3());
-        tv_price1.setText(contactFruitSellList.getmPrice1());
-        tv_price2.setText(contactFruitSellList.getmPrice2());
-        iv_SellList.setImageResource(contactFruitSellList.getmIFmage());
+        tv_itemname.setText(contactVegetableSellList.getmItemname());
+        tv_weight1.setText(contactVegetableSellList.getmWeight1());
+        tv_weight2.setText(contactVegetableSellList.getmWeight2());
+        tv_weight3.setText(contactVegetableSellList.getmWeight3());
+        tv_price1.setText(contactVegetableSellList.getmPrice1());
+        tv_price2.setText(contactVegetableSellList.getmPrice2());
+        iv_SellList.setImageResource(contactVegetableSellList.getmIFmage());
     }
 
     @Override

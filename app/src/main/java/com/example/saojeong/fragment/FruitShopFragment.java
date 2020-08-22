@@ -20,8 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.adapter.FruitDetailAdapter;
+import com.example.saojeong.adapter.FruitScoreAdapter;
 import com.example.saojeong.adapter.FruitSellListAdapter;
-import com.example.saojeong.model.ContactFruitShop;
+import com.example.saojeong.adapter.FruitStarScoreAdapter;
+import com.example.saojeong.model.ContactFruitDetail;
+import com.example.saojeong.model.ContactFruitScore;
+import com.example.saojeong.model.ContactFruitSellList;
+import com.example.saojeong.model.ContactFruitStarScore;
 import com.example.saojeong.model.RecyclerDecoration;
 
 import java.util.ArrayList;
@@ -31,10 +37,19 @@ public class FruitShopFragment extends Fragment {
 
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
-    private FruitFragment fruitFragment;
+    private RecyclerView recyclerFruitDetail;
+    private RecyclerView recyclerFruitScore;
     private RecyclerView recyclerFruitSellList;
+    private FruitDetailAdapter fruitDetailAdapter;
+    private FruitScoreAdapter fruitScoreAdapter;
     private FruitSellListAdapter fruitSellListAdapter;
-    ArrayList<ContactFruitShop> contactFruitShops;
+    ArrayList<ContactFruitSellList> contactFruitSellLists;
+    ArrayList<ContactFruitScore> contactFruitScores;
+    ArrayList<ContactFruitDetail> contactFruitDetails;
+
+    private RecyclerView recyclerFruitStarScore;
+    private FruitStarScoreAdapter fruitStarScoreAdapter;
+    ArrayList<ContactFruitStarScore> contactFruitStarScores;
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(1);
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(50);
@@ -52,14 +67,32 @@ public class FruitShopFragment extends Fragment {
         transaction = fragmentManager.beginTransaction();
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_fruit, container, false);
-        //매장 Recycler View
+        //판매 품목
         recyclerFruitSellList = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_selllist);
-        contactFruitShops = ContactFruitShop.createContactsList(10);
-        fruitSellListAdapter = new FruitSellListAdapter(contactFruitShops);
+        contactFruitSellLists = ContactFruitSellList.createContactsList(10);
+        fruitSellListAdapter = new FruitSellListAdapter(contactFruitSellLists);
         recyclerFruitSellList.addItemDecoration(leftDecoration);
         recyclerFruitSellList.addItemDecoration(bottomDecoration);
         recyclerFruitSellList.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         recyclerFruitSellList.setAdapter(fruitSellListAdapter);
+
+        //상세 설명
+        recyclerFruitDetail = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_detail);
+        contactFruitDetails = ContactFruitDetail.createContactsList(1);
+        fruitDetailAdapter = new FruitDetailAdapter(contactFruitDetails);
+        recyclerFruitDetail.addItemDecoration(leftDecoration);
+        recyclerFruitDetail.addItemDecoration(bottomDecoration);
+        recyclerFruitDetail.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+        recyclerFruitDetail.setAdapter(fruitDetailAdapter);
+
+        //평점
+        recyclerFruitScore = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_score);
+        contactFruitScores = ContactFruitScore.createContactsList(1);
+        fruitScoreAdapter = new FruitScoreAdapter(contactFruitScores, getActivity());
+        recyclerFruitScore.addItemDecoration(leftDecoration);
+        recyclerFruitScore.addItemDecoration(bottomDecoration);
+        recyclerFruitScore.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+        recyclerFruitScore.setAdapter(fruitScoreAdapter);
 
         //상단 액션바
         Toolbar toolbar = rootView.findViewById(R.id.toolbar_fruit);
@@ -88,6 +121,12 @@ public class FruitShopFragment extends Fragment {
         tabHost_Fruit.addTab(detail);
         tabHost_Fruit.addTab(score);
 
+        //탭 밑줄 없애기
+        for (int i = 0; i < tabHost_Fruit.getTabWidget().getChildCount(); i++) {
+            tabHost_Fruit.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#ffffff"));
+            tabHost_Fruit.getTabWidget().setStripEnabled(false);
+        }
+
         //시작시 Tab Color 지정
         TextView Cselllist = (TextView) tabHost_Fruit.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
         Cselllist.setTextColor(Color.parseColor("#f67043"));
@@ -110,7 +149,16 @@ public class FruitShopFragment extends Fragment {
                 }
             }
         });
+
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        transaction = fragmentManager.beginTransaction();
+
     }
 
     @Override
@@ -123,4 +171,5 @@ public class FruitShopFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -334,14 +334,14 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.btn_vegetable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance());
+                ((MainActivity)getActivity()).replaceHomeFragment(vegetableFragment.newInstance());
             }
         });
 
         view.findViewById(R.id.btn_fish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance());
+                ((MainActivity)getActivity()).replaceHomeFragment(fishFragment.newInstance());
             }
         });
     }

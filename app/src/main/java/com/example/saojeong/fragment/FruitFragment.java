@@ -78,14 +78,15 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
 
         ((MainActivity) getActivity()).closeKeyBoard(rootView);
 
-        //순서 나열 Spinner
         selectedText = (TextView) rootView.findViewById(R.id.selected_fruit);
+
+        //순서 나열 Spinner
         spinner_fruit = (Spinner) rootView.findViewById(R.id.spinner_fruit);
 
         item_fruit = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
+
         ArrayAdapter<String> adapter_fruitopen = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, item_fruit);
         adapter_fruitopen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinner_fruit.setAdapter(adapter_fruitopen);
 
         //과일동 오픈가게 Recycler View
@@ -173,8 +174,15 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
 
         fruitOpenAdapter.setOnItemClicklistener(new OnItemClickListener() {
             @Override
-            public void onItemClick(FruitOpenAdapter.ViewHolder holder, View view, int position) {
-                ((MainActivity) getActivity()).replaceFragment(FruitShopFragment.newInstance());
+            public void onItemClick(Object holder, View view, int position) {
+                ((MainActivity) getActivity()).replaceFragment(fruitShopFragment.newInstance());
+            }
+        });
+
+        fruitCloseAdapter.setOnItemClicklistener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(Object holder, View view, int position) {
+                ((MainActivity) getActivity()).replaceFragment(fruitShopFragment.newInstance());
             }
         });
 
