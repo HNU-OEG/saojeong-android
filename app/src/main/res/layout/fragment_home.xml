@@ -96,29 +96,30 @@
                             android:layout_marginRight="20dp"
                             android:layout_weight="1">
 
-                        <ImageButton
-                            android:id="@+id/btn_vegetable"
-                            android:layout_width="78dp"
-                            android:layout_height="78dp"
-                            android:layout_weight="1"
-                            android:background="#ffffff"
-                            android:src="@drawable/icon_vegetable_list" />
-                    </LinearLayout>
+                            <ImageButton
+                                android:id="@+id/btn_vegetable"
+                                android:layout_width="78dp"
+                                android:layout_height="78dp"
+                                android:layout_weight="1"
+                                android:background="#ffffff"
+                                android:src="@drawable/icon_vegetable_list" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="78dp"
                             android:layout_height="78dp"
                             android:layout_marginRight="41dp"
                             android:layout_weight="1">
-                        <ImageButton
-                            android:id="@+id/btn_fish"
-                            android:layout_width="78dp"
-                            android:layout_height="78dp"
-                            android:layout_weight="1"
-                            android:background="#ffffff"
-                            android:src="@drawable/icon_fish_list" />
+
+                            <ImageButton
+                                android:id="@+id/btn_fish"
+                                android:layout_width="78dp"
+                                android:layout_height="78dp"
+                                android:layout_weight="1"
+                                android:background="#ffffff"
+                                android:src="@drawable/icon_fish_list" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -390,5 +391,4 @@
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>
