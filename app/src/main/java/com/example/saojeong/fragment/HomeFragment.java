@@ -177,17 +177,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<StoreDto>> call,
                                    Response<List<StoreDto>> response) {
-                if (!response.isSuccessful()) {
+                if (response.code() != 201) {
                     likeStores = LikeStore._createLikeStoreList(20);
                     likeStoreAdapter = new LikeStoreAdapter(likeStores);
-                    recyclerShop.addItemDecoration(leftDecoration);
-                    recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerShop.setAdapter(likeStoreAdapter);
                     Log.d(TAG, response.message());
+                } else {
+                    likeStores = LikeStore.createLikeStoreList(Objects.requireNonNull(response.body()));
+                    likeStoreAdapter = new LikeStoreAdapter(Glide.with(homeFragment), likeStores);
                 }
 
-                likeStores = LikeStore.createLikeStoreList(Objects.requireNonNull(response.body()));
-                likeStoreAdapter = new LikeStoreAdapter(Glide.with(homeFragment), likeStores);
                 recyclerShop.addItemDecoration(leftDecoration);
                 recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
                 recyclerShop.setAdapter(likeStoreAdapter);
@@ -212,17 +210,14 @@ public class HomeFragment extends Fragment {
                 if (response.code() != 201) {
                     contactFruits = ContactFruit._createContactsList(20);
                     fruitAdapter = new FruitAdapter(contactFruits);
-                    recyclerFruit.addItemDecoration(leftDecoration);
-                    recyclerFruit.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerFruit.setAdapter(fruitAdapter);
                     Log.d(TAG, response.message());
                 } else {
                     contactFruits = ContactFruit.createContactsList(Objects.requireNonNull(response.body()));
                     fruitAdapter = new FruitAdapter(Glide.with(homeFragment), contactFruits);
-                    recyclerFruit.addItemDecoration(leftDecoration);
-                    recyclerFruit.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerFruit.setAdapter(fruitAdapter);
                 }
+                recyclerFruit.addItemDecoration(leftDecoration);
+                recyclerFruit.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerFruit.setAdapter(fruitAdapter);
             }
 
             @Override
@@ -241,17 +236,14 @@ public class HomeFragment extends Fragment {
                 if (response.code() != 201) {
                     contactVegetables = ContactVegetable._createContactsList(20);
                     vegetableAdapter = new VegetableAdapter(contactVegetables);
-                    recyclerVegetable.addItemDecoration(leftDecoration);
-                    recyclerVegetable.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerVegetable.setAdapter(vegetableAdapter);
                     Log.d(TAG, response.message());
                 } else {
                     contactVegetables = ContactVegetable.createContactsList(Objects.requireNonNull(response.body()));
                     vegetableAdapter = new VegetableAdapter(Glide.with(homeFragment), contactVegetables);
-                    recyclerVegetable.addItemDecoration(leftDecoration);
-                    recyclerVegetable.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerVegetable.setAdapter(vegetableAdapter);
                 }
+                recyclerVegetable.addItemDecoration(leftDecoration);
+                recyclerVegetable.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerVegetable.setAdapter(vegetableAdapter);
             }
 
             @Override
@@ -270,17 +262,15 @@ public class HomeFragment extends Fragment {
                 if (response.code() != 201) {
                     contactFishs = ContactFish._createContactsList(20);
                     fishAdapter = new FishAdapter(contactFishs);
-                    recyclerFish.addItemDecoration(leftDecoration);
-                    recyclerFish.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerFish.setAdapter(fishAdapter);
                     Log.d(TAG, response.message());
                 } else {
                     contactFishs = ContactFish.createContactsList(Objects.requireNonNull(response.body()));
                     fishAdapter = new FishAdapter(Glide.with(homeFragment), contactFishs);
-                    recyclerFish.addItemDecoration(leftDecoration);
-                    recyclerFish.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerFish.setAdapter(fishAdapter);
                 }
+
+                recyclerFish.addItemDecoration(leftDecoration);
+                recyclerFish.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerFish.setAdapter(fishAdapter);
             }
 
             @Override
@@ -302,14 +292,12 @@ public class HomeFragment extends Fragment {
                 if (response.code() != 201) {
                     contactFullviews = ContactFullview._createContactsList(20);
                     fullviewAdapter = new FullviewAdapter(contactFullviews);
-                    recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerFullview.setAdapter(fullviewAdapter);
                 } else {
                     contactFullviews = ContactFullview.createContactsList(Objects.requireNonNull(response.body()));
                     fullviewAdapter = new FullviewAdapter(Glide.with(homeFragment), contactFullviews);
-                    recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerFullview.setAdapter(fullviewAdapter);
                 }
+                recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerFullview.setAdapter(fullviewAdapter);
             }
 
             @Override
