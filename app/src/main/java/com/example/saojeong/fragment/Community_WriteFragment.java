@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,9 +27,12 @@ import androidx.fragment.app.Fragment;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 public class Community_WriteFragment extends Fragment {
 
- //   private Community_Service community_Service;
+    //   private Community_Service community_Service;
+    private InputMethodManager imm;
 
     EditText et_Title;
     EditText et_Content;
@@ -38,7 +42,10 @@ public class Community_WriteFragment extends Fragment {
         View view;
         view = inflater.inflate(R.layout.fragment_community_write, container, false); //0,2,외 이탭
 
-    //    community_Service = ServiceGenerator.createService(Community_Service.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5NzU4ODU3MSwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.G0SdapZG7h9Lr5kJf0P8ecl71DXiLFHicq6805RHDvY");
+        //    community_Service = ServiceGenerator.createService(Community_Service.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5NzU4ODU3MSwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.G0SdapZG7h9Lr5kJf0P8ecl71DXiLFHicq6805RHDvY");
+
+        imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
 
         Toolbar toolbar = view.findViewById(R.id.community_write_toolbar);
@@ -90,25 +97,25 @@ public class Community_WriteFragment extends Fragment {
             //내용을 입력하세요
             return;
         }
-    //   Call<List<Community_CreateBoardPostDto>> call=community_Service.CreatePost(strTitle, strContent);
-    //   call.enqueue(new Callback<List<Community_CreateBoardPostDto>>() {
-    //       @Override
-    //       public void onResponse(Call<List<Community_CreateBoardPostDto>> call,
-    //                              Response<List<Community_CreateBoardPostDto>> response) {
-    //           if (response.isSuccessful()) {
-    //               for (Community_CreateBoardPostDto dto:response.body()) {
-    //                   CommunityValue com=new CommunityValue("제목은 두껍게! 한눈에 보이도록!","가나다라","07. 13 03:29","6",0,0, true);
+        //   Call<List<Community_CreateBoardPostDto>> call=community_Service.CreatePost(strTitle, strContent);
+        //   call.enqueue(new Callback<List<Community_CreateBoardPostDto>>() {
+        //       @Override
+        //       public void onResponse(Call<List<Community_CreateBoardPostDto>> call,
+        //                              Response<List<Community_CreateBoardPostDto>> response) {
+        //           if (response.isSuccessful()) {
+        //               for (Community_CreateBoardPostDto dto:response.body()) {
+        //                   CommunityValue com=new CommunityValue("제목은 두껍게! 한눈에 보이도록!","가나다라","07. 13 03:29","6",0,0, true);
 
-    //               }
-    //           } else {
-    //               Log.d("REST FAILED MESSAGE", response.message());
-    //           }
-    //       }
+        //               }
+        //           } else {
+        //               Log.d("REST FAILED MESSAGE", response.message());
+        //           }
+        //       }
 
-    //       @Override
-    //       public void onFailure(Call<List<Community_CreateBoardPostDto>> call, Throwable t) {
-    //           Log.d("REST ERROR!", t.getMessage());
-    //       }
-    //   });
+        //       @Override
+        //       public void onFailure(Call<List<Community_CreateBoardPostDto>> call, Throwable t) {
+        //           Log.d("REST ERROR!", t.getMessage());
+        //       }
+        //   });
     }
 }

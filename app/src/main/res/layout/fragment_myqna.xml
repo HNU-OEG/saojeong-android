@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar_myqna"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_myqna"
+            android:layout_width="match_parent"
+            android:layout_gravity="left"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#FFFFFF"
+            app:popupTheme="@style/AppTheme.AppBarOverlay">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="내 문의내역"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                android:textColor="#4d4d4d" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_myqna"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/background_qna"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_QnA_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/tv_QnA_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17sp"
+                        android:textColor="#4e4e4e"
+                        android:ems="10"
+                        android:lineSpacingExtra="5sp"
+                        tools:text="제목은 두껍게! 한눈에 보이도록!"/>
+
+                    <TextView
+                        android:id="@+id/tv_QnA_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="#ff935f"
+                        android:textSize="15sp"
+                        tools:text="[답변완료]"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_QnA_date"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="left"
+                    tools:text="07.13 03:29" />
+
+                <TextView
+                    android:id="@+id/tv_QnA_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="커뮤니티 글 삭제가 되지 않아요.. 힝"/>
+
+            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_QnA_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="14sp"
+                    android:textColor="#4e4e4e"
+                    android:lineSpacingExtra="10sp"
+                    tools:text="안녕하세요! 사오정입니다! 커뮤니티 글 삭제가 되지 않아 많이 당황스러우셨죠? 지금 바로 개선 완료되었으니, 사오정 새 버전을 다운로드 해주시면 감사하겠습니다! 사오정 어플을 사용해주셔서 감사합니다. 좋은 하루 되세요~"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
