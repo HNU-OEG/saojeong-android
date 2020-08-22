@@ -22,12 +22,12 @@
 
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing">
+            android:windowSoftInputMode="adjustResize">
         </activity>
 
         <activity
             android:name=".TutorialActivity"
-            android:windowSoftInputMode="adjustNothing">
+            android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
 

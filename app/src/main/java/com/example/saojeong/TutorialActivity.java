@@ -25,15 +25,15 @@ public class TutorialActivity extends AppCompatActivity {
         dotsIndicator=findViewById(R.id.dots_indicator);
         viewPager.setAdapter(pageradapter);
 
-        dotsIndicator.setViewPager2(viewPager);
+        //dotsIndicator.setViewPager2(viewPager);
     }
 
     private void setupItems() {
         List<TutorialValue> itemTuto=new ArrayList<>();
 
-        TutorialValue itemOnePage=new TutorialValue(R.drawable.image1, false);
-        TutorialValue itemTwoPage=new TutorialValue(R.drawable.image2, false);
-        TutorialValue itemThreePage=new TutorialValue(R.drawable.image3, true);
+        TutorialValue itemOnePage=new TutorialValue(R.drawable.ar_left, false);
+        TutorialValue itemTwoPage=new TutorialValue(R.drawable.ar_left, false);
+        TutorialValue itemThreePage=new TutorialValue(R.drawable.ar_left, true);
         itemTuto.add(itemOnePage);
         itemTuto.add(itemTwoPage);
         itemTuto.add(itemThreePage);
