@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.saojeong">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo_no_circle"
@@ -16,13 +18,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".CommunityWirteActivity"></activity>
-        <activity android:name=".CommunityReadActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustNothing">
         </activity>
 
+        <activity
+            android:name=".TutorialActivity"
+            android:windowSoftInputMode="adjustNothing">
+        </activity>
     </application>
 
 </manifest>

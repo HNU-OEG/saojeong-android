@@ -1,9 +1,19 @@
 package com.example.saojeong.model;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.example.saojeong.R;
+import com.example.saojeong.rest.dto.StoreDto;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import lombok.Getter;
+
+@Getter
 public class LikeStore {
     private int mImage;
     private int mCodeStore;
@@ -11,6 +21,17 @@ public class LikeStore {
     private Double mRateStore;
     private int mRateCountStore;
     private boolean mLike;
+
+    private String _mImage;
+
+    public LikeStore(StoreDto dto) {
+        this._mImage = dto.getStoreImage();
+        this.mCodeStore = dto.getStoreNumber();
+        this.mNameStore = dto.getStoreName();
+        this.mRateStore = dto.getVoteGradeAverage();
+        this.mRateCountStore = dto.getVoteGradeCount();
+        this.mLike = dto.isStarred();
+    }
 
     public LikeStore(int mImage, int mCodeStore, String mNameStore, Double mRateStore, int mRateCountStore, boolean mLike) {
         this.mImage = mImage;
@@ -21,31 +42,7 @@ public class LikeStore {
         this.mLike = mLike;
     }
 
-    public int getmImage() {
-        return mImage;
-    }
-
-    public int getmCodeStore() {
-        return mCodeStore;
-    }
-
-    public String getmNameStore() {
-        return mNameStore;
-    }
-
-    public Double getmRateStore() {
-        return mRateStore;
-    }
-
-    public int getmRateCountStore() {
-        return mRateCountStore;
-    }
-
-    public boolean ismLike() {
-        return mLike;
-    }
-
-    public static ArrayList<LikeStore> createLikeStoreList(int numLikeStore) {
+    public static ArrayList<LikeStore> _createLikeStoreList(int numLikeStore) {
         ArrayList<LikeStore> likeStores = new ArrayList<LikeStore>();
 
         for (int i = 1; i <= numLikeStore; i++) {
@@ -53,6 +50,15 @@ public class LikeStore {
             likeStores.add(new LikeStore(R.drawable.logo_no_circle, 52, "서진수산시장", 4.8, 30, false)); //test
         }
 
+        return likeStores;
+    }
+
+    public static List<LikeStore> createLikeStoreList(List<StoreDto> response) {
+        List<LikeStore> likeStores = new ArrayList<>();
+
+        for (StoreDto dto : response) {
+            likeStores.add(new LikeStore(dto));
+        }
         return likeStores;
     }
 

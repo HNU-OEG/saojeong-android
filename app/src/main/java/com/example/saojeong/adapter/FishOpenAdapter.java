@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactFishOpen;
-
 
 import java.util.List;
 

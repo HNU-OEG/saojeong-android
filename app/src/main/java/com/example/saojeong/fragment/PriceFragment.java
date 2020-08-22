@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.ChartAdapter;
 import com.example.saojeong.model.ChartContact;
@@ -65,28 +65,33 @@ public class PriceFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-                String text = mShopSearch.getText().toString();
-
+                mAdapter.getFilter().filter( mShopSearch.getText().toString());
+                mRecyclerView.setAdapter(mAdapter);
             }
         });
 
         mChartContact=new ArrayList<>();
         ArrayList<Entry> list_ChartValue= new ArrayList<>();
-        for(int i=0; i<30; ++i)
-        {
-            Entry entry1 = new Entry(i, 1000+i*20);
+        for(int i=0; i<4; ++i) {
+            Entry entry1 = new Entry(i, 1000+i*10000);
             list_ChartValue.add(entry1);
         }
+        mChartContact.add(new ChartContact("과일", list_ChartValue));
+        mChartContact.add(new ChartContact("사과", list_ChartValue));
+        mChartContact.add(new ChartContact("채소", list_ChartValue));
+        mChartContact.add(new ChartContact("토마토", list_ChartValue));
+        mChartContact.add(new ChartContact("파프리카", list_ChartValue));
+        mChartContact.add(new ChartContact("바나나", list_ChartValue));
+        mChartContact.add(new ChartContact("사과", list_ChartValue));
+        mChartContact.add(new ChartContact("딸기", list_ChartValue));
+        mChartContact.add(new ChartContact("포도", list_ChartValue));
+        mChartContact.add(new ChartContact("수박", list_ChartValue));
 
-        for(int i=0; i<30; ++i)
-        {
-            mChartContact.add(new ChartContact(i+"100", list_ChartValue));
-        }
 
         mAdapter = new ChartAdapter(this.getContext(), mChartContact, 1);
         mRecyclerView.setAdapter(mAdapter);
@@ -117,43 +122,17 @@ public class PriceFragment extends Fragment implements View.OnClickListener{
             case R.id.tv_oneweekend:
                 mOneWeekend.setTextColor(Color.parseColor("#fa8f68"));
                 mThreeWeekend.setTextColor(Color.parseColor("#000000"));
-                mChartContact=new ArrayList<>();
-                list_ChartValue= new ArrayList<>();
-                for(int i=0; i<30; ++i)
-                {
-                    Entry entry1 = new Entry(i, 1000+i*20);
-                    list_ChartValue.add(entry1);
-                }
-
-                for(int i=0; i<30; ++i)
-                {
-                    mChartContact.add(new ChartContact(i+"100", list_ChartValue));
-                }
-
-                mAdapter = new ChartAdapter(getContext(), mChartContact, 1);
+                mAdapter.SetWeekend(1);
+                mAdapter.notifyDataSetChanged();
                 mRecyclerView.setAdapter(mAdapter);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 break;
             case R.id.tv_threeweekend:
 
                 mThreeWeekend.setTextColor(Color.parseColor("#fa8f68"));
                 mOneWeekend.setTextColor(Color.parseColor("#000000"));
-                mChartContact=new ArrayList<>();
-                list_ChartValue= new ArrayList<>();
-                for(int i=0; i<30; ++i)
-                {
-                    Entry entry1 = new Entry(i, 1000+i*20);
-                    list_ChartValue.add(entry1);
-                }
-
-                for(int i=0; i<30; ++i)
-                {
-                    mChartContact.add(new ChartContact(i+"100", list_ChartValue));
-                }
-
-                mAdapter = new ChartAdapter(getContext(), mChartContact, 3);
+                mAdapter.SetWeekend(3);
+                mAdapter.notifyDataSetChanged();
                 mRecyclerView.setAdapter(mAdapter);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 break;
         }
     }

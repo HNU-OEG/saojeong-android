@@ -1,7 +1,6 @@
 package com.example.saojeong.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +8,15 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.saojeong.CommunityReadActivity;
+import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.fragment.Community_ReadFragment;
 import com.example.saojeong.model.CommunityValue;
 
 import java.util.ArrayList;
 
 public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder>{
+    public MainActivity RootActivity;
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextViewTitle_Popularity;
         public TextView mTextViewTitle;
@@ -30,15 +31,18 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
             mTextViewName = (TextView) itemView.findViewById(R.id.tv_community_name_item);
             mTextViewDate = (TextView) itemView.findViewById(R.id.tv_community_date_item);
             mTextViewComment = (TextView) itemView.findViewById(R.id.tv_community_Title_comment);
-            mTextViewReCommentSize = (TextView) itemView.findViewById(R.id.tv_community_comment_recomment);
+            mTextViewReCommentSize = (TextView) itemView.findViewById(R.id.tv_community_comment_recommend);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Context context=v.getContext();
-                    Intent intent = new Intent(context, CommunityReadActivity.class);
-                    //intent.putExtra();
-                    context.startActivity(intent);
+                    Community_ReadFragment fragment= new Community_ReadFragment();
+                    //RootActivity.getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+                    RootActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment) // frameLayout에 커뮤니티 Fragment 호출
+                            .addToBackStack(null)
+                            .commitAllowingStateLoss();
+
+
                 }
             });
         }
@@ -47,9 +51,10 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
     private ArrayList<CommunityValue> mContacts;
     private int mBoard;
 
-    public CommunityAdapter_item(ArrayList<CommunityValue> contacts, int Board) {
+    public CommunityAdapter_item(ArrayList<CommunityValue> contacts, int Board, MainActivity activity) {
         mContacts = contacts;
         mBoard=Board;
+        RootActivity=activity;
     }
 
     @Override
@@ -88,19 +93,15 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
     {
         ++mBoard;
     }
-    public void DownBoard()
-    {
+    public void DownBoard() {
         if(mBoard!=0)
             --mBoard;
     }
-    public void CheckPopularity(boolean check, CommunityAdapter_item.ViewHolder holder)
-    {
-        if(check)
-        {
+    public void CheckPopularity(boolean check, CommunityAdapter_item.ViewHolder holder) {
+        if(check) {
             holder.mTextViewTitle_Popularity.setVisibility(View.VISIBLE);
         }
-        else
-        {
+        else {
             holder.mTextViewTitle_Popularity.setVisibility(View.GONE);
         }
     }

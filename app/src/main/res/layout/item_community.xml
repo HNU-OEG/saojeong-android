@@ -1,101 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/ll_community_item"
+        android:layout_width="278dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:foreground="?attr/selectableItemBackground">
-        <LinearLayout
-            android:id="@+id/ll_community_item"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14.7dp"
+        >
+        <TextView
+            android:id="@+id/tv_community_Title_popularity"
+            android:layout_width="48dp"
+            android:layout_height="32dp"
+            android:text="인기글  "
+            android:textColor="#E93333"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tv_community_Title_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            >
-            <TextView
-                android:id="@+id/tv_community_Title_popularity"
-                android:layout_width="48dp"
-                android:layout_height="32dp"
-                android:text="인기글  "
-                android:textColor="#E93333"
-                android:textSize="15sp" />
-            <TextView
-                android:id="@+id/tv_community_Title_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_community_Title_popularity"
-                android:layout_alignTop="@+id/tv_community_Title_popularity"
-                android:textSize="15sp"
-                android:text="제목은 두껍게! 한눈에 보이도록" />
-
-            <TextView
-                android:id="@+id/tv_community_Title_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tv_community_Title_item"
-                android:layout_alignTop="@+id/tv_community_Title_popularity"
-                android:layout_marginLeft="10dp"
-                android:text="[0]"
-                android:textColor="#E93333"
-                android:textSize="15sp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            >
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="추천"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/tv_community_comment_recomment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="9"
-                android:textAlignment="center"
-                android:textColor="#FF6950"
-                android:textSize="24sp" />
-        </LinearLayout>
-
+            android:layout_alignLeft="@+id/tv_community_Title_popularity"
+            android:layout_alignTop="@+id/tv_community_Title_popularity"
+            android:textSize="15sp"
+            android:text="제목은 두껍게! 한눈에 보이도록" />
 
         <TextView
-            android:id="@+id/tv_community_name_item"
-            android:layout_width="150dp"
+            android:id="@+id/tv_community_Title_comment"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/ll_community_item"
-            android:layout_marginTop="40dp"
-            tools:text="작성자 : 가나다라" />
+            android:layout_toRightOf="@id/tv_community_Title_item"
+            android:layout_alignTop="@+id/tv_community_Title_popularity"
+            android:layout_marginLeft="10dp"
+            android:text="[0]"
+            android:textColor="#E93333"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@+id/ll_community_item"
+        android:layout_marginLeft="20dp"
+        tools:ignore="NotSibling">
 
         <TextView
-            android:id="@+id/tv_community_date_item"
-            android:layout_width="150dp"
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
-            android:layout_toRightOf="@+id/tv_community_name_item"
-            android:layout_alignTop="@+id/tv_community_name_item"
-            tools:text="07.13 03:29" />
+            android:layout_marginTop="13.7dp"
+            android:text="추천"
+            android:textSize="9sp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tv_community_comment_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="9"
+            android:textAlignment="center"
+            android:textColor="#FF6950"
+            android:textSize="23sp" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_community_name_item"
+        android:layout_width="96dp"
+        android:layout_height="18dp"
+        android:layout_alignLeft="@+id/ll_community_item"
+        android:layout_marginTop="50dp"
+        android:textSize="9sp"
+        tools:text="작성자 : 가나다라" />
+
+    <TextView
+        android:id="@+id/tv_community_date_item"
+        android:layout_width="96dp"
+        android:layout_height="18dp"
+        android:layout_toRightOf="@+id/tv_community_name_item"
+        android:layout_alignTop="@+id/tv_community_name_item"
+        android:textSize="9sp"
+        tools:text="07.13 03:29" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_centerInParent="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_below="@+id/tv_community_name_item"
         android:background="#BFBBBB"/>
-    </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

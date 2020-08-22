@@ -5,16 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactFullview;
-
 
 import java.util.List;
 
 public class FullviewAdapter extends RecyclerView.Adapter<FullviewAdapter.ViewHolder> {
+    private final RequestManager glide;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -34,6 +35,13 @@ public class FullviewAdapter extends RecyclerView.Adapter<FullviewAdapter.ViewHo
 
     public FullviewAdapter(List<ContactFullview> contacts) {
         mContacts = contacts;
+        glide = null;
+
+    }
+
+    public FullviewAdapter(RequestManager glide, List<ContactFullview> contacts) {
+        mContacts = contacts;
+        this.glide = glide;
     }
 
     @Override
@@ -58,7 +66,11 @@ public class FullviewAdapter extends RecyclerView.Adapter<FullviewAdapter.ViewHo
         iv_right.setImageResource(contactSeason.getmFvRight());
 
         ImageView iv_fullview = holder.FullviewImageView;
-        iv_fullview.setImageResource(contactSeason.getmFvImage());
+        if (glide == null) {
+            iv_fullview.setImageResource(contactSeason.getmFvImage());
+        } else {
+            glide.load(contactSeason.get_mFvImage()).into(iv_fullview);
+        }
     }
 
     @Override

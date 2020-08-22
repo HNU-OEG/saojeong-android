@@ -1,81 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    android:id="@+id/swipeRefresh"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    tools:ignore="DuplicateIds,MissingConstraints">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/scrollns_community"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:descendantFocusability="blocksDescendants"
-            android:overScrollMode="never"
-            >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:focusableInTouchMode="true">
+            android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/community_board"
-                android:layout_width="409dp"
-                android:layout_height="wrap_content" />
 
-            <RelativeLayout
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollns_community"
                 android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:fillViewport="true"
+                >
 
-                <TextView
-                    android:id="@+id/tv_community_btn_Left"
-                    android:descendantFocusability="blocksDescendants"
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="Button"
-                    android:background="@drawable/rounded_edittext_gray"
-                    android:foreground="?attr/selectableItemBackground"
-                    />
-                <TextView
-                    android:id="@+id/tv_community_board"
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp"
-                    android:text="board"
-                    />
-                <TextView
-                    android:id="@+id/tv_community_btn_Right"
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp"
-                    android:text="Button"
-                    android:background="@drawable/rounded_edittext_gray"
-                    android:foreground="?attr/selectableItemBackground"
-                    />
-            </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/community_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="true">
+
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_community_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:background="#fcfcfc"
+                        android:fillViewport="true">
+
+                        <TextView
+                            android:id="@+id/tv_community_btn_Left"
+                            android:layout_width="64dp"
+                            android:layout_height="31dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/rounded_edittext"
+                            android:descendantFocusability="blocksDescendants"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:text="이전"
+                            android:textColor="#7d7d7d"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_community_board"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="center"
+                            android:text="board"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_community_btn_Right"
+                            android:layout_width="64dp"
+                            android:layout_height="31dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="20dp"
+                            android:background="@drawable/rounded_edittext"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:text="다음"
+                            android:textColor="#7d7d7d"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+            </androidx.core.widget.NestedScrollView>
+            <View
+                android:id="@+id/bottomFocus"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnApplyFilters"
+                />
         </LinearLayout>
-
-
-        </androidx.core.widget.NestedScrollView>
-
-    </LinearLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
