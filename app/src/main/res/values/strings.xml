@@ -3,4 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_out"><u>회원탈퇴</u></string>
+    <string name="qna">1. 문의 제목 :\n\n
+2. 문의 내용 :\n\n
+3. 사용자 닉네임 :\n\n
+(마이페이지 탭에서 확인 가능)\n\n\n\n
+*사오정은 문의에 포함된 개인정보를 수집, 이용할 수 있습니다. 다만 이러한 정보는 답변을 위한 목적으로만 처리됩니다.</string>
 </resources>
