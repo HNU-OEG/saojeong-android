@@ -1,6 +1,7 @@
 package com.example.saojeong.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,13 @@ import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.StoreDto;
 import com.example.saojeong.rest.dto.TypeStoreDto;
 import com.example.saojeong.rest.service.StoreService;
+import com.example.saojeong.util.SortedByName;
+import com.example.saojeong.util.SortedByVoteAverage;
+import com.example.saojeong.util.SortedByVoteCount;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.SneakyThrows;
@@ -39,7 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FruitFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class FruitFragment extends Fragment {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private RecyclerView recyclerFruitopen;
@@ -48,8 +54,9 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
     private FruitCloseAdapter fruitCloseAdapter;
     List<ContactFruitOpen> contactFruitOpens;
     List<ContactFruitClose> contactFruitCloses;
+    List<StoreDto> openStore = new ArrayList<>();
+    List<StoreDto> closedStore = new ArrayList<>();
 
-    TextView selectedText;
     Spinner spinner_fruit;
     String[] item_fruit;
 
@@ -75,14 +82,43 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
         ((MainActivity) getActivity()).closeKeyBoard(rootView);
 
         //순서 나열 Spinner
-        selectedText = (TextView) rootView.findViewById(R.id.selected_fruit);
         spinner_fruit = (Spinner) rootView.findViewById(R.id.spinner_fruit);
 
         item_fruit = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
         ArrayAdapter<String> adapter_fruitopen = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, item_fruit);
         adapter_fruitopen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinner_fruit.setAdapter(adapter_fruitopen);
+        spinner_fruit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String target = item_fruit[i];
+                List<StoreDto> clone = new ArrayList<>(openStore);
+                if (target.equals(item_fruit[0]) && fruitOpenAdapter != null) {
+                    Collections.sort(clone, new SortedByVoteAverage());
+                    openStore.clear();
+                    openStore.addAll(clone);
+                    Log.d("AFTER 0", openStore.toString());
+                    fruitOpenAdapter.notifyDataSetChanged();
+                } else if (target.equals(item_fruit[1])) {
+                    Collections.sort(openStore, new SortedByVoteCount());
+                    openStore.clear();
+                    openStore.addAll(clone);
+                    fruitOpenAdapter.notifyDataSetChanged();
+                    Log.d("AFTER 1", openStore.toString());
+                } else if (target.equals(item_fruit[2])) {
+                    Collections.sort(openStore, new SortedByName());
+                    openStore.clear();
+                    openStore.addAll(clone);
+                    fruitOpenAdapter.notifyDataSetChanged();
+                    Log.d("AFTER 2", openStore.toString());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         //과일동 오픈가게 Recycler View
         recyclerFruitopen = (RecyclerView) rootView.findViewById(R.id.recyclerfruitopen_fragment);
@@ -105,8 +141,9 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
                     fruitCloseAdapter = new FruitCloseAdapter(contactFruitCloses);
                 } else {
                     TypeStoreDto body = response.body();
-                    List<StoreDto> openStore = body.getOpenStore();
-                    List<StoreDto> closedStore = body.getClosedStore();
+                    openStore = body.getOpenStore();
+                    closedStore = body.getClosedStore();
+                    Log.d("BEFORE", openStore.toString());
 
                     contactFruitOpens = ContactFruitOpen.createContactsList(openStore);
                     fruitOpenAdapter = new FruitOpenAdapter(Glide.with(fruitFragment), contactFruitOpens);
@@ -143,16 +180,4 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        selectedText.setText(item_fruit[i]);
-        if (selectedText.getText().toString().equals("선택하세요")) {
-            selectedText.setText("");
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        selectedText.setText("");
-    }
 }

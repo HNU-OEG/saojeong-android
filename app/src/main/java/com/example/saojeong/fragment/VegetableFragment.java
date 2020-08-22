@@ -1,6 +1,7 @@
 package com.example.saojeong.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VegetableFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class VegetableFragment extends Fragment {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private RecyclerView recyclerVegetableopen;
@@ -74,14 +75,23 @@ public class VegetableFragment extends Fragment implements AdapterView.OnItemSel
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_vegetable, container, false);
 
         //순서 나열 Spinner
-        selectedText = (TextView) rootView.findViewById(R.id.selected_vegetable);
         spinner_vegetable = (Spinner) rootView.findViewById(R.id.spinner_vegetable);
 
         item_vegetable = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
-        ArrayAdapter<String> adapter_vegetableopen = new ArrayAdapter<String >(getContext(), android.R.layout.simple_spinner_item, item_vegetable);
+        ArrayAdapter<String> adapter_vegetableopen = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, item_vegetable);
         adapter_vegetableopen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinner_vegetable.setAdapter(adapter_vegetableopen);
+        spinner_vegetable.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("TAG", item_vegetable[i] + "입니다");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         //과일동 오픈가게 Recycler View
         recyclerVegetableopen = (RecyclerView) rootView.findViewById(R.id.recyclervegetableopen_fragment);
@@ -109,7 +119,7 @@ public class VegetableFragment extends Fragment implements AdapterView.OnItemSel
                     TypeStoreDto body = response.body();
                     List<StoreDto> openStore = body.getOpenStore();
                     List<StoreDto> closedStore = body.getClosedStore();
-
+                    Log.d("BEFORE", openStore.toString());
                     contactVegetableOpens = ContactVegetableOpen.createContactsList(openStore);
                     vegetableOpenAdapter = new VegetableOpenAdapter(Glide.with(vegetableFragment), contactVegetableOpens);
 
@@ -142,19 +152,4 @@ public class VegetableFragment extends Fragment implements AdapterView.OnItemSel
         });
     }
 
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        selectedText.setText(item_vegetable[i]);
-        if(selectedText.getText().toString().equals("선택하세요")) {
-            selectedText.setText("");
-
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        selectedText.setText("");
-
-    }
 }

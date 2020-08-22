@@ -67,6 +67,10 @@ public class FruitOpenAdapter extends RecyclerView.Adapter<FruitOpenAdapter.View
 
     private List<ContactFruitOpen> mContacts;
 
+    public List<ContactFruitOpen> getmContacts() {
+        return mContacts;
+    }
+
     public FruitOpenAdapter(List<ContactFruitOpen> contacts) {
         mContacts = contacts;
         glide = null;

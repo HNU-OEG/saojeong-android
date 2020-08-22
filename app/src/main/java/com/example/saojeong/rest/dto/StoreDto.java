@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class StoreDto {
+public class StoreDto implements Comparable<StoreDto> {
     @SerializedName("store_number")
     @Expose
     private Integer storeNumber;
@@ -38,5 +38,10 @@ public class StoreDto {
 
     public boolean isStarred() {
         return starred == 1;
+    }
+
+    @Override
+    public int compareTo(StoreDto storeDto) {
+        return 0;
     }
 }

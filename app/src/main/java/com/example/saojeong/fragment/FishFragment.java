@@ -1,6 +1,7 @@
 package com.example.saojeong.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +30,10 @@ import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.StoreDto;
 import com.example.saojeong.rest.dto.TypeStoreDto;
 import com.example.saojeong.rest.service.StoreService;
+import com.example.saojeong.util.SortedByName;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.SneakyThrows;
@@ -38,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FishFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class FishFragment extends Fragment {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private RecyclerView recyclerFishopen;
@@ -71,14 +74,23 @@ public class FishFragment extends Fragment implements AdapterView.OnItemSelected
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_fish, container, false);
 
         //순서 나열 Spinner
-        selectedText = (TextView) rootView.findViewById(R.id.selected_fish);
         spinner_fish = (Spinner) rootView.findViewById(R.id.spinner_fish);
 
         item_fish = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
-        ArrayAdapter<String> adapter_fishopen = new ArrayAdapter<String >(getContext(), android.R.layout.simple_spinner_item, item_fish);
+        ArrayAdapter<String> adapter_fishopen = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, item_fish);
         adapter_fishopen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinner_fish.setAdapter(adapter_fishopen);
+        spinner_fish.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("TAG", item_fish[i] + "입니다");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         //과일동 오픈가게 Recycler View
         recyclerFishopen = (RecyclerView) rootView.findViewById(R.id.recyclerfishopen_fragment);
@@ -135,20 +147,5 @@ public class FishFragment extends Fragment implements AdapterView.OnItemSelected
                 recyclerFishclose.setAdapter(fishCloseAdapter);
             }
         });
-    }
-
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        selectedText.setText(item_fish[i]);
-        if(selectedText.getText().toString().equals("선택하세요")) {
-            selectedText.setText("");
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        selectedText.setText("");
-
     }
 }
