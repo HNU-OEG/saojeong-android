@@ -14,6 +14,9 @@ import android.view.View;
 import com.example.saojeong.fragment.CommunityFragment;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.example.saojeong.fragment.FAQFragment;
+import com.example.saojeong.fragment.MyQnAFragment;
 import com.example.saojeong.fragment.PriceFragment;
 
 import android.view.inputmethod.InputMethodManager;
@@ -26,6 +29,7 @@ import com.example.saojeong.fragment.CommunityFragment;
 import com.example.saojeong.fragment.HomeFragment;
 import com.example.saojeong.fragment.PriceFragment;
 import com.example.saojeong.fragment.MyPageFragment;
+import com.example.saojeong.fragment.QnAFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -162,5 +166,36 @@ public class MainActivity extends AppCompatActivity {
 
     public void closeKeyBoard(View view) {
         imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+    }
+
+    public void onClickQnA(View view) {
+
+        QnAFragment qnAFragment = new QnAFragment();
+        MyQnAFragment myQnAFragment = new MyQnAFragment();
+        FAQFragment faQFragment = new FAQFragment();
+
+        switch (view.getId()) {
+
+            case R.id.tv_QnA:
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.frameLayout_main, qnAFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                break;
+
+            case R.id.tv_FaQ:
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.frameLayout_main, faQFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                break;
+
+            case R.id.tv_myQnA:
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.frameLayout_main, myQnAFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                break;
+        }
     }
 }

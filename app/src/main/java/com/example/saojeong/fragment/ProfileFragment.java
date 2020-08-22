@@ -90,6 +90,12 @@ public class ProfileFragment extends Fragment {
         et_new_name.addTextChangedListener(new TextWatcher()  {
 
             @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // 입력하기 전에
+                // TODO: 2020-08-22-022 키보드 나오게 구현
+            }
+
+            @Override
             public void onTextChanged(CharSequence name, int start, int before, int count) {
                 // 입력되는 텍스트에 변화가 있을 때
             }
@@ -107,11 +113,6 @@ public class ProfileFragment extends Fragment {
                     tv_duplicate_err.setTextColor(Color.parseColor("#85a0b3"));
                     btn_save.setEnabled(true);
                 }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // 입력하기 전에
             }
         });
 

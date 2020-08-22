@@ -10,7 +10,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,8 @@ public class MyPageFragment extends Fragment {
     private RecyclerView recyclerStar;
     private LikeStoreAdapter likeStoreAdapter;
     private StarStoreAdapter starStoreAdapter;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
     ArrayList<LikeStore> likeStores;
     ArrayList<StarStore> starStores;
@@ -48,6 +51,10 @@ public class MyPageFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d("test", "start MyPageFragment");
+
+        fragmentManager = getChildFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
 
         int numStore = MyPageGetData.getNumStore();
 
@@ -76,5 +83,13 @@ public class MyPageFragment extends Fragment {
         recyclerStar.setAdapter(starStoreAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+         fragmentTransaction = fragmentManager.beginTransaction();
+
+         //view.findViewById(R.id.)
     }
 }
