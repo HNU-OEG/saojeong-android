@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.R;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 public class MyQnAFragment extends Fragment {
 
     private RecyclerView recycler_myQnA;
-    private MyQnAadapter myQnAaddapter;
+    private MyQnAadapter myQnAadapter;
 
     ArrayList<MyQnA> myQnA;
 
@@ -29,8 +31,12 @@ public class MyQnAFragment extends Fragment {
 
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_myqna_list, container, false);
 
-        recycler_myQnA = getView().findViewById(R.id.recycler_myQnA);
-        myQnAaddapter = new MyQnAadapter(myQnA);
+        recycler_myQnA = view.findViewById(R.id.recycler_myQnA);
+        myQnA = MyQnA.createMyQnA(20);
+        myQnAadapter = new MyQnAadapter(myQnA);
+        recycler_myQnA.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        recycler_myQnA.addItemDecoration(new DividerItemDecoration(view.getContext(), 1));
+        recycler_myQnA.setAdapter((myQnAadapter));
 
         return view;
 

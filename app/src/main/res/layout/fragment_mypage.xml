@@ -141,7 +141,7 @@
                     android:onClick="onClickQnA"/>
 
                 <TextView
-                    android:id="@+id/tv_FaQ"
+                    android:id="@+id/tv_FAQ"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"

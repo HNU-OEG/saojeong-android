@@ -20,16 +20,12 @@ public class MyQnAadapter extends RecyclerView.Adapter<MyQnAadapter.ViewHolder> 
         public TextView title;
         public TextView status;
         public TextView date;
-        public TextView tv_content;
-        public TextView comment;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.title = itemView.findViewById(R.id.tv_QnA_title);
-            this.status = itemView.findViewById(R.id.tv_QnA_status);
-            this.date = itemView.findViewById(R.id.tv_QnA_date);
-            this.tv_content = itemView.findViewById(R.id.tv_QnA_content);
-            this.comment = itemView.findViewById(R.id.tv_QnA_comment);
+            this.title = itemView.findViewById(R.id.tv_QnA_title_list);
+            this.status = itemView.findViewById(R.id.tv_QnA_status_list);
+            this.date = itemView.findViewById(R.id.tv_QnA_date_list);
         }
     }
 
@@ -52,14 +48,10 @@ public class MyQnAadapter extends RecyclerView.Adapter<MyQnAadapter.ViewHolder> 
         TextView title = holder.title;
         TextView status = holder.status;
         TextView date = holder.date;
-        TextView tv_content = holder.tv_content;
-        TextView comment = holder.comment;
 
         title.setText(myQnA.getmTitle());
         status.setText(myQnA.getmStatus());
         date.setText(myQnA.getmDate());
-        tv_content.setText(myQnA.getmContent());
-        comment.setText(myQnA.getmComment());
     }
 
     @Override

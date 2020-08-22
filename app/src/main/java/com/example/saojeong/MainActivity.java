@@ -173,25 +173,23 @@ public class MainActivity extends AppCompatActivity {
         QnAFragment qnAFragment = new QnAFragment();
         MyQnAFragment myQnAFragment = new MyQnAFragment();
         FAQFragment faQFragment = new FAQFragment();
+        transaction = fragmentManager.beginTransaction();
 
         switch (view.getId()) {
 
             case R.id.tv_QnA:
-                transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.frameLayout_main, qnAFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
                 break;
 
-            case R.id.tv_FaQ:
-                transaction = fragmentManager.beginTransaction();
+            case R.id.tv_FAQ:
                 transaction.replace(R.id.frameLayout_main, faQFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
                 break;
 
             case R.id.tv_myQnA:
-                transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.frameLayout_main, myQnAFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();

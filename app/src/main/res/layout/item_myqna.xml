@@ -15,7 +15,7 @@
         android:orientation="horizontal"
         >
         <TextView
-            android:id="@+id/tv_qna_title"
+            android:id="@+id/tv_QnA_title_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -27,11 +27,11 @@
             tools:text="제목은 두껍게! 한눈에 보이도록!"/>
 
         <TextView
-            android:id="@+id/tv_qna_check"
+            android:id="@+id/tv_QnA_status_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:textColor="#E93333"
+            android:textColor="#ff7532"
             android:textSize="15sp"
             tools:text="[답변완료]"/>
 
@@ -39,7 +39,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_qna_time"
+            android:id="@+id/tv_QnA_date_list"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

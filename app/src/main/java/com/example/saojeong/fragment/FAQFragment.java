@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.R;
@@ -29,10 +31,11 @@ public class FAQFragment extends Fragment {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_faq, container, false);
 
         recycler_FAQ = view.findViewById(R.id.recycler_FAQ);
+        mFAQ = FAQ.createFAQ(20);
         mFAQadapter = new FAQadapter(mFAQ);
-
+        recycler_FAQ.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        recycler_FAQ.addItemDecoration(new DividerItemDecoration(view.getContext(), 1));
         recycler_FAQ.setAdapter(mFAQadapter);
-        // TODO: 2020-08-22-022 어댑터 사용 
 
         return view;
 
