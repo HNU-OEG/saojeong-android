@@ -1,6 +1,7 @@
 package com.example.saojeong.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +18,29 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.FruitCloseAdapter;
 import com.example.saojeong.adapter.FruitOpenAdapter;
+import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.model.ContactFruitClose;
 import com.example.saojeong.model.ContactFruitOpen;
 import com.example.saojeong.model.OnItemClickListener;
 import com.example.saojeong.model.RecyclerDecoration;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.StoreDto;
+import com.example.saojeong.rest.dto.TypeStoreDto;
+import com.example.saojeong.rest.service.StoreService;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import lombok.SneakyThrows;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FruitFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private FragmentManager fragmentManager;
@@ -36,8 +50,8 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
     private RecyclerView recyclerFruitclose;
     private FruitOpenAdapter fruitOpenAdapter;
     private FruitCloseAdapter fruitCloseAdapter;
-    ArrayList<ContactFruitOpen> contactFruitOpens;
-    ArrayList<ContactFruitClose> contactFruitCloses;
+    List<ContactFruitOpen> contactFruitOpens;
+    List<ContactFruitClose> contactFruitCloses;
 
     TextView selectedText;
     Spinner spinner_fruit;
@@ -45,34 +59,38 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
 
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(50);
 
+    private StoreService storeService;
+
     public static FruitFragment newInstance() {
         return new FruitFragment();
     }
 
+    @SneakyThrows
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
 
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_fruit, container, false);
 
-        ((MainActivity)getActivity()).closeKeyBoard(rootView);
+        ((MainActivity) getActivity()).closeKeyBoard(rootView);
 
         //순서 나열 Spinner
         selectedText = (TextView) rootView.findViewById(R.id.selected_fruit);
         spinner_fruit = (Spinner) rootView.findViewById(R.id.spinner_fruit);
 
         item_fruit = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
-        ArrayAdapter<String> adapter_fruitopen = new ArrayAdapter<String >(getContext(), android.R.layout.simple_spinner_item, item_fruit);
+        ArrayAdapter<String> adapter_fruitopen = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, item_fruit);
         adapter_fruitopen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner_fruit.setAdapter(adapter_fruitopen);
 
         //과일동 오픈가게 Recycler View
         recyclerFruitopen = (RecyclerView) rootView.findViewById(R.id.recyclerfruitopen_fragment);
-        contactFruitOpens = ContactFruitOpen.createContactsList(5);
+        contactFruitOpens = ContactFruitOpen._createContactsList(5);
         fruitOpenAdapter = new FruitOpenAdapter(contactFruitOpens);
         recyclerFruitopen.addItemDecoration(bottomDecoration);
         recyclerFruitopen.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
@@ -85,9 +103,66 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
         recyclerFruitclose.addItemDecoration(bottomDecoration);
         recyclerFruitclose.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         recyclerFruitclose.setAdapter(fruitCloseAdapter);
+//        loadStores(this);
 
         return rootView;
 
+    }
+
+    private void loadStores(FruitFragment fruitFragment) throws IOException {
+        Call<TypeStoreDto> call = storeService.getTypeStore("fruits", "count");
+        Response<TypeStoreDto> response = call.execute();
+
+        if (response.code() != 201) {
+            contactFruitOpens = ContactFruitOpen._createContactsList(5);
+            fruitOpenAdapter = new FruitOpenAdapter(contactFruitOpens);
+
+            contactFruitCloses = ContactFruitClose.createContactsList(3);
+            fruitCloseAdapter = new FruitCloseAdapter(contactFruitCloses);
+        } else {
+            TypeStoreDto body = response.body();
+            List<StoreDto> openStore = body.getOpenStore();
+            List<StoreDto> closedStore = body.getClosedStore();
+
+            contactFruitOpens = ContactFruitOpen.createContactsList(openStore);
+            fruitOpenAdapter = new FruitOpenAdapter(Glide.with(fruitFragment), contactFruitOpens);
+
+            contactFruitCloses = ContactFruitClose.createContactsList(3);
+            fruitCloseAdapter = new FruitCloseAdapter(contactFruitCloses);
+        }
+
+        recyclerFruitopen.addItemDecoration(bottomDecoration);
+        recyclerFruitopen.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+        recyclerFruitopen.setAdapter(fruitOpenAdapter);
+
+        recyclerFruitclose.addItemDecoration(bottomDecoration);
+        recyclerFruitclose.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+        recyclerFruitclose.setAdapter(fruitCloseAdapter);
+
+
+//        storeService.getTypeStore("fruits", "count").enqueue(new Callback<TypeStoreDto>() {
+//            @Override
+//            public void onResponse(Call<TypeStoreDto> call, Response<TypeStoreDto> response) {
+//                if (response.code() != 201) {
+//
+//                } else {
+//                    Log.d("TAG", response.body().toString());
+//                }
+//
+//                recyclerFruitopen.addItemDecoration(bottomDecoration);
+//                recyclerFruitopen.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+//                recyclerFruitopen.setAdapter(fruitOpenAdapter);
+//
+//                recyclerFruitclose.addItemDecoration(bottomDecoration);
+//                recyclerFruitclose.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+//                recyclerFruitclose.setAdapter(fruitCloseAdapter);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<TypeStoreDto> call, Throwable t) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -99,7 +174,7 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
         fruitOpenAdapter.setOnItemClicklistener(new OnItemClickListener() {
             @Override
             public void onItemClick(FruitOpenAdapter.ViewHolder holder, View view, int position) {
-                ((MainActivity)getActivity()).replaceFragment(fruitShopFragment.newInstance());
+                ((MainActivity) getActivity()).replaceFragment(FruitShopFragment.newInstance());
             }
         });
 
@@ -109,7 +184,7 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         selectedText.setText(item_fruit[i]);
-        if(selectedText.getText().toString().equals("선택하세요")) {
+        if (selectedText.getText().toString().equals("선택하세요")) {
             selectedText.setText("");
 
         }

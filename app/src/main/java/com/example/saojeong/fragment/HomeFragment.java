@@ -17,6 +17,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+
+
+import com.bumptech.glide.Glide;
+
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.FishAdapter;
@@ -24,14 +29,29 @@ import com.example.saojeong.adapter.FruitAdapter;
 import com.example.saojeong.adapter.FullviewAdapter;
 import com.example.saojeong.adapter.LikeStoreAdapter;
 import com.example.saojeong.adapter.VegetableAdapter;
+import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.model.ContactFish;
 import com.example.saojeong.model.ContactFruit;
 import com.example.saojeong.model.ContactFullview;
 import com.example.saojeong.model.ContactVegetable;
 import com.example.saojeong.model.LikeStore;
 import com.example.saojeong.model.RecyclerDecoration;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.SeasonalFoodDto;
+import com.example.saojeong.rest.dto.StoreDto;
+import com.example.saojeong.rest.dto.board.ContentDto;
+import com.example.saojeong.rest.service.BoardService;
+import com.example.saojeong.rest.service.SeasonalFoodService;
+import com.example.saojeong.rest.service.StoreService;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -54,11 +74,15 @@ public class HomeFragment extends Fragment {
     private VegetableAdapter vegetableAdapter;
     private FishAdapter fishAdapter;
     private FullviewAdapter fullviewAdapter;
-    ArrayList<LikeStore> likeStores;
-    ArrayList<ContactFruit> contactFruits;
-    ArrayList<ContactVegetable> contactVegetables;
-    ArrayList<ContactFish> contactFishs;
-    ArrayList<ContactFullview> contactFullviews;
+    List<LikeStore> likeStores;
+    List<ContactFruit> contactFruits;
+    List<ContactVegetable> contactVegetables;
+    List<ContactFish> contactFishs;
+    List<ContactFullview> contactFullviews;
+
+    private StoreService storeService;
+    private SeasonalFoodService foodService;
+    private BoardService boardService;
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
 
@@ -66,12 +90,19 @@ public class HomeFragment extends Fragment {
 
     TabHost tabHost;
 
+    private final String TAG = this.getClass().getName();
+
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
+        foodService = ServiceGenerator.createService(SeasonalFoodService.class, TokenCase.getToken());
+        boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
 
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
@@ -85,42 +116,19 @@ public class HomeFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         //매장 Recycler View
         recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
-        likeStores = LikeStore.createLikeStoreList(20);
-        likeStoreAdapter = new LikeStoreAdapter(likeStores);
-        recyclerShop.addItemDecoration(leftDecoration);
-        recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerShop.setAdapter(likeStoreAdapter);
+        loadStores(this);
 
         //과일 Recycler View
         recyclerFruit = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_fragment);
-        contactFruits = ContactFruit.createContactsList(20);
-        fruitAdapter = new FruitAdapter(contactFruits);
-        recyclerFruit.addItemDecoration(leftDecoration);
-        recyclerFruit.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerFruit.setAdapter(fruitAdapter);
-
         //채소 Recycler View
         recyclerVegetable = (RecyclerView) rootView.findViewById(R.id.recyclervegetable_fragment);
-        contactVegetables = ContactVegetable.createContactsList(20);
-        vegetableAdapter = new VegetableAdapter(contactVegetables);
-        recyclerVegetable.addItemDecoration(leftDecoration);
-        recyclerVegetable.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerVegetable.setAdapter(vegetableAdapter);
-
         //수산 Recycler View
         recyclerFish = (RecyclerView) rootView.findViewById(R.id.recyclerfish_fragment);
-        contactFishs = ContactFish.createContactsList(20);
-        fishAdapter = new FishAdapter(contactFishs);
-        recyclerFish.addItemDecoration(leftDecoration);
-        recyclerFish.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerFish.setAdapter(fishAdapter);
+        loadFoods(this);
 
         //전체 보기(공지) Recycler View
         recyclerFullview = (RecyclerView) rootView.findViewById(R.id.recyclerfullview_fragment);
-        contactFullviews = ContactFullview.createContactsList(20);
-        fullviewAdapter = new FullviewAdapter(contactFullviews);
-        recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerFullview.setAdapter(fullviewAdapter);
+        loadNews(this);
 
         tabHost = (TabHost) rootView.findViewById(R.id.tabhost);
         tabHost.setup();
@@ -164,6 +172,144 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
+    private void loadStores(HomeFragment homeFragment) {
+        storeService.getStoreListOrderByGrade().enqueue(new Callback<List<StoreDto>>() {
+            @Override
+            public void onResponse(Call<List<StoreDto>> call,
+                                   Response<List<StoreDto>> response) {
+                if (response.code() != 201) {
+                    likeStores = LikeStore._createLikeStoreList(20);
+                    likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                    Log.d(TAG, response.message());
+                } else {
+                    likeStores = LikeStore.createLikeStoreList(Objects.requireNonNull(response.body()));
+                    likeStoreAdapter = new LikeStoreAdapter(Glide.with(homeFragment), likeStores);
+                }
+
+                recyclerShop.addItemDecoration(leftDecoration);
+                recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerShop.setAdapter(likeStoreAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<StoreDto>> call, Throwable t) {
+                likeStores = LikeStore._createLikeStoreList(20);
+                likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                recyclerShop.addItemDecoration(leftDecoration);
+                recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerShop.setAdapter(likeStoreAdapter);
+                Log.d(TAG, t.getMessage());
+            }
+        });
+    }
+
+    private void loadFoods(HomeFragment homeFragment) {
+        foodService.getSeasonalFood("과일", 9).enqueue(new Callback<List<SeasonalFoodDto>>() {
+            @Override
+            public void onResponse(Call<List<SeasonalFoodDto>> call, Response<List<SeasonalFoodDto>> response) {
+                if (response.code() != 201) {
+                    contactFruits = ContactFruit._createContactsList(20);
+                    fruitAdapter = new FruitAdapter(contactFruits);
+                    Log.d(TAG, response.message());
+                } else {
+                    contactFruits = ContactFruit.createContactsList(Objects.requireNonNull(response.body()));
+                    fruitAdapter = new FruitAdapter(Glide.with(homeFragment), contactFruits);
+                }
+                recyclerFruit.addItemDecoration(leftDecoration);
+                recyclerFruit.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerFruit.setAdapter(fruitAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<SeasonalFoodDto>> call, Throwable t) {
+                contactFruits = ContactFruit._createContactsList(20);
+                fruitAdapter = new FruitAdapter(contactFruits);
+                recyclerFruit.addItemDecoration(leftDecoration);
+                recyclerFruit.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerFruit.setAdapter(fruitAdapter);
+                Log.d(TAG, t.getMessage());
+            }
+        });
+        foodService.getSeasonalFood("채소", 9).enqueue(new Callback<List<SeasonalFoodDto>>() {
+            @Override
+            public void onResponse(Call<List<SeasonalFoodDto>> call, Response<List<SeasonalFoodDto>> response) {
+                if (response.code() != 201) {
+                    contactVegetables = ContactVegetable._createContactsList(20);
+                    vegetableAdapter = new VegetableAdapter(contactVegetables);
+                    Log.d(TAG, response.message());
+                } else {
+                    contactVegetables = ContactVegetable.createContactsList(Objects.requireNonNull(response.body()));
+                    vegetableAdapter = new VegetableAdapter(Glide.with(homeFragment), contactVegetables);
+                }
+                recyclerVegetable.addItemDecoration(leftDecoration);
+                recyclerVegetable.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerVegetable.setAdapter(vegetableAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<SeasonalFoodDto>> call, Throwable t) {
+                contactVegetables = ContactVegetable._createContactsList(20);
+                vegetableAdapter = new VegetableAdapter(contactVegetables);
+                recyclerVegetable.addItemDecoration(leftDecoration);
+                recyclerVegetable.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerVegetable.setAdapter(vegetableAdapter);
+                Log.d(TAG, t.getMessage());
+            }
+        });
+        foodService.getSeasonalFood("수산", 9).enqueue(new Callback<List<SeasonalFoodDto>>() {
+            @Override
+            public void onResponse(Call<List<SeasonalFoodDto>> call, Response<List<SeasonalFoodDto>> response) {
+                if (response.code() != 201) {
+                    contactFishs = ContactFish._createContactsList(20);
+                    fishAdapter = new FishAdapter(contactFishs);
+                    Log.d(TAG, response.message());
+                } else {
+                    contactFishs = ContactFish.createContactsList(Objects.requireNonNull(response.body()));
+                    fishAdapter = new FishAdapter(Glide.with(homeFragment), contactFishs);
+                }
+
+                recyclerFish.addItemDecoration(leftDecoration);
+                recyclerFish.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerFish.setAdapter(fishAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<SeasonalFoodDto>> call, Throwable t) {
+                contactFishs = ContactFish._createContactsList(20);
+                fishAdapter = new FishAdapter(contactFishs);
+                recyclerFish.addItemDecoration(leftDecoration);
+                recyclerFish.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerFish.setAdapter(fishAdapter);
+                Log.d(TAG, t.getMessage());
+            }
+        });
+    }
+
+    private void loadNews(HomeFragment homeFragment) {
+        boardService.getBoardList(10000).enqueue(new Callback<List<ContentDto>>() {
+            @Override
+            public void onResponse(Call<List<ContentDto>> call, Response<List<ContentDto>> response) {
+                if (response.code() != 201) {
+                    contactFullviews = ContactFullview._createContactsList(20);
+                    fullviewAdapter = new FullviewAdapter(contactFullviews);
+                } else {
+                    contactFullviews = ContactFullview.createContactsList(Objects.requireNonNull(response.body()));
+                    fullviewAdapter = new FullviewAdapter(Glide.with(homeFragment), contactFullviews);
+                }
+                recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerFullview.setAdapter(fullviewAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<ContentDto>> call, Throwable t) {
+                contactFullviews = ContactFullview._createContactsList(20);
+                fullviewAdapter = new FullviewAdapter(contactFullviews);
+                recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerFullview.setAdapter(fullviewAdapter);
+            }
+        });
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -173,7 +319,7 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.iv_home).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceFragment(homeFragment.newInstance());
+                ((MainActivity) getActivity()).replaceFragment(homeFragment.newInstance());
                 fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
             }
         });
@@ -181,27 +327,27 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.btn_fruit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceHomeFragment(fruitFragment.newInstance());
+                ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance());
             }
         });
 
         view.findViewById(R.id.btn_vegetable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceHomeFragment(fruitFragment.newInstance());
+                ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance());
             }
         });
 
         view.findViewById(R.id.btn_fish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceHomeFragment(fruitFragment.newInstance());
+                ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance());
             }
         });
     }
 
     public void closeKeyBoard(View view) {
-        imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 }
