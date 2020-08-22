@@ -99,6 +99,7 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
                 public void success() {
 
                     Login_GuestService = ServiceGenerator.createService(Login_Guest.class, AccessToken.getCurrentAccessToken().getToken());
+
                     loadlogin(mActivity, "facebook");
                 }
 //
@@ -132,7 +133,9 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
 
                  @Override
                  public void success() {
-
+                     Login_GuestService = ServiceGenerator.createService(Login_Guest.class, mGoogleLogin.account.getServerAuthCode());
+                     String str=mGoogleLogin.account.getServerAuthCode();
+                     loadlogin(mActivity, "google");
                  }
 
                  @Override
@@ -149,14 +152,12 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
             {
                 case R.id.login_facebook:
                     mFacebookLogin.Login(mActivity);
-
                     //Intent intent = new Intent(mActivity, MainActivity.class);
                     //mActivity.startActivity(intent);
                     //mActivity.finish();
                     break;
                 case R.id.login_kakaotalk:
                     mKaKaoLogin.Login(mActivity);
-
                     break;
                 case R.id.login_naver:
                     //loadStores(mActivity, "1");

@@ -46,7 +46,7 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==GoogleLoginRequestCode)
             GoogleLogin.inst.onActivityResult(requestCode,resultCode, data);

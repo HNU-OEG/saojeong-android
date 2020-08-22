@@ -56,7 +56,6 @@ public class GoogleLogin implements LoginControl, GoogleApiClient.OnConnectionFa
         mGoogleSignInClient = GoogleSignIn.getClient(mActivity, gso);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(mContext);
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
@@ -75,13 +74,11 @@ public class GoogleLogin implements LoginControl, GoogleApiClient.OnConnectionFa
             // [END get_auth_code]
         }
     }
-
     @Override
     public void Login(Activity activity) {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         mActivity.startActivityForResult(signInIntent, RC_GET_AUTH_CODE);
     }
-
     @Override
     public void Logout() {
         mGoogleSignInClient.signOut()
@@ -92,7 +89,6 @@ public class GoogleLogin implements LoginControl, GoogleApiClient.OnConnectionFa
                     }
                 });
     }
-
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

@@ -1,8 +1,10 @@
 package com.example.saojeong.login;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.example.saojeong.MainActivity;
 import com.example.saojeong.model.LoginData;
 import com.example.saojeong.rest.dto.Login_Dto;
 
@@ -23,14 +25,16 @@ public class CallBackLogin implements Callback<Login_Dto> {
 
     @Override
     public void onResponse(Call<Login_Dto> call, Response<Login_Dto> response) {
-        LoginData dto = new LoginData(Objects.requireNonNull(response.body()));
-//
+
         Login_Dto body = response.body();
         String str = body.accessToken;
         SharedPreferences pref = mActivity.getSharedPreferences("SHARE_PREF", mActivity.MODE_PRIVATE);
         SharedPreferences.Editor editer = pref.edit();
         editer.putString("AccessToken", str);
         editer.apply();
+        Intent intent = new Intent(mActivity, MainActivity.class);
+        mActivity.startActivity(intent);
+        mActivity.finish();
     }
 
     @Override
