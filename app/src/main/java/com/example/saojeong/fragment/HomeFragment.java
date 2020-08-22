@@ -19,15 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
-import com.example.saojeong.adapter.FishAdapter;
-import com.example.saojeong.adapter.FruitAdapter;
+import com.example.saojeong.adapter.FoodAdapter;
 import com.example.saojeong.adapter.FullviewAdapter;
 import com.example.saojeong.adapter.LikeStoreAdapter;
-import com.example.saojeong.adapter.VegetableAdapter;
-import com.example.saojeong.model.ContactFish;
-import com.example.saojeong.model.ContactFruit;
+import com.example.saojeong.model.ContactFood;
 import com.example.saojeong.model.ContactFullview;
-import com.example.saojeong.model.ContactVegetable;
 import com.example.saojeong.model.LikeStore;
 import com.example.saojeong.model.RecyclerDecoration;
 
@@ -41,23 +37,17 @@ public class HomeFragment extends Fragment {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private FruitFragment fruitFragment;
+    private FishFragment fishFragment;
     private VegetableFragment vegetableFragment;
     private HomeFragment homeFragment;
-    private FishFragment fishFragment;
     private RecyclerView recyclerShop;
-    private RecyclerView recyclerFruit;
-    private RecyclerView recyclerVegetable;
-    private RecyclerView recyclerFish;
+    private RecyclerView recyclerFood;
     private RecyclerView recyclerFullview;
     private LikeStoreAdapter likeStoreAdapter;
-    private FruitAdapter fruitAdapter;
-    private VegetableAdapter vegetableAdapter;
-    private FishAdapter fishAdapter;
+    private FoodAdapter foodAdapter;
     private FullviewAdapter fullviewAdapter;
     ArrayList<LikeStore> likeStores;
-    ArrayList<ContactFruit> contactFruits;
-    ArrayList<ContactVegetable> contactVegetables;
-    ArrayList<ContactFish> contactFishs;
+    ArrayList<ContactFood> contactFoods;
     ArrayList<ContactFullview> contactFullviews;
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
@@ -92,28 +82,28 @@ public class HomeFragment extends Fragment {
         recyclerShop.setAdapter(likeStoreAdapter);
 
         //과일 Recycler View
-        recyclerFruit = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_fragment);
-        contactFruits = ContactFruit.createContactsList(20);
-        fruitAdapter = new FruitAdapter(contactFruits);
-        recyclerFruit.addItemDecoration(leftDecoration);
-        recyclerFruit.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerFruit.setAdapter(fruitAdapter);
+        recyclerFood = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_fragment);
+        contactFoods = ContactFood.createContactsList(20);
+        foodAdapter = new FoodAdapter(contactFoods);
+        recyclerFood.addItemDecoration(leftDecoration);
+        recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+        recyclerFood.setAdapter(foodAdapter);
 
         //채소 Recycler View
-        recyclerVegetable = (RecyclerView) rootView.findViewById(R.id.recyclervegetable_fragment);
-        contactVegetables = ContactVegetable.createContactsList(20);
-        vegetableAdapter = new VegetableAdapter(contactVegetables);
-        recyclerVegetable.addItemDecoration(leftDecoration);
-        recyclerVegetable.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerVegetable.setAdapter(vegetableAdapter);
+        recyclerFood = (RecyclerView) rootView.findViewById(R.id.recyclervegetable_fragment);
+        contactFoods = ContactFood.createContactsList(20);
+        foodAdapter = new FoodAdapter(contactFoods);
+        recyclerFood.addItemDecoration(leftDecoration);
+        recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+        recyclerFood.setAdapter(foodAdapter);
 
         //수산 Recycler View
-        recyclerFish = (RecyclerView) rootView.findViewById(R.id.recyclerfish_fragment);
-        contactFishs = ContactFish.createContactsList(20);
-        fishAdapter = new FishAdapter(contactFishs);
-        recyclerFish.addItemDecoration(leftDecoration);
-        recyclerFish.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerFish.setAdapter(fishAdapter);
+        recyclerFood = (RecyclerView) rootView.findViewById(R.id.recyclerfish_fragment);
+        contactFoods = ContactFood.createContactsList(20);
+        foodAdapter = new FoodAdapter(contactFoods);
+        recyclerFood.addItemDecoration(leftDecoration);
+        recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+        recyclerFood.setAdapter(foodAdapter);
 
         //전체 보기(공지) Recycler View
         recyclerFullview = (RecyclerView) rootView.findViewById(R.id.recyclerfullview_fragment);

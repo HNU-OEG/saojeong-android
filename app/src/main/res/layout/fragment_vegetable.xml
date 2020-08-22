@@ -93,7 +93,7 @@
                 android:textSize="15dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclervegetableopen_fragment"
+                android:id="@+id/recyclershop_open"
                 android:layout_marginTop="7dp"
                 android:layout_marginLeft="22dp"
                 android:layout_marginRight="22dp"
@@ -123,12 +123,12 @@
                     android:textSize="15dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclervegetableclose_fragment"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginRight="22dp"
+                    android:id="@+id/recyclershop_close"
                     android:layout_width="match_parent"
-                    android:layout_height="259dp" />
+                    android:layout_height="259dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginRight="22dp" />
 
             </LinearLayout>
         </LinearLayout>

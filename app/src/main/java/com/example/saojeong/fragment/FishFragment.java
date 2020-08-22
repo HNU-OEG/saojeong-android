@@ -19,29 +19,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
-import com.example.saojeong.adapter.FishCloseAdapter;
-import com.example.saojeong.adapter.FishOpenAdapter;
-import com.example.saojeong.model.ContactFishClose;
-import com.example.saojeong.model.ContactFishOpen;
+import com.example.saojeong.adapter.ShopOCAdapter;
+import com.example.saojeong.model.ContactShopOC;
 import com.example.saojeong.model.OnItemClickListener;
 import com.example.saojeong.model.RecyclerDecoration;
 
 import java.util.ArrayList;
 
-public class FishFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class FishFragment extends Fragment {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
-    private FishShopFragment fishShopFragment;
-    private RecyclerView recyclerFishopen;
-    private RecyclerView recyclerFishclose;
-    private FishOpenAdapter fishOpenAdapter;
-    private FishCloseAdapter fishCloseAdapter;
-    ArrayList<ContactFishOpen> contactFishOpens;
-    ArrayList<ContactFishClose> contactFishCloses;
+    private ShopFragment shopFragment;
+    private RecyclerView recyclerShopoc;
+    private ShopOCAdapter shopOCAdapter;
+    ArrayList<ContactShopOC> contactShopOCs;
 
     TextView selectedText;
-    Spinner spinner_fish;
-    String[] item_fish;
+    Spinner spinner_shop;
+    String[] item_shop;
 
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(50);
 
@@ -60,33 +55,29 @@ public class FishFragment extends Fragment implements AdapterView.OnItemSelected
 
         ((MainActivity) getActivity()).closeKeyBoard(rootView);
 
-        selectedText = (TextView) rootView.findViewById(R.id.selected_fish);
-
         //순서 나열 Spinner
-        spinner_fish = (Spinner) rootView.findViewById(R.id.spinner_fish);
+        spinner_shop = (Spinner) rootView.findViewById(R.id.spinner_fish);
+        item_shop = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
+        ArrayAdapter<String> adapter_shopoc = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, item_shop);
+        adapter_shopoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_shop.setAdapter(adapter_shopoc);
 
-        item_fish = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
-        ArrayAdapter<String> adapter_fishopen = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, item_fish);
-        adapter_fishopen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //수산동 오픈 가게 Recycler View
+        recyclerShopoc = (RecyclerView) rootView.findViewById(R.id.recyclershop_open);
+        contactShopOCs = ContactShopOC.createContactsList(5);
+        shopOCAdapter = new ShopOCAdapter(contactShopOCs);
+        recyclerShopoc.addItemDecoration(bottomDecoration);
+        recyclerShopoc.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+        recyclerShopoc.setAdapter(shopOCAdapter);
 
-        spinner_fish.setAdapter(adapter_fishopen);
-
-        //과일동 오픈가게 Recycler View
-        recyclerFishopen = (RecyclerView) rootView.findViewById(R.id.recyclerfishopen_fragment);
-        contactFishOpens = ContactFishOpen.createContactsList(5);
-        fishOpenAdapter = new FishOpenAdapter(contactFishOpens);
-        recyclerFishopen.addItemDecoration(bottomDecoration);
-        recyclerFishopen.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerFishopen.setAdapter(fishOpenAdapter);
-
-        //과일동 닫은가게 Recycler View
-        recyclerFishclose = (RecyclerView) rootView.findViewById(R.id.recyclerfishclose_fragment);
-        contactFishCloses = ContactFishClose.createContactsList(3);
-        fishCloseAdapter = new FishCloseAdapter(contactFishCloses);
-        recyclerFishclose.addItemDecoration(bottomDecoration);
-        recyclerFishclose.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerFishclose.setAdapter(fishCloseAdapter);
-
+        //수산동 휴식 가게 Recycler View
+        recyclerShopoc = (RecyclerView) rootView.findViewById(R.id.recyclershop_close);
+        contactShopOCs = ContactShopOC.createContactsList(5);
+        shopOCAdapter = new ShopOCAdapter(contactShopOCs);
+        recyclerShopoc.addItemDecoration(bottomDecoration);
+        recyclerShopoc.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+        recyclerShopoc.setAdapter(shopOCAdapter);
+        
         return rootView;
 
     }
@@ -97,35 +88,11 @@ public class FishFragment extends Fragment implements AdapterView.OnItemSelected
 
         transaction = fragmentManager.beginTransaction();
 
-        fishOpenAdapter.setOnItemClicklistener(new OnItemClickListener() {
+        shopOCAdapter.setOnItemClicklistener(new OnItemClickListener() {
             @Override
             public void onItemClick(Object holder, View view, int position) {
-                ((MainActivity) getActivity()).replaceFragment(fishShopFragment.newInstance());
+                ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
             }
         });
-
-        fishCloseAdapter.setOnItemClicklistener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(Object holder, View view, int position) {
-                ((MainActivity) getActivity()).replaceFragment(fishShopFragment.newInstance());
-            }
-        });
-
-    }
-
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        selectedText.setText(item_fish[i]);
-        if (selectedText.getText().toString().equals("선택하세요")) {
-            selectedText.setText("");
-
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        selectedText.setText("");
-
     }
 }
