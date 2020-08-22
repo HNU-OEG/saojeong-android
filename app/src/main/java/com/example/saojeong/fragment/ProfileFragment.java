@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -65,6 +66,14 @@ public class ProfileFragment extends Fragment {
         et_new_name = view.findViewById(R.id.et_name);
         tv_duplicate_err = view.findViewById(R.id.tv_duplicate_err);
         iv_profile = view.findViewById(R.id.iv_profile);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar_edit_profile);
+        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.~~); // 뒤로가기 화살표 이미지 바꾸기
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitleTextColor(Color.BLACK);
 
         //권한 확인
         checkSelfPermission((Activity) view.getContext());

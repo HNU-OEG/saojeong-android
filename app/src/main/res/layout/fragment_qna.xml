@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:onClick="closeKeyBoard"
     android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar_qna"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_qna"
+            android:layout_width="match_parent"
+            android:layout_gravity="left"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#FFFFFF"
+            app:popupTheme="@style/AppTheme.AppBarOverlay">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="앱 문의 • 건의"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                android:textColor="#4d4d4d" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:id="@+id/layout_top"
@@ -32,7 +61,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="13dp"
             android:background="@drawable/square_box"
-            android:hint="@string/qna"/>
+            android:text="@string/qna"/>
 
     </LinearLayout>
 
@@ -41,7 +70,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#eeeeee"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -61,7 +89,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="18dp"
             android:background="@drawable/btn_round_tmp"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -71,7 +98,5 @@
             android:text="문의하기"/>
 
     </LinearLayout>
-
-
 
 </LinearLayout>
