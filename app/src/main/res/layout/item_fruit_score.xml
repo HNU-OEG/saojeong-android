@@ -44,35 +44,35 @@
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <ImageView
             android:id="@+id/iv_fruit_kindstar2"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <ImageView
             android:id="@+id/iv_fruit_kindstar3"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <ImageView
             android:id="@+id/iv_fruit_kindstar4"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <ImageView
             android:id="@+id/iv_fruit_kindstar5"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -99,35 +99,35 @@
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <ImageView
             android:id="@+id/iv_fruit_itemstar2"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <ImageView
             android:id="@+id/iv_fruit_itemstar3"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <ImageView
             android:id="@+id/iv_fruit_itemstar4"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <ImageView
             android:id="@+id/iv_fruit_itemstar5"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -153,35 +153,35 @@
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <ImageView
             android:id="@+id/iv_fruit_pricestar2"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <ImageView
             android:id="@+id/iv_fruit_pricestar3"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <ImageView
             android:id="@+id/iv_fruit_pricestar4"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <ImageView
             android:id="@+id/iv_fruit_pricestar5"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/like" />
+            android:src="@drawable/star_fill" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -259,6 +259,7 @@
             android:layout_marginBottom="15dp"
             android:textStyle="bold"
             android:textSize="13dp"
+            android:textColor="#4d4d4d"
             android:text="평점은 공개되며 수정이 가능합니다." />
 
         <androidx.recyclerview.widget.RecyclerView

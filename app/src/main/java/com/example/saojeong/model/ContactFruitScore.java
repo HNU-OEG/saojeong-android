@@ -1,5 +1,7 @@
 package com.example.saojeong.model;
 
+import android.content.Context;
+
 import com.example.saojeong.R;
 
 import java.util.ArrayList;
@@ -16,7 +18,6 @@ public class ContactFruitScore {
         this.mKindscore = mKindscore;
         this.mItemscore = mItemscore;
         this.mPricescore = mPricescore;
-
     }
 
     public String getmEvaluate() {
@@ -35,12 +36,12 @@ public class ContactFruitScore {
         return mPricescore;
     }
 
+
     public static ArrayList<ContactFruitScore> createContactsList(int numContacts) {
         ArrayList<ContactFruitScore> contacts = new ArrayList<ContactFruitScore>();
 
-
         for(int i = 1; i <= numContacts; i++) {
-            contacts.add(new ContactFruitScore("1004","4.3","3.2", "1.2"));
+            contacts.add(new ContactFruitScore("1004","4.7","3.9", "1.8"));
         }
 
         return contacts;

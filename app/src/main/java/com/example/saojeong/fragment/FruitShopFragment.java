@@ -6,10 +6,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.LinearLayout;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -24,9 +23,11 @@ import com.example.saojeong.R;
 import com.example.saojeong.adapter.FruitDetailAdapter;
 import com.example.saojeong.adapter.FruitScoreAdapter;
 import com.example.saojeong.adapter.FruitSellListAdapter;
+import com.example.saojeong.adapter.FruitStarScoreAdapter;
 import com.example.saojeong.model.ContactFruitDetail;
 import com.example.saojeong.model.ContactFruitScore;
 import com.example.saojeong.model.ContactFruitShop;
+import com.example.saojeong.model.ContactFruitStarScore;
 import com.example.saojeong.model.RecyclerDecoration;
 
 import java.util.ArrayList;
@@ -36,7 +37,6 @@ public class FruitShopFragment extends Fragment {
 
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
-    private FruitFragment fruitFragment;
     private RecyclerView recyclerFruitDetail;
     private RecyclerView recyclerFruitScore;
     private RecyclerView recyclerFruitSellList;
@@ -47,32 +47,9 @@ public class FruitShopFragment extends Fragment {
     ArrayList<ContactFruitScore> contactFruitScores;
     ArrayList<ContactFruitDetail> contactFruitDetails;
 
-    TextView tv_kindscore;
-    TextView tv_itemscore;
-    TextView tv_pricescore;
-
-    ImageView iv_kindstar1;
-    ImageView iv_kindstar2;
-    ImageView iv_kindstar3;
-    ImageView iv_kindstar4;
-    ImageView iv_kindstar5;
-    ImageView iv_itemstar1;
-    ImageView iv_itemstar2;
-    ImageView iv_itemstar3;
-    ImageView iv_itemstar4;
-    ImageView iv_itemstar5;
-    ImageView iv_pricestar1;
-    ImageView iv_pricestar2;
-    ImageView iv_pricestar3;
-    ImageView iv_pricestar4;
-    ImageView iv_pricestar5;
-
-    String S_kindscore;
-    String S_itemscore;
-    String S_pricescore;
-    Double kindscore;
-    Double itemscore;
-    Double pricescore;
+    private RecyclerView recyclerFruitStarScore;
+    private FruitStarScoreAdapter fruitStarScoreAdapter;
+    ArrayList<ContactFruitStarScore> contactFruitStarScores;
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(1);
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(50);
@@ -111,119 +88,11 @@ public class FruitShopFragment extends Fragment {
         //평점
         recyclerFruitScore = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_score);
         contactFruitScores = ContactFruitScore.createContactsList(1);
-        fruitScoreAdapter = new FruitScoreAdapter(contactFruitScores);
+        fruitScoreAdapter = new FruitScoreAdapter(contactFruitScores, getActivity());
         recyclerFruitScore.addItemDecoration(leftDecoration);
         recyclerFruitScore.addItemDecoration(bottomDecoration);
         recyclerFruitScore.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         recyclerFruitScore.setAdapter(fruitScoreAdapter);
-
-        //평점에 따라 변경되는 별 갯수
-            //Id 불러오기
-        tv_kindscore = (TextView) rootView.findViewById(R.id.tv_fruit_kindscore);
-        tv_itemscore = (TextView) rootView.findViewById(R.id.tv_fruit_itemscore);
-        tv_pricescore = (TextView) rootView.findViewById(R.id.tv_fruit_pricescore);
-        iv_kindstar1 = (ImageView) rootView.findViewById(R.id.iv_fruit_kindstar1);
-        iv_kindstar2 = (ImageView) rootView.findViewById(R.id.iv_fruit_kindstar2);
-        iv_kindstar3 = (ImageView) rootView.findViewById(R.id.iv_fruit_kindstar3);
-        iv_kindstar4 = (ImageView) rootView.findViewById(R.id.iv_fruit_kindstar4);
-        iv_kindstar5 = (ImageView) rootView.findViewById(R.id.iv_fruit_kindstar5);
-        iv_itemstar1 = (ImageView) rootView.findViewById(R.id.iv_fruit_itemstar1);
-        iv_itemstar2 = (ImageView) rootView.findViewById(R.id.iv_fruit_itemstar2);
-        iv_itemstar3 = (ImageView) rootView.findViewById(R.id.iv_fruit_itemstar3);
-        iv_itemstar4 = (ImageView) rootView.findViewById(R.id.iv_fruit_itemstar4);
-        iv_itemstar5 = (ImageView) rootView.findViewById(R.id.iv_fruit_itemstar5);
-        iv_pricestar1 = (ImageView) rootView.findViewById(R.id.iv_fruit_pricestar1);
-        iv_pricestar2 = (ImageView) rootView.findViewById(R.id.iv_fruit_pricestar2);
-        iv_pricestar3 = (ImageView) rootView.findViewById(R.id.iv_fruit_pricestar3);
-        iv_pricestar4 = (ImageView) rootView.findViewById(R.id.iv_fruit_pricestar4);
-        iv_pricestar5 = (ImageView) rootView.findViewById(R.id.iv_fruit_pricestar5);
-            //문자열로 받아오기
-        S_kindscore = tv_kindscore.getText().toString();
-        S_itemscore = tv_itemscore.getText().toString();
-        S_pricescore = tv_pricescore.getText().toString();
-//            //Double로 변환
-//        kindscore = Double.parseDouble(S_kindscore);
-//        itemscore = Double.parseDouble(S_itemscore);
-//        pricescore = Double.parseDouble(S_pricescore);
-//            //평점에 따라 별 개수 변경(친절도)
-//        if(kindscore >= 0 && kindscore < 0.5) {
-//            iv_kindstar1.setImageResource(R.drawable.unlike);
-//            iv_kindstar2.setImageResource(R.drawable.unlike);
-//            iv_kindstar3.setImageResource(R.drawable.unlike);
-//            iv_kindstar4.setImageResource(R.drawable.unlike);
-//            iv_kindstar5.setImageResource(R.drawable.unlike);
-//        }
-//        else if(kindscore >= 0.5 && kindscore < 1) {
-//            iv_kindstar1.setImageResource(R.drawable.unlike);
-//            iv_kindstar2.setImageResource(R.drawable.unlike);
-//            iv_kindstar3.setImageResource(R.drawable.unlike);
-//            iv_kindstar4.setImageResource(R.drawable.unlike);
-//            iv_kindstar5.setImageResource(R.drawable.unlike);
-//        }
-//        else if(kindscore >= 1 && kindscore < 1.5) {
-//            iv_kindstar1.setImageResource(R.drawable.like);
-//            iv_kindstar2.setImageResource(R.drawable.unlike);
-//            iv_kindstar3.setImageResource(R.drawable.unlike);
-//            iv_kindstar4.setImageResource(R.drawable.unlike);
-//            iv_kindstar5.setImageResource(R.drawable.unlike);
-//        }
-//        else if(kindscore >= 1.5 && kindscore < 2) {
-//            iv_kindstar1.setImageResource(R.drawable.like);
-//            iv_kindstar2.setImageResource(R.drawable.unlike);
-//            iv_kindstar3.setImageResource(R.drawable.unlike);
-//            iv_kindstar4.setImageResource(R.drawable.unlike);
-//            iv_kindstar5.setImageResource(R.drawable.unlike);
-//        }
-//        else if(kindscore >= 2 && kindscore < 2.5) {
-//            iv_kindstar1.setImageResource(R.drawable.like);
-//            iv_kindstar2.setImageResource(R.drawable.like);
-//            iv_kindstar3.setImageResource(R.drawable.unlike);
-//            iv_kindstar4.setImageResource(R.drawable.unlike);
-//            iv_kindstar5.setImageResource(R.drawable.unlike);
-//        }
-//        else if(kindscore >= 2.5 && kindscore < 3) {
-//            iv_kindstar1.setImageResource(R.drawable.like);
-//            iv_kindstar2.setImageResource(R.drawable.like);
-//            iv_kindstar3.setImageResource(R.drawable.unlike);
-//            iv_kindstar4.setImageResource(R.drawable.unlike);
-//            iv_kindstar5.setImageResource(R.drawable.unlike);
-//        }
-//        else if(kindscore >= 3 && kindscore < 3.5) {
-//            iv_kindstar1.setImageResource(R.drawable.like);
-//            iv_kindstar2.setImageResource(R.drawable.like);
-//            iv_kindstar3.setImageResource(R.drawable.like);
-//            iv_kindstar4.setImageResource(R.drawable.unlike);
-//            iv_kindstar5.setImageResource(R.drawable.unlike);
-//        }
-//        else if(kindscore >= 3.5 && kindscore < 4) {
-//            iv_kindstar1.setImageResource(R.drawable.like);
-//            iv_kindstar2.setImageResource(R.drawable.like);
-//            iv_kindstar3.setImageResource(R.drawable.like);
-//            iv_kindstar4.setImageResource(R.drawable.unlike);
-//            iv_kindstar5.setImageResource(R.drawable.unlike);
-//        }
-//        else if(kindscore >= 4 && kindscore < 4.5) {
-//            iv_kindstar1.setImageResource(R.drawable.like);
-//            iv_kindstar2.setImageResource(R.drawable.like);
-//            iv_kindstar3.setImageResource(R.drawable.like);
-//            iv_kindstar4.setImageResource(R.drawable.like);
-//            iv_kindstar5.setImageResource(R.drawable.unlike);
-//        }
-//        else if(kindscore >= 4.5 && kindscore < 5) {
-//            iv_kindstar1.setImageResource(R.drawable.like);
-//            iv_kindstar2.setImageResource(R.drawable.like);
-//            iv_kindstar3.setImageResource(R.drawable.like);
-//            iv_kindstar4.setImageResource(R.drawable.like);
-//            iv_kindstar5.setImageResource(R.drawable.unlike);
-//        }
-//        else if(kindscore == 5) {
-//            iv_kindstar1.setImageResource(R.drawable.like);
-//            iv_kindstar2.setImageResource(R.drawable.like);
-//            iv_kindstar3.setImageResource(R.drawable.like);
-//            iv_kindstar4.setImageResource(R.drawable.like);
-//            iv_kindstar5.setImageResource(R.drawable.like);
-//        }
-
 
         //상단 액션바
         Toolbar toolbar = rootView.findViewById(R.id.toolbar_fruit);
@@ -280,7 +149,16 @@ public class FruitShopFragment extends Fragment {
                 }
             }
         });
+
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        transaction = fragmentManager.beginTransaction();
+
     }
 
     @Override
@@ -293,4 +171,5 @@ public class FruitShopFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
