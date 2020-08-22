@@ -9,7 +9,6 @@
         android:roundIcon="@drawable/logo_no_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        android:windowSoftInputMode="adjustResize"
         <activity android:name=".IntroPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +21,10 @@
             android:windowSoftInputMode="adjustNothing">
         </activity>
 
+        <activity
+            android:name=".TutorialActivity"
+            android:windowSoftInputMode="adjustNothing">
+        </activity>
     </application>
 
 </manifest>
