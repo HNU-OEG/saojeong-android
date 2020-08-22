@@ -83,27 +83,15 @@ public class HomeFragment extends Fragment {
 
         //과일 Recycler View
         recyclerFood = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_fragment);
-        contactFoods = ContactFood.createContactsList(20);
-        foodAdapter = new FoodAdapter(contactFoods);
-        recyclerFood.addItemDecoration(leftDecoration);
-        recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerFood.setAdapter(foodAdapter);
+        setAdapter();
 
         //채소 Recycler View
         recyclerFood = (RecyclerView) rootView.findViewById(R.id.recyclervegetable_fragment);
-        contactFoods = ContactFood.createContactsList(20);
-        foodAdapter = new FoodAdapter(contactFoods);
-        recyclerFood.addItemDecoration(leftDecoration);
-        recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerFood.setAdapter(foodAdapter);
+        setAdapter();
 
         //수산 Recycler View
         recyclerFood = (RecyclerView) rootView.findViewById(R.id.recyclerfish_fragment);
-        contactFoods = ContactFood.createContactsList(20);
-        foodAdapter = new FoodAdapter(contactFoods);
-        recyclerFood.addItemDecoration(leftDecoration);
-        recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerFood.setAdapter(foodAdapter);
+        setAdapter();
 
         //전체 보기(공지) Recycler View
         recyclerFullview = (RecyclerView) rootView.findViewById(R.id.recyclerfullview_fragment);
@@ -152,6 +140,14 @@ public class HomeFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+    private void setAdapter() {
+        contactFoods = ContactFood.createContactsList(20);
+        foodAdapter = new FoodAdapter(contactFoods);
+        recyclerFood.addItemDecoration(leftDecoration);
+        recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+        recyclerFood.setAdapter(foodAdapter);
     }
 
     @Override

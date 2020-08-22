@@ -64,22 +64,22 @@ public class FishFragment extends Fragment {
 
         //수산동 오픈 가게 Recycler View
         recyclerShopoc = (RecyclerView) rootView.findViewById(R.id.recyclershop_open);
-        contactShopOCs = ContactShopOC.createContactsList(5);
-        shopOCAdapter = new ShopOCAdapter(contactShopOCs);
-        recyclerShopoc.addItemDecoration(bottomDecoration);
-        recyclerShopoc.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerShopoc.setAdapter(shopOCAdapter);
+        setAdapter();
 
         //수산동 휴식 가게 Recycler View
         recyclerShopoc = (RecyclerView) rootView.findViewById(R.id.recyclershop_close);
+        setAdapter();
+        
+        return rootView;
+
+    }
+
+    private void setAdapter() {
         contactShopOCs = ContactShopOC.createContactsList(5);
         shopOCAdapter = new ShopOCAdapter(contactShopOCs);
         recyclerShopoc.addItemDecoration(bottomDecoration);
         recyclerShopoc.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         recyclerShopoc.setAdapter(shopOCAdapter);
-        
-        return rootView;
-
     }
 
     @Override

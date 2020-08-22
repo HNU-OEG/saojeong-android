@@ -35,7 +35,6 @@ public class FruitFragment extends Fragment {
     private ShopOCAdapter shopOCAdapter;
     ArrayList<ContactShopOC> contactShopOCs;
 
-    TextView selectedText;
     Spinner spinner_shop;
     String[] item_shop;
 
@@ -65,37 +64,25 @@ public class FruitFragment extends Fragment {
 
         //과일동 오픈 가게 Recycler View
         recyclerShopoc = (RecyclerView) rootView.findViewById(R.id.recyclershop_open); // OPEN
-        contactShopOCs = ContactShopOC.createContactsList(5);
-        shopOCAdapter = new ShopOCAdapter(contactShopOCs);
-        recyclerShopoc.addItemDecoration(bottomDecoration);
-        recyclerShopoc.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerShopoc.setAdapter(shopOCAdapter);
-
+        setAdapter();
         //과일동 휴식 가게 Recycler View
         recyclerShopoc = (RecyclerView) rootView.findViewById(R.id.recyclershop_close); // OPEN
+        setAdapter();
+
+        return rootView;
+    }
+
+    private void setAdapter() {
         contactShopOCs = ContactShopOC.createContactsList(5);
         shopOCAdapter = new ShopOCAdapter(contactShopOCs);
         recyclerShopoc.addItemDecoration(bottomDecoration);
         recyclerShopoc.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerShopoc.setAdapter(shopOCAdapter);
-
-        
-        return rootView;
-
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        transaction = fragmentManager.beginTransaction();
-
         shopOCAdapter.setOnItemClicklistener(new OnItemClickListener() {
             @Override
             public void onItemClick(Object holder, View view, int position) {
                 ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
             }
         });
+        recyclerShopoc.setAdapter(shopOCAdapter);
     }
-
 }
