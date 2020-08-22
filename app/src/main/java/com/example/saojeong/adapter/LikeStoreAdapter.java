@@ -73,7 +73,12 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         TextView rateStore = holder.rateStore;
         TextView rateCountStore = holder.rateCountStore;
 
-        glide.load(likeStore.get_mImage()).into((image));
+        if (glide == null) {
+            image.setImageResource(likeStore.getMImage());
+        } else {
+            glide.load(likeStore.get_mImage()).into((image));
+        }
+
         img_like.setImageResource(likeStore.isMLike() ? R.drawable.like : R.drawable.unlike);
         codeStore.setText(likeStore.getMCodeStore() + "번");
         nameStore.setText(likeStore.getMNameStore());

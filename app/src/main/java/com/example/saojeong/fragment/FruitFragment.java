@@ -1,7 +1,6 @@
 package com.example.saojeong.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ import com.example.saojeong.adapter.FruitOpenAdapter;
 import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.model.ContactFruitClose;
 import com.example.saojeong.model.ContactFruitOpen;
-import com.example.saojeong.model.OnItemClickListener;
 import com.example.saojeong.model.RecyclerDecoration;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.StoreDto;
@@ -34,7 +32,6 @@ import com.example.saojeong.rest.dto.TypeStoreDto;
 import com.example.saojeong.rest.service.StoreService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.SneakyThrows;
@@ -45,7 +42,6 @@ import retrofit2.Response;
 public class FruitFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
-    private FruitShopFragment fruitShopFragment;
     private RecyclerView recyclerFruitopen;
     private RecyclerView recyclerFruitclose;
     private FruitOpenAdapter fruitOpenAdapter;
@@ -69,7 +65,7 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
+        storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
 
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
@@ -90,109 +86,73 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
 
         //과일동 오픈가게 Recycler View
         recyclerFruitopen = (RecyclerView) rootView.findViewById(R.id.recyclerfruitopen_fragment);
-        contactFruitOpens = ContactFruitOpen._createContactsList(5);
-        fruitOpenAdapter = new FruitOpenAdapter(contactFruitOpens);
-        recyclerFruitopen.addItemDecoration(bottomDecoration);
-        recyclerFruitopen.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerFruitopen.setAdapter(fruitOpenAdapter);
-
         //과일동 닫은가게 Recycler View
         recyclerFruitclose = (RecyclerView) rootView.findViewById(R.id.recyclerfruitclose_fragment);
-        contactFruitCloses = ContactFruitClose.createContactsList(3);
-        fruitCloseAdapter = new FruitCloseAdapter(contactFruitCloses);
-        recyclerFruitclose.addItemDecoration(bottomDecoration);
-        recyclerFruitclose.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerFruitclose.setAdapter(fruitCloseAdapter);
-//        loadStores(this);
+        loadStores(this);
 
         return rootView;
-
     }
 
     private void loadStores(FruitFragment fruitFragment) throws IOException {
-        Call<TypeStoreDto> call = storeService.getTypeStore("fruits", "count");
-        Response<TypeStoreDto> response = call.execute();
-
-        if (response.code() != 201) {
-            contactFruitOpens = ContactFruitOpen._createContactsList(5);
-            fruitOpenAdapter = new FruitOpenAdapter(contactFruitOpens);
-
-            contactFruitCloses = ContactFruitClose.createContactsList(3);
-            fruitCloseAdapter = new FruitCloseAdapter(contactFruitCloses);
-        } else {
-            TypeStoreDto body = response.body();
-            List<StoreDto> openStore = body.getOpenStore();
-            List<StoreDto> closedStore = body.getClosedStore();
-
-            contactFruitOpens = ContactFruitOpen.createContactsList(openStore);
-            fruitOpenAdapter = new FruitOpenAdapter(Glide.with(fruitFragment), contactFruitOpens);
-
-            contactFruitCloses = ContactFruitClose.createContactsList(3);
-            fruitCloseAdapter = new FruitCloseAdapter(contactFruitCloses);
-        }
-
-        recyclerFruitopen.addItemDecoration(bottomDecoration);
-        recyclerFruitopen.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerFruitopen.setAdapter(fruitOpenAdapter);
-
-        recyclerFruitclose.addItemDecoration(bottomDecoration);
-        recyclerFruitclose.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerFruitclose.setAdapter(fruitCloseAdapter);
-
-
-//        storeService.getTypeStore("fruits", "count").enqueue(new Callback<TypeStoreDto>() {
-//            @Override
-//            public void onResponse(Call<TypeStoreDto> call, Response<TypeStoreDto> response) {
-//                if (response.code() != 201) {
-//
-//                } else {
-//                    Log.d("TAG", response.body().toString());
-//                }
-//
-//                recyclerFruitopen.addItemDecoration(bottomDecoration);
-//                recyclerFruitopen.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-//                recyclerFruitopen.setAdapter(fruitOpenAdapter);
-//
-//                recyclerFruitclose.addItemDecoration(bottomDecoration);
-//                recyclerFruitclose.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-//                recyclerFruitclose.setAdapter(fruitCloseAdapter);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TypeStoreDto> call, Throwable t) {
-//
-//            }
-//        });
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        transaction = fragmentManager.beginTransaction();
-
-        fruitOpenAdapter.setOnItemClicklistener(new OnItemClickListener() {
+        storeService.getTypeStore("fruits", "count").enqueue(new Callback<TypeStoreDto>() {
             @Override
-            public void onItemClick(FruitOpenAdapter.ViewHolder holder, View view, int position) {
-                ((MainActivity) getActivity()).replaceFragment(FruitShopFragment.newInstance());
+            public void onResponse(Call<TypeStoreDto> call, Response<TypeStoreDto> response) {
+                if (response.code() != 201) {
+                    contactFruitOpens = ContactFruitOpen._createContactsList(5);
+                    fruitOpenAdapter = new FruitOpenAdapter(contactFruitOpens);
+
+                    contactFruitCloses = ContactFruitClose._createContactsList(3);
+                    fruitCloseAdapter = new FruitCloseAdapter(contactFruitCloses);
+                } else {
+                    TypeStoreDto body = response.body();
+                    List<StoreDto> openStore = body.getOpenStore();
+                    List<StoreDto> closedStore = body.getClosedStore();
+
+                    contactFruitOpens = ContactFruitOpen.createContactsList(openStore);
+                    fruitOpenAdapter = new FruitOpenAdapter(Glide.with(fruitFragment), contactFruitOpens);
+
+                    contactFruitCloses = ContactFruitClose.createContactsList(closedStore);
+                    fruitCloseAdapter = new FruitCloseAdapter(Glide.with(fruitFragment), contactFruitCloses);
+                }
+                recyclerFruitopen.addItemDecoration(bottomDecoration);
+                recyclerFruitopen.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+                recyclerFruitopen.setAdapter(fruitOpenAdapter);
+
+                recyclerFruitclose.addItemDecoration(bottomDecoration);
+                recyclerFruitclose.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+                recyclerFruitclose.setAdapter(fruitCloseAdapter);
+
+                fruitOpenAdapter.setOnItemClicklistener((holder, view, position) ->
+                        ((MainActivity) getActivity()).replaceFragment(FruitShopFragment.newInstance()));
+            }
+
+            @Override
+            public void onFailure(Call<TypeStoreDto> call, Throwable t) {
+                contactFruitOpens = ContactFruitOpen._createContactsList(5);
+                fruitOpenAdapter = new FruitOpenAdapter(contactFruitOpens);
+                recyclerFruitopen.addItemDecoration(bottomDecoration);
+                recyclerFruitopen.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+                recyclerFruitopen.setAdapter(fruitOpenAdapter);
+
+                contactFruitCloses = ContactFruitClose._createContactsList(3);
+                fruitCloseAdapter = new FruitCloseAdapter(contactFruitCloses);
+                recyclerFruitclose.addItemDecoration(bottomDecoration);
+                recyclerFruitclose.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+                recyclerFruitclose.setAdapter(fruitCloseAdapter);
             }
         });
-
     }
-
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         selectedText.setText(item_fruit[i]);
         if (selectedText.getText().toString().equals("선택하세요")) {
             selectedText.setText("");
-
         }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         selectedText.setText("");
-
     }
 }
