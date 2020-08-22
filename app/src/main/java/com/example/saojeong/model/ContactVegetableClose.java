@@ -1,8 +1,10 @@
 package com.example.saojeong.model;
 
 import com.example.saojeong.R;
+import com.example.saojeong.rest.dto.StoreDto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ContactVegetableClose {
     private String mShopnum;
@@ -13,6 +15,7 @@ public class ContactVegetableClose {
     private String mSelfintroduction;
     private int mImage;
     private int mFImage;
+    private String _mImage;
 
     public ContactVegetableClose(String mShopnum, String mShopname, String mStar, Double mStarscore, String mEvaluation, String mSelfintroduction,int mImage, int mFImage) {
         this.mShopnum = mShopnum;
@@ -23,6 +26,17 @@ public class ContactVegetableClose {
         this.mSelfintroduction = mSelfintroduction;
         this.mImage = mImage;
         this.mFImage = mFImage;
+    }
+
+    public ContactVegetableClose(StoreDto dto) {
+        this.mShopnum = dto.getStoreNumber() + "번";
+        this.mShopname = dto.getStoreName();
+        this.mStar = "★";
+        this.mStarscore = dto.getVoteGradeAverage();
+        this.mEvaluation = dto.getVoteGradeCount() + "명이 평가하였습니다.";
+        this.mSelfintroduction = dto.getStoreIntro();
+        this._mImage = dto.getStoreImage();
+        this.mFImage = R.drawable.like;
     }
 
 
@@ -59,14 +73,25 @@ public class ContactVegetableClose {
         return mFImage;
     }
 
-    public static ArrayList<ContactVegetableClose> createContactsList(int numContacts) {
-        ArrayList<ContactVegetableClose> contacts = new ArrayList<ContactVegetableClose>();
+    public String get_mImage() {
+        return _mImage;
+    }
 
+    public static List<ContactVegetableClose> _createContactsList(int numContacts) {
+        List<ContactVegetableClose> contacts = new ArrayList<>();
 
         for(int i = 1; i <= numContacts; i++) {
             contacts.add(new ContactVegetableClose(i+"번","서진 농산시장","★",4.9,(i+62)+"명이 평가하였습니다.", "오늘 하루도 좋은 일만 ^^*", R.drawable.logo_start, R.drawable.like));
         }
+        return contacts;
+    }
 
+    public static List<ContactVegetableClose> createContactsList(List<StoreDto> response) {
+        List<ContactVegetableClose> contacts = new ArrayList<>();
+
+        for (StoreDto dto : response) {
+            contacts.add(new ContactVegetableClose(dto));
+        }
         return contacts;
     }
 }

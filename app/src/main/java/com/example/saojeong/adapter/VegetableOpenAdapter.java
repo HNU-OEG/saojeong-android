@@ -9,12 +9,15 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
 import com.example.saojeong.R;
+import com.example.saojeong.model.ContactFishOpen;
 import com.example.saojeong.model.ContactVegetableOpen;
 
 import java.util.List;
 
 public class VegetableOpenAdapter extends RecyclerView.Adapter<VegetableOpenAdapter.ViewHolder> {
+    private final RequestManager glide;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView shopnumTextView;
@@ -43,6 +46,12 @@ public class VegetableOpenAdapter extends RecyclerView.Adapter<VegetableOpenAdap
 
     public VegetableOpenAdapter(List<ContactVegetableOpen> contacts) {
         mContacts = contacts;
+        glide = null;
+    }
+
+    public VegetableOpenAdapter(RequestManager glide, List<ContactVegetableOpen> contacts) {
+        mContacts = contacts;
+        this.glide = glide;
     }
 
     @Override
@@ -75,7 +84,11 @@ public class VegetableOpenAdapter extends RecyclerView.Adapter<VegetableOpenAdap
         tv_starscore.setText(Double.toString(contactVegetableOpen.getmStarscore()));
         tv_evaluation.setText(contactVegetableOpen.getmEvaluation());
         tv_selfintroduction.setText(contactVegetableOpen.getmSelfintroduction());
-        iv_shop.setImageResource(contactVegetableOpen.getmImage());
+        if (glide == null) {
+            iv_shop.setImageResource(contactVegetableOpen.getmImage());
+        } else {
+            glide.load(contactVegetableOpen.get_mImage()).into(iv_shop);
+        }
         iv_favorate.setImageResource(contactVegetableOpen.getmFImage());
     }
 

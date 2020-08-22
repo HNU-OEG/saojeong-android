@@ -18,15 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.FishCloseAdapter;
 import com.example.saojeong.adapter.FishOpenAdapter;
-import com.example.saojeong.adapter.FishCloseAdapter;
-import com.example.saojeong.adapter.FishOpenAdapter;
 import com.example.saojeong.auth.TokenCase;
-import com.example.saojeong.model.ContactFishClose;
-import com.example.saojeong.model.ContactFishOpen;
 import com.example.saojeong.model.ContactFishClose;
 import com.example.saojeong.model.ContactFishOpen;
 import com.example.saojeong.model.RecyclerDecoration;
@@ -36,7 +31,6 @@ import com.example.saojeong.rest.dto.TypeStoreDto;
 import com.example.saojeong.rest.service.StoreService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.SneakyThrows;
