@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.saojeong.R;
+import com.example.saojeong.TutorialActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -23,18 +24,22 @@ import com.google.android.gms.tasks.Task;
 
 public class GoogleLogin implements LoginControl, GoogleApiClient.OnConnectionFailedListener {
     private Context mContext;
-    private FragmentActivity mActivity;
+    private Activity mActivity;
     private LoginHandler mhandler;
+    public static GoogleLogin inst;
+
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     private static final int RC_GET_AUTH_CODE = 9003;
     private GoogleSignInClient mGoogleSignInClient;
     public static GoogleSignInAccount account;
-    public GoogleLogin(FragmentActivity Activity, Context context, LoginControl.LoginHandler handler)
+    public GoogleLogin(Activity Activity, Context context, LoginControl.LoginHandler handler)
     {
         mActivity=Activity;
         mContext=context;
         mhandler=handler;
+        if(inst==null)
+            inst=this;
         init();
     }
 
@@ -61,7 +66,7 @@ public class GoogleLogin implements LoginControl, GoogleApiClient.OnConnectionFa
             try {
                 GoogleSignInAccount account1 = task.getResult(ApiException.class);
                 this.account=account1;
-
+                mhandler.success();
                 // Show signed-un UI
                 // TODO(developer): send code to server and exchange for access/refresh/ID tokens
             } catch (ApiException e) {
@@ -91,7 +96,7 @@ public class GoogleLogin implements LoginControl, GoogleApiClient.OnConnectionFa
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        mhandler.cancel();
     }
 }
 

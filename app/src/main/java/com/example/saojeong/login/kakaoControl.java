@@ -17,6 +17,7 @@ import com.kakao.util.exception.KakaoException;
 
 public class kakaoControl implements ISessionCallback, LoginControl {
     private LoginControl.LoginHandler handler;
+    public static kakaoControl inst;
 
     public static void init(Application application) {
         KakaoSDK.init(new kakaoSDKAdapter(application));
@@ -24,7 +25,8 @@ public class kakaoControl implements ISessionCallback, LoginControl {
 
     public kakaoControl(LoginControl.LoginHandler loginHandler) {
         this.handler = loginHandler;
-
+        if(inst==null)
+            inst=this;
     }
 
     public void Login(Activity activity) {
@@ -49,9 +51,11 @@ public class kakaoControl implements ISessionCallback, LoginControl {
 
     public void onSessionOpened() { //콜백
         Log.i("KAKAO_SESSION", "로그인 성공");
+        kakaoControl.this.handler.success();
     }
 
     public void onSessionOpenFailed(KakaoException kakaoException) {
+        kakaoControl.this.handler.error(kakaoException);
         Log.e("KAKAO_SESSION", "로그인 실패", kakaoException);
     }
 }

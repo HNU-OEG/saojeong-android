@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/image3">
-
+       <WebView
+            android:id="@+id/webview"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            />
     <LinearLayout
         android:id="@+id/ll_test0"
         android:layout_width="match_parent"

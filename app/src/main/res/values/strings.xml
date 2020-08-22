@@ -5,10 +5,10 @@
     <string name="sign_out"><u>회원탈퇴</u></string>
 
     <!--로그인 ID값입니다.-->
-    <string name="facebook_app_id">1002906453488963</string>
-    <string name="fb_login_protocol_scheme">fb1002906453488963</string>
-    <string name="google_client_id">994676131557-s4v0d31t6ltv3qrmocimipqnqjn701ru.apps.googleusercontent.com</string>
-    <string name="project_id">CRY5caruV6KCqp0A0ddXiaYD</string>
-    <string name="kakao_app_key">0ecd692a4ae184054ef783bbd0f967df</string>
+    <string name="facebook_app_id">699987494188228</string>
+    <string name="fb_login_protocol_scheme">fb699987494188228</string>
+    <string name="google_client_id">550187432199-or27a24oobhclt48jcrfvlsdm2b7t0hn.apps.googleusercontent.com</string>
+    <string name="project_id">saojeong</string>
+    <string name="kakao_app_key">063b26941ca66e3f49e7010ec12a589b</string>
 
 </resources>

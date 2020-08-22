@@ -49,4 +49,3 @@ public class FacebookLoginCallback implements FacebookCallback<LoginResult> {
         graphRequest.executeAsync();
     }
 }
-
