@@ -32,59 +32,11 @@ public class StoreDto {
     @SerializedName("starred")
     @Expose
     private Integer starred;
+    @SerializedName("store_intro")
+    @Expose
+    private String storeIntro;
 
     public boolean isStarred() {
         return starred == 1;
     }
-
-    // Lombok이 없었다면 아래의 코드가 필요합니다.
-
-//    public Integer getStoreNumber() {
-//        return storeNumber;
-//    }
-//
-//    public void setStoreNumber(Integer storeNumber) {
-//        this.storeNumber = storeNumber;
-//    }
-//
-//    public String getStoreName() {
-//        return storeName;
-//    }
-//
-//    public void setStoreName(String storeName) {
-//        this.storeName = storeName;
-//    }
-//
-//    public Integer getVoteGradeAverage() {
-//        return voteGradeAverage;
-//    }
-//
-//    public void setVoteGradeAverage(Integer voteGradeAverage) {
-//        this.voteGradeAverage = voteGradeAverage;
-//    }
-//
-//    public Integer getVoteGradeCount() {
-//        return voteGradeCount;
-//    }
-//
-//    public void setVoteGradeCount(Integer voteGradeCount) {
-//        this.voteGradeCount = voteGradeCount;
-//    }
-//
-//    public Integer getStoreId() {
-//        return storeId;
-//    }
-//
-//    public void setStoreId(Integer storeId) {
-//        this.storeId = storeId;
-//    }
-//
-//    public Integer getStarred() {
-//        return starred;
-//    }
-//
-//    public void setStarred(Integer starred) {
-//        this.starred = starred;
-//    }
-
 }

@@ -92,20 +92,17 @@ public class MyPageFragment extends Fragment {
         storeService.getStarredStoreList().enqueue(new Callback<List<StoreDto>>() {
             @Override
             public void onResponse(Call<List<StoreDto>> call, Response<List<StoreDto>> response) {
-                if (response.isSuccessful()) {
-                    likeStores = LikeStore.createLikeStoreList(Objects.requireNonNull(response.body()));
-                    likeStoreAdapter = new LikeStoreAdapter(Glide.with(myPageFragment), likeStores);
-                    recyclerLikes.addItemDecoration(leftDecoration);
-                    recyclerLikes.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerLikes.setAdapter(likeStoreAdapter);
-                } else {
+                if (response.code() != 201) {
                     likeStores = LikeStore._createLikeStoreList(20);
                     likeStoreAdapter = new LikeStoreAdapter(likeStores);
-                    recyclerLikes.addItemDecoration(leftDecoration);
-                    recyclerLikes.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerLikes.setAdapter(likeStoreAdapter);
-                    Log.d(TAG, response.message());
+                } else {
+                    likeStores = LikeStore.createLikeStoreList(Objects.requireNonNull(response.body()));
+                    likeStoreAdapter = new LikeStoreAdapter(Glide.with(myPageFragment), likeStores);
                 }
+                recyclerLikes.addItemDecoration(leftDecoration);
+                recyclerLikes.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerLikes.setAdapter(likeStoreAdapter);
+                Log.d(TAG, response.message());
             }
 
             @Override

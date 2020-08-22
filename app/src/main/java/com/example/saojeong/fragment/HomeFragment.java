@@ -249,7 +249,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Call<List<SeasonalFoodDto>> call, Throwable t) {
                 contactVegetables = ContactVegetable._createContactsList(20);
-                vegetableAdapter = new VegetableAdapter(Glide.with(homeFragment), contactVegetables);
+                vegetableAdapter = new VegetableAdapter(contactVegetables);
                 recyclerVegetable.addItemDecoration(leftDecoration);
                 recyclerVegetable.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
                 recyclerVegetable.setAdapter(vegetableAdapter);
