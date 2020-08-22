@@ -4,7 +4,7 @@ import com.example.saojeong.R;
 
 import java.util.ArrayList;
 
-public class ContactFruitShop {
+public class ContactFishSellList {
     private String mItemname;
     private String mWeight1;
     private String mWeight2;
@@ -13,7 +13,7 @@ public class ContactFruitShop {
     private String mPrice2;
     private int mFImage;
 
-    public ContactFruitShop(String mItemname, String mWeight1, String mWeight2, String mWeight3, String mPrice1, String mPrice2, int mFImage) {
+    public ContactFishSellList(String mItemname, String mWeight1, String mWeight2, String mWeight3, String mPrice1, String mPrice2, int mFImage) {
         this.mItemname = mItemname;
         this.mWeight1 = mWeight1;
         this.mWeight2 = mWeight2;
@@ -52,12 +52,12 @@ public class ContactFruitShop {
         return mFImage;
     }
 
-    public static ArrayList<ContactFruitShop> createContactsList(int numContacts) {
-        ArrayList<ContactFruitShop> contacts = new ArrayList<ContactFruitShop>();
+    public static ArrayList<ContactFishSellList> createContactsList(int numContacts) {
+        ArrayList<ContactFishSellList> contacts = new ArrayList<ContactFishSellList>();
 
 
         for(int i = 1; i <= numContacts; i++) {
-            contacts.add(new ContactFruitShop("딸기","1kg","2kg","박스당","10000원", "20000원", R.drawable.logo_start));
+            contacts.add(new ContactFishSellList("딸기","1kg","2kg","박스당","10000원", "20000원", R.drawable.logo_start));
         }
 
         return contacts;

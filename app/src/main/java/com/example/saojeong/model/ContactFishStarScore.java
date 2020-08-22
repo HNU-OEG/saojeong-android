@@ -5,10 +5,10 @@ import com.example.saojeong.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactFruitStarScore {
+public class ContactFishStarScore {
     private String mQuestion;
     private float mRating = 0;
-    public ContactFruitStarScore(String mQuestion) {
+    public ContactFishStarScore(String mQuestion) {
         this.mQuestion = mQuestion;
     }
 
@@ -24,11 +24,11 @@ public class ContactFruitStarScore {
         this.mRating = mRating;
     }
 
-    public static ArrayList<ContactFruitStarScore> createContactsList(int numContacts) {
-        ArrayList<ContactFruitStarScore> contacts = new ArrayList<ContactFruitStarScore>();
+    public static ArrayList<ContactFishStarScore> createContactsList(int numContacts) {
+        ArrayList<ContactFishStarScore> contacts = new ArrayList<ContactFishStarScore>();
 
         for(int i = 1; i <= numContacts; i++) {
-            contacts.add(new ContactFruitStarScore("사장님은 친절하신가요?"));
+            contacts.add(new ContactFishStarScore("사장님은 친절하신가요?"));
         }
 
         return contacts;

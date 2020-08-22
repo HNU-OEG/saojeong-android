@@ -58,14 +58,15 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_fruit, container, false);
 
-        ((MainActivity)getActivity()).closeKeyBoard(rootView);
+        ((MainActivity) getActivity()).closeKeyBoard(rootView);
+
+        selectedText = (TextView) rootView.findViewById(R.id.selected_fruit);
 
         //순서 나열 Spinner
-        selectedText = (TextView) rootView.findViewById(R.id.selected_fruit);
         spinner_fruit = (Spinner) rootView.findViewById(R.id.spinner_fruit);
 
         item_fruit = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
-        ArrayAdapter<String> adapter_fruitopen = new ArrayAdapter<String >(getContext(), android.R.layout.simple_spinner_item, item_fruit);
+        ArrayAdapter<String> adapter_fruitopen = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, item_fruit);
         adapter_fruitopen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner_fruit.setAdapter(adapter_fruitopen);
@@ -98,8 +99,15 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
 
         fruitOpenAdapter.setOnItemClicklistener(new OnItemClickListener() {
             @Override
-            public void onItemClick(FruitOpenAdapter.ViewHolder holder, View view, int position) {
-                ((MainActivity)getActivity()).replaceFragment(fruitShopFragment.newInstance());
+            public void onItemClick(Object holder, View view, int position) {
+                ((MainActivity) getActivity()).replaceFragment(fruitShopFragment.newInstance());
+            }
+        });
+
+        fruitCloseAdapter.setOnItemClicklistener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(Object holder, View view, int position) {
+                ((MainActivity) getActivity()).replaceFragment(fruitShopFragment.newInstance());
             }
         });
 
@@ -109,7 +117,7 @@ public class FruitFragment extends Fragment implements AdapterView.OnItemSelecte
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         selectedText.setText(item_fruit[i]);
-        if(selectedText.getText().toString().equals("선택하세요")) {
+        if (selectedText.getText().toString().equals("선택하세요")) {
             selectedText.setText("");
 
         }

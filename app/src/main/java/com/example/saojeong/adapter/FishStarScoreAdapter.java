@@ -16,14 +16,14 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.R;
-import com.example.saojeong.model.ContactFruitStarScore;
+import com.example.saojeong.model.ContactFishStarScore;
 
 import java.util.List;
 
-public class FruitStarScoreAdapter extends RecyclerView.Adapter<FruitStarScoreAdapter.ViewHolder> {
+public class FishStarScoreAdapter extends RecyclerView.Adapter<FishStarScoreAdapter.ViewHolder> {
 
     float ratingBar_rating;
-    private List<ContactFruitStarScore> mContacts;
+    private List<ContactFishStarScore> mContacts;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView questionTextView;
@@ -31,38 +31,38 @@ public class FruitStarScoreAdapter extends RecyclerView.Adapter<FruitStarScoreAd
 
         public ViewHolder(View itemView) {
             super(itemView);
-            questionTextView = (TextView) itemView.findViewById(R.id.tv_fruit_starscore);
+            questionTextView = (TextView) itemView.findViewById(R.id.tv_fish_starscore);
             ratingBar_starscore = (RatingBar) itemView.findViewById(R.id.ratingBar_starscore);
         }
     }
 
-    public List<ContactFruitStarScore> getmContacts() {
+    public List<ContactFishStarScore> getmContacts() {
         return mContacts;
     }
 
-    public FruitStarScoreAdapter(List<ContactFruitStarScore> contacts) {
+    public FishStarScoreAdapter(List<ContactFishStarScore> contacts) {
         mContacts = contacts;
     }
 
     @Override
-    public FruitStarScoreAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FishStarScoreAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View contactView = inflater.inflate(R.layout.item_fruit_starscore, parent, false);
+        View contactView = inflater.inflate(R.layout.item_fish_starscore, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(contactView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(FruitStarScoreAdapter.ViewHolder holder, int position) {
-        ContactFruitStarScore contactFruitStarScore = mContacts.get(position);
+    public void onBindViewHolder(FishStarScoreAdapter.ViewHolder holder, int position) {
+        ContactFishStarScore contactFishStarScore = mContacts.get(position);
 
-        TextView tv_fruit_starscore = holder.questionTextView;
+        TextView tv_fish_starscore = holder.questionTextView;
         RatingBar ratingBar = holder.ratingBar_starscore;
 
-        tv_fruit_starscore.setText(contactFruitStarScore.getmQuestion());
+        tv_fish_starscore.setText(contactFishStarScore.getmQuestion());
 
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.parseColor("#f67043"), PorterDuff.Mode.SRC_ATOP);
@@ -71,8 +71,8 @@ public class FruitStarScoreAdapter extends RecyclerView.Adapter<FruitStarScoreAd
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 ratingBar_rating = rating;
-                tv_fruit_starscore.setText(contactFruitStarScore.getmQuestion()+" | " + ratingBar_rating + "점");
-                contactFruitStarScore.setmRating(ratingBar_rating);
+                tv_fish_starscore.setText(contactFishStarScore.getmQuestion()+" | " + ratingBar_rating + "점");
+                contactFishStarScore.setmRating(ratingBar_rating);
             }
         });
     }

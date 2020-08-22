@@ -15,14 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
-import com.example.saojeong.model.ContactFruitScore;
-import com.example.saojeong.model.ContactFruitStarScore;
+import com.example.saojeong.model.ContactFishScore;
+import com.example.saojeong.model.ContactFishStarScore;
 import com.example.saojeong.model.RecyclerDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FruitScoreAdapter extends RecyclerView.Adapter<FruitScoreAdapter.ViewHolder> {
+public class FishScoreAdapter extends RecyclerView.Adapter<FishScoreAdapter.ViewHolder> {
 
     View rating;
 
@@ -56,9 +56,9 @@ public class FruitScoreAdapter extends RecyclerView.Adapter<FruitScoreAdapter.Vi
 
     Context mContext;
 
-    private RecyclerView recyclerFruitStarScore;
-    private FruitStarScoreAdapter fruitStarScoreAdapter;
-    ArrayList<ContactFruitStarScore> contactFruitStarScores;
+    private RecyclerView recyclerFishStarScore;
+    private FishStarScoreAdapter fishStarScoreAdapter;
+    ArrayList<ContactFishStarScore> contactFishStarScores;
 
     RecyclerDecoration.RightDecoration rightDecoration = new RecyclerDecoration.RightDecoration(40);
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(50);
@@ -72,59 +72,59 @@ public class FruitScoreAdapter extends RecyclerView.Adapter<FruitScoreAdapter.Vi
 
         public ViewHolder(View itemView) {
             super(itemView);
-            evaluateTextView = (TextView) itemView.findViewById(R.id.tv_fruit_evaluate);
-            kindscoreTextView = (TextView) itemView.findViewById(R.id.tv_fruit_kindscore);
-            itemscoreTextView = (TextView) itemView.findViewById(R.id.tv_fruit_itemscore);
-            pricescoreTextView = (TextView) itemView.findViewById(R.id.tv_fruit_pricescore);
+            evaluateTextView = (TextView) itemView.findViewById(R.id.tv_fish_evaluate);
+            kindscoreTextView = (TextView) itemView.findViewById(R.id.tv_fish_kindscore);
+            itemscoreTextView = (TextView) itemView.findViewById(R.id.tv_fish_itemscore);
+            pricescoreTextView = (TextView) itemView.findViewById(R.id.tv_fish_pricescore);
 
-            scoreButton = (Button) itemView.findViewById(R.id.btn_fruit_score);
+            scoreButton = (Button) itemView.findViewById(R.id.btn_fish_score);
 
             //평점에 따라 변경되는 별 갯수
             //Id 불러오기
-            tv_kindscore = (TextView) itemView.findViewById(R.id.tv_fruit_kindscore);
-            tv_itemscore = (TextView) itemView.findViewById(R.id.tv_fruit_itemscore);
-            tv_pricescore = (TextView) itemView.findViewById(R.id.tv_fruit_pricescore);
-            iv_kindstar1 = (ImageView) itemView.findViewById(R.id.iv_fruit_kindstar1);
-            iv_kindstar2 = (ImageView) itemView.findViewById(R.id.iv_fruit_kindstar2);
-            iv_kindstar3 = (ImageView) itemView.findViewById(R.id.iv_fruit_kindstar3);
-            iv_kindstar4 = (ImageView) itemView.findViewById(R.id.iv_fruit_kindstar4);
-            iv_kindstar5 = (ImageView) itemView.findViewById(R.id.iv_fruit_kindstar5);
-            iv_itemstar1 = (ImageView) itemView.findViewById(R.id.iv_fruit_itemstar1);
-            iv_itemstar2 = (ImageView) itemView.findViewById(R.id.iv_fruit_itemstar2);
-            iv_itemstar3 = (ImageView) itemView.findViewById(R.id.iv_fruit_itemstar3);
-            iv_itemstar4 = (ImageView) itemView.findViewById(R.id.iv_fruit_itemstar4);
-            iv_itemstar5 = (ImageView) itemView.findViewById(R.id.iv_fruit_itemstar5);
-            iv_pricestar1 = (ImageView) itemView.findViewById(R.id.iv_fruit_pricestar1);
-            iv_pricestar2 = (ImageView) itemView.findViewById(R.id.iv_fruit_pricestar2);
-            iv_pricestar3 = (ImageView) itemView.findViewById(R.id.iv_fruit_pricestar3);
-            iv_pricestar4 = (ImageView) itemView.findViewById(R.id.iv_fruit_pricestar4);
-            iv_pricestar5 = (ImageView) itemView.findViewById(R.id.iv_fruit_pricestar5);
+            tv_kindscore = (TextView) itemView.findViewById(R.id.tv_fish_kindscore);
+            tv_itemscore = (TextView) itemView.findViewById(R.id.tv_fish_itemscore);
+            tv_pricescore = (TextView) itemView.findViewById(R.id.tv_fish_pricescore);
+            iv_kindstar1 = (ImageView) itemView.findViewById(R.id.iv_fish_kindstar1);
+            iv_kindstar2 = (ImageView) itemView.findViewById(R.id.iv_fish_kindstar2);
+            iv_kindstar3 = (ImageView) itemView.findViewById(R.id.iv_fish_kindstar3);
+            iv_kindstar4 = (ImageView) itemView.findViewById(R.id.iv_fish_kindstar4);
+            iv_kindstar5 = (ImageView) itemView.findViewById(R.id.iv_fish_kindstar5);
+            iv_itemstar1 = (ImageView) itemView.findViewById(R.id.iv_fish_itemstar1);
+            iv_itemstar2 = (ImageView) itemView.findViewById(R.id.iv_fish_itemstar2);
+            iv_itemstar3 = (ImageView) itemView.findViewById(R.id.iv_fish_itemstar3);
+            iv_itemstar4 = (ImageView) itemView.findViewById(R.id.iv_fish_itemstar4);
+            iv_itemstar5 = (ImageView) itemView.findViewById(R.id.iv_fish_itemstar5);
+            iv_pricestar1 = (ImageView) itemView.findViewById(R.id.iv_fish_pricestar1);
+            iv_pricestar2 = (ImageView) itemView.findViewById(R.id.iv_fish_pricestar2);
+            iv_pricestar3 = (ImageView) itemView.findViewById(R.id.iv_fish_pricestar3);
+            iv_pricestar4 = (ImageView) itemView.findViewById(R.id.iv_fish_pricestar4);
+            iv_pricestar5 = (ImageView) itemView.findViewById(R.id.iv_fish_pricestar5);
 
-            recyclerFruitStarScore = (RecyclerView) itemView.findViewById(R.id.recycler_fruit_score);
+            recyclerFishStarScore = (RecyclerView) itemView.findViewById(R.id.recycler_fish_score);
         }
     }
 
-    private List<ContactFruitScore> mContacts;
+    private List<ContactFishScore> mContacts;
 
-    public FruitScoreAdapter(List<ContactFruitScore> contacts, Context context) {
+    public FishScoreAdapter(List<ContactFishScore> contacts, Context context) {
         mContacts = contacts;
         mContext = context;
     }
 
     @Override
-    public FruitScoreAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FishScoreAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View contactView = inflater.inflate(R.layout.item_fruit_score, parent, false);
+        View contactView = inflater.inflate(R.layout.item_fish_score, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(contactView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(FruitScoreAdapter.ViewHolder holder, int position) {
-        ContactFruitScore contactFruitScore = mContacts.get(position);
+    public void onBindViewHolder(FishScoreAdapter.ViewHolder holder, int position) {
+        ContactFishScore contactFishScore = mContacts.get(position);
 
         TextView tv_evaluate = holder.evaluateTextView;
         TextView tv_kindscore = holder.kindscoreTextView;
@@ -134,30 +134,30 @@ public class FruitScoreAdapter extends RecyclerView.Adapter<FruitScoreAdapter.Vi
         Button btn_score = holder.scoreButton;
 
 
-        tv_evaluate.setText(contactFruitScore.getmEvaluate());
-        tv_kindscore.setText(contactFruitScore.getmKindscore());
-        tv_itemscore.setText(contactFruitScore.getmItemscore());
-        tv_pricescore.setText(contactFruitScore.getmPricescore());
+        tv_evaluate.setText(contactFishScore.getmEvaluate());
+        tv_kindscore.setText(contactFishScore.getmKindscore());
+        tv_itemscore.setText(contactFishScore.getmItemscore());
+        tv_pricescore.setText(contactFishScore.getmPricescore());
 
         btn_score.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FruitStarScoreAdapter adapter = (FruitStarScoreAdapter) recyclerFruitStarScore.getAdapter();
+                FishStarScoreAdapter adapter = (FishStarScoreAdapter) recyclerFishStarScore.getAdapter();
                 List<Float> ratings = new ArrayList<>();
-                for (ContactFruitStarScore item : adapter.getmContacts()) {
-                     ratings.add(item.getmRating());
+                for (ContactFishStarScore item : adapter.getmContacts()) {
+                    ratings.add(item.getmRating());
                 }
                 // 통신할 때 이 세개 넘겨주기
             }
         });
 
         //평가하기
-        contactFruitStarScores = ContactFruitStarScore.createContactsList(3);
-        fruitStarScoreAdapter = new FruitStarScoreAdapter(contactFruitStarScores);
-        recyclerFruitStarScore.addItemDecoration(rightDecoration);
-        recyclerFruitStarScore.addItemDecoration(bottomDecoration);
-        recyclerFruitStarScore.setLayoutManager((new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)));
-        recyclerFruitStarScore.setAdapter(fruitStarScoreAdapter);
+        contactFishStarScores = ContactFishStarScore.createContactsList(3);
+        fishStarScoreAdapter = new FishStarScoreAdapter(contactFishStarScores);
+        recyclerFishStarScore.addItemDecoration(rightDecoration);
+        recyclerFishStarScore.addItemDecoration(bottomDecoration);
+        recyclerFishStarScore.setLayoutManager((new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)));
+        recyclerFishStarScore.setAdapter(fishStarScoreAdapter);
 
         //문자열로 받아오기
         S_kindscore = tv_kindscore.getText().toString();

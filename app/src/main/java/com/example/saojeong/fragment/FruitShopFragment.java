@@ -26,7 +26,7 @@ import com.example.saojeong.adapter.FruitSellListAdapter;
 import com.example.saojeong.adapter.FruitStarScoreAdapter;
 import com.example.saojeong.model.ContactFruitDetail;
 import com.example.saojeong.model.ContactFruitScore;
-import com.example.saojeong.model.ContactFruitShop;
+import com.example.saojeong.model.ContactFruitSellList;
 import com.example.saojeong.model.ContactFruitStarScore;
 import com.example.saojeong.model.RecyclerDecoration;
 
@@ -43,7 +43,7 @@ public class FruitShopFragment extends Fragment {
     private FruitDetailAdapter fruitDetailAdapter;
     private FruitScoreAdapter fruitScoreAdapter;
     private FruitSellListAdapter fruitSellListAdapter;
-    ArrayList<ContactFruitShop> contactFruitShops;
+    ArrayList<ContactFruitSellList> contactFruitSellLists;
     ArrayList<ContactFruitScore> contactFruitScores;
     ArrayList<ContactFruitDetail> contactFruitDetails;
 
@@ -69,8 +69,8 @@ public class FruitShopFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_fruit, container, false);
         //판매 품목
         recyclerFruitSellList = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_selllist);
-        contactFruitShops = ContactFruitShop.createContactsList(10);
-        fruitSellListAdapter = new FruitSellListAdapter(contactFruitShops);
+        contactFruitSellLists = ContactFruitSellList.createContactsList(10);
+        fruitSellListAdapter = new FruitSellListAdapter(contactFruitSellLists);
         recyclerFruitSellList.addItemDecoration(leftDecoration);
         recyclerFruitSellList.addItemDecoration(bottomDecoration);
         recyclerFruitSellList.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));

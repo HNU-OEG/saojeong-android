@@ -11,10 +11,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactVegetableOpen;
+import com.example.saojeong.model.OnItemClickListener;
 
 import java.util.List;
 
-public class VegetableOpenAdapter extends RecyclerView.Adapter<VegetableOpenAdapter.ViewHolder> {
+public class VegetableOpenAdapter extends RecyclerView.Adapter<VegetableOpenAdapter.ViewHolder> implements OnItemClickListener<VegetableOpenAdapter.ViewHolder> {
+
+    OnItemClickListener listener;
+
+    public void setOnItemClicklistener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onItemClick(ViewHolder holder, View view, int position) {
+        if(listener != null) {
+            listener.onItemClick(holder,view,position);
+        }
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView shopnumTextView;
@@ -36,6 +50,16 @@ public class VegetableOpenAdapter extends RecyclerView.Adapter<VegetableOpenAdap
             selfintroductionTextView = (TextView) itemView.findViewById(R.id.tv_self_introduction);
             shopImageView = (ImageView) itemView.findViewById(R.id.iv_shop);
             favorateImageView = (ImageView) itemView.findViewById(R.id.iv_favorate);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(listener != null) {
+                        listener.onItemClick(ViewHolder.this, view, position);
+                    }
+                }
+            });
         }
     }
 

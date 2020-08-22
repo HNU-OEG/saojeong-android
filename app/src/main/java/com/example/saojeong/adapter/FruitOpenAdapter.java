@@ -15,7 +15,7 @@ import com.example.saojeong.model.OnItemClickListener;
 
 import java.util.List;
 
-public class FruitOpenAdapter extends RecyclerView.Adapter<FruitOpenAdapter.ViewHolder> implements OnItemClickListener {
+public class FruitOpenAdapter extends RecyclerView.Adapter<FruitOpenAdapter.ViewHolder> implements OnItemClickListener<FruitOpenAdapter.ViewHolder> {
 
     OnItemClickListener listener;
 
