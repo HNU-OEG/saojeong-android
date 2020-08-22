@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactFruitOpen;
 import com.example.saojeong.model.OnItemClickListener;
@@ -16,6 +17,8 @@ import com.example.saojeong.model.OnItemClickListener;
 import java.util.List;
 
 public class FruitOpenAdapter extends RecyclerView.Adapter<FruitOpenAdapter.ViewHolder> implements OnItemClickListener<FruitOpenAdapter.ViewHolder> {
+    private final RequestManager glide;
+
 
     OnItemClickListener listener;
 
@@ -67,6 +70,12 @@ public class FruitOpenAdapter extends RecyclerView.Adapter<FruitOpenAdapter.View
 
     public FruitOpenAdapter(List<ContactFruitOpen> contacts) {
         mContacts = contacts;
+        glide = null;
+    }
+
+    public FruitOpenAdapter(RequestManager glide, List<ContactFruitOpen> contacts) {
+        mContacts = contacts;
+        this.glide = glide;
     }
 
     @Override
@@ -99,7 +108,11 @@ public class FruitOpenAdapter extends RecyclerView.Adapter<FruitOpenAdapter.View
         tv_starscore.setText(Double.toString(contactFruitOpen.getmStarscore()));
         tv_evaluation.setText(contactFruitOpen.getmEvaluation());
         tv_selfintroduction.setText(contactFruitOpen.getmSelfintroduction());
-        iv_shop.setImageResource(contactFruitOpen.getmImage());
+        if (glide == null) {
+            iv_shop.setImageResource(contactFruitOpen.getmImage());
+        } else {
+            glide.load(contactFruitOpen.get_mImage()).into(iv_shop);
+        }
         iv_favorate.setImageResource(contactFruitOpen.getmFImage());
     }
 

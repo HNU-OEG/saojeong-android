@@ -2,30 +2,26 @@ package com.example.saojeong;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.saojeong.fragment.CommunityFragment;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import com.example.saojeong.fragment.FAQFragment;
+import com.example.saojeong.fragment.MyQnAFragment;
 import com.example.saojeong.fragment.PriceFragment;
 
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.saojeong.fragment.CommunityFragment;
+
 import com.example.saojeong.fragment.HomeFragment;
-import com.example.saojeong.fragment.PriceFragment;
 import com.example.saojeong.fragment.MyPageFragment;
+import com.example.saojeong.fragment.QnAFragment;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,7 +62,10 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frameLayout_main, homeFragment)
                 .commitAllowingStateLoss(); //시작화면에 Home 띄우기
         mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
+
+
     }
+
     public void clickHandler(View view) {
         transaction = fragmentManager.beginTransaction();
         switch (view.getId())
@@ -166,5 +165,33 @@ public class MainActivity extends AppCompatActivity {
 
     public void closeKeyBoard(View view) {
         imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+    }
+    public void onClickQnA(View view) {
+
+        QnAFragment qnAFragment = new QnAFragment();
+        MyQnAFragment myQnAFragment = new MyQnAFragment();
+        FAQFragment faQFragment = new FAQFragment();
+        transaction = fragmentManager.beginTransaction();
+
+        switch (view.getId()) {
+
+            case R.id.tv_QnA:
+                transaction.replace(R.id.frameLayout_main, qnAFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                break;
+
+            case R.id.tv_FAQ:
+                transaction.replace(R.id.frameLayout_main, faQFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                break;
+
+            case R.id.tv_myQnA:
+                transaction.replace(R.id.frameLayout_main, myQnAFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                break;
+        }
     }
 }
