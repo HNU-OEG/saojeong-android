@@ -5,32 +5,35 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.adapter.FAQadapter;
+import com.example.saojeong.model.FAQ;
 
-public class SignOutFragment1 extends Fragment {
+import java.util.ArrayList;
 
-    private Button btn_sign_out;
+public class FAQFragment extends Fragment {
 
-    public static SignOutFragment1 newInstance() {
-        return new SignOutFragment1();
-    }
+    private RecyclerView recycler_FAQ;
+    private FAQadapter mFAQadapter;
+
+    ArrayList<FAQ> mFAQ;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_sign_out1, container, false);
+        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_faq, container, false);
 
-        btn_sign_out = view.findViewById(R.id.btn_out1);
-
-        Toolbar toolbar = view.findViewById(R.id.toolbar_sign_out1);
+        Toolbar toolbar = view.findViewById(R.id.toolbar_faq);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.~~); // 뒤로가기 화살표 이미지 바꾸기
@@ -38,10 +41,14 @@ public class SignOutFragment1 extends Fragment {
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitleTextColor(Color.BLACK);
 
-        btn_sign_out.setOnClickListener((v) -> {
-            ((MainActivity)getActivity()).replaceFragment(SignOutFragment2.newInstance());
-        });
+        recycler_FAQ = view.findViewById(R.id.recycler_FAQ);
+        mFAQ = FAQ.createFAQ(20);
+        mFAQadapter = new FAQadapter(mFAQ);
+        recycler_FAQ.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        recycler_FAQ.addItemDecoration(new DividerItemDecoration(view.getContext(), 1));
+        recycler_FAQ.setAdapter(mFAQadapter);
 
         return view;
+
     }
 }

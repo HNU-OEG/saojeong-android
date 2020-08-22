@@ -7,6 +7,35 @@
     android:background="#FFFFFF"
     android:onClick="closeKeyBoard">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintTop_toTopOf="parent"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_edit_profile"
+            android:layout_width="match_parent"
+            android:layout_gravity="left"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#FFFFFF"
+            app:popupTheme="@style/AppTheme.AppBarOverlay">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="프로필 변경"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                android:textColor="#4d4d4d" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <LinearLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
@@ -14,7 +43,7 @@
         android:layout_marginTop="35dp"
         android:orientation="horizontal"
         android:paddingLeft="25dp"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/appBar_edit_profile">
 
         <ImageView
             android:id="@+id/iv_profile"
