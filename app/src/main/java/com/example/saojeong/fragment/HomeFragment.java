@@ -2,6 +2,7 @@ package com.example.saojeong.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +18,28 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.FoodAdapter;
 import com.example.saojeong.adapter.FullviewAdapter;
 import com.example.saojeong.adapter.LikeStoreAdapter;
+import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.model.ContactFood;
 import com.example.saojeong.model.ContactFullview;
+import com.example.saojeong.model.ContactShopOC;
 import com.example.saojeong.model.LikeStore;
 import com.example.saojeong.model.RecyclerDecoration;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.StoreDto;
+import com.example.saojeong.rest.service.StoreService;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -46,9 +58,11 @@ public class HomeFragment extends Fragment {
     private LikeStoreAdapter likeStoreAdapter;
     private FoodAdapter foodAdapter;
     private FullviewAdapter fullviewAdapter;
-    ArrayList<LikeStore> likeStores;
+    List<ContactShopOC> likeStores;
     ArrayList<ContactFood> contactFoods;
     ArrayList<ContactFullview> contactFullviews;
+
+    private StoreService storeService;
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
 
@@ -62,6 +76,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
 
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
@@ -75,11 +90,7 @@ public class HomeFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         //매장 Recycler View
         recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
-        likeStores = LikeStore.createLikeStoreList(20);
-        likeStoreAdapter = new LikeStoreAdapter(likeStores);
-        recyclerShop.addItemDecoration(leftDecoration);
-        recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerShop.setAdapter(likeStoreAdapter);
+        loadStores(this);
 
         //과일 Recycler View
         recyclerFood = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_fragment);
@@ -142,6 +153,43 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
+    private void loadStores(HomeFragment homeFragment) {
+        storeService.getStarredStoreList().enqueue(new Callback<List<StoreDto>>() {
+            @Override
+            public void onResponse(Call<List<StoreDto>> call, Response<List<StoreDto>> response) {
+                List<StoreDto> body = response.body();
+                for (StoreDto dto : body)  { // 디버깅 코드
+                    Log.d("RESPONSE CHECK", dto.toString());
+                }
+                if (response.code() == 201) { // 서버와 통신 성공
+                    likeStores = ContactShopOC.createContactsList(body);
+                    likeStoreAdapter = new LikeStoreAdapter(Glide.with(homeFragment), likeStores);
+                    recyclerShop.addItemDecoration(leftDecoration);
+                    recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                    recyclerShop.setAdapter(likeStoreAdapter);
+                } else { // 서버에서 문제 발생
+                    likeStores = ContactShopOC._createContactsList(20);
+                    likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                    recyclerShop.addItemDecoration(leftDecoration);
+                    recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                    recyclerShop.setAdapter(likeStoreAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<StoreDto>> call, Throwable t) {
+                // 안드로이드에서 문제 발생 (네트워크 환경 체크해보기)
+                likeStores = ContactShopOC._createContactsList(20);
+                likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                recyclerShop.addItemDecoration(leftDecoration);
+                recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerShop.setAdapter(likeStoreAdapter);
+            }
+        });
+
+
+    }
+
     private void setAdapter() {
         contactFoods = ContactFood.createContactsList(20);
         foodAdapter = new FoodAdapter(contactFoods);
@@ -159,7 +207,7 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.iv_home).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceFragment(homeFragment.newInstance());
+                ((MainActivity) getActivity()).replaceFragment(homeFragment.newInstance());
                 fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
             }
         });
@@ -167,27 +215,27 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.btn_fruit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceHomeFragment(fruitFragment.newInstance());
+                ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance());
             }
         });
 
         view.findViewById(R.id.btn_vegetable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceHomeFragment(vegetableFragment.newInstance());
+                ((MainActivity) getActivity()).replaceHomeFragment(vegetableFragment.newInstance());
             }
         });
 
         view.findViewById(R.id.btn_fish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceHomeFragment(fishFragment.newInstance());
+                ((MainActivity) getActivity()).replaceHomeFragment(fishFragment.newInstance());
             }
         });
     }
 
     public void closeKeyBoard(View view) {
-        imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 }

@@ -52,9 +52,6 @@ public class LikeStore {
             likeStores.add(MyPageGetData.getLikeStoreData());
             likeStores.add(new LikeStore(R.drawable.logo_no_circle, 52, "서진수산시장", 4.8, 30, false)); //test
         }
-
         return likeStores;
     }
-
-
 }
