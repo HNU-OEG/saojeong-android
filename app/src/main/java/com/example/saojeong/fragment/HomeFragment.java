@@ -159,7 +159,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadStores(HomeFragment homeFragment) {
-        storeService.getStarredStoreList().enqueue(new Callback<List<StoreDto>>() {
+        storeService.getStoreListOrderByGrade().enqueue(new Callback<List<StoreDto>>() {
             @Override
             public void onResponse(Call<List<StoreDto>> call, Response<List<StoreDto>> response) {
                 List<StoreDto> body = response.body();
