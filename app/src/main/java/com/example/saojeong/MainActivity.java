@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.saojeong.fragment.HomeFragment;
 import com.example.saojeong.fragment.MyPageFragment;
+import com.example.saojeong.login.AllLoginManager;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId())
         {
             case R.id.ll_home:
+
                 fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
                 transaction.replace(R.id.frameLayout_main, homeFragment) // frameLayout에 홈 Fragment 호출
                         .addToBackStack(null)
@@ -77,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
                 mcommunity.setImageResource(R.drawable.community);
                 mchatbot.setImageResource(R.drawable.chatbot);
                 mmypage.setImageResource(R.drawable.mypage);
-
                 break;
 
             case R.id.ll_price:

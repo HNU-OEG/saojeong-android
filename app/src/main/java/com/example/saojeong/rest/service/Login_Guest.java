@@ -26,4 +26,5 @@ public interface Login_Guest {
 
     @GET("hello")
     Call<Login_Dto> hellotest();
+
 }

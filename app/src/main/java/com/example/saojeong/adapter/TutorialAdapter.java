@@ -15,10 +15,12 @@ import android.widget.RelativeLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.R;
+import com.example.saojeong.login.AllLoginManager;
 import com.example.saojeong.login.CallBackLogin;
 import com.example.saojeong.login.FacebookLogin;
 import com.example.saojeong.login.GoogleLogin;
 import com.example.saojeong.login.LoginControl;
+import com.example.saojeong.login.LoginToken;
 import com.example.saojeong.login.NaverLogin;
 import com.example.saojeong.login.kakaoControl;
 import com.example.saojeong.model.LoginData;
@@ -34,6 +36,7 @@ import com.kakao.auth.Session;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,13 +44,7 @@ import retrofit2.Response;
 public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHolder>{
     private Activity mActivity;
     private Context mContext;
-    private FacebookLogin mFacebookLogin;
-    private GoogleLogin mGoogleLogin;
-
-    private GoogleSignInClient mGoogleSignInClient;
-    private NaverLogin mNaverLogin;
-    private Login_Guest Login_GuestService;
-    private kakaoControl mKaKaoLogin;
+    private AllLoginManager mAllLoginManager;
     WebView webview;
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RelativeLayout rl_testTuto;
@@ -58,7 +55,6 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
         Button login_naver;
         Button login_google;
         Button login_guest;
-
         public ViewHolder(View itemView) {
             super(itemView);
             webview=itemView.findViewById(R.id.webview);
@@ -74,125 +70,38 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
             login_naver.setOnClickListener(this);
             login_google.setOnClickListener(this);
             login_guest.setOnClickListener(this);
-            mKaKaoLogin= new kakaoControl(new LoginControl.LoginHandler() {
-                @Override
-                public void cancel() {
-                }
-
-                @Override
-                public void success() {
-                    Login_GuestService = ServiceGenerator.createService(Login_Guest.class, Session.getCurrentSession().getRefreshToken());
-                    loadlogin(mActivity, "kakao");
-                }
-
-                @Override
-                public void error(Throwable th) {
-                }
-            });
-            mFacebookLogin=new FacebookLogin(new LoginControl.LoginHandler() {
-                @Override
-                public void cancel() {
-//
-                }
-//
-                @Override
-                public void success() {
-
-                    Login_GuestService = ServiceGenerator.createService(Login_Guest.class, AccessToken.getCurrentAccessToken().getToken());
-
-                    loadlogin(mActivity, "facebook");
-                }
-//
-                @Override
-                public void error(Throwable th) {
-//
-                }
-            });
-          // //mNaverLogin=new NaverLogin(this, OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET, OAUTH_CLIENT_NAME, new LoginControl.LoginHandler() {
-          // //    @Override
-          // //    public void cancel() {
-//
-          // //    }
-//
-          // //    @Override
-          // //    public void success() {
-//
-          // //    }
-//
-          // //    @Override
-          // //    public void error(Throwable th) {
-//
-          // //    }
-          // //});
-//
-            mGoogleLogin=new GoogleLogin(mActivity, mContext, new LoginControl.LoginHandler() {
-                @Override
-                public void cancel() {
-
-                 }
-
-                 @Override
-                 public void success() {
-                     Login_GuestService = ServiceGenerator.createService(Login_Guest.class, mGoogleLogin.account.getServerAuthCode());
-                     String str=mGoogleLogin.account.getServerAuthCode();
-                     loadlogin(mActivity, "google");
-                 }
-
-                 @Override
-                 public void error(Throwable th) {
-
-                }
-            });
-
+            mAllLoginManager= new AllLoginManager(mActivity,mContext);
         }
-
+        @SneakyThrows
         @Override
         public void onClick(View view) {
             switch(view.getId())
             {
                 case R.id.login_facebook:
-                    mFacebookLogin.Login(mActivity);
+                    mAllLoginManager.login("FACEBOOK", mActivity);
                     //Intent intent = new Intent(mActivity, MainActivity.class);
                     //mActivity.startActivity(intent);
                     //mActivity.finish();
                     break;
                 case R.id.login_kakaotalk:
-                    mKaKaoLogin.Login(mActivity);
+                    mAllLoginManager.login("KAKAO", mActivity);
                     break;
                 case R.id.login_naver:
                     //loadStores(mActivity, "1");
                     break;
                 case R.id.login_google:
-                    mGoogleLogin.Login(mActivity);
+                    mAllLoginManager.login("GOOGLE", mActivity);
                    // loadStores(mActivity, "1");
                     break;
                 case R.id.login_guest:
+                    LoginToken.setToken(mActivity);
+                    LoginToken.getToken();
                    // loadStores(mActivity, "1");
                     break;
             }
         }
     }
 
-    private void loadlogin(Activity activity, String Type) {
-        if(Type=="facebook")
-        {
-            Login_GuestService.FaceBookLogin().enqueue(new CallBackLogin(mActivity));
-        }
-        else if(Type=="kakao")
-        {
-            Login_GuestService.kakaoLogin(Session.getCurrentSession().getAccessToken()).enqueue(new CallBackLogin(mActivity));
-        }
-        else if(Type=="naver")
-        {
-            Login_GuestService.NaverLogin().enqueue(new CallBackLogin(mActivity));
-        }
-        else  if(Type=="google")
-        {
-            Login_GuestService.GoogleLogin().enqueue(new CallBackLogin(mActivity));
-        }
-      //  Login_GuestService.kakaoLogin().enqueue(new CallBackLogin(mActivity));
-
-    }
     private List<TutorialValue> mContacts;
 
     public TutorialAdapter(List<TutorialValue> contacts, Activity activity, Context context) {

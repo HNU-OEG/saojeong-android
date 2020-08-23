@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.saojeong.adapter.TutorialAdapter;
+import com.example.saojeong.login.AllLoginManager;
 import com.example.saojeong.login.FacebookLogin;
 import com.example.saojeong.login.GoogleLogin;
 import com.example.saojeong.login.kakaoControl;
@@ -48,10 +49,8 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==GoogleLoginRequestCode)
-            GoogleLogin.inst.onActivityResult(requestCode,resultCode, data);
-        if(requestCode==FacebookLoginRequestCode)
-            FacebookLogin.inst.onActivityResult(requestCode, resultCode, data);
+        AllLoginManager.inst.onActivityResult(requestCode,resultCode,data);
+
     }
 
     private void setupItems() {

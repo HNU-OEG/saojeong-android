@@ -3,6 +3,7 @@ package com.example.saojeong.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.model.LoginData;
@@ -25,16 +26,25 @@ public class CallBackLogin implements Callback<Login_Dto> {
 
     @Override
     public void onResponse(Call<Login_Dto> call, Response<Login_Dto> response) {
-
-        Login_Dto body = response.body();
-        String str = body.accessToken;
-        SharedPreferences pref = mActivity.getSharedPreferences("SHARE_PREF", mActivity.MODE_PRIVATE);
-        SharedPreferences.Editor editer = pref.edit();
-        editer.putString("AccessToken", str);
-        editer.apply();
-        Intent intent = new Intent(mActivity, MainActivity.class);
-        mActivity.startActivity(intent);
-        mActivity.finish();
+        int a=response.code();
+        if(response.code()==200) {
+            Login_Dto body = response.body();
+            String str1 = body.accessToken;
+            String str2 = body.refreshToken;
+            SharedPreferences pref = mActivity.getSharedPreferences("SHARE_PREF", mActivity.MODE_PRIVATE);
+            SharedPreferences.Editor editer = pref.edit();
+            editer.putString("AccessToken", str1);
+            editer.putString("RefreshToken", str2);
+            editer.apply();
+            editer.commit();
+            Intent intent = new Intent(mActivity, MainActivity.class);
+            mActivity.startActivity(intent);
+            mActivity.finish();
+        }
+        else
+        {
+            Toast.makeText(mActivity,"접속에러", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

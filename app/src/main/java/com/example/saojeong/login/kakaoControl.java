@@ -11,22 +11,34 @@ import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.KakaoSDK;
 import com.kakao.auth.Session;
+import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
+import com.kakao.usermgmt.callback.MeV2ResponseCallback;
+import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
 
 public class kakaoControl implements ISessionCallback, LoginControl {
     private LoginControl.LoginHandler handler;
-    public static kakaoControl inst;
-
     public static void init(Application application) {
         KakaoSDK.init(new kakaoSDKAdapter(application));
     }
 
     public kakaoControl(LoginControl.LoginHandler loginHandler) {
         this.handler = loginHandler;
-        if(inst==null)
-            inst=this;
+        //카카오자동로그인
+        //UserManagement.getInstance().me(new MeV2ResponseCallback() {
+        //    @Override
+        //    public void onSessionClosed(ErrorResult errorResult) {
+//
+        //    }
+//
+        //    @Override
+        //    public void onSuccess(MeV2Response result) {
+        //        kakaoControl.this.handler.success();
+        //    }
+        //});
+
     }
 
     public void Login(Activity activity) {
@@ -58,4 +70,5 @@ public class kakaoControl implements ISessionCallback, LoginControl {
         kakaoControl.this.handler.error(kakaoException);
         Log.e("KAKAO_SESSION", "로그인 실패", kakaoException);
     }
+
 }

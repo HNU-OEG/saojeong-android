@@ -3,6 +3,7 @@ package com.example.saojeong.login;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -13,20 +14,17 @@ import java.util.Arrays;
 
 public class FacebookLogin implements LoginControl  {
     // 로그인 성공 시 호출 됩니다. Access Token 발급 성공.
-    public static FacebookLogin inst;
     private CallbackManager mCallbackManager;
     public LoginControl.LoginHandler mhandler;
     private FacebookLoginCallback mLoginCallback;
     private String[] mPermissions = {"public_profile", "email"};
 
-    public FacebookLogin(LoginControl.LoginHandler loginHandler) {
+    public FacebookLogin(Activity activity, LoginControl.LoginHandler loginHandler) {
         mhandler = loginHandler;
-        init();
-        if(inst==null)
-            inst=this;
+        init(activity);
     }
 
-    private void init() {
+    private void init(Activity activity) {
         mCallbackManager = CallbackManager.Factory.create();
         mLoginCallback = new FacebookLoginCallback() {
             @Override
@@ -46,6 +44,11 @@ public class FacebookLogin implements LoginControl  {
         };
 
         LoginManager.getInstance().registerCallback(mCallbackManager,mLoginCallback);
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+        if(isLoggedIn)
+            LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList(this.mPermissions));
     }
 
     public void Login(Activity activity) {

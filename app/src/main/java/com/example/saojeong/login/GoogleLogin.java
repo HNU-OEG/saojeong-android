@@ -26,7 +26,6 @@ public class GoogleLogin implements LoginControl, GoogleApiClient.OnConnectionFa
     private Context mContext;
     private Activity mActivity;
     private LoginHandler mhandler;
-    public static GoogleLogin inst;
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -38,8 +37,6 @@ public class GoogleLogin implements LoginControl, GoogleApiClient.OnConnectionFa
         mActivity=Activity;
         mContext=context;
         mhandler=handler;
-        if(inst==null)
-            inst=this;
         init();
     }
 
