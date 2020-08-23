@@ -1,6 +1,7 @@
 package com.example.saojeong.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,20 +16,34 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.CommunityAdapter_item;
+import com.example.saojeong.adapter.LikeStoreAdapter;
+import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.model.Community_CommentValue;
+import com.example.saojeong.model.ContactShopOC;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.StoreDto;
+import com.example.saojeong.rest.dto.board.CommunityPostListDto;
+import com.example.saojeong.rest.service.Community_Service;
+import com.example.saojeong.rest.service.StoreService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class CommunityTabFragment extends Fragment implements View.OnClickListener{
 
     CommunityAdapter_item mAdapter;
-    ArrayList<CommunityValue> mCommunityValue;
+    List<CommunityValue> mCommunityNormalValue;
+    List<CommunityValue> mCommunityHotValue;
     TextView btnLeft;
     TextView btnRight;
     TextView tvBoard;
@@ -36,14 +51,15 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     RecyclerView mRecyclerViewCommunity;
     int board=0;
 
-    //private Community_Service community_Service;
+    private Community_Service community_Service;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
         view=inflater.inflate(R.layout.viewpaper_community, container, false);
         mRecyclerViewCommunity = view.findViewById(R.id.community_recycler);
-        mCommunityValue= new ArrayList<>();
+        mCommunityNormalValue= new ArrayList<>();
+        mCommunityHotValue= new ArrayList<>();
         btnLeft=view.findViewById(R.id.tv_community_btn_Left);
         btnLeft.setOnClickListener(this);
         btnRight=view.findViewById(R.id.tv_community_btn_Right);
@@ -52,49 +68,8 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
         tvBoard=view.findViewById(R.id.tv_community_board);
         tvBoard.setText(board+1+"");
 
-
-       // community_Service = ServiceGenerator.createService(Community_Service.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5NzU4ODU3MSwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.G0SdapZG7h9Lr5kJf0P8ecl71DXiLFHicq6805RHDvY");
-
-
-
-        //test
-        List<Community_CommentValue> CCList;
-        CCList = new ArrayList<>();
-        CCList.add(new Community_CommentValue("a","a","a",false));
-        CCList.add(new Community_CommentValue("b","b","b",false));
-        CCList.add(new Community_CommentValue("c","c","c",false));
-        CCList.add(new Community_CommentValue("d","d","d",false));
-        CCList.add(new Community_CommentValue("d","d","d",false));
-        CCList.add(new Community_CommentValue("d","d","d",false));
-        CommunityValue com1=new CommunityValue("1","1","1","1",0,0, false);
-        com1.SetComment(CCList);
-        mCommunityValue.add(com1);
-        for(int i=0; i<40; ++i)
-        {
-            CommunityValue com=new CommunityValue("제목은 두껍게! 한눈에 보이도록!","가나다라","07. 13 03:29","6",0,0, true);
-            com.SetComment(CCList);
-            mCommunityValue.add(com);
-        }
-
-
-        if(board==0)
-        {
-            btnLeft.setVisibility(View.GONE);
-        }
-        else
-            btnLeft.setVisibility(View.VISIBLE);
-
-        if((board+1)*10>=mCommunityValue.size())
-        {
-            btnRight.setVisibility(View.GONE);
-        }
-        else
-            btnRight.setVisibility(View.VISIBLE);
-
-
-        mAdapter = new CommunityAdapter_item(mCommunityValue, 0, (MainActivity)getActivity());
-        mRecyclerViewCommunity.setAdapter(mAdapter);
-        mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        community_Service = ServiceGenerator.createService(Community_Service.class, TokenCase.getToken());
+        load_GetPost();
 
         return view;
     }
@@ -119,7 +94,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
                 else
                     btnLeft.setVisibility(View.VISIBLE);
 
-                if((board+1)*10>=mCommunityValue.size()) {
+                if((board+1)*10>=10) {
                     btnRight.setVisibility(View.GONE);
                 }
                 else
@@ -140,16 +115,36 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
                 else
                     btnLeft.setVisibility(View.VISIBLE);
 
-                if((board+1)*10>=mCommunityValue.size()) {
-                    btnRight.setVisibility(View.GONE);
-                }
-                else
-                    btnRight.setVisibility(View.VISIBLE);
                 break;
         }
     }
 
-    private void load_GetPost() {
+
+    public void load_GetPost() {
+        community_Service.getPostList("10004").enqueue(new Callback<CommunityPostListDto>() {
+            @Override
+            public void onResponse(Call<CommunityPostListDto> call, Response<CommunityPostListDto> response) {
+                CommunityPostListDto body = response.body();
+                if (response.code() == 201) { // 서버와 통신 성공
+                    mCommunityNormalValue = CommunityValue.createContactsList(body.getNormal());
+                    mCommunityHotValue = CommunityValue.createContactsList(body.getHot());
+                    mAdapter = new CommunityAdapter_item( mCommunityHotValue, mCommunityNormalValue, (MainActivity)getActivity());
+                } else { // 서버에서 문제 발생
+                    //likeStores = ContactShopOC._createContactsList(20);
+                    //likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                }
+                mRecyclerViewCommunity.setAdapter(mAdapter);
+                mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
+            }
+
+            @Override
+            public void onFailure(Call<CommunityPostListDto> call, Throwable t) {
+                Log.d("fail", t.getMessage());
+            }
+        });
+    }
+
+    //private void load_GetPost() {
      //  Log.d("LOADSTORES HERE", "HERE");
 
      //  community_Service.getPostList().enqueue(new Callback<List<CommunityDto>>() {
@@ -171,7 +166,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
      //          Log.d("REST ERROR!", t.getMessage());
      //      }
      //  });
-    }
+    //}
 
 
 }

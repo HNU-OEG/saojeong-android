@@ -1,5 +1,6 @@
 package com.example.saojeong.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
 import com.example.saojeong.R;
+import com.example.saojeong.model.ContactShopOC;
 import com.example.saojeong.model.LikeStore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.ViewHolder> {
+    private final RequestManager glide;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
@@ -36,10 +41,16 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         }
     }
 
-    private ArrayList<LikeStore> mLikeStore;
+    private List<ContactShopOC> mLikeStore;
 
-    public LikeStoreAdapter(ArrayList<LikeStore> stores) {
+    public LikeStoreAdapter(List<ContactShopOC> stores) {
         this.mLikeStore = stores;
+        glide = null;
+    }
+
+    public LikeStoreAdapter(RequestManager glide, List<ContactShopOC> stores) {
+        this.mLikeStore = stores;
+        this.glide = glide;
     }
 
     @NonNull
@@ -50,9 +61,10 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        LikeStore likeStore = mLikeStore.get(position);
+        ContactShopOC likeStore = mLikeStore.get(position);
 
         ImageView image = holder.image;
         ImageView img_like = holder.img_like;
@@ -61,12 +73,16 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         TextView rateStore = holder.rateStore;
         TextView rateCountStore = holder.rateCountStore;
 
-        image.setImageResource(likeStore.getmImage());
-        img_like.setImageResource(likeStore.ismLike()? R.drawable.like : R.drawable.unlike);
-        codeStore.setText(likeStore.getmCodeStore()+"번");
-        nameStore.setText(likeStore.getmNameStore());
-        rateStore.setText(Double.toString(likeStore.getmRateStore()));
-        rateCountStore.setText(likeStore.getmRateCountStore()+"명이 평가하였습니다.");
+        if (glide == null) {
+            image.setImageResource(likeStore.getMImage());
+        } else {
+            glide.load(likeStore.get_mImage()).into((image));
+        }
+        img_like.setImageResource(likeStore.isMLike()? R.drawable.like : R.drawable.unlike);
+        codeStore.setText(likeStore.getMShopnum());
+        nameStore.setText(likeStore.getMShopname());
+        rateStore.setText(Double.toString(likeStore.getMStarscore()));
+        rateCountStore.setText(likeStore.getMEvaluation());
     }
 
     @Override

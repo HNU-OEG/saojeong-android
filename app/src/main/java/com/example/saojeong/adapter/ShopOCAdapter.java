@@ -93,14 +93,14 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
         ImageView iv_shop = holder.shopImageView;
         ImageView iv_favorate = holder.favorateImageView;
 
-        tv_shopnum.setText(contactShopOC.getmShopnum());
-        tv_shopname.setText(contactShopOC.getmShopname());
-        tv_star.setText(contactShopOC.getmStar());
-        tv_starscore.setText(Double.toString(contactShopOC.getmStarscore()));
-        tv_evaluation.setText(contactShopOC.getmEvaluation());
-        tv_selfintroduction.setText(contactShopOC.getmSelfintroduction());
-        iv_shop.setImageResource(contactShopOC.getmImage());
-        iv_favorate.setImageResource(contactShopOC.getmFImage());
+        tv_shopnum.setText(contactShopOC.getMShopnum());
+        tv_shopname.setText(contactShopOC.getMShopname());
+        tv_star.setText(contactShopOC.getMStar());
+        tv_starscore.setText(Double.toString(contactShopOC.getMStarscore()));
+        tv_evaluation.setText(contactShopOC.getMEvaluation());
+        tv_selfintroduction.setText(contactShopOC.getMSelfintroduction());
+        iv_shop.setImageResource(contactShopOC.getMImage());
+        iv_favorate.setImageResource(contactShopOC.getMFImage());
     }
 
     @Override

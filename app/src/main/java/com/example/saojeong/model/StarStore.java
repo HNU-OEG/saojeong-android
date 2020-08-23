@@ -26,13 +26,13 @@ public class StarStore {
     }
 
     public static ArrayList<StarStore> createLikeStoreList(int numStarStore) {
-        ArrayList<StarStore> starStores = new ArrayList<StarStore>();
+        ArrayList<StarStore> starStores= new ArrayList<>();
 
         for (int i = 1; i <= numStarStore; i++) {
             starStores.add(MyPageGetData.getStarStoreData());
             starStores.add(new StarStore(52, "서진수산시장", 2)); //test
         }
-
         return starStores;
     }
+
 }

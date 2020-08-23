@@ -25,6 +25,7 @@ import com.example.saojeong.model.OnItemClickListener;
 import com.example.saojeong.model.RecyclerDecoration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VegetableFragment extends Fragment {
     private FragmentManager fragmentManager;
@@ -33,7 +34,7 @@ public class VegetableFragment extends Fragment {
     private RecyclerView recyclerShopoc;
     private RecyclerView recyclerShopclose;
     private ShopOCAdapter shopOCAdapter;
-    ArrayList<ContactShopOC> contactShopOCs;
+    List<ContactShopOC> contactShopOCs;
 
     TextView selectedText;
     Spinner spinner_shop;
@@ -87,7 +88,7 @@ public class VegetableFragment extends Fragment {
     }
 
     private void setAdapter() {
-        contactShopOCs = ContactShopOC.createContactsList(5);
+        contactShopOCs = ContactShopOC._createContactsList(5);
         shopOCAdapter = new ShopOCAdapter(contactShopOCs);
         recyclerShopoc.addItemDecoration(bottomDecoration);
         recyclerShopoc.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));

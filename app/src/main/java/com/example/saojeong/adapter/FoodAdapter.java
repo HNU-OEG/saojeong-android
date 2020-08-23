@@ -9,12 +9,14 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactFood;
 
 import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
+    private RequestManager glide;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView FoodTextView;
@@ -31,6 +33,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
     public FoodAdapter(List<ContactFood> contacts) {
         mContacts = contacts;
+        glide = null;
+    }
+
+    public FoodAdapter(RequestManager glide,List<ContactFood> contacts) {
+        mContacts = contacts;
+        this.glide = glide;
     }
 
     @Override
@@ -49,10 +57,14 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         ContactFood contactSeason = mContacts.get(position);
 
         TextView tv_food = holder.FoodTextView;
-        tv_food.setText(contactSeason.getmFood());
+        tv_food.setText(contactSeason.getMFood());
 
         ImageView iv_food = holder.FoodImageView;
-        iv_food.setImageResource(contactSeason.getmFrImage());
+        if (glide == null) {
+            iv_food.setImageResource(contactSeason.getMFrImage());
+        } else {
+            glide.load(contactSeason.get_mFrImage()).into(iv_food);
+        }
     }
 
     @Override

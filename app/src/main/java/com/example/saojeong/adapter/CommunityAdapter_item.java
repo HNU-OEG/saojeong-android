@@ -1,5 +1,6 @@
 package com.example.saojeong.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +9,13 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.fragment.Community_ReadFragment;
 import com.example.saojeong.model.CommunityValue;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder>{
     public MainActivity RootActivity;
@@ -23,7 +25,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
         public TextView mTextViewName;
         public TextView mTextViewDate;
         public TextView mTextViewComment;
-        public TextView mTextViewReCommentSize;
+        public TextView mTextViewvote;
         public ViewHolder(View itemView) {
             super(itemView);
             mTextViewTitle_Popularity = (TextView) itemView.findViewById(R.id.tv_community_Title_popularity);
@@ -31,7 +33,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
             mTextViewName = (TextView) itemView.findViewById(R.id.tv_community_name_item);
             mTextViewDate = (TextView) itemView.findViewById(R.id.tv_community_date_item);
             mTextViewComment = (TextView) itemView.findViewById(R.id.tv_community_Title_comment);
-            mTextViewReCommentSize = (TextView) itemView.findViewById(R.id.tv_community_comment_recommend);
+            mTextViewvote = (TextView) itemView.findViewById(R.id.tv_community_comment_vote);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -48,12 +50,14 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
         }
     }
 
-    private ArrayList<CommunityValue> mContacts;
+    private List<CommunityValue> mHotContacts;
+    private List<CommunityValue> mNormalContacts;
     private int mBoard;
 
-    public CommunityAdapter_item(ArrayList<CommunityValue> contacts, int Board, MainActivity activity) {
-        mContacts = contacts;
-        mBoard=Board;
+    public CommunityAdapter_item(List<CommunityValue> HotContact, List<CommunityValue> NormalContact, MainActivity activity) {
+        if(HotContact!=null)
+            mHotContacts = HotContact;
+        mNormalContacts = NormalContact;
         RootActivity=activity;
     }
 
@@ -70,23 +74,33 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
 
     @Override
     public void onBindViewHolder(CommunityAdapter_item.ViewHolder holder, int position) {
+        if(mHotContacts.size()>position)
+        {
+            CommunityValue contact = mHotContacts.get(position);
+            holder.mTextViewTitle.setText(contact.getTitle());
+            holder.mTextViewName.setText(contact.getAuthor());
+            holder.mTextViewDate.setText(contact.getCreatedAt());
+            holder.mTextViewComment.setText("["+contact.getCommentCount() + "]");
+            holder.mTextViewvote.setText(contact.votedCount+ "");
+            CheckPopularity(true, holder);
+        }
+        else
+        {
+            CommunityValue contact = mNormalContacts.get(position-mHotContacts.size());
+            holder.mTextViewTitle.setText(contact.getTitle());
+            holder.mTextViewName.setText(contact.getAuthor());
+            holder.mTextViewDate.setText(contact.getCreatedAt());
+            holder.mTextViewComment.setText("["+contact.getCommentCount() + "]");
+            holder.mTextViewvote.setText(contact.votedCount+ "");
+            CheckPopularity(false, holder);
+        }
 
-        CommunityValue contact = mContacts.get(position+mBoard*10);
-        holder.mTextViewTitle.setText(contact.GetTitle());
-        holder.mTextViewName.setText(contact.GetName());
-        holder.mTextViewDate.setText(contact.GetDate());
-        holder.mTextViewComment.setText("["+contact.GetComment().size() + "]");
-        holder.mTextViewReCommentSize.setText(contact.GetGoodCommend()+ "");
-        CheckPopularity(contact.GetPopular(), holder);
     }
 
     @Override
     public int getItemCount() {
-        if(mContacts.size()-mBoard*10>=10)
-            return 9;
-        else {
-            return ((mContacts.size() - mBoard * 10) % 10) ;
-        }
+
+        return mHotContacts.size()+mNormalContacts.size();
     }
 
     public void UpBoard()
