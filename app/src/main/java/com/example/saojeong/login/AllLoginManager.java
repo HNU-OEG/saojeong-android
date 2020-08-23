@@ -98,6 +98,7 @@ public class AllLoginManager {
 
         inst=this;
         LoginToken.setToken(mActivity);
+        ///
         if(LoginToken.getToken()!="") {
             Intent intent = new Intent(mActivity, MainActivity.class);
             mActivity.startActivity(intent);
