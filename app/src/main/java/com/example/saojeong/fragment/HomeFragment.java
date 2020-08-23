@@ -228,7 +228,7 @@ public class HomeFragment extends Fragment {
                 recyclerFruits.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
                 recyclerFruits.setAdapter(fruitAdapter);
             }
-        });\
+        });
         seasonalFoodService.getSeasonalFood("채소", 9).enqueue(new Callback<List<SeasonalFoodDto>>() {
             @Override
             public void onResponse(Call<List<SeasonalFoodDto>> call, Response<List<SeasonalFoodDto>> response) {
