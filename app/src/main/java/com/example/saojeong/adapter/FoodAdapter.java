@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactFood;
+import com.example.saojeong.model.OnItemClickListener;
 
 import java.util.List;
 
-public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
+public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     private RequestManager glide;
 
     public class ViewHolder extends RecyclerView.ViewHolder {

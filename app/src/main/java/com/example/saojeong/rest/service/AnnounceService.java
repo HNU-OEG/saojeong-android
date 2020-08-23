@@ -1,7 +1,6 @@
 package com.example.saojeong.rest.service;
 
-import com.example.saojeong.rest.dto.AnnounceDto;
-import com.example.saojeong.rest.dto.board.ContentDto;
+import com.example.saojeong.rest.dto.home.AnnounceDto;
 
 import java.util.List;
 

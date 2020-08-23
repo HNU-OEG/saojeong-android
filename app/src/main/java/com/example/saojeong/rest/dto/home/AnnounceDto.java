@@ -1,4 +1,4 @@
-package com.example.saojeong.rest.dto;
+package com.example.saojeong.rest.dto.home;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

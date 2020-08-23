@@ -28,9 +28,10 @@ import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.model.ContactAnnounce;
 import com.example.saojeong.model.ContactFood;
 import com.example.saojeong.model.ContactShopOC;
+import com.example.saojeong.model.OnItemClickListener;
 import com.example.saojeong.model.RecyclerDecoration;
 import com.example.saojeong.rest.ServiceGenerator;
-import com.example.saojeong.rest.dto.AnnounceDto;
+import com.example.saojeong.rest.dto.home.AnnounceDto;
 import com.example.saojeong.rest.dto.SeasonalFoodDto;
 import com.example.saojeong.rest.dto.StoreDto;
 import com.example.saojeong.rest.service.AnnounceService;
@@ -54,6 +55,7 @@ public class HomeFragment extends Fragment {
     private FishFragment fishFragment;
     private VegetableFragment vegetableFragment;
     private HomeFragment homeFragment;
+    private ShopFragment shopFragment;
     private RecyclerView recyclerShop;
     private RecyclerView recyclerFood;
     private RecyclerView recyclerAnnounce;
@@ -116,11 +118,6 @@ public class HomeFragment extends Fragment {
         recyclerAnnounce = (RecyclerView) rootView.findViewById(R.id.recyclerannounce_fragment);
         loadAnnounces(this);
 
-//        contactAnnounces = ContactAnnounce.createContactsList(20);
-//        announceAdapter = new AnnounceAdapter(contactAnnounces);
-//        recyclerAnnounce.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-//        recyclerAnnounce.setAdapter(announceAdapter);
-
         tabHost = (TabHost) rootView.findViewById(R.id.tabhost);
         tabHost.setup();
 
@@ -181,6 +178,12 @@ public class HomeFragment extends Fragment {
                 }
                 recyclerShop.addItemDecoration(leftDecoration);
                 recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                likeStoreAdapter.setOnItemClicklistener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Object holder, View view, int position) {
+                        ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
+                    }
+                });
                 recyclerShop.setAdapter(likeStoreAdapter);
             }
 
@@ -191,6 +194,12 @@ public class HomeFragment extends Fragment {
                 likeStoreAdapter = new LikeStoreAdapter(likeStores);
                 recyclerShop.addItemDecoration(leftDecoration);
                 recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                likeStoreAdapter.setOnItemClicklistener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Object holder, View view, int position) {
+                        ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
+                    }
+                });
                 recyclerShop.setAdapter(likeStoreAdapter);
             }
         });
@@ -230,6 +239,10 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<AnnounceDto>> call, Response<List<AnnounceDto>> response) {
                 List<AnnounceDto> body = response.body();
                 if (response.code() == 201) { // 서버와 통신 성공
+                    Log.d("LENGTH" , ""+response.body().size());
+                    for (AnnounceDto dto : response.body()) {
+                        Log.d("RESPONSE BODY", dto.toString());
+                    }
                     contactAnnounces = ContactAnnounce.createContactsList(body);
                     announceAdapter = new AnnounceAdapter(Glide.with(homeFragment), contactAnnounces);
                 } else { // 서버에서 문제 발생
