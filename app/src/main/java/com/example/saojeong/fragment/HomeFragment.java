@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
     private FoodAdapter seafoodsAdapter;
     private RecyclerView recyclerFullview;
     private LikeStoreAdapter likeStoreAdapter;
-    private FullviewAdapter fullviewAdapter;
+    private RecyclerView recyclerAnnounce;
     private AnnounceAdapter announceAdapter;
 
     List<ContactShopOC> likeStores;
@@ -163,7 +163,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<StoreDto>> call, Response<List<StoreDto>> response) {
                 List<StoreDto> body = response.body();
-                for (StoreDto dto : body)  { // 디버깅 코드
+                for (StoreDto dto : body) { // 디버깅 코드
                     Log.d("RESPONSE CHECK", dto.toString());
                 }
 
@@ -203,14 +203,14 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void loadFoods(HomeFragment homeFragment){
+    private void loadFoods(HomeFragment homeFragment) {
         seasonalFoodService.getSeasonalFood("과일", 9).enqueue(new Callback<List<SeasonalFoodDto>>() {
             @Override
             public void onResponse(Call<List<SeasonalFoodDto>> call, Response<List<SeasonalFoodDto>> response) {
                 List<SeasonalFoodDto> body = response.body();
                 if (response.code() == 201) {
                     contactFoods = ContactFood.createContactsList(body);
-                    fruitAdapter = new FoodAdapter(Glide.with(homeFragment) ,contactFoods);
+                    fruitAdapter = new FoodAdapter(Glide.with(homeFragment), contactFoods);
                 } else {
                     contactFoods = ContactFood._createContactsList(20);
                     fruitAdapter = new FoodAdapter(contactFoods);
@@ -235,7 +235,7 @@ public class HomeFragment extends Fragment {
                 List<SeasonalFoodDto> body = response.body();
                 if (response.code() == 201) {
                     contactFoods = ContactFood.createContactsList(body);
-                    vegetableAdapter = new FoodAdapter(Glide.with(homeFragment) ,contactFoods);
+                    vegetableAdapter = new FoodAdapter(Glide.with(homeFragment), contactFoods);
                 } else {
                     contactFoods = ContactFood._createContactsList(20);
                     vegetableAdapter = new FoodAdapter(contactFoods);
@@ -261,7 +261,7 @@ public class HomeFragment extends Fragment {
                 List<SeasonalFoodDto> body = response.body();
                 if (response.code() == 201) {
                     contactFoods = ContactFood.createContactsList(body);
-                    seafoodsAdapter = new FoodAdapter(Glide.with(homeFragment) ,contactFoods);
+                    seafoodsAdapter = new FoodAdapter(Glide.with(homeFragment), contactFoods);
                 } else {
                     contactFoods = ContactFood._createContactsList(20);
                     seafoodsAdapter = new FoodAdapter(contactFoods);
@@ -280,6 +280,7 @@ public class HomeFragment extends Fragment {
                 recyclerSeafoods.setAdapter(seafoodsAdapter);
             }
         });
+    }
 
     private void loadAnnounces(HomeFragment homeFragment) {
         announceService.getAnnounce(10003).enqueue(new Callback<List<AnnounceDto>>() {
@@ -287,7 +288,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<AnnounceDto>> call, Response<List<AnnounceDto>> response) {
                 List<AnnounceDto> body = response.body();
                 if (response.code() == 201) { // 서버와 통신 성공
-                    Log.d("LENGTH" , ""+response.body().size());
+                    Log.d("LENGTH", "" + response.body().size());
                     for (AnnounceDto dto : response.body()) {
                         Log.d("RESPONSE BODY", dto.toString());
                     }
