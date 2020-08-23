@@ -4,6 +4,9 @@ import com.example.saojeong.R;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
+@Getter
 public class LikeStore {
     private int mImage;
     private int mCodeStore;
