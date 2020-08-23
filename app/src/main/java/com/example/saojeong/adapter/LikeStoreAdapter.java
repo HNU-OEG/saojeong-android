@@ -15,12 +15,27 @@ import com.bumptech.glide.RequestManager;
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactShopOC;
 import com.example.saojeong.model.LikeStore;
+import com.example.saojeong.model.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.ViewHolder> {
+public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.ViewHolder>  implements OnItemClickListener<LikeStoreAdapter.ViewHolder> {
     private final RequestManager glide;
+
+    OnItemClickListener listener;
+
+    public void setOnItemClicklistener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onItemClick(LikeStoreAdapter.ViewHolder holder, View view, int position) {
+        if(listener != null) {
+            listener.onItemClick(holder,view,position);
+        }
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
@@ -38,6 +53,16 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
             this.nameStore = itemView.findViewById(R.id.tv_shopname);
             this.rateStore = itemView.findViewById(R.id.tv_starscore);
             this.rateCountStore = itemView.findViewById(R.id.tv_evaluation);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(listener != null) {
+                        listener.onItemClick(LikeStoreAdapter.ViewHolder.this, view, position);
+                    }
+                }
+            });
         }
     }
 

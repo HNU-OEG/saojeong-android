@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context=".adapter.FullviewAdapter">
+    tools:context=".adapter.AnnounceAdapter">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="317dp"
@@ -14,10 +14,10 @@
         android:layout_marginRight="50dp">
 
         <ImageView
-            android:id="@+id/iv_fullview"
+            android:id="@+id/iv_announce"
             android:layout_width="317dp"
             android:layout_height="190dp"
-            android:src="@drawable/fullview"
+            android:src="@drawable/announce"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

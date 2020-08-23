@@ -31,14 +31,24 @@ import androidx.fragment.app.Fragment;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.auth.TokenCase;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.mypage.Edit_ProfileDto;
+import com.example.saojeong.rest.service.MyPage_Service;
 
 import java.io.InputStream;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment {
 
     private static final int REQUEST_CODE = 0;
+    private MyPage_Service myPage_service;
 
     private Button btn_change_picture;
     private Button btn_save;
@@ -60,6 +70,9 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_edit_profile, container, false);
+
+        myPage_service = ServiceGenerator.createService(MyPage_Service.class, TokenCase.getToken());
+
         btn_change_picture = view.findViewById(R.id.btn_change_picture);
         btn_save = view.findViewById(R.id.btn_save);
         btn_sign_out = view.findViewById(R.id.btn_sign_out);
@@ -68,11 +81,11 @@ public class ProfileFragment extends Fragment {
         iv_profile = view.findViewById(R.id.iv_profile);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar_edit_profile);
-        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.~~); // 뒤로가기 화살표 이미지 바꾸기
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitleTextColor(Color.BLACK);
 
         //권한 확인
@@ -81,9 +94,8 @@ public class ProfileFragment extends Fragment {
         btn_change_picture.setOnClickListener((v) -> {
             //사진변경
             // TODO: 2020-08-01-001 로컬에서 이미지 불러오기
-            // TODO: 2020-08-01-002 서버에 이미지 전송
 
-            ((MainActivity)getActivity()).closeKeyBoard(view);
+            ((MainActivity) getActivity()).closeKeyBoard(view);
 
             Intent intent = new Intent();
             intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
@@ -93,10 +105,11 @@ public class ProfileFragment extends Fragment {
         });
 
         btn_sign_out.setOnClickListener((V) -> {
-            ((MainActivity)getActivity()).replaceFragment(SignOutFragment1.newInstance());
+            ((MainActivity) getActivity()).replaceFragment(SignOutFragment1.newInstance());
+
         });
 
-        et_new_name.addTextChangedListener(new TextWatcher()  {
+        et_new_name.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence name, int start, int before, int count) {
@@ -125,21 +138,41 @@ public class ProfileFragment extends Fragment {
         });
 
         btn_save.setOnClickListener((v) -> {
+            // TODO: 2020-08-01-002 서버에 이미지 전송
             // TODO: 2020-08-01-003 서버에 변경된 이름 전송
-            ((MainActivity)getActivity()).closeKeyBoard(view);
-            ((Activity)view.getContext()).onBackPressed();
-        });
+            ((MainActivity) getActivity()).closeKeyBoard(view);
+            ((Activity) view.getContext()).onBackPressed();
 
+            String new_name = et_new_name.getText().toString();
+            myPage_service.ModifiedName(new Edit_ProfileDto(new_name), TokenCase.getToken()).enqueue(new Callback<List<Edit_ProfileDto>>() {
+
+                @Override
+                public void onResponse(Call<List<Edit_ProfileDto>> call, Response<List<Edit_ProfileDto>> response) {
+                    if (response.code() == 201) {
+                        List<Edit_ProfileDto> body = response.body();
+                        Log.d("MYPAGE LOG", "이름 변경: " + body.toString());
+                    }
+                    Log.d("MYPAGE LOG", response.message());
+
+                }
+
+                @Override
+                public void onFailure(Call<List<Edit_ProfileDto>> call, Throwable t) {
+                    Log.d("MYPAGE LOG", "이름 변경 실패");
+                }
+            });
+        });
         return view;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == 1){
-            int length = permissions.length; for (int i = 0; i < length; i++) {
+        if (requestCode == 1) {
+            int length = permissions.length;
+            for (int i = 0; i < length; i++) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     // 동의
-                    Log.d("MainActivity","권한 허용 : " + permissions[i]);
+                    Log.d("MainActivity", "권한 허용 : " + permissions[i]);
                 }
             }
         }
@@ -149,28 +182,27 @@ public class ProfileFragment extends Fragment {
         String temp = "";
         //파일 읽기 권한 확인
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.READ_EXTERNAL_STORAGE + " "; }
-            //파일 쓰기 권한 확인
-            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
-            }
-            if (TextUtils.isEmpty(temp) == false) {
-                // 권한 요청
-                ActivityCompat.requestPermissions(activity, temp.trim().split(" "),1);
-            }else {
-                // 모두 허용 상태
-                Toast.makeText(activity, "권한을 모두 허용", Toast.LENGTH_SHORT).show();
-            }
+            temp += Manifest.permission.READ_EXTERNAL_STORAGE + " ";
+        }
+        //파일 쓰기 권한 확인
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
+        }
+        if (TextUtils.isEmpty(temp) == false) {
+            // 권한 요청
+            ActivityCompat.requestPermissions(activity, temp.trim().split(" "), 1);
+        } else {
+            // 모두 허용 상태
+            Toast.makeText(activity, "권한을 모두 허용", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == REQUEST_CODE)
-        {
-            if(resultCode == RESULT_OK)
-            {
-                try{
-                    InputStream in = ((MainActivity)getActivity()).getContentResolver().openInputStream(data.getData());
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    InputStream in = ((MainActivity) getActivity()).getContentResolver().openInputStream(data.getData());
 
                     Bitmap img = BitmapFactory.decodeStream(in);
                     in.close();
@@ -179,7 +211,7 @@ public class ProfileFragment extends Fragment {
 //                    iv_profile.setImageURI(selectedImageUri);
 
 
-                }catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

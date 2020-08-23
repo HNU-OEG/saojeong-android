@@ -103,14 +103,6 @@ public class Community_Popularity_Fragment extends Fragment {
         CCList.add(new Community_CommentValue("d","d","d",false));
         CCList.add(new Community_CommentValue("d","d","d",false));
         CCList.add(new Community_CommentValue("d","d","d",false));
-        CommunityValue com1=new CommunityValue("1","1","1","1",0,0, false);
-        com1.SetComment(CCList);
-        mCommunityValue.add(com1);
-        for(int i=0; i<40; ++i) {
-            CommunityValue com=new CommunityValue("제목은 두껍게! 한눈에 보이도록!","가나다라","07. 13 03:29","6",0,0, true);
-            com.SetComment(CCList);
-            mCommunityValue.add(com);
-        }
 
 
         if(board==0) {
@@ -124,9 +116,6 @@ public class Community_Popularity_Fragment extends Fragment {
         }
         else
             btnRight.setVisibility(View.VISIBLE);
-        mAdapter = new CommunityAdapter_item(mCommunityValue, 0,(MainActivity)getActivity());
-        mRecyclerViewCommunity.setAdapter(mAdapter);
-        mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         return view;
     }
