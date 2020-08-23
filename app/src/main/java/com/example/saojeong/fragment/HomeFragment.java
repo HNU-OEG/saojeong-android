@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment {
     private FoodAdapter foodAdapter;
     private FullviewAdapter fullviewAdapter;
     List<ContactShopOC> likeStores;
-    ArrayList<ContactFood> contactFoods;
+    List<ContactFood> contactFoods;
     ArrayList<ContactFullview> contactFullviews;
 
     private StoreService storeService;
@@ -198,23 +198,20 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<SeasonalFoodDto>> call, Response<List<SeasonalFoodDto>> response) {
                 List<SeasonalFoodDto> body = response.body();
                 if (response.code() == 201) {
-                    contactFoods = ContactFood.createContactsList(20);
-                    foodAdapter = new FoodAdapter(contactFoods);
-                    recyclerFood.addItemDecoration(leftDecoration);
-                    recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerFood.setAdapter(foodAdapter);
+                    contactFoods = ContactFood.createContactsList(body);
+                    foodAdapter = new FoodAdapter(Glide.with(homeFragment) ,contactFoods);
                 } else {
-                    contactFoods = ContactFood.createContactsList(20);
+                    contactFoods = ContactFood._createContactsList(20);
                     foodAdapter = new FoodAdapter(contactFoods);
-                    recyclerFood.addItemDecoration(leftDecoration);
-                    recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                    recyclerFood.setAdapter(foodAdapter);
                 }
+                recyclerFood.addItemDecoration(leftDecoration);
+                recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerFood.setAdapter(foodAdapter);
             }
 
             @Override
             public void onFailure(Call<List<SeasonalFoodDto>> call, Throwable t) {
-                contactFoods = ContactFood.createContactsList(20);
+                contactFoods = ContactFood._createContactsList(20);
                 foodAdapter = new FoodAdapter(contactFoods);
                 recyclerFood.addItemDecoration(leftDecoration);
                 recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
@@ -224,7 +221,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setAdapter() {
-        contactFoods = ContactFood.createContactsList(20);
+        contactFoods = ContactFood._createContactsList(20);
         foodAdapter = new FoodAdapter(contactFoods);
         recyclerFood.addItemDecoration(leftDecoration);
         recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));

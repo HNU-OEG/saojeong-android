@@ -6,24 +6,28 @@ import com.example.saojeong.rest.dto.SeasonalFoodDto;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class ContactFood {
     private String mFood;
     private int mFrImage;
+    private String _mFrImage;
 
     public ContactFood(String mFood, int mFrImage) {
         this.mFood = mFood;
         this.mFrImage = mFrImage;
     }
 
-
-
-    public String getmFood() {
-        return mFood;
+    public ContactFood(SeasonalFoodDto dto) {
+        this.mFood = dto.getName();
+        this._mFrImage = dto.getImage();
     }
 
-    public int getmFrImage() {
-        return mFrImage;
-    }
 
     public static List<ContactFood> _createContactsList(int numContacts) {
         List<ContactFood> contacts = new ArrayList<>();
