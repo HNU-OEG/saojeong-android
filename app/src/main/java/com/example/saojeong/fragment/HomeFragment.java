@@ -313,5 +313,4 @@ public class HomeFragment extends Fragment {
     public void closeKeyBoard(View view) {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-
 }
