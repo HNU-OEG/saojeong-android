@@ -17,8 +17,11 @@ public class LoginToken {
         SharedPreferences pref = activity.getSharedPreferences("SHARE_PREF", activity.MODE_PRIVATE);
         AccessToken=null;
         RefreshToken=null;
-        pref.edit().clear();
-        pref.edit().commit();
+        SharedPreferences.Editor editer = pref.edit();
+        editer.remove("AccessToken");
+        editer.remove("RefreshToken");
+        editer.apply();
+        editer.commit();
         pref=null;
     }
     public static String getToken() {
