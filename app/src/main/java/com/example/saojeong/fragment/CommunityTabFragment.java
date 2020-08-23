@@ -28,7 +28,8 @@ import com.example.saojeong.model.ContactShopOC;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.StoreDto;
 import com.example.saojeong.rest.dto.board.CommunityPostListDto;
-import com.example.saojeong.rest.service.Community_Service;
+import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
+import com.example.saojeong.rest.service.BoardService;
 import com.example.saojeong.rest.service.StoreService;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     RecyclerView mRecyclerViewCommunity;
     int board=0;
 
-    private Community_Service community_Service;
+    private BoardService boardService;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
         tvBoard=view.findViewById(R.id.tv_community_board);
         tvBoard.setText(board+1+"");
 
-        community_Service = ServiceGenerator.createService(Community_Service.class, TokenCase.getToken());
+        boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
         load_GetPost();
 
         return view;
@@ -121,10 +122,10 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
 
 
     public void load_GetPost() {
-        community_Service.getPostList("10004").enqueue(new Callback<CommunityPostListDto>() {
+        boardService.getPostList(10004).enqueue(new Callback<GetPostListArrayDto>() {
             @Override
-            public void onResponse(Call<CommunityPostListDto> call, Response<CommunityPostListDto> response) {
-                CommunityPostListDto body = response.body();
+            public void onResponse(Call<GetPostListArrayDto> call, Response<GetPostListArrayDto> response) {
+                GetPostListArrayDto body = response.body();
                 if (response.code() == 201) { // 서버와 통신 성공
                     mCommunityNormalValue = CommunityValue.createContactsList(body.getNormal());
                     mCommunityHotValue = CommunityValue.createContactsList(body.getHot());
@@ -138,7 +139,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
             }
 
             @Override
-            public void onFailure(Call<CommunityPostListDto> call, Throwable t) {
+            public void onFailure(Call<GetPostListArrayDto> call, Throwable t) {
                 Log.d("fail", t.getMessage());
             }
         });
@@ -147,7 +148,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     //private void load_GetPost() {
      //  Log.d("LOADSTORES HERE", "HERE");
 
-     //  community_Service.getPostList().enqueue(new Callback<List<CommunityDto>>() {
+     //  boardService.getPostList().enqueue(new Callback<List<CommunityDto>>() {
      //      @Override
      //      public void onResponse(Call<List<CommunityDto>> call,
      //                             Response<List<CommunityDto>> response) {

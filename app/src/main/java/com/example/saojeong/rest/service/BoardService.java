@@ -2,6 +2,8 @@ package com.example.saojeong.rest.service;
 
 import com.example.saojeong.rest.dto.board.CommunityPostListDto;
 import com.example.saojeong.rest.dto.board.CreatePostDto;
+import com.example.saojeong.rest.dto.board.GetPostDto;
+import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
 import com.example.saojeong.rest.dto.board.GetPostListDto;
 import com.example.saojeong.rest.dto.board.ModifiedPostDto;
 
@@ -23,20 +25,18 @@ public interface BoardService {
 
 
     //게시글 조회
+    //테스트 X
     @GET("/api/board/{board_id}/content/{document_id}")
-    Call<List<CommunityPostListDto>> getPost(@Path("board_id") int board_id, @Path("document_id") int document_id);
+    Call<List<GetPostDto>> getPost(@Path("board_id") int board_id, @Path("document_id") int document_id);
 
     //게시글 리스트 조회
+    //테스트 완료
     //URI: [GET, /api/board/{board_id}/content]
     @GET("/api/board/{board_id}/content")
-    Call<List<GetPostListDto>> getPostList(@Path("board_id") int board_id);
-
-
-//    //게시판 생성
-//    @POST("/api/board")
-//    Call<List<CommunityPostListDto>> createBoard(@Path());
+    Call<GetPostListArrayDto> getPostList(@Path("board_id") int board_id);
 
     //게시글 생성
+    //테슽 완료
     @POST("/api/board/{board_id}/content")
     Call<CreatePostDto> createPost(@Body CreatePostDto parameters, @Path("board_id") int board_id);
 
