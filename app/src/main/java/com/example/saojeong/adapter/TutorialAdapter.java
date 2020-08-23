@@ -70,7 +70,8 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
             login_naver.setOnClickListener(this);
             login_google.setOnClickListener(this);
             login_guest.setOnClickListener(this);
-            mAllLoginManager= new AllLoginManager(mActivity,mContext);
+            if(AllLoginManager.inst==null)
+                mAllLoginManager= new AllLoginManager(mActivity,mContext);
         }
         @SneakyThrows
         @Override

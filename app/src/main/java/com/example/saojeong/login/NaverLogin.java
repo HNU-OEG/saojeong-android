@@ -16,13 +16,18 @@ public class NaverLogin implements LoginControl {
     private String mSecret;
     private String mName;
     private LoginHandler handler;
-    public NaverLogin(Context Context, String ID, String Secret, String Name, LoginHandler loginHandler) {
+    public NaverLogin(Context Context, String ID, String Secret, String Name,Activity activity ,LoginHandler loginHandler) {
         mContext=Context;
         mID=ID;
         mSecret=Secret;
         mName=Name;
         handler=loginHandler;
         init();
+        String str=OAuthLogin.getInstance().getAccessToken(mContext);
+        if(str!=null)
+        {
+            OAuthLogin.getInstance().startOauthLoginActivity(activity, mOAuthLoginHandler);
+        }
     }
 
 

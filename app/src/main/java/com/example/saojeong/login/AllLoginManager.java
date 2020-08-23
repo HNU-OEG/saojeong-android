@@ -11,6 +11,7 @@ import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.service.Login_Guest;
 import com.facebook.AccessToken;
 import com.kakao.auth.Session;
+import com.nhn.android.naverlogin.OAuthLogin;
 
 import java.util.HashMap;
 
@@ -69,10 +70,27 @@ public class AllLoginManager {
             public void error(Throwable th) {
             }
         });
+        String ID="";
+        String Secret="";
+        String Name="";
+        LoginControl naverlogin=new NaverLogin(mContext,ID,Secret,Name ,activity,new LoginControl.LoginHandler() {
+            @Override
+            public void cancel() {
+            }
+            @Override
+            public void success() {
+                Login_GuestService = ServiceGenerator.createService(Login_Guest.class, OAuthLogin.getInstance().getAccessToken(mContext));
+                loadlogin(mActivity, "naver");
+            }
+            @Override
+            public void error(Throwable th) {
+            }
+        });
         //네이버미구현
         map.put("FACEBOOK", facelogin);
         map.put("KAKAO", kakaologin);
         map.put("GOOGLE", googlelogin);
+        map.put("NAVER", naverlogin);
         inst=this;
     }
     public void login(String type, Activity activity){
@@ -80,10 +98,12 @@ public class AllLoginManager {
         login.Login(activity);
     }
 
-    public void logout(){
-        for(int i=0; i<map.size(); ++i){
-            map.get(i).Logout();
-        }
+    public void logout(Activity activity){
+        map.get("FACEBOOK").Logout();
+        map.get("KAKAO").Logout();
+        map.get("GOOGLE").Logout();
+        map.get("NAVER").Logout();
+        LoginToken.deleteToken(activity);
     }
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
