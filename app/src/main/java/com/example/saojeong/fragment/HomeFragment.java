@@ -21,21 +21,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.adapter.AnnounceAdapter;
 import com.example.saojeong.adapter.FoodAdapter;
-import com.example.saojeong.adapter.FullviewAdapter;
 import com.example.saojeong.adapter.LikeStoreAdapter;
 import com.example.saojeong.auth.TokenCase;
+import com.example.saojeong.model.ContactAnnounce;
 import com.example.saojeong.model.ContactFood;
-import com.example.saojeong.model.ContactFullview;
 import com.example.saojeong.model.ContactShopOC;
 import com.example.saojeong.model.RecyclerDecoration;
 import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.AnnounceDto;
 import com.example.saojeong.rest.dto.SeasonalFoodDto;
 import com.example.saojeong.rest.dto.StoreDto;
+import com.example.saojeong.rest.service.AnnounceService;
 import com.example.saojeong.rest.service.SeasonalFoodService;
 import com.example.saojeong.rest.service.StoreService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -55,15 +56,16 @@ public class HomeFragment extends Fragment {
     private HomeFragment homeFragment;
     private RecyclerView recyclerShop;
     private RecyclerView recyclerFood;
-    private RecyclerView recyclerFullview;
+    private RecyclerView recyclerAnnounce;
     private LikeStoreAdapter likeStoreAdapter;
     private FoodAdapter foodAdapter;
-    private FullviewAdapter fullviewAdapter;
+    private AnnounceAdapter announceAdapter;
     List<ContactShopOC> likeStores;
     List<ContactFood> contactFoods;
-    ArrayList<ContactFullview> contactFullviews;
+    List<ContactAnnounce> contactAnnounces;
 
     private StoreService storeService;
+    private AnnounceService announceService;
     private SeasonalFoodService seasonalFoodService;
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
@@ -79,6 +81,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
+        announceService = ServiceGenerator.createService(AnnounceService.class, TokenCase.getToken());
         seasonalFoodService = ServiceGenerator.createService(SeasonalFoodService.class, TokenCase.getToken());
 
         fragmentManager = getChildFragmentManager();
@@ -110,11 +113,13 @@ public class HomeFragment extends Fragment {
         loadFoods(this);
 
         //전체 보기(공지) Recycler View
-        recyclerFullview = (RecyclerView) rootView.findViewById(R.id.recyclerfullview_fragment);
-        contactFullviews = ContactFullview.createContactsList(20);
-        fullviewAdapter = new FullviewAdapter(contactFullviews);
-        recyclerFullview.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-        recyclerFullview.setAdapter(fullviewAdapter);
+        recyclerAnnounce = (RecyclerView) rootView.findViewById(R.id.recyclerannounce_fragment);
+        loadAnnounces(this);
+
+//        contactAnnounces = ContactAnnounce.createContactsList(20);
+//        announceAdapter = new AnnounceAdapter(contactAnnounces);
+//        recyclerAnnounce.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+//        recyclerAnnounce.setAdapter(announceAdapter);
 
         tabHost = (TabHost) rootView.findViewById(R.id.tabhost);
         tabHost.setup();
@@ -166,6 +171,7 @@ public class HomeFragment extends Fragment {
                 for (StoreDto dto : body)  { // 디버깅 코드
                     Log.d("RESPONSE CHECK", dto.toString());
                 }
+
                 if (response.code() == 201) { // 서버와 통신 성공
                     likeStores = ContactShopOC.createContactsList(body);
                     likeStoreAdapter = new LikeStoreAdapter(Glide.with(homeFragment), likeStores);
@@ -188,8 +194,6 @@ public class HomeFragment extends Fragment {
                 recyclerShop.setAdapter(likeStoreAdapter);
             }
         });
-
-
     }
 
     private void loadFoods(HomeFragment homeFragment) {
@@ -216,6 +220,35 @@ public class HomeFragment extends Fragment {
                 recyclerFood.addItemDecoration(leftDecoration);
                 recyclerFood.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
                 recyclerFood.setAdapter(foodAdapter);
+            }
+        });
+    }
+
+    private void loadAnnounces(HomeFragment homeFragment) {
+        announceService.getAnnounce(10003).enqueue(new Callback<List<AnnounceDto>>() {
+            @Override
+            public void onResponse(Call<List<AnnounceDto>> call, Response<List<AnnounceDto>> response) {
+                List<AnnounceDto> body = response.body();
+                if (response.code() == 201) { // 서버와 통신 성공
+                    contactAnnounces = ContactAnnounce.createContactsList(body);
+                    announceAdapter = new AnnounceAdapter(Glide.with(homeFragment), contactAnnounces);
+                } else { // 서버에서 문제 발생
+                    contactAnnounces = ContactAnnounce._createContactsList(3);
+                    announceAdapter = new AnnounceAdapter(contactAnnounces);
+                }
+//                recyclerAnnounce.addItemDecoration(leftDecoration);
+                recyclerAnnounce.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerAnnounce.setAdapter(announceAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<AnnounceDto>> call, Throwable t) {
+                // 안드로이드에서 문제 발생 (네트워크 환경 체크해보기)
+                contactAnnounces = ContactAnnounce._createContactsList(5);
+                announceAdapter = new AnnounceAdapter(Glide.with(homeFragment), contactAnnounces);
+//                recyclerAnnounce.addItemDecoration(leftDecoration);
+                recyclerAnnounce.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                recyclerAnnounce.setAdapter(announceAdapter);
             }
         });
     }
