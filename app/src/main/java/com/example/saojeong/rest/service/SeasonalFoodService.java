@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface SeasonalFoodService {
-    @GET("api/foods/type/{type}/moth/{month}")
+    @GET("api/foods/type/{type}/month/{month}")
     Call<List<SeasonalFoodDto>> getSeasonalFood(@Path("type") String type,
                                                 @Path("month") int month);
 }
