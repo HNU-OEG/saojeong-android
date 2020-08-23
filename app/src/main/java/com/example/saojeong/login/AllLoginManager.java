@@ -8,10 +8,12 @@ import android.media.session.MediaSession;
 
 import androidx.annotation.Nullable;
 
+import com.example.saojeong.MainActivity;
 import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.service.Login_Guest;
 import com.facebook.AccessToken;
+import com.facebook.login.Login;
 import com.kakao.auth.Session;
 import com.nhn.android.naverlogin.OAuthLogin;
 
@@ -93,7 +95,15 @@ public class AllLoginManager {
         map.put("KAKAO", kakaologin);
         map.put("GOOGLE", googlelogin);
         map.put("NAVER", naverlogin);
+
         inst=this;
+        LoginToken.setToken(mActivity);
+        ///
+        if(LoginToken.getToken()!="") {
+            Intent intent = new Intent(mActivity, MainActivity.class);
+            mActivity.startActivity(intent);
+            mActivity.finish();
+        }
     }
     public void login(String type, Activity activity){
         LoginControl login=map.get(type);
