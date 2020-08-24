@@ -35,7 +35,7 @@ import com.example.saojeong.model.RecyclerDecoration;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.home.AnnounceDto;
 import com.example.saojeong.rest.dto.SeasonalFoodDto;
-import com.example.saojeong.rest.dto.StoreDto;
+import com.example.saojeong.rest.dto.store.StoreDto;
 import com.example.saojeong.rest.service.AnnounceService;
 import com.example.saojeong.rest.service.SeasonalFoodService;
 import com.example.saojeong.rest.service.StoreService;

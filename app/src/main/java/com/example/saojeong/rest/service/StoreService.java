@@ -1,6 +1,7 @@
 package com.example.saojeong.rest.service;
 
-import com.example.saojeong.rest.dto.StoreDto;
+import com.example.saojeong.rest.dto.store.StoreDetailDto;
+import com.example.saojeong.rest.dto.store.StoreDto;
 import com.example.saojeong.rest.dto.TypeStoreDto;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface StoreService {
     @GET("api/store/type/{type}/orderby/{orderby}")
     Call<TypeStoreDto> getTypeStore(@Path("type") String type,
                                     @Path("orderby") String orderby);
+
+    @GET("api/store/{store_id}")
+    Call<StoreDetailDto> getStoreDetail(@Path("store_id") int id);
 }

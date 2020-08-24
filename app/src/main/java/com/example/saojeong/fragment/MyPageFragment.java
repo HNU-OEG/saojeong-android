@@ -1,6 +1,5 @@
 package com.example.saojeong.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,14 +9,10 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.LikeStoreAdapter;
@@ -28,16 +23,10 @@ import com.example.saojeong.model.MyPageGetData;
 import com.example.saojeong.model.RecyclerDecoration;
 import com.example.saojeong.model.StarStore;
 import com.example.saojeong.rest.ServiceGenerator;
-import com.example.saojeong.rest.dto.StoreDto;
 import com.example.saojeong.rest.service.StoreService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MyPageFragment extends Fragment {
 

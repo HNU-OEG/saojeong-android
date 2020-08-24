@@ -1,5 +1,6 @@
 package com.example.saojeong.rest.dto;
 
+import com.example.saojeong.rest.dto.store.StoreDto;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

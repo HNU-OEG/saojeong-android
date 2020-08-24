@@ -30,6 +30,7 @@ import com.example.saojeong.model.ContactShopScore;
 import com.example.saojeong.model.ContactShopSellList;
 import com.example.saojeong.model.ContactShopStarScore;
 import com.example.saojeong.model.RecyclerDecoration;
+import com.example.saojeong.rest.service.StoreService;
 
 import java.util.ArrayList;
 
@@ -57,6 +58,8 @@ public class ShopFragment extends Fragment {
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(50);
 
     TabHost tabHost_Shop;
+
+    private StoreService storeService;
 
     public static ShopFragment newInstance() {
         return new ShopFragment();

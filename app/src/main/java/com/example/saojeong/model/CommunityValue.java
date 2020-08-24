@@ -1,9 +1,6 @@
 package com.example.saojeong.model;
 
 
-import com.example.saojeong.R;
-import com.example.saojeong.rest.dto.StoreDto;
-import com.example.saojeong.rest.dto.board.CommunityPostListDto;
 import com.example.saojeong.rest.dto.board.CommunityPostListDto_1;
 import com.example.saojeong.rest.dto.board.GetPostListDto;
 
