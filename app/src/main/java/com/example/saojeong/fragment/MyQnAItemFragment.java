@@ -24,6 +24,14 @@ public class MyQnAItemFragment extends Fragment {
     private TextView comment;
 
     public static MyQnAItemFragment newInstance() { return new MyQnAItemFragment(); }
+    public static MyQnAItemFragment newInstance(int id) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+
+        MyQnAItemFragment fragment = new MyQnAItemFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +50,8 @@ public class MyQnAItemFragment extends Fragment {
         date = view.findViewById(R.id.tv_QnA_title);
         content = view.findViewById(R.id.tv_QnA_content);
         comment = view.findViewById(R.id.tv_QnA_comment);
+
+        // TODO: 2020-08-25-025 통신 
 
         title.setText("제목");
         status.setText("[답변완료]");

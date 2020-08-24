@@ -32,7 +32,15 @@ public class MyQnAadapter extends RecyclerView.Adapter<com.example.saojeong.adap
 //        }
 //    }
 
+    public OnItemClickListener<MyQnAadapter.ViewHolder> mListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener<MyQnAadapter.ViewHolder> mListener) {
+        this.mListener = mListener;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+        public int documentId;
         public TextView title;
         public TextView status;
         public TextView date;
@@ -72,6 +80,8 @@ public class MyQnAadapter extends RecyclerView.Adapter<com.example.saojeong.adap
         TextView title = holder.title;
         TextView status = holder.status;
         TextView date = holder.date;
+
+        holder.documentId = myQnA.getId();
 
         title.setText(myQnA.getMTitle());
         if (myQnA.getMStatus() == 0) status.setText("[답변 전]");
