@@ -5,6 +5,7 @@ import com.example.saojeong.R;
 import com.example.saojeong.rest.dto.StoreDto;
 import com.example.saojeong.rest.dto.board.CommunityPostListDto;
 import com.example.saojeong.rest.dto.board.CommunityPostListDto_1;
+import com.example.saojeong.rest.dto.board.GetPostListDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ public class CommunityValue {
     public int getVotedCount() {
         return votedCount;
     }
-    public CommunityValue(CommunityPostListDto_1 dto) {
+    public CommunityValue(GetPostListDto dto) {
         this.title = dto.getTitle();
         this.author = dto.getAuthor();
         this.createdAt = dto.getCreatedAt();
@@ -53,10 +54,10 @@ public class CommunityValue {
         this.votedCount = dto.getVotedCount();
     }
 
-    public static List<CommunityValue> createContactsList(List<CommunityPostListDto_1> response) {
+    public static List<CommunityValue> createContactsList(List<GetPostListDto> response) {
         List<CommunityValue> contacts = new ArrayList<>();
 
-        for (CommunityPostListDto_1 dto : response) {
+        for (GetPostListDto dto : response) {
             contacts.add(new CommunityValue(dto));
         }
         return contacts;

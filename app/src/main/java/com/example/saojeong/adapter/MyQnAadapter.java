@@ -13,7 +13,7 @@ import com.example.saojeong.R;
 import com.example.saojeong.model.MyQnA;
 import com.example.saojeong.model.OnItemClickListener;
 
-import java.util.ArrayList;
+import java.util.List;
 
 //public class MyQnAadapter extends RecyclerView.Adapter<MyQnAadapter.ViewHolder> implements OnItemClickListener<MyQnAadapter.ViewHolder> {
 public class MyQnAadapter extends RecyclerView.Adapter<com.example.saojeong.adapter.MyQnAadapter.ViewHolder> {
@@ -52,11 +52,9 @@ public class MyQnAadapter extends RecyclerView.Adapter<com.example.saojeong.adap
         }
     }
 
-    private ArrayList<MyQnA> mMyQnA;
+    private List<MyQnA> mMyQnA;
 
-    public MyQnAadapter(ArrayList<MyQnA> mMyQnA) {
-        this.mMyQnA = mMyQnA;
-    }
+    public MyQnAadapter(List<MyQnA> mMyQnA) { this.mMyQnA = mMyQnA; }
 
     @NonNull
     @Override
@@ -75,9 +73,9 @@ public class MyQnAadapter extends RecyclerView.Adapter<com.example.saojeong.adap
         TextView status = holder.status;
         TextView date = holder.date;
 
-        title.setText(myQnA.getmTitle());
-        status.setText(myQnA.getmStatus());
-        date.setText(myQnA.getmDate());
+        title.setText(myQnA.getMTitle());
+        if (myQnA.getMStatus() == 0) status.setText("[답변 전]");
+        date.setText(myQnA.getMDate());
     }
 
     @Override
