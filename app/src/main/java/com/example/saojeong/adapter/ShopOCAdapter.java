@@ -15,20 +15,20 @@ import com.example.saojeong.model.OnItemClickListener;
 
 import java.util.List;
 
-public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder> implements OnItemClickListener<ShopOCAdapter.ViewHolder> {
-
-    OnItemClickListener listener;
-
-    public void setOnItemClicklistener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
-
-    @Override
-    public void onItemClick(ViewHolder holder, View view, int position) {
-        if(listener != null) {
-            listener.onItemClick(holder,view,position);
-        }
-    }
+//public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder> implements OnItemClickListener<ShopOCAdapter.ViewHolder> {
+public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder> {
+//    OnItemClickListener listener;
+//
+//    public void setOnItemClicklistener(OnItemClickListener listener) {
+//        this.listener = listener;
+//    }
+//
+//    @Override
+//    public void onItemClick(ViewHolder holder, View view, int position) {
+//        if(listener != null) {
+//            listener.onItemClick(holder,view,position);
+//        }
+//    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView shopnumTextView;
@@ -51,15 +51,15 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
             shopImageView = (ImageView) itemView.findViewById(R.id.iv_shop);
             favorateImageView = (ImageView) itemView.findViewById(R.id.iv_favorate);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if(listener != null) {
-                        listener.onItemClick(ViewHolder.this, view, position);
-                    }
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int position = getAdapterPosition();
+//                    if(listener != null) {
+//                        listener.onItemClick(ViewHolder.this, view, position);
+//                    }
+//                }
+//            });
         }
     }
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.model.ContactAnnounce;
 import com.example.saojeong.model.ContactFood;
 import com.example.saojeong.model.ContactShopOC;
+import com.example.saojeong.model.LikeStore;
 import com.example.saojeong.model.OnItemClickListener;
 import com.example.saojeong.model.RecyclerDecoration;
 import com.example.saojeong.rest.ServiceGenerator;
@@ -176,13 +178,25 @@ public class HomeFragment extends Fragment {
                 }
                 recyclerShop.addItemDecoration(leftDecoration);
                 recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                likeStoreAdapter.setOnItemClicklistener(new OnItemClickListener() {
+                likeStoreAdapter.setOnItemClickListener(new OnItemClickListener<LikeStoreAdapter.ViewHolder>() {
                     @Override
-                    public void onItemClick(Object holder, View view, int position) {
-                        ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
+                    public void onItemClick(LikeStoreAdapter.ViewHolder holder) {
+                        ShopFragment targetFragment = shopFragment.newInstance(holder.storeId);
+                        MainActivity activity = (MainActivity) getActivity();
+                        activity.replaceFragment(targetFragment);
                     }
                 });
+//                likeStoreAdapter.setOnItemClicklistener(new OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(Object holder, View view, int position) {
+//                        ((MainActivity) getActivity()).replaceFragment(
+//                                shopFragment.newInstance(
+//                                        ((LikeStoreAdapter.ViewHolder) holder).storeId)
+//                        );
+//                    }
+//                });
                 recyclerShop.setAdapter(likeStoreAdapter);
+
             }
 
             @Override
@@ -192,12 +206,13 @@ public class HomeFragment extends Fragment {
                 likeStoreAdapter = new LikeStoreAdapter(likeStores);
                 recyclerShop.addItemDecoration(leftDecoration);
                 recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                likeStoreAdapter.setOnItemClicklistener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(Object holder, View view, int position) {
-                        ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
-                    }
-                });
+//                likeStoreAdapter.setOnItemClicklistener(new OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(Object holder, View view, int position) {
+//
+//                        ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
+//                    }
+//                });
                 recyclerShop.setAdapter(likeStoreAdapter);
             }
         });
@@ -354,4 +369,5 @@ public class HomeFragment extends Fragment {
     public void closeKeyBoard(View view) {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
 }

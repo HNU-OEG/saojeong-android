@@ -20,22 +20,14 @@ import com.example.saojeong.model.OnItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.ViewHolder>  implements OnItemClickListener<LikeStoreAdapter.ViewHolder> {
+public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.ViewHolder> {
     private final RequestManager glide;
 
-    OnItemClickListener listener;
+    public OnItemClickListener<LikeStoreAdapter.ViewHolder> mListener = null;
 
-    public void setOnItemClicklistener(OnItemClickListener listener) {
-        this.listener = listener;
+    public void setOnItemClickListener(OnItemClickListener<LikeStoreAdapter.ViewHolder> mListener) {
+        this.mListener = mListener;
     }
-
-    @Override
-    public void onItemClick(LikeStoreAdapter.ViewHolder holder, View view, int position) {
-        if(listener != null) {
-            listener.onItemClick(holder,view,position);
-        }
-    }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
@@ -45,6 +37,9 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         public TextView rateStore;
         public TextView rateCountStore;
 
+        // Store ID 추가
+        public int storeId;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.image = itemView.findViewById(R.id.iv_shop);
@@ -53,14 +48,16 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
             this.nameStore = itemView.findViewById(R.id.tv_shopname);
             this.rateStore = itemView.findViewById(R.id.tv_starscore);
             this.rateCountStore = itemView.findViewById(R.id.tv_evaluation);
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if(listener != null) {
-                        listener.onItemClick(LikeStoreAdapter.ViewHolder.this, view, position);
+                    if (!isNull(mListener)) {
+                        mListener.onItemClick(LikeStoreAdapter.ViewHolder.this);
                     }
+                }
+
+                boolean isNull(OnItemClickListener<LikeStoreAdapter.ViewHolder> l) {
+                    return l == null;
                 }
             });
         }
@@ -97,6 +94,10 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         TextView nameStore = holder.nameStore;
         TextView rateStore = holder.rateStore;
         TextView rateCountStore = holder.rateCountStore;
+
+        // Store ID 바인딩
+        holder.storeId = likeStore.getMShopId();
+
 
         if (glide == null) {
             image.setImageResource(likeStore.getMImage());

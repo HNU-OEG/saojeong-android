@@ -2,6 +2,7 @@ package com.example.saojeong.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,11 +62,22 @@ public class ShopFragment extends Fragment {
         return new ShopFragment();
     }
 
+    public static ShopFragment newInstance(int id) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+
+        ShopFragment fragment = new ShopFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
+
+        assert getArguments() != null;
+        Log.d("BUNDLE ", String.valueOf(getArguments().getInt("id")));
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_shop, container, false);
         //판매 품목
