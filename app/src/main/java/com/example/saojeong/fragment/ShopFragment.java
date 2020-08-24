@@ -2,6 +2,7 @@ package com.example.saojeong.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +38,7 @@ public class ShopFragment extends Fragment {
 
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+    private HomeFragment homeFragment;
     private RecyclerView recyclerShopDetail;
     private RecyclerView recyclerShopScore;
     private RecyclerView recyclerShopSellList;
@@ -60,11 +62,22 @@ public class ShopFragment extends Fragment {
         return new ShopFragment();
     }
 
+    public static ShopFragment newInstance(int id) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+
+        ShopFragment fragment = new ShopFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
+
+        assert getArguments() != null;
+        Log.d("BUNDLE ", String.valueOf(getArguments().getInt("id")));
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_shop, container, false);
         //판매 품목
@@ -97,7 +110,14 @@ public class ShopFragment extends Fragment {
         //상단 액션바
         Toolbar toolbar = rootView.findViewById(R.id.toolbar_shop);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true); //뒤로가기버튼
+        ((MainActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true); //뒤로가기버튼
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).replaceFragment(homeFragment.newInstance());
+            }
+        });
         //((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.~~); // 뒤로가기 화살표 이미지 바꾸기
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -160,16 +180,4 @@ public class ShopFragment extends Fragment {
         transaction = fragmentManager.beginTransaction();
 
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
-                getActivity().finish(); // 뒤로가기가 왜 안되지?
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 }

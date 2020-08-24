@@ -5,6 +5,7 @@ import com.example.saojeong.rest.dto.TypeStoreDto;
 
 import java.util.List;
 
+import lombok.Getter;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
