@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,23 +13,15 @@ import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.bumptech.glide.Glide;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.CommunityAdapter_item;
-import com.example.saojeong.adapter.LikeStoreAdapter;
 import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.model.CommunityValue;
-import com.example.saojeong.model.Community_CommentValue;
-import com.example.saojeong.model.ContactShopOC;
 import com.example.saojeong.rest.ServiceGenerator;
-import com.example.saojeong.rest.dto.StoreDto;
-import com.example.saojeong.rest.dto.board.CommunityPostListDto;
 import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
 import com.example.saojeong.rest.service.BoardService;
-import com.example.saojeong.rest.service.StoreService;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.example.saojeong.model;
 
 import com.example.saojeong.R;
-import com.example.saojeong.rest.dto.StoreDto;
+import com.example.saojeong.rest.dto.store.StoreDto;
 
 import java.util.ArrayList;
 import java.util.List;

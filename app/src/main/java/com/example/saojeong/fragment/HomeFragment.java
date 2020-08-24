@@ -35,7 +35,7 @@ import com.example.saojeong.model.RecyclerDecoration;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.home.AnnounceDto;
 import com.example.saojeong.rest.dto.SeasonalFoodDto;
-import com.example.saojeong.rest.dto.StoreDto;
+import com.example.saojeong.rest.dto.store.StoreDto;
 import com.example.saojeong.rest.service.AnnounceService;
 import com.example.saojeong.rest.service.SeasonalFoodService;
 import com.example.saojeong.rest.service.StoreService;
@@ -178,10 +178,17 @@ public class HomeFragment extends Fragment {
                 }
                 recyclerShop.addItemDecoration(leftDecoration);
                 recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+                // 각 어댑터에 선언된 setOnItemClickListener를 호출
                 likeStoreAdapter.setOnItemClickListener(new OnItemClickListener<LikeStoreAdapter.ViewHolder>() {
                     @Override
                     public void onItemClick(LikeStoreAdapter.ViewHolder holder) {
+                        // 각 Fragment에 선언되어 있는 newInstance에 ViewHolder에서 추출한 ID를 넘겨줍니다.
+                        // 아까 이벤트를 등록해둬서 ViewHolder가 잘 넘어옵니다.
+                        // 이제 ShopFragment.java/75번째 줄로 와주세요.
                         ShopFragment targetFragment = shopFragment.newInstance(holder.storeId);
+                        // 바로 위에서 받은 fragment를 아래에 replaceFragment를 활용해서 바꿔치기합니다.
+                        // 그러면 ShopFragment의 onCreateView가 호출되겠죠.
+                        // 그러니까 다시 ShopFragment.java/92번째 줄로 와주세요.
                         MainActivity activity = (MainActivity) getActivity();
                         activity.replaceFragment(targetFragment);
                     }
