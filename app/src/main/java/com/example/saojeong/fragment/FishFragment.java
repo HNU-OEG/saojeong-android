@@ -80,12 +80,12 @@ public class FishFragment extends Fragment {
         shopOCAdapter = new ShopOCAdapter(contactShopOCs);
         recyclerShopoc.addItemDecoration(bottomDecoration);
         recyclerShopoc.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        shopOCAdapter.setOnItemClicklistener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(Object holder, View view, int position) {
-                ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
-            }
-        });
+//        shopOCAdapter.setOnItemClicklistener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(Object holder, View view, int position) {
+////                ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
+//            }
+//        });
         recyclerShopoc.setAdapter(shopOCAdapter);
     }
 
@@ -95,11 +95,11 @@ public class FishFragment extends Fragment {
 
         transaction = fragmentManager.beginTransaction();
 
-        shopOCAdapter.setOnItemClicklistener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(Object holder, View view, int position) {
-                ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
-            }
-        });
+//        shopOCAdapter.setOnItemClicklistener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(Object holder, View view, int position) {
+//                ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
+//            }
+//        });
     }
 }
