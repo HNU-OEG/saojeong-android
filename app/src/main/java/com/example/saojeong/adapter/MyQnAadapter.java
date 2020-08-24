@@ -15,20 +15,22 @@ import com.example.saojeong.model.OnItemClickListener;
 
 import java.util.ArrayList;
 
-public class MyQnAadapter extends RecyclerView.Adapter<MyQnAadapter.ViewHolder> implements OnItemClickListener<MyQnAadapter.ViewHolder> {
+//public class MyQnAadapter extends RecyclerView.Adapter<MyQnAadapter.ViewHolder> implements OnItemClickListener<MyQnAadapter.ViewHolder> {
+public class MyQnAadapter extends RecyclerView.Adapter<com.example.saojeong.adapter.MyQnAadapter.ViewHolder> {
 
-    OnItemClickListener listener;
 
-    public void setOnItemClicklistener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
-
-    @Override
-    public void onItemClick(ViewHolder holder, View view, int position) {
-        if(listener != null) {
-            listener.onItemClick(holder,view,position);
-        }
-    }
+//    OnItemClickListener listener;
+//
+//    public void setOnItemClicklistener(OnItemClickListener listener) {
+//        this.listener = listener;
+//    }
+//
+//    @Override
+//    public void onItemClick(ViewHolder holder, View view, int position) {
+//        if (listener != null) {
+//            listener.onItemClick(holder, view, position);
+//        }
+//    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
@@ -41,18 +43,20 @@ public class MyQnAadapter extends RecyclerView.Adapter<MyQnAadapter.ViewHolder> 
             this.status = itemView.findViewById(R.id.tv_QnA_status_list);
             this.date = itemView.findViewById(R.id.tv_QnA_date_list);
 
-            itemView.setOnClickListener((v) -> {
-                int position = getAdapterPosition();
-                if(listener != null) {
-                    listener.onItemClick(ViewHolder.this, v, position);
-                }
-            });
+//            itemView.setOnClickListener((v) -> {
+//                int position = getAdapterPosition();
+//                if (listener != null) {
+//                    listener.onItemClick(ViewHolder.this, v, position);
+//                }
+//            });
         }
     }
 
     private ArrayList<MyQnA> mMyQnA;
 
-    public MyQnAadapter(ArrayList<MyQnA> mMyQnA) { this.mMyQnA = mMyQnA; }
+    public MyQnAadapter(ArrayList<MyQnA> mMyQnA) {
+        this.mMyQnA = mMyQnA;
+    }
 
     @NonNull
     @Override
@@ -77,5 +81,7 @@ public class MyQnAadapter extends RecyclerView.Adapter<MyQnAadapter.ViewHolder> 
     }
 
     @Override
-    public int getItemCount() { return mMyQnA.size(); }
+    public int getItemCount() {
+        return mMyQnA.size();
+    }
 }

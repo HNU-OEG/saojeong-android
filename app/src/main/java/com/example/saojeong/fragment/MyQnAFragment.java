@@ -62,15 +62,5 @@ public class MyQnAFragment extends Fragment {
 
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        myQnAadapter.setOnItemClicklistener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(Object holder, View view, int position) {
-                ((MainActivity) getActivity()).replaceFragment(MyQnAItemFragment.newInstance());
-            }
-        });
-    }
+//    @Overr
 }
