@@ -23,10 +23,64 @@ public class StoreDetailDto {
     @Expose
     public StoreGrade storeGrade;
 
-    class StoreMerchandise {
+    @Getter
+    @Setter
+    @ToString
+    public class StoreMerchandise {
         // 서버 동작 정의 안됨
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public class StoreDetail {
+        @SerializedName("store_image")
+        @Expose
+        public String storeImage;
+        @SerializedName("store_indexholder")
+        @Expose
+        public Integer storeIndexholder;
+        @SerializedName("store_name")
+        @Expose
+        public String storeName;
+        @SerializedName("store_intro")
+        @Expose
+        public String storeIntro;
+        @SerializedName("vote_grade_count")
+        @Expose
+        public Integer voteGradeCount;
+        @SerializedName("vote_grade_average")
+        @Expose
+        public Double voteGradeAverage;
+        @SerializedName("telephone")
+        @Expose
+        public String telephone;
+        @SerializedName("starred")
+        @Expose
+        public Integer starred;
+        @SerializedName("opening")
+        @Expose
+        public List<Opening> opening = null;
+
+        @Getter
+        @Setter
+        @ToString
+        public class Opening {
+            @SerializedName("weekday")
+            @Expose
+            public Integer weekday;
+            @SerializedName("start_hour")
+            @Expose
+            public String startHour;
+            @SerializedName("end_hour")
+            @Expose
+            public String endHour;
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
     public class StoreGrade {
         @SerializedName("kindness_average")
         @Expose
@@ -47,49 +101,6 @@ public class StoreDetailDto {
         @Expose
         public Double myPrice;
     }
-
-    class StoreDetail {
-        @SerializedName("store_image")
-        @Expose
-        public String storeImage;
-        @SerializedName("store_indexholder")
-        @Expose
-        public Integer storeIndexholder;
-        @SerializedName("store_name")
-        @Expose
-        public String storeName;
-        @SerializedName("store_intro")
-        @Expose
-        public Object storeIntro;
-        @SerializedName("vote_grade_count")
-        @Expose
-        public Integer voteGradeCount;
-        @SerializedName("vote_grade_average")
-        @Expose
-        public Double voteGradeAverage;
-        @SerializedName("telephone")
-        @Expose
-        public String telephone;
-        @SerializedName("starred")
-        @Expose
-        public Integer starred;
-        @SerializedName("opening")
-        @Expose
-        public List<Opening> opening = null;
-
-        class Opening {
-            @SerializedName("weekday")
-            @Expose
-            public Integer weekday;
-            @SerializedName("start_hour")
-            @Expose
-            public String startHour;
-            @SerializedName("end_hour")
-            @Expose
-            public String endHour;
-        }
-    }
-
 }
 
 
