@@ -36,6 +36,7 @@ import com.example.saojeong.rest.dto.store.StoreDetailDto;
 import com.example.saojeong.rest.service.StoreService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,7 +56,7 @@ public class ShopFragment extends Fragment {
     private ShopSellListAdapter shopSellListAdapter;
     ArrayList<ContactShopSellList> contactShopSellLists;
     ArrayList<ContactShopScore> contactShopScores;
-    ArrayList<ContactShopDetail> contactShopDetails;
+    List<ContactShopDetail> contactShopDetails;
 
     private RecyclerView recyclerShopStarScore;
     private ShopStarScoreAdapter shopStarScoreAdapter;
@@ -102,30 +103,30 @@ public class ShopFragment extends Fragment {
          */
         storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
 
-        if (getArguments() != null) {
-            int id = getArguments().getInt("id");
-            Log.d("ID", ""+id);
-            Call<StoreDetailDto> call = storeService.getStoreDetail(id);
-            call.enqueue(new Callback<StoreDetailDto>() {
-                @Override
-                public void onResponse(Call<StoreDetailDto> call, Response<StoreDetailDto> response) {
-                    // 통신 성공 시 서버 데이터에 맞게 RecyclerView 등록
-                    StoreDetailDto body = response.body();
-                    Log.d("DTO", body.toString());
-                    Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
-                    Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
-                    Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
-                }
-
-                @Override
-                public void onFailure(Call<StoreDetailDto> call, Throwable t) {
-                    // 통신 실패 시 RecyclerView 등록
-                    Log.d("FAIL", t.getMessage());
-                }
-            });
-        } else {
-            // null일 때 RecyclerView 등록
-        }
+//        if (getArguments() != null) {
+//            int id = getArguments().getInt("id");
+//            Log.d("ID", ""+id);
+//            Call<StoreDetailDto> call = storeService.getStoreDetail(id);
+//            call.enqueue(new Callback<StoreDetailDto>() {
+//                @Override
+//                public void onResponse(Call<StoreDetailDto> call, Response<StoreDetailDto> response) {
+//                    // 통신 성공 시 서버 데이터에 맞게 RecyclerView 등록
+//                    StoreDetailDto body = response.body();
+//                    Log.d("DTO", body.toString());
+//                    Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
+//                    Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
+//                    Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
+//                }
+//
+//                @Override
+//                public void onFailure(Call<StoreDetailDto> call, Throwable t) {
+//                    // 통신 실패 시 RecyclerView 등록
+//                    Log.d("FAIL", t.getMessage());
+//                }
+//            });
+//        } else {
+//            // null일 때 RecyclerView 등록
+//        }
 
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
@@ -145,12 +146,12 @@ public class ShopFragment extends Fragment {
 
         //상세 설명
         recyclerShopDetail = (RecyclerView) rootView.findViewById(R.id.recyclershop_detail);
-        contactShopDetails = ContactShopDetail.createContactsList(1);
-        shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
-        recyclerShopDetail.addItemDecoration(leftDecoration);
-        recyclerShopDetail.addItemDecoration(bottomDecoration);
-        recyclerShopDetail.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerShopDetail.setAdapter(shopDetailAdapter);
+//        contactShopDetails = ContactShopDetail._createContactsList(1);
+//        shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
+//        recyclerShopDetail.addItemDecoration(leftDecoration);
+//        recyclerShopDetail.addItemDecoration(bottomDecoration);
+//        recyclerShopDetail.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+//        recyclerShopDetail.setAdapter(shopDetailAdapter);
 
         //평점
         recyclerShopScore = (RecyclerView) rootView.findViewById(R.id.recyclershop_score);
@@ -160,6 +161,37 @@ public class ShopFragment extends Fragment {
         recyclerShopScore.addItemDecoration(bottomDecoration);
         recyclerShopScore.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         recyclerShopScore.setAdapter(shopScoreAdapter);
+
+        if (getArguments() != null) {
+            int id = getArguments().getInt("id");
+            Log.d("ID", ""+id);
+            Call<StoreDetailDto> call = storeService.getStoreDetail(id);
+            call.enqueue(new Callback<StoreDetailDto>() {
+                @Override
+                public void onResponse(Call<StoreDetailDto> call, Response<StoreDetailDto> response) {
+                    // 통신 성공 시 서버 데이터에 맞게 RecyclerView 등록
+                    StoreDetailDto body = response.body();
+                    Log.d("DTO", body.toString());
+                    Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
+                    Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
+                    Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
+                    contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
+                    shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
+                    recyclerShopDetail.addItemDecoration(leftDecoration);
+                    recyclerShopDetail.addItemDecoration(bottomDecoration);
+                    recyclerShopDetail.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+                    recyclerShopDetail.setAdapter(shopDetailAdapter);
+                }
+
+                @Override
+                public void onFailure(Call<StoreDetailDto> call, Throwable t) {
+                    // 통신 실패 시 RecyclerView 등록
+                    Log.d("FAIL", t.getMessage());
+                }
+            });
+        } else {
+            // null일 때 RecyclerView 등록
+        }
 
         //상단 액션바
         Toolbar toolbar = rootView.findViewById(R.id.toolbar_shop);

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -33,7 +34,7 @@ public class StoreDetailDto {
     @Getter
     @Setter
     @ToString
-    public class StoreDetail {
+    public static class StoreDetail {
         @SerializedName("store_image")
         @Expose
         public String storeImage;
@@ -65,7 +66,7 @@ public class StoreDetailDto {
         @Getter
         @Setter
         @ToString
-        public class Opening {
+        public static class Opening {
             @SerializedName("weekday")
             @Expose
             public Integer weekday;
@@ -75,6 +76,48 @@ public class StoreDetailDto {
             @SerializedName("end_hour")
             @Expose
             public String endHour;
+
+            @AllArgsConstructor
+            public enum WeekDay {
+                MONDAY("월요일", 0),
+                TUESDAY("화요일", 1),
+                WEDNESDAY("수요일", 2),
+                THURSTDAY("목요일", 3),
+                FRIDAY("금요일", 4),
+                SATURDAY("토요일", 5),
+                SUNDAY("일요일", 6);
+
+                private String view;
+                private Integer code;
+
+                public static String getView(Integer code) {
+                    switch (code) {
+                        case 0:
+                            return MONDAY.view;
+                        case 1:
+                            return TUESDAY.view;
+                        case 2:
+                            return WEDNESDAY.view;
+                        case 3:
+                            return THURSTDAY.view;
+                        case 4:
+                            return FRIDAY.view;
+                        case 5:
+                            return SATURDAY.view;
+                        case 6:
+                            return SUNDAY.view;
+                        default:
+                            return "ERROR";
+                    }
+                }
+            }
+
+            public String getJoinedString() {
+                return WeekDay.getView(weekday)
+                        + " " + startHour
+                        + " ~ " + endHour;
+            }
+
         }
     }
 
