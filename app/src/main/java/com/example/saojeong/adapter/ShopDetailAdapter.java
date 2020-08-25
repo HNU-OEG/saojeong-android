@@ -17,7 +17,8 @@ import java.util.List;
 
 public class ShopDetailAdapter extends RecyclerView.Adapter<ShopDetailAdapter.ViewHolder> {
 
-
+    // 번호가 하나일때는 변하도록...
+    // 지금은 하나여도 더미 데이터가 나옴
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView timeTextView;
         public Button phonen1Button;
@@ -55,12 +56,13 @@ public class ShopDetailAdapter extends RecyclerView.Adapter<ShopDetailAdapter.Vi
 
         TextView tv_bh = holder.timeTextView;
         Button btn_phonen1 = holder.phonen1Button;
-        Button btn_phonen2 = holder.phonen2Button;
 
         tv_bh.setText(contactShopDetail.getmTime());
         btn_phonen1.setText(contactShopDetail.getmPhoneN1());
-        btn_phonen2.setText(contactShopDetail.getmPhoneN2());
-
+        if (contactShopDetail.getmPhoneN2() != null) {
+            Button btn_phonen2 = holder.phonen2Button;
+            btn_phonen2.setText(contactShopDetail.getmPhoneN2());
+        }
     }
 
     @Override
