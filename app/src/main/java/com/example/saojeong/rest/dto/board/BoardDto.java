@@ -19,24 +19,4 @@ public class BoardDto {
     @Expose
     private List<CommentDto> comments = null;
 
-    @Getter
-    @Setter
-    @ToString
-    class CommentDto {
-        @SerializedName("member_id")
-        @Expose
-        private String memberId;
-        @SerializedName("author")
-        @Expose
-        private String author;
-        @SerializedName("content")
-        @Expose
-        private String content;
-        @SerializedName("created_at")
-        @Expose
-        private String createdAt;
-        @SerializedName("replies")
-        @Expose
-        private List<CommentDto> replies = null;
-    }
-}
+   }

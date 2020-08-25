@@ -120,7 +120,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
                 if (response.code() == 201) { // 서버와 통신 성공
                     mCommunityNormalValue = CommunityValue.createContactsList(body.getNormal());
                     mCommunityHotValue = CommunityValue.createContactsList(body.getHot());
-                    mAdapter = new CommunityAdapter_item( mCommunityHotValue, mCommunityNormalValue, (MainActivity)getActivity());
+                    mAdapter = new CommunityAdapter_item( mCommunityHotValue, mCommunityNormalValue,(MainActivity)getActivity());
                 } else { // 서버에서 문제 발생
                     //likeStores = ContactShopOC._createContactsList(20);
                     //likeStoreAdapter = new LikeStoreAdapter(likeStores);
