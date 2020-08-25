@@ -122,7 +122,7 @@ public class ShopFragment extends Fragment {
             call.enqueue(new Callback<StoreDetailDto>() {
                 @Override
                 public void onResponse(Call<StoreDetailDto> call, Response<StoreDetailDto> response) {
-                    if (response.code() == 200) {
+                    if (response.code() == 201) {
                         StoreDetailDto body = response.body();
 //                        Log.d("DTO", body.toString());
 //                        Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
@@ -130,18 +130,25 @@ public class ShopFragment extends Fragment {
 //                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
                         contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
                         shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
+                        getDefaultAdapters();
+                        setAdapters();
+                    } else {
+                        getDefaultAdapters();
+                        setAdapters();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<StoreDetailDto> call, Throwable t) {
+                    getDefaultAdapters();
+                    setAdapters();
                     Log.d("FAIL", t.getMessage());
                 }
             });
+        } else {
+            getDefaultAdapters();
+            setAdapters();
         }
-
-        getDefaultAdapters();
-        setAdapters();
 
 
 
@@ -215,8 +222,8 @@ public class ShopFragment extends Fragment {
         contactShopSellLists = ContactShopSellList.createContactsList(10);
         shopSellListAdapter = new ShopSellListAdapter(contactShopSellLists);
 
-        contactShopDetails = ContactShopDetail._createContactsList(1);
-        shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
+//        contactShopDetails = ContactShopDetail._createContactsList(1);
+//        shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
 
         contactShopScores = ContactShopScore.createContactsList(1);
         shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity());
