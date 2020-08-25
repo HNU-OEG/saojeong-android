@@ -63,6 +63,10 @@ public class StoreDetailDto {
         @Expose
         public List<Opening> opening = null;
 
+        public boolean getStarred() {
+            return starred == 1;
+        }
+
         @Getter
         @Setter
         @ToString

@@ -153,7 +153,6 @@ public class HomeFragment extends Fragment {
                         tabcolor.setTextColor(Color.parseColor("#ffffff"));
                     } else
                         tabcolor.setTextColor(Color.parseColor("#ffd6b7"));
-
                 }
             }
         });

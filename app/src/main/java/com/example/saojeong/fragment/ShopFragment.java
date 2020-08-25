@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.ShopDetailAdapter;
@@ -124,9 +126,9 @@ public class ShopFragment extends Fragment {
                 public void onResponse(Call<StoreDetailDto> call, Response<StoreDetailDto> response) {
                     if (response.code() == 201) {
                         StoreDetailDto body = response.body();
-//                        Log.d("DTO", body.toString());
-//                        Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
-//                        Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
+                        Log.d("DTO", body.toString());
+                        Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
+                        Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
                         Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
                         contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
                         shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
@@ -134,6 +136,17 @@ public class ShopFragment extends Fragment {
                         contactShopScores = ContactShopScore.createContactsList(body.getStoreGrade(),
                                 body.getStoreDetail().getVoteGradeCount());
                         shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity(), id);
+
+
+                        ImageView storeImage = (ImageView) getView().findViewById(R.id.iv_shopshop);
+                        Glide.with(getView()).load(body.getStoreDetail().getStoreImage()).into(storeImage);
+
+                        ImageView likeImage = (ImageView) getView().findViewById(R.id.iv_like);
+                        if (!body.getStoreDetail().getStarred()) {
+                            likeImage.setImageResource(R.drawable.unlike);
+                        }
+
+
 
                         getDefaultAdapters();
                         setAdapters();
