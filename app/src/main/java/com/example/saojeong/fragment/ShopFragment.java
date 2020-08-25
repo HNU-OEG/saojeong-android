@@ -133,17 +133,19 @@ public class ShopFragment extends Fragment {
                         contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
                         shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
 
+
+                        // UserType을 넘겨줘서 로그인 후 평가하기 or 평가하기 띄우기
                         contactShopScores = ContactShopScore.createContactsList(body.getStoreGrade(),
                                 body.getStoreDetail().getVoteGradeCount());
                         shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity(), id);
-
-
                         ImageView storeImage = (ImageView) getView().findViewById(R.id.iv_shopshop);
                         Glide.with(getView()).load(body.getStoreDetail().getStoreImage()).into(storeImage);
 
                         ImageView likeImage = (ImageView) getView().findViewById(R.id.iv_like);
+                        likeImage.onClick
                         if (!body.getStoreDetail().getStarred()) {
-                            likeImage.setImageResource(R.drawable.unlike);
+                            likeImage.setSelected(body.getStoreDetail().getStarred());
+//                            likeImage.setImageResource(R.drawable.unlike);
                         }
 
 

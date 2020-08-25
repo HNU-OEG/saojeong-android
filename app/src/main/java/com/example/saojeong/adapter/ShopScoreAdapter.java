@@ -169,20 +169,18 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
                 StoreService storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
                 storeService.updateVoteGrade(id, requestBody).enqueue(new Callback<UpdateVoteGradeResponseDto>() {
                     @Override
-                    public void onResponse(Call<UpdateVoteGradeResponseDto> call, Response<UpdateVoteGradeResponseDto> response) {
+                    public void onResponse(Call<UpdateVoteGradeResponseDto> call,
+                                           Response<UpdateVoteGradeResponseDto> response) {
+                        // Toast or 평가 완료 alert 띄우기
                         Log.d("VOTE", response.body().toString());
                     }
 
                     @Override
                     public void onFailure(Call<UpdateVoteGradeResponseDto> call, Throwable t) {
+                        // Toast 평가 실패 띄우기
                         Log.d("VOTE FAILED", t.getMessage());
                     }
                 });
-
-
-
-
-                // 통신할 때 이 세개 넘겨주기
             }
         });
 
