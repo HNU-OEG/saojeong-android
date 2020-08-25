@@ -3,6 +3,7 @@ package com.example.saojeong.model;
 import android.content.Context;
 
 import com.example.saojeong.R;
+import com.example.saojeong.rest.dto.store.StoreDetailDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,13 @@ public class ContactShopScore {
         this.mKindscore = mKindscore;
         this.mItemscore = mItemscore;
         this.mPricescore = mPricescore;
+    }
+
+    public ContactShopScore(StoreDetailDto.StoreGrade dto, Integer count) {
+        this.mEvaluate = count.toString();
+        this.mKindscore = dto.getKindnessAverage().toString();
+        this.mItemscore = dto.getMerchandiseAverage().toString();
+        this.mPricescore = dto.getPriceAverage().toString();
     }
 
     public String getmEvaluate() {
@@ -37,13 +45,18 @@ public class ContactShopScore {
     }
 
 
-    public static ArrayList<ContactShopScore> createContactsList(int numContacts) {
-        ArrayList<ContactShopScore> contacts = new ArrayList<ContactShopScore>();
+    public static List<ContactShopScore> _createContactsList(int numContacts) {
+        List<ContactShopScore> contacts = new ArrayList<>();
 
         for(int i = 1; i <= numContacts; i++) {
             contacts.add(new ContactShopScore("1004","4.7","3.9", "1.8"));
         }
+        return contacts;
+    }
 
+    public static List<ContactShopScore> createContactsList(StoreDetailDto.StoreGrade dto, Integer count) {
+        List<ContactShopScore> contacts = new ArrayList<>();
+        contacts.add(new ContactShopScore(dto, count));
         return contacts;
     }
 }

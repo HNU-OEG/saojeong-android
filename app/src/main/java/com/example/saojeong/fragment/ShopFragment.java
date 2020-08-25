@@ -55,7 +55,7 @@ public class ShopFragment extends Fragment {
     private ShopScoreAdapter shopScoreAdapter;
     private ShopSellListAdapter shopSellListAdapter;
     ArrayList<ContactShopSellList> contactShopSellLists;
-    ArrayList<ContactShopScore> contactShopScores;
+    List<ContactShopScore> contactShopScores;
     List<ContactShopDetail> contactShopDetails;
 
     private RecyclerView recyclerShopStarScore;
@@ -117,7 +117,7 @@ public class ShopFragment extends Fragment {
 
         if (getArguments() != null) {
             int id = getArguments().getInt("id");
-            Log.d("ID", ""+id);
+            Log.d("ID", "" + id);
             Call<StoreDetailDto> call = storeService.getStoreDetail(id);
             call.enqueue(new Callback<StoreDetailDto>() {
                 @Override
@@ -127,9 +127,14 @@ public class ShopFragment extends Fragment {
 //                        Log.d("DTO", body.toString());
 //                        Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
 //                        Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
-//                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
+                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
                         contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
                         shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
+
+                        contactShopScores = ContactShopScore.createContactsList(body.getStoreGrade(),
+                                body.getStoreDetail().getVoteGradeCount());
+                        shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity(), id);
+
                         getDefaultAdapters();
                         setAdapters();
                     } else {
@@ -151,12 +156,11 @@ public class ShopFragment extends Fragment {
         }
 
 
-
         //상단 액션바
         Toolbar toolbar = rootView.findViewById(R.id.toolbar_shop);
-        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true); //뒤로가기버튼
-        ((MainActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true); //뒤로가기버튼
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true); //뒤로가기버튼
+        ((MainActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true); //뒤로가기버튼
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -164,8 +168,8 @@ public class ShopFragment extends Fragment {
             }
         });
         //((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.~~); // 뒤로가기 화살표 이미지 바꾸기
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitleTextColor(Color.BLACK);
 
         //탭 호스트
@@ -225,8 +229,8 @@ public class ShopFragment extends Fragment {
 //        contactShopDetails = ContactShopDetail._createContactsList(1);
 //        shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
 
-        contactShopScores = ContactShopScore.createContactsList(1);
-        shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity());
+//        contactShopScores = ContactShopScore._createContactsList(1);
+//        shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity());
     }
 
     private void setAdapters() {

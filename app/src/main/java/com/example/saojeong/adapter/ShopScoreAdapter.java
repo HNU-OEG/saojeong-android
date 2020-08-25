@@ -15,14 +15,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.model.ContactShopScore;
 import com.example.saojeong.model.ContactShopStarScore;
 import com.example.saojeong.model.RecyclerDecoration;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.response.UpdateVoteGradeResponseDto;
+import com.example.saojeong.rest.request.UpdateVoteGradeRequestDto;
+import com.example.saojeong.rest.service.StoreService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.ViewHolder> {
+
+    int id;
 
     View rating;
 
@@ -106,6 +117,12 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
 
     private List<ContactShopScore> mContacts;
 
+    public ShopScoreAdapter(List<ContactShopScore> contacts, Context context, int id) {
+        mContacts = contacts;
+        mContext = context;
+        this.id = id;
+    }
+
     public ShopScoreAdapter(List<ContactShopScore> contacts, Context context) {
         mContacts = contacts;
         mContext = context;
@@ -143,10 +160,28 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
             @Override
             public void onClick(View view) {
                 ShopStarScoreAdapter adapter = (ShopStarScoreAdapter) recyclerShopStarScore.getAdapter();
-                List<Float> ratings = new ArrayList<>();
-                for (ContactShopStarScore item : adapter.getmContacts()) {
-                    ratings.add(item.getmRating());
-                }
+                UpdateVoteGradeRequestDto requestBody = new UpdateVoteGradeRequestDto(
+                        adapter.getmContacts().get(0).getmRating(),
+                        adapter.getmContacts().get(1).getmRating(),
+                        adapter.getmContacts().get(2).getmRating()
+                );
+
+                StoreService storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
+                storeService.updateVoteGrade(id, requestBody).enqueue(new Callback<UpdateVoteGradeResponseDto>() {
+                    @Override
+                    public void onResponse(Call<UpdateVoteGradeResponseDto> call, Response<UpdateVoteGradeResponseDto> response) {
+                        Log.d("VOTE", response.body().toString());
+                    }
+
+                    @Override
+                    public void onFailure(Call<UpdateVoteGradeResponseDto> call, Throwable t) {
+                        Log.d("VOTE FAILED", t.getMessage());
+                    }
+                });
+
+
+
+
                 // 통신할 때 이 세개 넘겨주기
             }
         });
