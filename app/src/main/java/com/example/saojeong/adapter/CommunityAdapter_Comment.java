@@ -13,18 +13,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.R;
 import com.example.saojeong.model.Community_CommentValue;
+import com.example.saojeong.model.Post_CommentValue;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdapter_Comment.ViewHolder>{
 
     public RelativeLayout mLayout;
     public Context mContext;
+    CommunityAdapter_Comment mAdapter;
+    public boolean replies;
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView_ID;
         public TextView mTextView_Date;
@@ -34,6 +39,7 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         public LinearLayout mCommentLayout;
         public EditText mEditView_Recomment;
         public TextView mTextView_Btn_ReComment_Write;
+        public RecyclerView mRecycleview;
 //
         public ViewHolder(View itemView) {
             super(itemView);
@@ -71,12 +77,16 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
                 }
 
             });
+            mRecycleview=itemView.findViewById(R.id.commentRecycle);
+            if(replies)
+                mRecycleview.setVisibility(View.GONE);
         }
     }
 
-    private ArrayList<Community_CommentValue> mContacts;
+    private List<Post_CommentValue> mContacts;
 
-    public CommunityAdapter_Comment(ArrayList<Community_CommentValue> contacts, Context context) {
+    public CommunityAdapter_Comment(List<Post_CommentValue> contacts, Context context, boolean replies) {
+        this.replies=replies;
         mContext=context;
         mContacts = contacts;
     }
@@ -93,12 +103,16 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
 
     @Override
     public void onBindViewHolder(CommunityAdapter_Comment.ViewHolder holder, int position) {
-        Community_CommentValue contact = mContacts.get(position);
-        holder.mTextView_ID.setText(contact.GetID());
-        holder.mTextView_Date.setText(contact.GetDate());
-        holder.mTextView_Content.setText(contact.GetComment());
+        Post_CommentValue contact = mContacts.get(position);
+        holder.mTextView_ID.setText(contact.getAuthor());
+        holder.mTextView_Date.setText(contact.getCreatedAt());
+        holder.mTextView_Content.setText(contact.getContent());
         //holder.mTextView_Btn_ReComment.setText("["+contact.GetComment().size() + "]");
-        CheckReComment(contact.GetReContents(), holder);
+        CheckReComment(contact.isReContent(), holder);
+        mAdapter = new CommunityAdapter_Comment(contact.getReplies(), mContext, true);
+        holder.mRecycleview.setAdapter(mAdapter);
+        holder.mRecycleview.setLayoutManager(new LinearLayoutManager(mContext));
+        holder.mRecycleview.setNestedScrollingEnabled(false);
     }
 
     @Override

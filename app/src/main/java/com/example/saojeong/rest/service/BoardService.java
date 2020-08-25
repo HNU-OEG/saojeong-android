@@ -5,6 +5,7 @@ import com.example.saojeong.rest.dto.board.GetPostDto;
 import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
 import com.example.saojeong.rest.dto.board.LikePostDto;
 import com.example.saojeong.rest.dto.board.ModifiedPostDto;
+import com.example.saojeong.rest.dto.board.RepliesDto;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface BoardService {
     //게시글 조회
     //테스트 X
     @GET("/api/board/{board_id}/content/{document_id}")
-    Call<List<GetPostDto>> getPost(@Path("board_id") int board_id, @Path("document_id") int document_id);
+    Call<GetPostDto> getPost(@Path("board_id") int board_id, @Path("document_id") int document_id);
 
     //게시글 리스트 조회
     //테스트 완료
@@ -51,5 +52,7 @@ public interface BoardService {
     //테스트 X
     @PATCH("/api/board/{board_id}/content/{document_id}?type=blame&task=down")
     //Call<List<CommunityPostListDto>> likePost(@Field("type") String title, @Field("task") String down);
-    Call<List<LikePostDto>> likePost(@Path("board_id") int board_id, @Path("document_id") int document_id, @Query("type") String type, @Query("task") String task);
+    Call<GetPostDto> likePost(@Path("board_id") int board_id, @Path("document_id") int document_id, @Query("type") String type, @Query("task") String task);
+
+
 }

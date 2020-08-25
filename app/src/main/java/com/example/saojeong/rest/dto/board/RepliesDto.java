@@ -1,9 +1,7 @@
 package com.example.saojeong.rest.dto.board;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,15 +10,18 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class GetPostDto {
+public class RepliesDto {
 
+    @SerializedName("member_id")
+    @Expose
+    public String memberId;
+    @SerializedName("author")
+    @Expose
+    public String author;
     @SerializedName("content")
     @Expose
-    private GetContentDto ContentDto;
-    @SerializedName("comments")
+    public String content;
+    @SerializedName("created_at")
     @Expose
-    private List<CommentDto> comments = null;
-
-
-
+    public String createdAt;
 }

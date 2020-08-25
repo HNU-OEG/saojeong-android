@@ -216,7 +216,7 @@
                                     android:text="가나다라">
                                 </TextView>
                                 <TextView
-                                    android:id="@+id/tv_community_btn_inputcomment"
+                                    android:id="@+id/tv_btn_inputcomment"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textSize="13.5sp"
@@ -230,7 +230,7 @@
                                     ></TextView>
                              </RelativeLayout>
                             <EditText
-                                android:id="@+id/tv_community_comment_comment"
+                                android:id="@+id/tv_comment_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="121dp"
                                 android:layout_marginHorizontal="25dp"
@@ -249,7 +249,7 @@
 
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/testRecycle"
+                        android:id="@+id/commentRecycle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="18dp"
