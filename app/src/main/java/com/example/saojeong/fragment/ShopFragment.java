@@ -55,7 +55,7 @@ public class ShopFragment extends Fragment {
     private ShopScoreAdapter shopScoreAdapter;
     private ShopSellListAdapter shopSellListAdapter;
     ArrayList<ContactShopSellList> contactShopSellLists;
-    ArrayList<ContactShopScore> contactShopScores;
+    List<ContactShopScore> contactShopScores;
     List<ContactShopDetail> contactShopDetails;
 
     private RecyclerView recyclerShopStarScore;
@@ -103,101 +103,64 @@ public class ShopFragment extends Fragment {
          */
         storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
 
-//        if (getArguments() != null) {
-//            int id = getArguments().getInt("id");
-//            Log.d("ID", ""+id);
-//            Call<StoreDetailDto> call = storeService.getStoreDetail(id);
-//            call.enqueue(new Callback<StoreDetailDto>() {
-//                @Override
-//                public void onResponse(Call<StoreDetailDto> call, Response<StoreDetailDto> response) {
-//                    // 통신 성공 시 서버 데이터에 맞게 RecyclerView 등록
-//                    StoreDetailDto body = response.body();
-//                    Log.d("DTO", body.toString());
-//                    Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
-//                    Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
-//                    Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
-//                }
-//
-//                @Override
-//                public void onFailure(Call<StoreDetailDto> call, Throwable t) {
-//                    // 통신 실패 시 RecyclerView 등록
-//                    Log.d("FAIL", t.getMessage());
-//                }
-//            });
-//        } else {
-//            // null일 때 RecyclerView 등록
-//        }
-
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
-
-//        assert getArguments() != null;
-//        Log.d("BUNDLE ", String.valueOf(getArguments().getInt("id")));
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_shop, container, false);
         //판매 품목
         recyclerShopSellList = (RecyclerView) rootView.findViewById(R.id.recyclershop_selllist);
-        contactShopSellLists = ContactShopSellList.createContactsList(10);
-        shopSellListAdapter = new ShopSellListAdapter(contactShopSellLists);
-        recyclerShopSellList.addItemDecoration(leftDecoration);
-        recyclerShopSellList.addItemDecoration(bottomDecoration);
-        recyclerShopSellList.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerShopSellList.setAdapter(shopSellListAdapter);
-
         //상세 설명
         recyclerShopDetail = (RecyclerView) rootView.findViewById(R.id.recyclershop_detail);
-//        contactShopDetails = ContactShopDetail._createContactsList(1);
-//        shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
-//        recyclerShopDetail.addItemDecoration(leftDecoration);
-//        recyclerShopDetail.addItemDecoration(bottomDecoration);
-//        recyclerShopDetail.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-//        recyclerShopDetail.setAdapter(shopDetailAdapter);
-
         //평점
         recyclerShopScore = (RecyclerView) rootView.findViewById(R.id.recyclershop_score);
-        contactShopScores = ContactShopScore.createContactsList(1);
-        shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity());
-        recyclerShopScore.addItemDecoration(leftDecoration);
-        recyclerShopScore.addItemDecoration(bottomDecoration);
-        recyclerShopScore.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerShopScore.setAdapter(shopScoreAdapter);
+
 
         if (getArguments() != null) {
             int id = getArguments().getInt("id");
-            Log.d("ID", ""+id);
+            Log.d("ID", "" + id);
             Call<StoreDetailDto> call = storeService.getStoreDetail(id);
             call.enqueue(new Callback<StoreDetailDto>() {
                 @Override
                 public void onResponse(Call<StoreDetailDto> call, Response<StoreDetailDto> response) {
-                    // 통신 성공 시 서버 데이터에 맞게 RecyclerView 등록
-                    StoreDetailDto body = response.body();
-                    Log.d("DTO", body.toString());
-                    Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
-                    Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
-                    Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
-                    contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
-                    shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
-                    recyclerShopDetail.addItemDecoration(leftDecoration);
-                    recyclerShopDetail.addItemDecoration(bottomDecoration);
-                    recyclerShopDetail.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-                    recyclerShopDetail.setAdapter(shopDetailAdapter);
+                    if (response.code() == 201) {
+                        StoreDetailDto body = response.body();
+//                        Log.d("DTO", body.toString());
+//                        Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
+//                        Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
+                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
+                        contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
+                        shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
+
+                        contactShopScores = ContactShopScore.createContactsList(body.getStoreGrade(),
+                                body.getStoreDetail().getVoteGradeCount());
+                        shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity(), id);
+
+                        getDefaultAdapters();
+                        setAdapters();
+                    } else {
+                        getDefaultAdapters();
+                        setAdapters();
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<StoreDetailDto> call, Throwable t) {
-                    // 통신 실패 시 RecyclerView 등록
+                    getDefaultAdapters();
+                    setAdapters();
                     Log.d("FAIL", t.getMessage());
                 }
             });
         } else {
-            // null일 때 RecyclerView 등록
+            getDefaultAdapters();
+            setAdapters();
         }
+
 
         //상단 액션바
         Toolbar toolbar = rootView.findViewById(R.id.toolbar_shop);
-        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true); //뒤로가기버튼
-        ((MainActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true); //뒤로가기버튼
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true); //뒤로가기버튼
+        ((MainActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true); //뒤로가기버튼
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,8 +168,8 @@ public class ShopFragment extends Fragment {
             }
         });
         //((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.~~); // 뒤로가기 화살표 이미지 바꾸기
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitleTextColor(Color.BLACK);
 
         //탭 호스트
@@ -257,6 +220,34 @@ public class ShopFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void getDefaultAdapters() {
+        contactShopSellLists = ContactShopSellList.createContactsList(10);
+        shopSellListAdapter = new ShopSellListAdapter(contactShopSellLists);
+
+//        contactShopDetails = ContactShopDetail._createContactsList(1);
+//        shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
+
+//        contactShopScores = ContactShopScore._createContactsList(1);
+//        shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity());
+    }
+
+    private void setAdapters() {
+        recyclerShopSellList.addItemDecoration(leftDecoration);
+        recyclerShopSellList.addItemDecoration(bottomDecoration);
+        recyclerShopSellList.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+        recyclerShopSellList.setAdapter(shopSellListAdapter);
+
+        recyclerShopDetail.addItemDecoration(leftDecoration);
+        recyclerShopDetail.addItemDecoration(bottomDecoration);
+        recyclerShopDetail.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+        recyclerShopDetail.setAdapter(shopDetailAdapter);
+
+        recyclerShopScore.addItemDecoration(leftDecoration);
+        recyclerShopScore.addItemDecoration(bottomDecoration);
+        recyclerShopScore.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
+        recyclerShopScore.setAdapter(shopScoreAdapter);
     }
 
     @Override
