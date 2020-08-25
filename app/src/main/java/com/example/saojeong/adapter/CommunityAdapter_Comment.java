@@ -3,6 +3,7 @@ package com.example.saojeong.adapter;
 import android.content.Context;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +18,34 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.R;
+import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.model.Community_CommentValue;
 import com.example.saojeong.model.Post_CommentValue;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.board.CreateComentDto;
+import com.example.saojeong.rest.dto.board.CreatePostDto;
+import com.example.saojeong.rest.service.BoardService;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
 public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdapter_Comment.ViewHolder>{
 
+    int comment_id;
+    int dodocument_id;
     public RelativeLayout mLayout;
     public Context mContext;
     CommunityAdapter_Comment mAdapter;
     public boolean replies;
+    private BoardService boardService;
+    public static String LOG="Comment";
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView_ID;
         public TextView mTextView_Date;
@@ -73,7 +89,9 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
             mTextView_Btn_ReComment_Write.setOnClickListener(v -> {
                 String str=mEditView_Recomment.getText().toString(); //
                 if(str.length()>0){
-
+                    createComment(str);
+                    mEditView_Recomment.setText("");
+                    notify();
                 }
 
             });
@@ -85,10 +103,13 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
 
     private List<Post_CommentValue> mContacts;
 
-    public CommunityAdapter_Comment(List<Post_CommentValue> contacts, Context context, boolean replies) {
+    public CommunityAdapter_Comment(List<Post_CommentValue> contacts, Context context, int document_id, int comment_id,boolean replies) {
         this.replies=replies;
         mContext=context;
         mContacts = contacts;
+        this.dodocument_id=document_id;
+        this.comment_id=comment_id;
+        boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
     }
     @Override
     public CommunityAdapter_Comment.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -109,7 +130,7 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         holder.mTextView_Content.setText(contact.getContent());
         //holder.mTextView_Btn_ReComment.setText("["+contact.GetComment().size() + "]");
         CheckReComment(contact.isReContent(), holder);
-        mAdapter = new CommunityAdapter_Comment(contact.getReplies(), mContext, true);
+        mAdapter = new CommunityAdapter_Comment(contact.getReplies(), mContext,dodocument_id,-1, true);
         holder.mRecycleview.setAdapter(mAdapter);
         holder.mRecycleview.setLayoutManager(new LinearLayoutManager(mContext));
         holder.mRecycleview.setNestedScrollingEnabled(false);
@@ -133,7 +154,30 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         }
     }
 
+    public void createComment(String contents) {
+        boardService.createComment(new CreateComentDto(contents), 10004, 23).enqueue(new Callback<CreateComentDto>() {
+            @Override
+            public void onResponse(Call<CreateComentDto> call, Response<CreateComentDto> response) {
 
+                if (response.code() == 201) {
+                    if (response.code() == 201) {
+                        CreateComentDto body = response.body();
+                        Log.d(LOG, "전송완료");
+                        notifyDataSetChanged();
+                    }
+                    Log.d(LOG, response.message());
+                } else { // 서버에서 문제 발생
+                    //likeStores = ContactShopOC._createContactsList(20);
+                    //likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CreateComentDto> call, Throwable t) {
+                Log.d("fail", t.getMessage());
+            }
+        });
+    }
 
 }
 

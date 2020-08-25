@@ -1,5 +1,6 @@
 package com.example.saojeong.rest.service;
 
+import com.example.saojeong.rest.dto.board.CreateComentDto;
 import com.example.saojeong.rest.dto.board.CreatePostDto;
 import com.example.saojeong.rest.dto.board.GetPostDto;
 import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
@@ -50,9 +51,10 @@ public interface BoardService {
 
     //게시글 추천비추천
     //테스트 X
-    @PATCH("/api/board/{board_id}/content/{document_id}?type=blame&task=down")
+    @PATCH("/api/board/{board_id}/content/{document_id}")
     //Call<List<CommunityPostListDto>> likePost(@Field("type") String title, @Field("task") String down);
     Call<GetPostDto> likePost(@Path("board_id") int board_id, @Path("document_id") int document_id, @Query("type") String type, @Query("task") String task);
-
-
+//api/board/{category}/content/{document_id}/comment/{comment_id}
+    @PUT("/api/board/{board_id}/content/{document_id}/comment/new")
+    Call<CreateComentDto> createComment(@Body CreateComentDto parameters, @Path("board_id") int board_id, @Path("document_id") int document_id);
 }

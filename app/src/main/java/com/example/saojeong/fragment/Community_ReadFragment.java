@@ -31,6 +31,7 @@ import com.example.saojeong.model.Community_CommentValue;
 import com.example.saojeong.model.PostValue;
 import com.example.saojeong.model.Post_CommentValue;
 import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.board.CreateComentDto;
 import com.example.saojeong.rest.dto.board.GetPostDto;
 import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
 import com.example.saojeong.rest.service.BoardService;
@@ -56,10 +57,14 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
     RecyclerView mRecycleview;
     NestedScrollView mNestedScroll;
 
-    TextView mComment_btn;
+    TextView mComment_create;
     TextView mLikeUp;
     TextView mLikeDown;
+    LinearLayout liLikeup;
+    LinearLayout liLikeDown;
+
    // private Community_Service community_Service;
+   public static String LOG="Comment";
    private BoardService boardService;
 
     public Community_ReadFragment() {
@@ -88,21 +93,21 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         mname = view.findViewById(R.id.tv_community_read_name);
         mcontents = view.findViewById(R.id.tv_community_read_contents);
         mComment_edit=view.findViewById(R.id.tv_comment_edit);
-        mComment_btn=view.findViewById(R.id.tv_btn_inputcomment);
+        mComment_create=view.findViewById(R.id.tv_create_comment);
         mRecycleview=view.findViewById(R.id.commentRecycle);
         mNestedScroll=view.findViewById(R.id.testscroll);
         mLikeUp=view.findViewById(R.id.tv_community_like_up);
         mLikeDown=view.findViewById(R.id.tv_community_like_down);
+        liLikeup=view.findViewById(R.id.ll_like_up);
+        liLikeDown=view.findViewById(R.id.ll_like_down);
+        liLikeup.setOnClickListener(this);
+        liLikeDown.setOnClickListener(this);
+        mComment_create.setOnClickListener(this);
 
 
-
-
-
-
-
-        SpannableString content = new SpannableString(mComment_btn.getText());
-        content.setSpan(new UnderlineSpan(), 0, mComment_btn.getText().length(), 0);
-        mComment_btn.setText(content);
+        SpannableString content = new SpannableString(mComment_create.getText());
+        content.setSpan(new UnderlineSpan(), 0, mComment_create.getText().length(), 0);
+        mComment_create.setText(content);
 
 
 
@@ -126,20 +131,24 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         int id=view.getId();
 
         switch(id) {
-            case R.id.tv_community_like_up:
-                mLikeUp.setTextColor(Color.parseColor("#ff6950"));
-                LikePost("vote", "up");
-                //라이크 버튼 이벤트
-                break;
-            case R.id.tv_community_like_down:
-                mLikeDown.setTextColor(Color.parseColor("#878787"));
-                LikePost("blame", "up");
-                //라이크 버튼 이벤트
-                break;
-            case R.id.tv_btn_inputcomment:
+            case R.id.tv_create_comment:
                 String str=mComment_edit.getText().toString();
-                mComment_edit.setText("");
-                Edit_Comment(str);
+                if(str.length()>0)
+                {
+                    mComment_edit.setText("");
+                    createComment(str);
+                }
+                break;
+            case R.id.ll_like_up:
+                LikePost("vote", "up");
+                mLikeUp.setTextColor(Color.parseColor("#ff6950"));
+                load_GetPost();
+
+                break;
+            case R.id.ll_like_down:
+                LikePost("blame", "up");
+                mLikeDown.setTextColor(Color.parseColor("#878787"));
+                load_GetPost();
                 break;
         }
     }
@@ -160,7 +169,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                     mLikeUp.setText("추천 "+mPostValue.getVotedCount());
                     mLikeDown.setText("비추천 "+mPostValue.getBlamedCount());
                     mCommunityCommentValue=Post_CommentValue.createContactsList(body.getComments());
-                    mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext(), false);
+                    mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext(),document_id,-1, false);
                     mRecycleview.setAdapter(mAdapter);
                     mRecycleview.setLayoutManager(new LinearLayoutManager(getContext()));
                     mRecycleview.setNestedScrollingEnabled(false);
@@ -182,7 +191,8 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
             @Override
             public void onResponse(Call<GetPostDto> call, Response<GetPostDto> response) {
 
-                if (response.code() == 201) { // 서버와 통신 성공
+                if (response.code() == 201) {
+                     // 서버와 통신 성공
                       } else { // 서버에서 문제 발생
                     //likeStores = ContactShopOC._createContactsList(20);
                     //likeStoreAdapter = new LikeStoreAdapter(likeStores);
@@ -195,37 +205,27 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
             }
         });
     }
+    public void createComment(String contents) {
+        boardService.createComment(new CreateComentDto(contents), 10004, document_id).enqueue(new Callback<CreateComentDto>() {
+            @Override
+            public void onResponse(Call<CreateComentDto> call, Response<CreateComentDto> response) {
 
+                if (response.code() == 201) {
 
-    public void Edit_Comment(String strComment) {
-//        boardService.createComment(10004, document_id).enqueue(new Callback<GetPostDto>() {
-//            @Override
-//            public void onResponse(Call<GetPostDto> call, Response<GetPostDto> response) {
-//                GetPostDto body = response.body();
-//
-//                if (response.code() == 201) { // 서버와 통신 성공
-//                    mPostValue =new PostValue(body.getContentDto());
-//                    mtitle.setText(mPostValue.getTitle());
-//                    mboard.setText(mPostValue.getCategory());
-//                    mdate.setText(mPostValue.getCreatedAt());
-//                    mname.setText(mPostValue.getAuthor());
-//                    mcontents.setText(mPostValue.getContent());
-//                    mCommunityCommentValue=Post_CommentValue.createContactsList(body.getComments());
-//                    mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext());
-//                    mRecycleview.setAdapter(mAdapter);
-//                    mRecycleview.setLayoutManager(new LinearLayoutManager(getContext()));
-//                    mRecycleview.setNestedScrollingEnabled(false);
-//                } else { // 서버에서 문제 발생
-//                    //likeStores = ContactShopOC._createContactsList(20);
-//                    //likeStoreAdapter = new LikeStoreAdapter(likeStores);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<GetPostDto> call, Throwable t) {
-//                Log.d("fail", t.getMessage());
-//            }
-//        });
+                    onResume();
+                    Log.d(LOG, "전송완료");
+                    Log.d(LOG, response.message());
+                } else { // 서버에서 문제 발생
+                    //likeStores = ContactShopOC._createContactsList(20);
+                    //likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CreateComentDto> call, Throwable t) {
+                Log.d("fail", t.getMessage());
+            }
+        });
     }
 
 }

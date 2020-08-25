@@ -136,7 +136,7 @@
                         android:gravity="center_horizontal">
 
                         <LinearLayout
-                            android:id="@+id/ll_community_like_up"
+                            android:id="@+id/ll_like_up"
                             android:layout_width="138dp"
                             android:layout_height="36dp"
                             android:layout_marginLeft="5dp"
@@ -162,7 +162,7 @@
 
 
                         <LinearLayout
-                            android:id="@+id/ll_community_like_down"
+                            android:id="@+id/ll_like_down"
                             android:layout_width="138dp"
                             android:layout_height="36dp"
                             android:layout_marginLeft="170dp"
@@ -216,7 +216,7 @@
                                     android:text="가나다라">
                                 </TextView>
                                 <TextView
-                                    android:id="@+id/tv_btn_inputcomment"
+                                    android:id="@+id/tv_create_comment"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textSize="13.5sp"
