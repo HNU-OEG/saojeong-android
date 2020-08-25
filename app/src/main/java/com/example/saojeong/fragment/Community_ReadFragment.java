@@ -26,6 +26,7 @@ import com.example.saojeong.R;
 import com.example.saojeong.adapter.CommunityAdapter_Comment;
 import com.example.saojeong.adapter.CommunityAdapter_item;
 import com.example.saojeong.auth.TokenCase;
+import com.example.saojeong.login.AllLoginManager;
 import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.model.Community_CommentValue;
 import com.example.saojeong.model.PostValue;
@@ -140,10 +141,10 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                 }
                 break;
             case R.id.ll_like_up:
-                LikePost("vote", "up");
-                mLikeUp.setTextColor(Color.parseColor("#ff6950"));
-                load_GetPost();
-
+                //LikePost("vote", "up");
+                //mLikeUp.setTextColor(Color.parseColor("#ff6950"));
+                //load_GetPost();
+                AllLoginManager.inst.login("GOOGLE", getActivity());
                 break;
             case R.id.ll_like_down:
                 LikePost("blame", "up");

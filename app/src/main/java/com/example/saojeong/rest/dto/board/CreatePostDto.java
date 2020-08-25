@@ -13,6 +13,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class CreatePostDto {
+
     @SerializedName("title")
     @Expose
     private String title;

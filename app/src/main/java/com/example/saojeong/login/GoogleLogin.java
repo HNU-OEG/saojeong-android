@@ -73,6 +73,7 @@ public class GoogleLogin implements LoginControl, GoogleApiClient.OnConnectionFa
     }
     @Override
     public void Login(Activity activity) {
+        mActivity=activity;
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         mActivity.startActivityForResult(signInIntent, RC_GET_AUTH_CODE);
     }

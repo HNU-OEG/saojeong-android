@@ -97,7 +97,6 @@ public class Community_WriteFragment extends Fragment {
     }
 
     private void CreatePost() {
-        Log.d("LOADSTORES HERE", "HERE");
         String strTitle=et_Title.getText().toString();
         if(strTitle.length()==0)
         {
@@ -125,9 +124,8 @@ public class Community_WriteFragment extends Fragment {
                     getActivity().onBackPressed();
                 }
                     Log.d(LOG, response.message());
-                } else { // 서버에서 문제 발생
-                    //likeStores = ContactShopOC._createContactsList(20);
-                    //likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                } else {
+
                 }
             }
 
