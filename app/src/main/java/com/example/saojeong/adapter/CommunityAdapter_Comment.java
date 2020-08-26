@@ -51,6 +51,8 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
     private BoardService boardService;
     public static String LOG="Comment";
     Community_Callback refresh_callback;
+    NestedScrollView nestedScroll;
+    public boolean refresh;
     public class ViewHolder extends RecyclerView.ViewHolder {
         public int comment_id;
         public TextView mTextView_ID;
@@ -111,7 +113,7 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
 
     private List<Post_CommentValue> mContacts;
 
-    public CommunityAdapter_Comment(List<Post_CommentValue> contacts, Context context, int board_id,int document_id, boolean replies, Community_Callback refresh_callback) {
+    public CommunityAdapter_Comment(List<Post_CommentValue> contacts, Context context, int board_id,int document_id, boolean replies, Community_Callback refresh_callback, NestedScrollView nestedScroll, boolean refresh) {
         mContacts = contacts;
         this.board_id=board_id;
         this.replies=replies;
@@ -119,6 +121,8 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         this.document_id=document_id;
         boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
         this.refresh_callback=refresh_callback;
+        this.nestedScroll=nestedScroll;
+        this.refresh=refresh;
     }
 
     @Override
@@ -142,11 +146,14 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         //holder.mTextView_Btn_ReComment.setText("["+contact.GetComment().size() + "]");
         CheckReComment(replies, holder);
         if(contact.getReplies()!=null) {
-            mAdapter = new CommunityAdapter_Comment(contact.getReplies(), mContext, board_id, document_id, true, refresh_callback);
+            mAdapter = new CommunityAdapter_Comment(contact.getReplies(), mContext, board_id, document_id, true, refresh_callback,nestedScroll, refresh);
             holder.mRecycleview.setAdapter(mAdapter);
             holder.mRecycleview.setLayoutManager(new LinearLayoutManager(mContext));
             holder.mRecycleview.setNestedScrollingEnabled(false);
+            holder.mRecycleview.smoothScrollToPosition(0);
         }
+        if(!refresh)
+            nestedScroll.fullScroll(View.FOCUS_UP);
     }
 
     @Override
@@ -190,6 +197,7 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
                 Log.d("fail", t.getMessage());
             }
         });
+        refresh_callback.callback();
     }
 
 

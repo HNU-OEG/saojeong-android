@@ -2,6 +2,7 @@ package com.example.saojeong.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -65,6 +66,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
     LinearLayout liLikeup;
     LinearLayout liLikeDown;
 
+    LinearLayout testli;
    // private Community_Service community_Service;
    public static String LOG="Comment";
    private BoardService boardService;
@@ -101,6 +103,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         mLikeDown=view.findViewById(R.id.tv_community_like_down);
         liLikeup=view.findViewById(R.id.ll_like_up);
         liLikeDown=view.findViewById(R.id.ll_like_down);
+        testli=view.findViewById(R.id.testLi);
         liLikeup.setOnClickListener(this);
         liLikeDown.setOnClickListener(this);
         mComment_create.setOnClickListener(this);
@@ -114,7 +117,6 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         //SpannableString content = new SpannableString(mComment_btn.getText());
         //content.setSpan(new UnderlineSpan(), 0, mComment_btn.getText().length(), 0);
         //mComment_btn.setText(content);
-
         return view;
     }
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -177,7 +179,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                             load_GetPost(true);
                         }
                     };
-                    mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext(), 10004,document_id,false, refresh_callback);
+                    mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext(), 10004,document_id,false, refresh_callback, mNestedScroll, refresh);
                     mRecycleview.setAdapter(mAdapter);
                     mRecycleview.setLayoutManager(new LinearLayoutManager(getContext()));
                     mRecycleview.setNestedScrollingEnabled(false);
@@ -193,8 +195,6 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                 Log.d("fail", t.getMessage());
             }
         });
-        if(!refresh)
-            mNestedScroll.scrollTo(0,0);
     }
 
     public void LikePost(String type, String task) {
@@ -237,7 +237,12 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                 Log.d("fail", t.getMessage());
             }
         });
-        load_GetPost(true);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                load_GetPost(true);
+            }
+        }, 500);
     }
 
 }
