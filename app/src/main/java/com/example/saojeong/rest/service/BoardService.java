@@ -1,16 +1,15 @@
 package com.example.saojeong.rest.service;
 
-import com.example.saojeong.rest.dto.board.CommunityPostListDto;
+import com.example.saojeong.rest.dto.board.CreateComentDto;
 import com.example.saojeong.rest.dto.board.CreatePostDto;
 import com.example.saojeong.rest.dto.board.GetPostDto;
 import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
 import com.example.saojeong.rest.dto.board.GetPostListDto;
 import com.example.saojeong.rest.dto.board.ModifiedPostDto;
-import com.example.saojeong.rest.dto.response.GetNewsesResponseDto;
+import com.example.saojeong.rest.dto.board.RepliesDto;
 
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -27,7 +26,7 @@ public interface BoardService {
     //게시글 조회
     //테스트 X
     @GET("/api/board/{board_id}/content/{document_id}")
-    Call<List<GetPostDto>> getPost(@Path("board_id") int board_id, @Path("document_id") int document_id);
+    Call<GetPostDto> getPost(@Path("board_id") int board_id, @Path("document_id") int document_id);
 
     @GET("/api/board/{board_id}/content")
     Call<List<GetPostListDto>> getNewses(@Path("board_id") int board_id);
@@ -39,20 +38,26 @@ public interface BoardService {
     Call<GetPostListArrayDto> getPostList(@Path("board_id") int board_id);
 
     //게시글 생성
-    //테슽 완료
+    //테스트 완료
     @POST("/api/board/{board_id}/content")
     Call<CreatePostDto> createPost(@Body CreatePostDto parameters, @Path("board_id") int board_id);
 
     //게시글삭제
+    //테스트 X
     @DELETE("/api/board/{board_id}/content/{document_id}")
-    Call<List<ResponseBody>> deletePost(@Path("board_id") int board_id, @Path("document_id") int document_id);
+    Call<Void> deletePost(@Path("board_id") int board_id, @Path("document_id") int document_id);
 
     //게시글수정
+    //테스트 X
     @PUT("/api/board/{board_id}/content/{document_id}")
-    Call<List<CommunityPostListDto>> modifiedPost(@Body ModifiedPostDto parameters, @Path("board_id") int board_id, @Path("document_id") int document_id);
+    Call<List<ModifiedPostDto>> modifiedPost(@Body ModifiedPostDto parameters, @Path("board_id") int board_id, @Path("document_id") int document_id);
 
     //게시글 추천비추천
-    @PATCH("/api/board/{board_id}/content/{document_id}?type=blame&task=down")
+    //테스트 X
+    @PATCH("/api/board/{board_id}/content/{document_id}")
     //Call<List<CommunityPostListDto>> likePost(@Field("type") String title, @Field("task") String down);
-    Call<List<CommunityPostListDto>> likePost(@Path("board_id") int board_id, @Path("document_id") int document_id, @Query("type") String type, @Query("task") String task);
+    Call<GetPostDto> likePost(@Path("board_id") int board_id, @Path("document_id") int document_id, @Query("type") String type, @Query("task") String task);
+//api/board/{category}/content/{document_id}/comment/{comment_id}
+    @PUT("/api/board/{board_id}/content/{document_id}/comment/new")
+    Call<CreateComentDto> createComment(@Body CreateComentDto parameters, @Path("board_id") int board_id, @Path("document_id") int document_id);
 }

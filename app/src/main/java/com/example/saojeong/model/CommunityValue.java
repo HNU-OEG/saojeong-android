@@ -1,7 +1,6 @@
 package com.example.saojeong.model;
 
 
-import com.example.saojeong.rest.dto.board.CommunityPostListDto_1;
 import com.example.saojeong.rest.dto.board.GetPostListDto;
 
 import java.util.ArrayList;
@@ -10,6 +9,7 @@ import java.util.List;
 public class CommunityValue {
 
     public Integer id;
+    public int document_id;
     public String title;
     public String author;
     public String createdAt;
@@ -17,7 +17,16 @@ public class CommunityValue {
     public int votedCount;
 
     public CommunityValue(String title) {
+        this.title = title;
+    }
+    public CommunityValue(String title, String author, String createdAt, int commentCount, int votedCount, int document_id)
+    {
         this.title=title;
+        this.author=author;
+        this.createdAt=createdAt;
+        this.commentCount=commentCount;
+        this.votedCount=votedCount;
+        this.document_id=document_id;
     }
 
     public CommunityValue(Integer id, String title, String author, String createdAt, int commentCount, int votedCount) {
@@ -38,6 +47,9 @@ public class CommunityValue {
         this.votedCount = dto.getVotedCount();
     }
 
+    public int getDocument_id() {
+        return document_id;
+    }
 
     public String getTitle() {
         return title;
@@ -60,9 +72,9 @@ public class CommunityValue {
     }
 
     public static List<CommunityValue> createNewsContactsList() {
-        List<CommunityValue> contacts = new ArrayList<>();
-        contacts.add(new CommunityValue("https://saojeong-images.s3.ap-northeast-2.amazonaws.com/news/fullview.png"));
-        return contacts;
+            List<CommunityValue> contacts = new ArrayList<>();
+            contacts.add(new CommunityValue("https://saojeong-images.s3.ap-northeast-2.amazonaws.com/news/fullview.png"));
+            return contacts;
     }
 
     public static List<CommunityValue> createContactsList(List<GetPostListDto> response) {

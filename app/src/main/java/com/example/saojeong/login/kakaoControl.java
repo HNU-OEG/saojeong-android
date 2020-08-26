@@ -26,18 +26,18 @@ public class kakaoControl implements ISessionCallback, LoginControl {
 
     public kakaoControl(LoginControl.LoginHandler loginHandler) {
         this.handler = loginHandler;
-        //카카오자동로그인
-        //UserManagement.getInstance().me(new MeV2ResponseCallback() {
-        //    @Override
-        //    public void onSessionClosed(ErrorResult errorResult) {
-//
-        //    }
-//
-        //    @Override
-        //    public void onSuccess(MeV2Response result) {
-        //        kakaoControl.this.handler.success();
-        //    }
-        //});
+
+        UserManagement.getInstance().me(new MeV2ResponseCallback() {
+            @Override
+            public void onSessionClosed(ErrorResult errorResult) {
+
+            }
+
+            @Override
+            public void onSuccess(MeV2Response result) {
+                kakaoControl.this.handler.success();
+            }
+        });
 
     }
 

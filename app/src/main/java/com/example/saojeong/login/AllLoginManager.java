@@ -28,10 +28,14 @@ public class AllLoginManager {
     Activity mActivity;
     Context mContext;
     public AllLoginManager(Activity activity, Context context) {
+        if(inst!=null) {
+
+            inst.mActivity=activity;
+            inst.mContext=context;
+            return;
+        }
         mActivity=activity;
         mContext=context;
-        if(inst!=null)
-            return;
         map=new HashMap<>();
         LoginControl facelogin=new FacebookLogin(mActivity, new LoginControl.LoginHandler() {
             @Override

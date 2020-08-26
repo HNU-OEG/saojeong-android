@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import com.example.saojeong.fragment.HomeFragment;
 import com.example.saojeong.fragment.PriceFragment;
 import com.example.saojeong.fragment.MyPageFragment;
 import com.example.saojeong.fragment.QnAFragment;
+import com.example.saojeong.login.AllLoginManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -199,5 +201,12 @@ public class MainActivity extends AppCompatActivity {
                 transaction.commit();
                 break;
         }
+    }
+
+    @Override //로그인 받아오기
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        AllLoginManager.inst.onActivityResult(requestCode,resultCode,data);
+
     }
 }
