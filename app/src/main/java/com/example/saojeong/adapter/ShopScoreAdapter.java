@@ -2,11 +2,13 @@ package com.example.saojeong.adapter;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -41,22 +43,25 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
     TextView tv_itemscore;
     TextView tv_pricescore;
     TextView tv_evaluate;
+    LinearLayout ll_shop_kind;
+    LinearLayout ll_shop_item;
+    LinearLayout ll_shop_price;
 
-    ImageView iv_kindstar1;
-    ImageView iv_kindstar2;
-    ImageView iv_kindstar3;
-    ImageView iv_kindstar4;
-    ImageView iv_kindstar5;
-    ImageView iv_itemstar1;
-    ImageView iv_itemstar2;
-    ImageView iv_itemstar3;
-    ImageView iv_itemstar4;
-    ImageView iv_itemstar5;
-    ImageView iv_pricestar1;
-    ImageView iv_pricestar2;
-    ImageView iv_pricestar3;
-    ImageView iv_pricestar4;
-    ImageView iv_pricestar5;
+//    ImageView iv_kindstar1;
+//    ImageView iv_kindstar2;
+//    ImageView iv_kindstar3;
+//    ImageView iv_kindstar4;
+//    ImageView iv_kindstar5;
+//    ImageView iv_itemstar1;
+//    ImageView iv_itemstar2;
+//    ImageView iv_itemstar3;
+//    ImageView iv_itemstar4;
+//    ImageView iv_itemstar5;
+//    ImageView iv_pricestar1;
+//    ImageView iv_pricestar2;
+//    ImageView iv_pricestar3;
+//    ImageView iv_pricestar4;
+//    ImageView iv_pricestar5;
 
     String S_kindscore;
     String S_itemscore;
@@ -95,21 +100,24 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
             tv_kindscore = (TextView) itemView.findViewById(R.id.tv_shop_kindscore);
             tv_itemscore = (TextView) itemView.findViewById(R.id.tv_shop_itemscore);
             tv_pricescore = (TextView) itemView.findViewById(R.id.tv_shop_pricescore);
-            iv_kindstar1 = (ImageView) itemView.findViewById(R.id.iv_shop_kindstar1);
-            iv_kindstar2 = (ImageView) itemView.findViewById(R.id.iv_shop_kindstar2);
-            iv_kindstar3 = (ImageView) itemView.findViewById(R.id.iv_shop_kindstar3);
-            iv_kindstar4 = (ImageView) itemView.findViewById(R.id.iv_shop_kindstar4);
-            iv_kindstar5 = (ImageView) itemView.findViewById(R.id.iv_shop_kindstar5);
-            iv_itemstar1 = (ImageView) itemView.findViewById(R.id.iv_shop_itemstar1);
-            iv_itemstar2 = (ImageView) itemView.findViewById(R.id.iv_shop_itemstar2);
-            iv_itemstar3 = (ImageView) itemView.findViewById(R.id.iv_shop_itemstar3);
-            iv_itemstar4 = (ImageView) itemView.findViewById(R.id.iv_shop_itemstar4);
-            iv_itemstar5 = (ImageView) itemView.findViewById(R.id.iv_shop_itemstar5);
-            iv_pricestar1 = (ImageView) itemView.findViewById(R.id.iv_shop_pricestar1);
-            iv_pricestar2 = (ImageView) itemView.findViewById(R.id.iv_shop_pricestar2);
-            iv_pricestar3 = (ImageView) itemView.findViewById(R.id.iv_shop_pricestar3);
-            iv_pricestar4 = (ImageView) itemView.findViewById(R.id.iv_shop_pricestar4);
-            iv_pricestar5 = (ImageView) itemView.findViewById(R.id.iv_shop_pricestar5);
+            ll_shop_kind = itemView.findViewById(R.id.ll_shop_kind);
+            ll_shop_item = itemView.findViewById(R.id.ll_shop_item);
+            ll_shop_price = itemView.findViewById(R.id.ll_shop_price);
+//            iv_kindstar1 = (ImageView) itemView.findViewById(R.id.iv_shop_kindstar1);
+//            iv_kindstar2 = (ImageView) itemView.findViewById(R.id.iv_shop_kindstar2);
+//            iv_kindstar3 = (ImageView) itemView.findViewById(R.id.iv_shop_kindstar3);
+//            iv_kindstar4 = (ImageView) itemView.findViewById(R.id.iv_shop_kindstar4);
+//            iv_kindstar5 = (ImageView) itemView.findViewById(R.id.iv_shop_kindstar5);
+//            iv_itemstar1 = (ImageView) itemView.findViewById(R.id.iv_shop_itemstar1);
+//            iv_itemstar2 = (ImageView) itemView.findViewById(R.id.iv_shop_itemstar2);
+//            iv_itemstar3 = (ImageView) itemView.findViewById(R.id.iv_shop_itemstar3);
+//            iv_itemstar4 = (ImageView) itemView.findViewById(R.id.iv_shop_itemstar4);
+//            iv_itemstar5 = (ImageView) itemView.findViewById(R.id.iv_shop_itemstar5);
+//            iv_pricestar1 = (ImageView) itemView.findViewById(R.id.iv_shop_pricestar1);
+//            iv_pricestar2 = (ImageView) itemView.findViewById(R.id.iv_shop_pricestar2);
+//            iv_pricestar3 = (ImageView) itemView.findViewById(R.id.iv_shop_pricestar3);
+//            iv_pricestar4 = (ImageView) itemView.findViewById(R.id.iv_shop_pricestar4);
+//            iv_pricestar5 = (ImageView) itemView.findViewById(R.id.iv_shop_pricestar5);
 
             recyclerShopStarScore = (RecyclerView) itemView.findViewById(R.id.recycler_shop_score);
         }
@@ -202,216 +210,243 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
         itemscore = Float.parseFloat(S_itemscore);
         pricescore = Float.parseFloat(S_pricescore);
 
-        //평점에 따라 별 개수 변경(친절도)
-        if (kindscore >= 0 && kindscore < 0.5) {
-            iv_kindstar1.setImageResource(R.drawable.star_empty);
-            iv_kindstar2.setImageResource(R.drawable.star_empty);
-            iv_kindstar3.setImageResource(R.drawable.star_empty);
-            iv_kindstar4.setImageResource(R.drawable.star_empty);
-            iv_kindstar5.setImageResource(R.drawable.star_empty);
-        } else if (kindscore >= 0.5 && kindscore < 1) {
-            iv_kindstar1.setImageResource(R.drawable.star_half);
-            iv_kindstar2.setImageResource(R.drawable.star_empty);
-            iv_kindstar3.setImageResource(R.drawable.star_empty);
-            iv_kindstar4.setImageResource(R.drawable.star_empty);
-            iv_kindstar5.setImageResource(R.drawable.star_empty);
-        } else if (kindscore >= 1 && kindscore < 1.5) {
-            iv_kindstar1.setImageResource(R.drawable.star_fill);
-            iv_kindstar2.setImageResource(R.drawable.star_empty);
-            iv_kindstar3.setImageResource(R.drawable.star_empty);
-            iv_kindstar4.setImageResource(R.drawable.star_empty);
-            iv_kindstar5.setImageResource(R.drawable.star_empty);
-        } else if (kindscore >= 1.5 && kindscore < 2) {
-            iv_kindstar1.setImageResource(R.drawable.star_fill);
-            iv_kindstar2.setImageResource(R.drawable.star_half);
-            iv_kindstar3.setImageResource(R.drawable.star_empty);
-            iv_kindstar4.setImageResource(R.drawable.star_empty);
-            iv_kindstar5.setImageResource(R.drawable.star_empty);
-        } else if (kindscore >= 2 && kindscore < 2.5) {
-            iv_kindstar1.setImageResource(R.drawable.star_fill);
-            iv_kindstar2.setImageResource(R.drawable.star_fill);
-            iv_kindstar3.setImageResource(R.drawable.star_empty);
-            iv_kindstar4.setImageResource(R.drawable.star_empty);
-            iv_kindstar5.setImageResource(R.drawable.star_empty);
-        } else if (kindscore >= 2.5 && kindscore < 3) {
-            iv_kindstar1.setImageResource(R.drawable.star_fill);
-            iv_kindstar2.setImageResource(R.drawable.star_fill);
-            iv_kindstar3.setImageResource(R.drawable.star_half);
-            iv_kindstar4.setImageResource(R.drawable.star_empty);
-            iv_kindstar5.setImageResource(R.drawable.star_empty);
-        } else if (kindscore >= 3 && kindscore < 3.5) {
-            iv_kindstar1.setImageResource(R.drawable.star_fill);
-            iv_kindstar2.setImageResource(R.drawable.star_fill);
-            iv_kindstar3.setImageResource(R.drawable.star_fill);
-            iv_kindstar4.setImageResource(R.drawable.star_empty);
-            iv_kindstar5.setImageResource(R.drawable.star_empty);
-        } else if (kindscore >= 3.5 && kindscore < 4) {
-            iv_kindstar1.setImageResource(R.drawable.star_fill);
-            iv_kindstar2.setImageResource(R.drawable.star_fill);
-            iv_kindstar3.setImageResource(R.drawable.star_fill);
-            iv_kindstar4.setImageResource(R.drawable.star_half);
-            iv_kindstar5.setImageResource(R.drawable.star_empty);
-        } else if (kindscore >= 4 && kindscore < 4.5) {
-            iv_kindstar1.setImageResource(R.drawable.star_fill);
-            iv_kindstar2.setImageResource(R.drawable.star_fill);
-            iv_kindstar3.setImageResource(R.drawable.star_fill);
-            iv_kindstar4.setImageResource(R.drawable.star_fill);
-            iv_kindstar5.setImageResource(R.drawable.star_empty);
-        } else if (kindscore >= 4.5 && kindscore < 5) {
-            iv_kindstar1.setImageResource(R.drawable.star_fill);
-            iv_kindstar2.setImageResource(R.drawable.star_fill);
-            iv_kindstar3.setImageResource(R.drawable.star_fill);
-            iv_kindstar4.setImageResource(R.drawable.star_fill);
-            iv_kindstar5.setImageResource(R.drawable.star_half);
-        } else if (kindscore == 5) {
-            iv_kindstar1.setImageResource(R.drawable.star_fill);
-            iv_kindstar2.setImageResource(R.drawable.star_fill);
-            iv_kindstar3.setImageResource(R.drawable.star_fill);
-            iv_kindstar4.setImageResource(R.drawable.star_fill);
-            iv_kindstar5.setImageResource(R.drawable.star_fill);
-        }
-
-        //평점에 따라 별 개수 변경(상품성)
-        if (itemscore >= 0 && itemscore < 0.5) {
-            iv_itemstar1.setImageResource(R.drawable.star_empty);
-            iv_itemstar2.setImageResource(R.drawable.star_empty);
-            iv_itemstar3.setImageResource(R.drawable.star_empty);
-            iv_itemstar4.setImageResource(R.drawable.star_empty);
-            iv_itemstar5.setImageResource(R.drawable.star_empty);
-        } else if (itemscore >= 0.5 && itemscore < 1) {
-            iv_itemstar1.setImageResource(R.drawable.star_half);
-            iv_itemstar2.setImageResource(R.drawable.star_empty);
-            iv_itemstar3.setImageResource(R.drawable.star_empty);
-            iv_itemstar4.setImageResource(R.drawable.star_empty);
-            iv_itemstar5.setImageResource(R.drawable.star_empty);
-        } else if (itemscore >= 1 && itemscore < 1.5) {
-            iv_itemstar1.setImageResource(R.drawable.star_fill);
-            iv_itemstar2.setImageResource(R.drawable.star_empty);
-            iv_itemstar3.setImageResource(R.drawable.star_empty);
-            iv_itemstar4.setImageResource(R.drawable.star_empty);
-            iv_itemstar5.setImageResource(R.drawable.star_empty);
-        } else if (itemscore >= 1.5 && itemscore < 2) {
-            iv_itemstar1.setImageResource(R.drawable.star_fill);
-            iv_itemstar2.setImageResource(R.drawable.star_half);
-            iv_itemstar3.setImageResource(R.drawable.star_empty);
-            iv_itemstar4.setImageResource(R.drawable.star_empty);
-            iv_itemstar5.setImageResource(R.drawable.star_empty);
-        } else if (itemscore >= 2 && itemscore < 2.5) {
-            iv_itemstar1.setImageResource(R.drawable.star_fill);
-            iv_itemstar2.setImageResource(R.drawable.star_fill);
-            iv_itemstar3.setImageResource(R.drawable.star_empty);
-            iv_itemstar4.setImageResource(R.drawable.star_empty);
-            iv_itemstar5.setImageResource(R.drawable.star_empty);
-        } else if (itemscore >= 2.5 && itemscore < 3) {
-            iv_itemstar1.setImageResource(R.drawable.star_fill);
-            iv_itemstar2.setImageResource(R.drawable.star_fill);
-            iv_itemstar3.setImageResource(R.drawable.star_half);
-            iv_itemstar4.setImageResource(R.drawable.star_empty);
-            iv_itemstar5.setImageResource(R.drawable.star_empty);
-        } else if (itemscore >= 3 && itemscore < 3.5) {
-            iv_itemstar1.setImageResource(R.drawable.star_fill);
-            iv_itemstar2.setImageResource(R.drawable.star_fill);
-            iv_itemstar3.setImageResource(R.drawable.star_fill);
-            iv_itemstar4.setImageResource(R.drawable.star_empty);
-            iv_itemstar5.setImageResource(R.drawable.star_empty);
-        } else if (itemscore >= 3.5 && itemscore < 4) {
-            iv_itemstar1.setImageResource(R.drawable.star_fill);
-            iv_itemstar2.setImageResource(R.drawable.star_fill);
-            iv_itemstar3.setImageResource(R.drawable.star_fill);
-            iv_itemstar4.setImageResource(R.drawable.star_half);
-            iv_itemstar5.setImageResource(R.drawable.star_empty);
-        } else if (itemscore >= 4 && itemscore < 4.5) {
-            iv_itemstar1.setImageResource(R.drawable.star_fill);
-            iv_itemstar2.setImageResource(R.drawable.star_fill);
-            iv_itemstar3.setImageResource(R.drawable.star_fill);
-            iv_itemstar4.setImageResource(R.drawable.star_fill);
-            iv_itemstar5.setImageResource(R.drawable.star_empty);
-        } else if (itemscore >= 4.5 && itemscore < 5) {
-            iv_itemstar1.setImageResource(R.drawable.star_fill);
-            iv_itemstar2.setImageResource(R.drawable.star_fill);
-            iv_itemstar3.setImageResource(R.drawable.star_fill);
-            iv_itemstar4.setImageResource(R.drawable.star_fill);
-            iv_itemstar5.setImageResource(R.drawable.star_half);
-        } else if (itemscore == 5) {
-            iv_itemstar1.setImageResource(R.drawable.star_fill);
-            iv_itemstar2.setImageResource(R.drawable.star_fill);
-            iv_itemstar3.setImageResource(R.drawable.star_fill);
-            iv_itemstar4.setImageResource(R.drawable.star_fill);
-            iv_itemstar5.setImageResource(R.drawable.star_fill);
-        }
-
-        //평점에 따라 별 개수 변경(가격)
-        if (pricescore >= 0 && pricescore < 0.5) {
-            iv_pricestar1.setImageResource(R.drawable.star_empty);
-            iv_pricestar2.setImageResource(R.drawable.star_empty);
-            iv_pricestar3.setImageResource(R.drawable.star_empty);
-            iv_pricestar4.setImageResource(R.drawable.star_empty);
-            iv_pricestar5.setImageResource(R.drawable.star_empty);
-        } else if (pricescore >= 0.5 && pricescore < 1) {
-            iv_pricestar1.setImageResource(R.drawable.star_half);
-            iv_pricestar2.setImageResource(R.drawable.star_empty);
-            iv_pricestar3.setImageResource(R.drawable.star_empty);
-            iv_pricestar4.setImageResource(R.drawable.star_empty);
-            iv_pricestar5.setImageResource(R.drawable.star_empty);
-        } else if (pricescore >= 1 && pricescore < 1.5) {
-            iv_pricestar1.setImageResource(R.drawable.star_fill);
-            iv_pricestar2.setImageResource(R.drawable.star_empty);
-            iv_pricestar3.setImageResource(R.drawable.star_empty);
-            iv_pricestar4.setImageResource(R.drawable.star_empty);
-            iv_pricestar5.setImageResource(R.drawable.star_empty);
-        } else if (pricescore >= 1.5 && pricescore < 2) {
-            iv_pricestar1.setImageResource(R.drawable.star_fill);
-            iv_pricestar2.setImageResource(R.drawable.star_half);
-            iv_pricestar3.setImageResource(R.drawable.star_empty);
-            iv_pricestar4.setImageResource(R.drawable.star_empty);
-            iv_pricestar5.setImageResource(R.drawable.star_empty);
-        } else if (pricescore >= 2 && pricescore < 2.5) {
-            iv_pricestar1.setImageResource(R.drawable.star_fill);
-            iv_pricestar2.setImageResource(R.drawable.star_fill);
-            iv_pricestar3.setImageResource(R.drawable.star_empty);
-            iv_pricestar4.setImageResource(R.drawable.star_empty);
-            iv_pricestar5.setImageResource(R.drawable.star_empty);
-        } else if (pricescore >= 2.5 && pricescore < 3) {
-            iv_pricestar1.setImageResource(R.drawable.star_fill);
-            iv_pricestar2.setImageResource(R.drawable.star_fill);
-            iv_pricestar3.setImageResource(R.drawable.star_half);
-            iv_pricestar4.setImageResource(R.drawable.star_empty);
-            iv_pricestar5.setImageResource(R.drawable.star_empty);
-        } else if (pricescore >= 3 && pricescore < 3.5) {
-            iv_pricestar1.setImageResource(R.drawable.star_fill);
-            iv_pricestar2.setImageResource(R.drawable.star_fill);
-            iv_pricestar3.setImageResource(R.drawable.star_fill);
-            iv_pricestar4.setImageResource(R.drawable.star_empty);
-            iv_pricestar5.setImageResource(R.drawable.star_empty);
-        } else if (pricescore >= 3.5 && pricescore < 4) {
-            iv_pricestar1.setImageResource(R.drawable.star_fill);
-            iv_pricestar2.setImageResource(R.drawable.star_fill);
-            iv_pricestar3.setImageResource(R.drawable.star_fill);
-            iv_pricestar4.setImageResource(R.drawable.star_half);
-            iv_pricestar5.setImageResource(R.drawable.star_empty);
-        } else if (pricescore >= 4 && pricescore < 4.5) {
-            iv_pricestar1.setImageResource(R.drawable.star_fill);
-            iv_pricestar2.setImageResource(R.drawable.star_fill);
-            iv_pricestar3.setImageResource(R.drawable.star_fill);
-            iv_pricestar4.setImageResource(R.drawable.star_fill);
-            iv_pricestar5.setImageResource(R.drawable.star_empty);
-        } else if (pricescore >= 4.5 && pricescore < 5) {
-            iv_pricestar1.setImageResource(R.drawable.star_fill);
-            iv_pricestar2.setImageResource(R.drawable.star_fill);
-            iv_pricestar3.setImageResource(R.drawable.star_fill);
-            iv_pricestar4.setImageResource(R.drawable.star_fill);
-            iv_pricestar5.setImageResource(R.drawable.star_half);
-        } else if (pricescore == 5) {
-            iv_pricestar1.setImageResource(R.drawable.star_fill);
-            iv_pricestar2.setImageResource(R.drawable.star_fill);
-            iv_pricestar3.setImageResource(R.drawable.star_fill);
-            iv_pricestar4.setImageResource(R.drawable.star_fill);
-            iv_pricestar5.setImageResource(R.drawable.star_fill);
-        }
+        markingStar(kindscore, ll_shop_kind);
+        markingStar(itemscore, ll_shop_item);
+        markingStar(pricescore, ll_shop_price);
+//        //평점에 따라 별 개수 변경(친절도)
+//        if (kindscore >= 0 && kindscore < 0.5) {
+//            iv_kindstar1.setImageResource(R.drawable.star_empty);
+//            iv_kindstar2.setImageResource(R.drawable.star_empty);
+//            iv_kindstar3.setImageResource(R.drawable.star_empty);
+//            iv_kindstar4.setImageResource(R.drawable.star_empty);
+//            iv_kindstar5.setImageResource(R.drawable.star_empty);
+//        } else if (kindscore >= 0.5 && kindscore < 1) {
+//            iv_kindstar1.setImageResource(R.drawable.star_half);
+//            iv_kindstar2.setImageResource(R.drawable.star_empty);
+//            iv_kindstar3.setImageResource(R.drawable.star_empty);
+//            iv_kindstar4.setImageResource(R.drawable.star_empty);
+//            iv_kindstar5.setImageResource(R.drawable.star_empty);
+//        } else if (kindscore >= 1 && kindscore < 1.5) {
+//            iv_kindstar1.setImageResource(R.drawable.star_fill);
+//            iv_kindstar2.setImageResource(R.drawable.star_empty);
+//            iv_kindstar3.setImageResource(R.drawable.star_empty);
+//            iv_kindstar4.setImageResource(R.drawable.star_empty);
+//            iv_kindstar5.setImageResource(R.drawable.star_empty);
+//        } else if (kindscore >= 1.5 && kindscore < 2) {
+//            iv_kindstar1.setImageResource(R.drawable.star_fill);
+//            iv_kindstar2.setImageResource(R.drawable.star_half);
+//            iv_kindstar3.setImageResource(R.drawable.star_empty);
+//            iv_kindstar4.setImageResource(R.drawable.star_empty);
+//            iv_kindstar5.setImageResource(R.drawable.star_empty);
+//        } else if (kindscore >= 2 && kindscore < 2.5) {
+//            iv_kindstar1.setImageResource(R.drawable.star_fill);
+//            iv_kindstar2.setImageResource(R.drawable.star_fill);
+//            iv_kindstar3.setImageResource(R.drawable.star_empty);
+//            iv_kindstar4.setImageResource(R.drawable.star_empty);
+//            iv_kindstar5.setImageResource(R.drawable.star_empty);
+//        } else if (kindscore >= 2.5 && kindscore < 3) {
+//            iv_kindstar1.setImageResource(R.drawable.star_fill);
+//            iv_kindstar2.setImageResource(R.drawable.star_fill);
+//            iv_kindstar3.setImageResource(R.drawable.star_half);
+//            iv_kindstar4.setImageResource(R.drawable.star_empty);
+//            iv_kindstar5.setImageResource(R.drawable.star_empty);
+//        } else if (kindscore >= 3 && kindscore < 3.5) {
+//            iv_kindstar1.setImageResource(R.drawable.star_fill);
+//            iv_kindstar2.setImageResource(R.drawable.star_fill);
+//            iv_kindstar3.setImageResource(R.drawable.star_fill);
+//            iv_kindstar4.setImageResource(R.drawable.star_empty);
+//            iv_kindstar5.setImageResource(R.drawable.star_empty);
+//        } else if (kindscore >= 3.5 && kindscore < 4) {
+//            iv_kindstar1.setImageResource(R.drawable.star_fill);
+//            iv_kindstar2.setImageResource(R.drawable.star_fill);
+//            iv_kindstar3.setImageResource(R.drawable.star_fill);
+//            iv_kindstar4.setImageResource(R.drawable.star_half);
+//            iv_kindstar5.setImageResource(R.drawable.star_empty);
+//        } else if (kindscore >= 4 && kindscore < 4.5) {
+//            iv_kindstar1.setImageResource(R.drawable.star_fill);
+//            iv_kindstar2.setImageResource(R.drawable.star_fill);
+//            iv_kindstar3.setImageResource(R.drawable.star_fill);
+//            iv_kindstar4.setImageResource(R.drawable.star_fill);
+//            iv_kindstar5.setImageResource(R.drawable.star_empty);
+//        } else if (kindscore >= 4.5 && kindscore < 5) {
+//            iv_kindstar1.setImageResource(R.drawable.star_fill);
+//            iv_kindstar2.setImageResource(R.drawable.star_fill);
+//            iv_kindstar3.setImageResource(R.drawable.star_fill);
+//            iv_kindstar4.setImageResource(R.drawable.star_fill);
+//            iv_kindstar5.setImageResource(R.drawable.star_half);
+//        } else if (kindscore == 5) {
+//            iv_kindstar1.setImageResource(R.drawable.star_fill);
+//            iv_kindstar2.setImageResource(R.drawable.star_fill);
+//            iv_kindstar3.setImageResource(R.drawable.star_fill);
+//            iv_kindstar4.setImageResource(R.drawable.star_fill);
+//            iv_kindstar5.setImageResource(R.drawable.star_fill);
+//        }
+//
+//        //평점에 따라 별 개수 변경(상품성)
+//        if (itemscore >= 0 && itemscore < 0.5) {
+//            iv_itemstar1.setImageResource(R.drawable.star_empty);
+//            iv_itemstar2.setImageResource(R.drawable.star_empty);
+//            iv_itemstar3.setImageResource(R.drawable.star_empty);
+//            iv_itemstar4.setImageResource(R.drawable.star_empty);
+//            iv_itemstar5.setImageResource(R.drawable.star_empty);
+//        } else if (itemscore >= 0.5 && itemscore < 1) {
+//            iv_itemstar1.setImageResource(R.drawable.star_half);
+//            iv_itemstar2.setImageResource(R.drawable.star_empty);
+//            iv_itemstar3.setImageResource(R.drawable.star_empty);
+//            iv_itemstar4.setImageResource(R.drawable.star_empty);
+//            iv_itemstar5.setImageResource(R.drawable.star_empty);
+//        } else if (itemscore >= 1 && itemscore < 1.5) {
+//            iv_itemstar1.setImageResource(R.drawable.star_fill);
+//            iv_itemstar2.setImageResource(R.drawable.star_empty);
+//            iv_itemstar3.setImageResource(R.drawable.star_empty);
+//            iv_itemstar4.setImageResource(R.drawable.star_empty);
+//            iv_itemstar5.setImageResource(R.drawable.star_empty);
+//        } else if (itemscore >= 1.5 && itemscore < 2) {
+//            iv_itemstar1.setImageResource(R.drawable.star_fill);
+//            iv_itemstar2.setImageResource(R.drawable.star_half);
+//            iv_itemstar3.setImageResource(R.drawable.star_empty);
+//            iv_itemstar4.setImageResource(R.drawable.star_empty);
+//            iv_itemstar5.setImageResource(R.drawable.star_empty);
+//        } else if (itemscore >= 2 && itemscore < 2.5) {
+//            iv_itemstar1.setImageResource(R.drawable.star_fill);
+//            iv_itemstar2.setImageResource(R.drawable.star_fill);
+//            iv_itemstar3.setImageResource(R.drawable.star_empty);
+//            iv_itemstar4.setImageResource(R.drawable.star_empty);
+//            iv_itemstar5.setImageResource(R.drawable.star_empty);
+//        } else if (itemscore >= 2.5 && itemscore < 3) {
+//            iv_itemstar1.setImageResource(R.drawable.star_fill);
+//            iv_itemstar2.setImageResource(R.drawable.star_fill);
+//            iv_itemstar3.setImageResource(R.drawable.star_half);
+//            iv_itemstar4.setImageResource(R.drawable.star_empty);
+//            iv_itemstar5.setImageResource(R.drawable.star_empty);
+//        } else if (itemscore >= 3 && itemscore < 3.5) {
+//            iv_itemstar1.setImageResource(R.drawable.star_fill);
+//            iv_itemstar2.setImageResource(R.drawable.star_fill);
+//            iv_itemstar3.setImageResource(R.drawable.star_fill);
+//            iv_itemstar4.setImageResource(R.drawable.star_empty);
+//            iv_itemstar5.setImageResource(R.drawable.star_empty);
+//        } else if (itemscore >= 3.5 && itemscore < 4) {
+//            iv_itemstar1.setImageResource(R.drawable.star_fill);
+//            iv_itemstar2.setImageResource(R.drawable.star_fill);
+//            iv_itemstar3.setImageResource(R.drawable.star_fill);
+//            iv_itemstar4.setImageResource(R.drawable.star_half);
+//            iv_itemstar5.setImageResource(R.drawable.star_empty);
+//        } else if (itemscore >= 4 && itemscore < 4.5) {
+//            iv_itemstar1.setImageResource(R.drawable.star_fill);
+//            iv_itemstar2.setImageResource(R.drawable.star_fill);
+//            iv_itemstar3.setImageResource(R.drawable.star_fill);
+//            iv_itemstar4.setImageResource(R.drawable.star_fill);
+//            iv_itemstar5.setImageResource(R.drawable.star_empty);
+//        } else if (itemscore >= 4.5 && itemscore < 5) {
+//            iv_itemstar1.setImageResource(R.drawable.star_fill);
+//            iv_itemstar2.setImageResource(R.drawable.star_fill);
+//            iv_itemstar3.setImageResource(R.drawable.star_fill);
+//            iv_itemstar4.setImageResource(R.drawable.star_fill);
+//            iv_itemstar5.setImageResource(R.drawable.star_half);
+//        } else if (itemscore == 5) {
+//            iv_itemstar1.setImageResource(R.drawable.star_fill);
+//            iv_itemstar2.setImageResource(R.drawable.star_fill);
+//            iv_itemstar3.setImageResource(R.drawable.star_fill);
+//            iv_itemstar4.setImageResource(R.drawable.star_fill);
+//            iv_itemstar5.setImageResource(R.drawable.star_fill);
+//        }
+//
+//        //평점에 따라 별 개수 변경(가격)
+//        if (pricescore >= 0 && pricescore < 0.5) {
+//            iv_pricestar1.setImageResource(R.drawable.star_empty);
+//            iv_pricestar2.setImageResource(R.drawable.star_empty);
+//            iv_pricestar3.setImageResource(R.drawable.star_empty);
+//            iv_pricestar4.setImageResource(R.drawable.star_empty);
+//            iv_pricestar5.setImageResource(R.drawable.star_empty);
+//        } else if (pricescore >= 0.5 && pricescore < 1) {
+//            iv_pricestar1.setImageResource(R.drawable.star_half);
+//            iv_pricestar2.setImageResource(R.drawable.star_empty);
+//            iv_pricestar3.setImageResource(R.drawable.star_empty);
+//            iv_pricestar4.setImageResource(R.drawable.star_empty);
+//            iv_pricestar5.setImageResource(R.drawable.star_empty);
+//        } else if (pricescore >= 1 && pricescore < 1.5) {
+//            iv_pricestar1.setImageResource(R.drawable.star_fill);
+//            iv_pricestar2.setImageResource(R.drawable.star_empty);
+//            iv_pricestar3.setImageResource(R.drawable.star_empty);
+//            iv_pricestar4.setImageResource(R.drawable.star_empty);
+//            iv_pricestar5.setImageResource(R.drawable.star_empty);
+//        } else if (pricescore >= 1.5 && pricescore < 2) {
+//            iv_pricestar1.setImageResource(R.drawable.star_fill);
+//            iv_pricestar2.setImageResource(R.drawable.star_half);
+//            iv_pricestar3.setImageResource(R.drawable.star_empty);
+//            iv_pricestar4.setImageResource(R.drawable.star_empty);
+//            iv_pricestar5.setImageResource(R.drawable.star_empty);
+//        } else if (pricescore >= 2 && pricescore < 2.5) {
+//            iv_pricestar1.setImageResource(R.drawable.star_fill);
+//            iv_pricestar2.setImageResource(R.drawable.star_fill);
+//            iv_pricestar3.setImageResource(R.drawable.star_empty);
+//            iv_pricestar4.setImageResource(R.drawable.star_empty);
+//            iv_pricestar5.setImageResource(R.drawable.star_empty);
+//        } else if (pricescore >= 2.5 && pricescore < 3) {
+//            iv_pricestar1.setImageResource(R.drawable.star_fill);
+//            iv_pricestar2.setImageResource(R.drawable.star_fill);
+//            iv_pricestar3.setImageResource(R.drawable.star_half);
+//            iv_pricestar4.setImageResource(R.drawable.star_empty);
+//            iv_pricestar5.setImageResource(R.drawable.star_empty);
+//        } else if (pricescore >= 3 && pricescore < 3.5) {
+//            iv_pricestar1.setImageResource(R.drawable.star_fill);
+//            iv_pricestar2.setImageResource(R.drawable.star_fill);
+//            iv_pricestar3.setImageResource(R.drawable.star_fill);
+//            iv_pricestar4.setImageResource(R.drawable.star_empty);
+//            iv_pricestar5.setImageResource(R.drawable.star_empty);
+//        } else if (pricescore >= 3.5 && pricescore < 4) {
+//            iv_pricestar1.setImageResource(R.drawable.star_fill);
+//            iv_pricestar2.setImageResource(R.drawable.star_fill);
+//            iv_pricestar3.setImageResource(R.drawable.star_fill);
+//            iv_pricestar4.setImageResource(R.drawable.star_half);
+//            iv_pricestar5.setImageResource(R.drawable.star_empty);
+//        } else if (pricescore >= 4 && pricescore < 4.5) {
+//            iv_pricestar1.setImageResource(R.drawable.star_fill);
+//            iv_pricestar2.setImageResource(R.drawable.star_fill);
+//            iv_pricestar3.setImageResource(R.drawable.star_fill);
+//            iv_pricestar4.setImageResource(R.drawable.star_fill);
+//            iv_pricestar5.setImageResource(R.drawable.star_empty);
+//        } else if (pricescore >= 4.5 && pricescore < 5) {
+//            iv_pricestar1.setImageResource(R.drawable.star_fill);
+//            iv_pricestar2.setImageResource(R.drawable.star_fill);
+//            iv_pricestar3.setImageResource(R.drawable.star_fill);
+//            iv_pricestar4.setImageResource(R.drawable.star_fill);
+//            iv_pricestar5.setImageResource(R.drawable.star_half);
+//        } else if (pricescore == 5) {
+//            iv_pricestar1.setImageResource(R.drawable.star_fill);
+//            iv_pricestar2.setImageResource(R.drawable.star_fill);
+//            iv_pricestar3.setImageResource(R.drawable.star_fill);
+//            iv_pricestar4.setImageResource(R.drawable.star_fill);
+//            iv_pricestar5.setImageResource(R.drawable.star_fill);
+//        }
     }
 
     @Override
     public int getItemCount() {
         return mContacts.size();
+    }
+
+    public void markingStar(float scoreOrigin, LinearLayout stars) {
+        int i = 0;
+        int integerScore = (int) scoreOrigin;
+        float hasPoint = scoreOrigin - integerScore;
+
+        while (i < 5) {
+            ImageView star = new ImageView(stars.getContext());
+
+            if (i < integerScore) {
+                star.setImageResource(R.drawable.star_fill);
+
+            } else if (i == integerScore && i != 0) {
+                if (hasPoint == 0) star.setImageResource(R.drawable.star_fill);
+                else if (hasPoint < 0.5) star.setImageResource(R.drawable.star_empty);
+                else if (hasPoint >= 0.5) star.setImageResource(R.drawable.star_half);
+
+            } else {
+                star.setImageResource(R.drawable.star_empty);
+            }
+            stars.addView(star);
+            i+=1;
+        }
     }
 }
