@@ -12,6 +12,9 @@ import lombok.ToString;
 @ToString
 public class RepliesDto {
 
+    @SerializedName("reply_id")
+    @Expose
+    private Integer reply_id;
     @SerializedName("member_id")
     @Expose
     public String memberId;

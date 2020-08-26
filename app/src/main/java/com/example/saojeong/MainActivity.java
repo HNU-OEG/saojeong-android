@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 transaction.replace(R.id.frameLayout_main, communityFragment) // frameLayout에 커뮤니티 Fragment 호출
                         .addToBackStack(null)
                         .commitAllowingStateLoss();
-//
+
                 mhome.setImageResource(R.drawable.home);
                 mprice.setImageResource(R.drawable.price);
                 mcommunity.setImageResource(R.drawable.community_orange);

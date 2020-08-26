@@ -13,6 +13,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class CommentDto {
+    @SerializedName("comment_id")
+    @Expose
+    private Integer comment_id;
+
     @SerializedName("member_id")
     @Expose
     private String memberId;

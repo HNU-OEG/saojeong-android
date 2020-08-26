@@ -11,12 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Post_CommentValue {
+    int comment_ID;
     String memberID;
     String author;
     String content;
     String createdAt;
     boolean reContent;
     List<Post_CommentValue> replies;
+
+    public int getComment_ID() {
+        return comment_ID;
+    }
 
     public String getMemberID() {
         return memberID;
@@ -52,6 +57,7 @@ public class Post_CommentValue {
     }
 
     public Post_CommentValue(RepliesDto dto) {
+        this.comment_ID = dto.getReply_id();
         this.memberID = dto.getMemberId();
         this.author = dto.getAuthor();
         this.content = dto.getContent();
@@ -59,6 +65,7 @@ public class Post_CommentValue {
     }
 
     public Post_CommentValue(CommentDto dto) {
+        this.comment_ID = dto.getComment_id();
         this.memberID = dto.getMemberId();
         this.author = dto.getAuthor();
         this.content = dto.getContent();
