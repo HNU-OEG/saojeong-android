@@ -67,9 +67,9 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
     LinearLayout liLikeDown;
 
     LinearLayout testli;
-   // private Community_Service community_Service;
-   public static String LOG="Comment";
-   private BoardService boardService;
+    // private Community_Service community_Service;
+    public static String LOG="Comment";
+    private BoardService boardService;
 
     public Community_ReadFragment() {
     }
@@ -87,9 +87,9 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
 
-         //((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-         //((MainActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-         ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
+        //((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //((MainActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
         mtitle = view.findViewById(R.id.tv_community_read_title);
         mboard = view.findViewById(R.id.tv_community_read_board);
         mdate = view.findViewById(R.id.tv_community_read_date);
@@ -179,7 +179,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                             load_GetPost(true);
                         }
                     };
-                    mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext(), 10004,document_id,false, refresh_callback, mNestedScroll, refresh);
+                    mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext(), 10004,document_id,false, refresh_callback);
                     mRecycleview.setAdapter(mAdapter);
                     mRecycleview.setLayoutManager(new LinearLayoutManager(getContext()));
                     mRecycleview.setNestedScrollingEnabled(false);
@@ -195,6 +195,13 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                 Log.d("fail", t.getMessage());
             }
         });
+        //스크롤 포커스용
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable()  {
+            public void run() {
+                testli.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+            }
+        }, 500);
     }
 
     public void LikePost(String type, String task) {
@@ -203,8 +210,8 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
             public void onResponse(Call<GetPostDto> call, Response<GetPostDto> response) {
 
                 if (response.code() == 201) {
-                     // 서버와 통신 성공
-                      } else { // 서버에서 문제 발생
+                    // 서버와 통신 성공
+                } else { // 서버에서 문제 발생
                     //likeStores = ContactShopOC._createContactsList(20);
                     //likeStoreAdapter = new LikeStoreAdapter(likeStores);
                 }

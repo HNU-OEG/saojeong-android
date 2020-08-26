@@ -114,12 +114,12 @@
             </EditText>
 
         </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/repliesRecycle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="18dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/repliesRecycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="18dp">
 
-            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </LinearLayout>

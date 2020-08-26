@@ -66,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:orientation="vertical"
+                    android:descendantFocusability="blocksDescendants"
                     android:background="@null">
 
                     <TextView
@@ -214,7 +215,7 @@
                                     android:textStyle="bold"
 
                                     ></TextView>
-                             </RelativeLayout>
+                            </RelativeLayout>
                             <EditText
                                 android:id="@+id/tv_comment_edit"
                                 android:layout_width="match_parent"
