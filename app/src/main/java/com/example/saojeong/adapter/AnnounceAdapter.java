@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.example.saojeong.R;
+import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.model.ContactAnnounce;
 import com.example.saojeong.model.ContactFood;
 
@@ -28,16 +29,16 @@ public class AnnounceAdapter extends RecyclerView.Adapter<AnnounceAdapter.ViewHo
         }
     }
 
-    private List<ContactAnnounce> mContacts;
+    private List<CommunityValue> mContacts;
 
-    public AnnounceAdapter(List<ContactAnnounce> contacts) {
+    public AnnounceAdapter(List<CommunityValue> contacts) {
         mContacts = contacts;
         glide = null;
     }
 
-    public AnnounceAdapter(RequestManager with, List<ContactAnnounce> contacts) {
+    public AnnounceAdapter(RequestManager glide, List<CommunityValue> contacts) {
         mContacts = contacts;
-        glide = null;
+        this.glide = glide;
     }
 
     @Override
@@ -53,10 +54,11 @@ public class AnnounceAdapter extends RecyclerView.Adapter<AnnounceAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(AnnounceAdapter.ViewHolder holder, int position) {
-        ContactAnnounce contactSeason = mContacts.get(position);
-
+        CommunityValue contactSeason = mContacts.get(position);
         ImageView iv_announce = holder.AnnounceImageView;
-        iv_announce.setImageResource(contactSeason.getMFvImage());
+        if (glide != null) {
+            glide.load(contactSeason.getTitle()).into(iv_announce);
+        }
     }
 
     @Override

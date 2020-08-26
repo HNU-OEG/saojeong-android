@@ -15,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class ContactAnnounce {
 
+    private int id;
     private int mFvImage;
     private String _mFvImage;
 

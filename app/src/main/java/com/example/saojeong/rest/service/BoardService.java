@@ -6,6 +6,7 @@ import com.example.saojeong.rest.dto.board.GetPostDto;
 import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
 import com.example.saojeong.rest.dto.board.GetPostListDto;
 import com.example.saojeong.rest.dto.board.ModifiedPostDto;
+import com.example.saojeong.rest.dto.response.GetNewsesResponseDto;
 
 import java.util.List;
 
@@ -13,7 +14,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -28,6 +28,9 @@ public interface BoardService {
     //테스트 X
     @GET("/api/board/{board_id}/content/{document_id}")
     Call<List<GetPostDto>> getPost(@Path("board_id") int board_id, @Path("document_id") int document_id);
+
+    @GET("/api/board/{board_id}/content")
+    Call<List<GetPostListDto>> getNewses(@Path("board_id") int board_id);
 
     //게시글 리스트 조회
     //테스트 완료

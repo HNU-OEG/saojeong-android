@@ -26,6 +26,7 @@ import com.example.saojeong.adapter.AnnounceAdapter;
 import com.example.saojeong.adapter.FoodAdapter;
 import com.example.saojeong.adapter.LikeStoreAdapter;
 import com.example.saojeong.auth.TokenCase;
+import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.model.ContactAnnounce;
 import com.example.saojeong.model.ContactFood;
 import com.example.saojeong.model.ContactShopOC;
@@ -33,10 +34,14 @@ import com.example.saojeong.model.LikeStore;
 import com.example.saojeong.model.OnItemClickListener;
 import com.example.saojeong.model.RecyclerDecoration;
 import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
+import com.example.saojeong.rest.dto.board.GetPostListDto;
 import com.example.saojeong.rest.dto.home.AnnounceDto;
 import com.example.saojeong.rest.dto.SeasonalFoodDto;
+import com.example.saojeong.rest.dto.response.GetNewsesResponseDto;
 import com.example.saojeong.rest.dto.store.StoreDto;
 import com.example.saojeong.rest.service.AnnounceService;
+import com.example.saojeong.rest.service.BoardService;
 import com.example.saojeong.rest.service.SeasonalFoodService;
 import com.example.saojeong.rest.service.StoreService;
 
@@ -65,17 +70,17 @@ public class HomeFragment extends Fragment {
     private FoodAdapter fruitAdapter;
     private FoodAdapter vegetableAdapter;
     private FoodAdapter seafoodsAdapter;
-    private RecyclerView recyclerFullview;
+
     private LikeStoreAdapter likeStoreAdapter;
     private RecyclerView recyclerAnnounce;
     private AnnounceAdapter announceAdapter;
 
     List<ContactShopOC> likeStores;
     List<ContactFood> contactFoods;
-    List<ContactAnnounce> contactAnnounces;
+    List<CommunityValue> contactCommunityValue;
 
     private StoreService storeService;
-    private AnnounceService announceService;
+    private BoardService boardService;
     private SeasonalFoodService seasonalFoodService;
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
@@ -91,7 +96,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
-        announceService = ServiceGenerator.createService(AnnounceService.class, TokenCase.getToken());
+        boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
+//        announceService = ServiceGenerator.createService(AnnounceService.class, TokenCase.getToken());
         seasonalFoodService = ServiceGenerator.createService(SeasonalFoodService.class, TokenCase.getToken());
 
         fragmentManager = getChildFragmentManager();
@@ -144,16 +150,13 @@ public class HomeFragment extends Fragment {
         Cfish.setTextColor(Color.parseColor("#ffd6b7"));
 
         //Tab 바꿀 때 마다 색 변경
-        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String s) {
-                for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
-                    TextView tabcolor = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
-                    if (i == tabHost.getCurrentTab()) {
-                        tabcolor.setTextColor(Color.parseColor("#ffffff"));
-                    } else
-                        tabcolor.setTextColor(Color.parseColor("#ffd6b7"));
-                }
+        tabHost.setOnTabChangedListener((TabHost.OnTabChangeListener) s -> {
+            for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
+                TextView tabcolor = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+                if (i == tabHost.getCurrentTab()) {
+                    tabcolor.setTextColor(Color.parseColor("#ffffff"));
+                } else
+                    tabcolor.setTextColor(Color.parseColor("#ffd6b7"));
             }
         });
         return rootView;
@@ -163,44 +166,23 @@ public class HomeFragment extends Fragment {
         storeService.getStoreListOrderByGrade().enqueue(new Callback<List<StoreDto>>() {
             @Override
             public void onResponse(Call<List<StoreDto>> call, Response<List<StoreDto>> response) {
-                List<StoreDto> body = response.body();
-                for (StoreDto dto : body) { // 디버깅 코드
-                    Log.d("RESPONSE CHECK", dto.toString());
-                }
-
-                if (response.code() == 201) { // 서버와 통신 성공
+                if (response.code() == 201) {
+                    List<StoreDto> body = response.body();
                     likeStores = ContactShopOC.createContactsList(body);
                     likeStoreAdapter = new LikeStoreAdapter(Glide.with(homeFragment), likeStores);
-                } else { // 서버에서 문제 발생
+                } else {
                     likeStores = ContactShopOC._createContactsList(20);
                     likeStoreAdapter = new LikeStoreAdapter(likeStores);
                 }
                 recyclerShop.addItemDecoration(leftDecoration);
                 recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                // 각 어댑터에 선언된 setOnItemClickListener를 호출
-                likeStoreAdapter.setOnItemClickListener(new OnItemClickListener<LikeStoreAdapter.ViewHolder>() {
-                    @Override
-                    public void onItemClick(LikeStoreAdapter.ViewHolder holder) {
-                        // 각 Fragment에 선언되어 있는 newInstance에 ViewHolder에서 추출한 ID를 넘겨줍니다.
-                        // 아까 이벤트를 등록해둬서 ViewHolder가 잘 넘어옵니다.
-                        // 이제 ShopFragment.java/75번째 줄로 와주세요.
-                        ShopFragment targetFragment = shopFragment.newInstance(holder.storeId);
-                        // 바로 위에서 받은 fragment를 아래에 replaceFragment를 활용해서 바꿔치기합니다.
-                        // 그러면 ShopFragment의 onCreateView가 호출되겠죠.
-                        // 그러니까 다시 ShopFragment.java/92번째 줄로 와주세요.
-                        MainActivity activity = (MainActivity) getActivity();
-                        activity.replaceFragment(targetFragment);
-                    }
+
+                likeStoreAdapter.setOnItemClickListener(holder -> {
+                    ShopFragment targetFragment = shopFragment.newInstance(holder.storeId);
+                    MainActivity activity = (MainActivity) getActivity();
+                    activity.replaceFragment(targetFragment);
                 });
-//                likeStoreAdapter.setOnItemClicklistener(new OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(Object holder, View view, int position) {
-//                        ((MainActivity) getActivity()).replaceFragment(
-//                                shopFragment.newInstance(
-//                                        ((LikeStoreAdapter.ViewHolder) holder).storeId)
-//                        );
-//                    }
-//                });
+
                 recyclerShop.setAdapter(likeStoreAdapter);
 
             }
@@ -304,32 +286,28 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadAnnounces(HomeFragment homeFragment) {
-        announceService.getAnnounce(10003).enqueue(new Callback<List<AnnounceDto>>() {
+        boardService.getNewses(10000).enqueue(new Callback<List<GetPostListDto>>() {
             @Override
-            public void onResponse(Call<List<AnnounceDto>> call, Response<List<AnnounceDto>> response) {
-                List<AnnounceDto> body = response.body();
-                if (response.code() == 201) { // 서버와 통신 성공
-                    Log.d("LENGTH", "" + response.body().size());
-                    for (AnnounceDto dto : response.body()) {
-                        Log.d("RESPONSE BODY", dto.toString());
-                    }
-                    contactAnnounces = ContactAnnounce.createContactsList(body);
-                    announceAdapter = new AnnounceAdapter(Glide.with(homeFragment), contactAnnounces);
-                } else { // 서버에서 문제 발생
-                    contactAnnounces = ContactAnnounce._createContactsList(3);
-                    announceAdapter = new AnnounceAdapter(contactAnnounces);
+            public void onResponse(Call<List<GetPostListDto>> call,
+                                   Response<List<GetPostListDto>> response) {
+                if (response.code() == 201) {
+                    List<GetPostListDto> body = response.body();
+                    contactCommunityValue = CommunityValue.createContactsList(body);
+                    announceAdapter = new AnnounceAdapter(Glide.with(getActivity()), contactCommunityValue);
+                } else {
+                    contactCommunityValue = CommunityValue.createNewsContactsList();
+                    announceAdapter = new AnnounceAdapter(Glide.with(getActivity()), contactCommunityValue);
                 }
-//                recyclerAnnounce.addItemDecoration(leftDecoration);
+                recyclerAnnounce.addItemDecoration(leftDecoration);
                 recyclerAnnounce.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
                 recyclerAnnounce.setAdapter(announceAdapter);
             }
 
             @Override
-            public void onFailure(Call<List<AnnounceDto>> call, Throwable t) {
-                // 안드로이드에서 문제 발생 (네트워크 환경 체크해보기)
-                contactAnnounces = ContactAnnounce._createContactsList(5);
-                announceAdapter = new AnnounceAdapter(Glide.with(homeFragment), contactAnnounces);
-//                recyclerAnnounce.addItemDecoration(leftDecoration);
+            public void onFailure(Call<List<GetPostListDto>> call, Throwable t) {
+                contactCommunityValue = CommunityValue.createNewsContactsList();
+                announceAdapter = new AnnounceAdapter(Glide.with(getActivity()), contactCommunityValue);
+                recyclerAnnounce.addItemDecoration(leftDecoration);
                 recyclerAnnounce.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
                 recyclerAnnounce.setAdapter(announceAdapter);
             }
