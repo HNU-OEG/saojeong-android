@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -34,6 +33,7 @@ import com.example.saojeong.model.ContactShopSellList;
 import com.example.saojeong.model.ContactShopStarScore;
 import com.example.saojeong.model.RecyclerDecoration;
 import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.response.StarUnstarResponseDto;
 import com.example.saojeong.rest.dto.store.StoreDetailDto;
 import com.example.saojeong.rest.service.StoreService;
 
@@ -133,18 +133,50 @@ public class ShopFragment extends Fragment {
                         contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
                         shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
 
+
+                        // UserType을 넘겨줘서 로그인 후 평가하기 or 평가하기 띄우기
                         contactShopScores = ContactShopScore.createContactsList(body.getStoreGrade(),
                                 body.getStoreDetail().getVoteGradeCount());
                         shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity(), id);
-
-
                         ImageView storeImage = (ImageView) getView().findViewById(R.id.iv_shopshop);
                         Glide.with(getView()).load(body.getStoreDetail().getStoreImage()).into(storeImage);
 
+                        // 하트 로직
                         ImageView likeImage = (ImageView) getView().findViewById(R.id.iv_like);
-                        if (!body.getStoreDetail().getStarred()) {
-                            likeImage.setImageResource(R.drawable.unlike);
-                        }
+                        likeImage.setSelected(body.getStoreDetail().getStarred());
+                        likeImage.setOnClickListener(view -> {
+                            if (likeImage.isSelected()) {
+                                Log.d("UNSTAR BEFORE", ""+likeImage.isSelected());
+                                storeService.unstartThisStore(id).enqueue(new Callback<StarUnstarResponseDto>() {
+                                    @Override
+                                    public void onResponse(Call<StarUnstarResponseDto> call,
+                                                           Response<StarUnstarResponseDto> response) {
+                                        likeImage.setSelected(!likeImage.isSelected());
+                                        Log.d("UNSTAR AFTER", ""+likeImage.isSelected());
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<StarUnstarResponseDto> call, Throwable t) {
+
+                                    }
+                                });
+                            } else {
+                                Log.d("STAR BEFORE", ""+likeImage.isSelected());
+                                storeService.startThisStore(id).enqueue(new Callback<StarUnstarResponseDto>() {
+                                    @Override
+                                    public void onResponse(Call<StarUnstarResponseDto> call,
+                                                           Response<StarUnstarResponseDto> response) {
+                                        likeImage.setSelected(!likeImage.isSelected());
+                                        Log.d("STAR AFTER", ""+likeImage.isSelected());
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<StarUnstarResponseDto> call, Throwable t) {
+
+                                    }
+                                });
+                            }
+                        });
 
 
 
