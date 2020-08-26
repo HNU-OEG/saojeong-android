@@ -61,6 +61,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
     NestedScrollView mNestedScroll;
 
     TextView mComment_create;
+    TextView mComment_name;
     TextView mLikeUp;
     TextView mLikeDown;
     LinearLayout liLikeup;
@@ -97,6 +98,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         mcontents = view.findViewById(R.id.tv_community_read_contents);
         mComment_edit=view.findViewById(R.id.tv_comment_edit);
         mComment_create=view.findViewById(R.id.tv_create_comment);
+        mComment_name=view.findViewById(R.id.tv_comment_name);
         mRecycleview=view.findViewById(R.id.commentRecycle);
         mNestedScroll=view.findViewById(R.id.testscroll);
         mLikeUp=view.findViewById(R.id.tv_community_like_up);
@@ -145,7 +147,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                 //LikePost("vote", "up");
                 //mLikeUp.setTextColor(Color.parseColor("#ff6950"));
                 //load_GetPost();
-                AllLoginManager.inst.login("GOOGLE", getActivity());
+                AllLoginManager.inst.login("UPDATE", getActivity());
                 break;
             case R.id.ll_like_down:
                 LikePost("blame", "up");
@@ -169,7 +171,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                     mdate.setText(mPostValue.getCreatedAt());
                     mname.setText(mPostValue.getAuthor());
                     mcontents.setText(mPostValue.getContent());
-
+                    mComment_name.setText(TokenCase.getUserResource("nickname"));
                     mLikeUp.setText("추천 "+mPostValue.getVotedCount());
                     mLikeDown.setText("비추천 "+mPostValue.getBlamedCount());
                     mCommunityCommentValue=Post_CommentValue.createContactsList(body.getComments());

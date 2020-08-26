@@ -194,7 +194,7 @@
                                 android:layout_marginHorizontal="25dp"
                                 android:layout_marginTop="24dp">
                                 <TextView
-                                    android:id="@+id/tv_community_read_commentname"
+                                    android:id="@+id/tv_comment_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:lineSpacingExtra="6sp"

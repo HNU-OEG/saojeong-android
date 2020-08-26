@@ -45,10 +45,6 @@ public class FacebookLogin implements LoginControl  {
 
         LoginManager.getInstance().registerCallback(mCallbackManager,mLoginCallback);
 
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-        if(isLoggedIn)
-            LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList(this.mPermissions));
     }
 
     public void Login(Activity activity) {

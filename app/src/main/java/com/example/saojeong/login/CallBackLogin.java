@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.rest.dto.Login_Dto;
 
+import java.util.Date;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -28,12 +29,16 @@ public class CallBackLogin implements Callback<Login_Dto> {
         int a=response.code();
         if(response.code()==200 ||response.code()== 201) {
             Login_Dto body = response.body();
-            String str1 = body.accessToken;
-            String str2 = body.refreshToken;
             SharedPreferences pref = mActivity.getSharedPreferences("SHARE_PREF", mActivity.MODE_PRIVATE);
             SharedPreferences.Editor editer = pref.edit();
+            String str1 = body.accessToken;
             editer.putString("AccessToken", str1);
-            editer.putString("RefreshToken", str2);
+            if(body.refreshToken!=null) {
+                String str2 = body.refreshToken;
+                editer.putString("RefreshToken", str2);
+                long now = System.currentTimeMillis();
+                editer.putLong("LastLoginAt", now);
+            }
             editer.apply();
             editer.commit();
             LoginToken.setToken(mActivity);
@@ -44,6 +49,8 @@ public class CallBackLogin implements Callback<Login_Dto> {
         else
         {
             Toast.makeText(mActivity,"접속에러", Toast.LENGTH_SHORT).show();
+            LoginToken.deleteToken(mActivity);
+
         }
     }
 
