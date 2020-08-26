@@ -2,6 +2,7 @@ package com.example.saojeong.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,18 @@ import androidx.fragment.app.Fragment;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.auth.TokenCase;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.board.GetPostDto;
+import com.example.saojeong.rest.service.BoardService;
+import com.example.saojeong.rest.service.StoreService;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyQnAItemFragment extends Fragment {
 
@@ -23,7 +36,17 @@ public class MyQnAItemFragment extends Fragment {
     private TextView content;
     private TextView comment;
 
+    private BoardService boardService;
+
     public static MyQnAItemFragment newInstance() { return new MyQnAItemFragment(); }
+    public static MyQnAItemFragment newInstance(int id) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+
+        MyQnAItemFragment fragment = new MyQnAItemFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,11 +60,37 @@ public class MyQnAItemFragment extends Fragment {
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitleTextColor(Color.BLACK);
 
+        boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
+
         title = view.findViewById(R.id.tv_QnA_title);
         status = view.findViewById(R.id.tv_QnA_status);
         date = view.findViewById(R.id.tv_QnA_title);
         content = view.findViewById(R.id.tv_QnA_content);
         comment = view.findViewById(R.id.tv_QnA_comment);
+
+        // TODO: 2020-08-25-025 통신
+
+        if (getArguments() != null) {
+            int id = getArguments().getInt("id");
+            Log.d("MyQnA", "ID : " + id);
+            Call<List<GetPostDto>> call = boardService.getPost(10001,id);
+            call.enqueue(new Callback<List<GetPostDto>>() {
+                @Override
+                public void onResponse(Call<List<GetPostDto>> call, Response<List<GetPostDto>> response) {
+                    List<GetPostDto> body = response.body();
+                    Log.d("MyQnA", "MyQnAItem response OK");
+                    Log.d("MyQnA", "DTO" + body.toString());
+
+                }
+
+                @Override
+                public void onFailure(Call<List<GetPostDto>> call, Throwable t) {
+                    Log.d("MyQnA", "MyQnAItem FAIL " + t.getMessage());
+                }
+            });
+        } else {
+
+        }
 
         title.setText("제목");
         status.setText("[답변완료]");

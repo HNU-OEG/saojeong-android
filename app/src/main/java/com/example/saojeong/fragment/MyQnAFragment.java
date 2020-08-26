@@ -46,6 +46,7 @@ public class MyQnAFragment extends Fragment {
 
     private RecyclerView recycler_myQnA;
     private MyQnAadapter myQnAadapter;
+    private MyQnAItemFragment myQnAItemFragment;
 
     List<MyQnA> myQnA;
 
@@ -112,6 +113,16 @@ public class MyQnAFragment extends Fragment {
 
                 recycler_myQnA.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                 recycler_myQnA.addItemDecoration(new DividerItemDecoration(view.getContext(), 1));
+
+                myQnAadapter.setOnItemClickListener(new OnItemClickListener<MyQnAadapter.ViewHolder>() {
+                    @Override
+                    public void onItemClick(MyQnAadapter.ViewHolder holder) {
+                        MyQnAItemFragment targetFragment = myQnAItemFragment.newInstance(holder.documentId);
+                        MainActivity activity = (MainActivity) getActivity();
+                        activity.replaceFragment(targetFragment);
+                    }
+                });
+
                 recycler_myQnA.setAdapter((myQnAadapter));
             }
 

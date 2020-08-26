@@ -32,7 +32,7 @@ public class MyQnA {
     }
 
     public MyQnA(GetPostListDto dto) {
-        //this.id = dto.getDocumentId();
+        this.id = dto.getDocumentId();
         this.mTitle = dto.getTitle();
         this.mStatus = 0;
         this.mDate = dto.getCreatedAt();
