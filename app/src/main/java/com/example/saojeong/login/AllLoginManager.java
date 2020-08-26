@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.Login_Dto;
 import com.example.saojeong.rest.service.Login_Guest;
 import com.facebook.AccessToken;
 import com.facebook.login.Login;
@@ -18,6 +19,8 @@ import com.kakao.auth.Session;
 import com.nhn.android.naverlogin.OAuthLogin;
 
 import java.util.HashMap;
+
+import javax.security.auth.callback.Callback;
 
 public class AllLoginManager {
     final int GOOGLE_REQUESTCODE=9003;
@@ -103,16 +106,28 @@ public class AllLoginManager {
         inst=this;
         LoginToken.setToken(mActivity);
         ///
+
+
         if(LoginToken.getToken()!="") {
-            Intent intent = new Intent(mActivity, MainActivity.class);
-            mActivity.startActivity(intent);
-            mActivity.finish();
+
+            loadlogin(mActivity, "Update");
+            if(LoginToken.getToken()!="") {
+                Intent intent = new Intent(mActivity, MainActivity.class);
+                mActivity.startActivity(intent);
+                mActivity.finish();
+            }
         }
     }
     public void login(String type, Activity activity){
         LoginControl login=map.get(type);
         if(login==null)
         {
+            if(type=="UPDATE") {
+
+                Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getGuestToken());
+                loadlogin(activity, "Update");
+                return;
+            }
             Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getGuestToken());
             loadlogin(activity, "guest");
         }else {
@@ -121,6 +136,7 @@ public class AllLoginManager {
     }
 
     public void logout(Activity activity){
+
         map.get("FACEBOOK").Logout();
         map.get("KAKAO").Logout();
         map.get("GOOGLE").Logout();
@@ -154,6 +170,14 @@ public class AllLoginManager {
         }else  if(Type=="guest")
         {
             Login_GuestService.CreateLogin().enqueue(new CallBackLogin(mActivity));
+        }
+        else  if(Type=="Update")
+        {
+            if(LoginToken.AccessTokenTimer()==0)
+                Login_GuestService.UpdateToken(LoginToken.getToken()).enqueue(new CallBackLogin(mActivity));
+            if(LoginToken.AccessTokenTimer()==1)
+                Login_GuestService.UpdateToken(LoginToken.getToken(), LoginToken.getRefreshToken()).enqueue(new CallBackLogin(mActivity));
+
         }
     }
 }

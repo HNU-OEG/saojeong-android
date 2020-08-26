@@ -6,13 +6,17 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.saojeong.fragment.CommunityFragment;
+
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -33,6 +37,9 @@ import com.example.saojeong.fragment.MyPageFragment;
 import com.example.saojeong.fragment.QnAFragment;
 import com.example.saojeong.login.AllLoginManager;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
@@ -48,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mmypage;
 
     private InputMethodManager imm;
-
+    private Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +79,16 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frameLayout_main, homeFragment)
                 .commitAllowingStateLoss(); //시작화면에 Home 띄우기
         mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
+        activity=this;
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                AllLoginManager.inst.login("UPDATE", activity);
+            }
+        };
+        Timer timer=new Timer();
+        timer.schedule(timerTask,0,60*1000*30);
     }
     public void clickHandler(View view) {
         transaction = fragmentManager.beginTransaction();
