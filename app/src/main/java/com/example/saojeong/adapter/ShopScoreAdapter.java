@@ -342,11 +342,11 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
 
         //평점에 따라 별 개수 변경(가격)
         if (pricescore >= 0 && pricescore < 0.5) {
-            iv_itemstar1.setImageResource(R.drawable.star_empty);
-            iv_itemstar2.setImageResource(R.drawable.star_empty);
-            iv_itemstar3.setImageResource(R.drawable.star_empty);
-            iv_itemstar4.setImageResource(R.drawable.star_empty);
-            iv_itemstar5.setImageResource(R.drawable.star_empty);
+            iv_pricestar1.setImageResource(R.drawable.star_empty);
+            iv_pricestar2.setImageResource(R.drawable.star_empty);
+            iv_pricestar3.setImageResource(R.drawable.star_empty);
+            iv_pricestar4.setImageResource(R.drawable.star_empty);
+            iv_pricestar5.setImageResource(R.drawable.star_empty);
         } else if (pricescore >= 0.5 && pricescore < 1) {
             iv_pricestar1.setImageResource(R.drawable.star_half);
             iv_pricestar2.setImageResource(R.drawable.star_empty);
