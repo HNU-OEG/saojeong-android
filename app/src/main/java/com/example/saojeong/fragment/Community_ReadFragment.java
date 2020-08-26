@@ -177,12 +177,11 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                             load_GetPost(true);
                         }
                     };
-                    mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext(), document_id,false, refresh_callback);
+                    mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext(), 10004,document_id,false, refresh_callback);
                     mRecycleview.setAdapter(mAdapter);
                     mRecycleview.setLayoutManager(new LinearLayoutManager(getContext()));
                     mRecycleview.setNestedScrollingEnabled(false);
-                    if(!refresh)
-                        mNestedScroll.scrollTo(0,0);
+
                 } else { // 서버에서 문제 발생
                     //likeStores = ContactShopOC._createContactsList(20);
                     //likeStoreAdapter = new LikeStoreAdapter(likeStores);
@@ -194,6 +193,8 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                 Log.d("fail", t.getMessage());
             }
         });
+        if(!refresh)
+            mNestedScroll.scrollTo(0,0);
     }
 
     public void LikePost(String type, String task) {

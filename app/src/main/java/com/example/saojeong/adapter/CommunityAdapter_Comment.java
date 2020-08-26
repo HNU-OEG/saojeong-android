@@ -42,6 +42,7 @@ import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdapter_Comment.ViewHolder>{
 
+    int board_id;
     int document_id;
     public RelativeLayout mLayout;
     public Context mContext;
@@ -110,8 +111,9 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
 
     private List<Post_CommentValue> mContacts;
 
-    public CommunityAdapter_Comment(List<Post_CommentValue> contacts, Context context, int document_id, boolean replies, Community_Callback refresh_callback) {
+    public CommunityAdapter_Comment(List<Post_CommentValue> contacts, Context context, int board_id,int document_id, boolean replies, Community_Callback refresh_callback) {
         mContacts = contacts;
+        this.board_id=board_id;
         this.replies=replies;
         mContext=context;
         this.document_id=document_id;
@@ -139,10 +141,12 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         holder.comment_id=contact.getComment_ID();
         //holder.mTextView_Btn_ReComment.setText("["+contact.GetComment().size() + "]");
         CheckReComment(replies, holder);
-        mAdapter = new CommunityAdapter_Comment(contact.getReplies(), mContext, document_id, true, refresh_callback);
-        holder.mRecycleview.setAdapter(mAdapter);
-        holder.mRecycleview.setLayoutManager(new LinearLayoutManager(mContext));
-        holder.mRecycleview.setNestedScrollingEnabled(false);
+        if(contact.getReplies()!=null) {
+            mAdapter = new CommunityAdapter_Comment(contact.getReplies(), mContext, board_id, document_id, true, refresh_callback);
+            holder.mRecycleview.setAdapter(mAdapter);
+            holder.mRecycleview.setLayoutManager(new LinearLayoutManager(mContext));
+            holder.mRecycleview.setNestedScrollingEnabled(false);
+        }
     }
 
     @Override

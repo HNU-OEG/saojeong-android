@@ -7,7 +7,7 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         >
@@ -114,19 +114,12 @@
             </EditText>
 
         </LinearLayout>
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/testscroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:fillViewport="true">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/repliesRecycle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="18dp">
 
             </androidx.recyclerview.widget.RecyclerView>
-        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </LinearLayout>
