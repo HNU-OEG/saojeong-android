@@ -52,17 +52,18 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
     public static String LOG="Comment";
     Community_Callback refresh_callback;
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public int comment_id;
-        public TextView mTextView_ID;
-        public TextView mTextView_Date;
-        public TextView mTextView_Content;
-        public TextView mTextView_Btn_ReComment;
-        public ImageView mImageView_Image;
-        public LinearLayout mCommentLayout;
-        public EditText mEditView_Recomment;
-        public TextView mTextView_Btn_ReComment_Write;
-        public RecyclerView mRecycleview;
-        public NestedScrollView mNestedScroll;
+        private int comment_id;
+        private TextView mTextView_ID;
+        private TextView mTextView_Date;
+        private TextView mTextView_Content;
+        private TextView mTextView_Btn_ReComment;
+        private TextView mTextView_RecommentID;
+        private ImageView mImageView_Image;
+        private LinearLayout mCommentLayout;
+        private EditText mEditView_Recomment;
+        private TextView mTextView_Btn_ReComment_Write;
+        private RecyclerView mRecycleview;
+        private NestedScrollView mNestedScroll;
 //
         public ViewHolder(View itemView) {
             super(itemView);
@@ -75,6 +76,7 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
             mTextView_Btn_ReComment_Write=itemView.findViewById(R.id.tv_community_btn_comment_write);
             mLayout=itemView.findViewById(R.id.item_community_layout);
             mCommentLayout=itemView.findViewById(R.id.ll_community_recomment);
+            mTextView_RecommentID=itemView.findViewById(R.id.tv__recomment_name);
             mCommentLayout.setVisibility(View.GONE);
             SpannableString content = new SpannableString(mTextView_Btn_ReComment.getText());
             content.setSpan(new UnderlineSpan(), 0, mTextView_Btn_ReComment.getText().length(), 0);
@@ -139,6 +141,7 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         holder.mTextView_Date.setText(contact.getCreatedAt());
         holder.mTextView_Content.setText(contact.getContent());
         holder.comment_id=contact.getComment_ID();
+        holder.mTextView_RecommentID.setText(TokenCase.getUserResource("nickname"));
         //holder.mTextView_Btn_ReComment.setText("["+contact.GetComment().size() + "]");
         CheckReComment(replies, holder);
         if(contact.getReplies()!=null) {
