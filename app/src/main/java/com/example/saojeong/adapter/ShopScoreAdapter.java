@@ -428,7 +428,10 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
 
     public void markingStar(float scoreOrigin, LinearLayout stars) {
         int i = 0;
-        int integerScore = (int) scoreOrigin;
+        int integerScore = (int) scoreOrigin;   //float형 점수를 int형으로 바꿔주면서 정수부분 추출
+
+        //원본과 변환된 값을 빼주면서 소수부분 추출
+        //origin = 3.3이면 integer는 3.0이고 hasPoint는 0.3이 된다.
         float hasPoint = scoreOrigin - integerScore;
 
         while (i < 5) {
@@ -437,7 +440,7 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
             if (i < integerScore) {
                 star.setImageResource(R.drawable.star_fill);
 
-            } else if (i == integerScore && i != 0) {
+            } else if (i == integerScore && i != 0) {   //마지막 인덱스에서 수수부분 값에 따라 이미지 변화
                 if (hasPoint == 0) star.setImageResource(R.drawable.star_fill);
                 else if (hasPoint < 0.5) star.setImageResource(R.drawable.star_empty);
                 else if (hasPoint >= 0.5) star.setImageResource(R.drawable.star_half);
