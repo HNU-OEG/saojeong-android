@@ -2,6 +2,7 @@ package com.example.saojeong.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -28,6 +29,7 @@ import com.example.saojeong.adapter.CommunityAdapter_item;
 import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.login.AllLoginManager;
 import com.example.saojeong.model.CommunityValue;
+import com.example.saojeong.model.Community_Callback;
 import com.example.saojeong.model.Community_CommentValue;
 import com.example.saojeong.model.PostValue;
 import com.example.saojeong.model.Post_CommentValue;
@@ -64,6 +66,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
     LinearLayout liLikeup;
     LinearLayout liLikeDown;
 
+    LinearLayout testli;
    // private Community_Service community_Service;
    public static String LOG="Comment";
    private BoardService boardService;
@@ -81,7 +84,6 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         view=inflater.inflate(R.layout.fragment_community_read, container, false); //0,2,외 이탭
 
         boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
-        load_GetPost();
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
 
@@ -101,11 +103,11 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         mLikeDown=view.findViewById(R.id.tv_community_like_down);
         liLikeup=view.findViewById(R.id.ll_like_up);
         liLikeDown=view.findViewById(R.id.ll_like_down);
+        testli=view.findViewById(R.id.testLi);
         liLikeup.setOnClickListener(this);
         liLikeDown.setOnClickListener(this);
         mComment_create.setOnClickListener(this);
-
-
+        load_GetPost(false);
         SpannableString content = new SpannableString(mComment_create.getText());
         content.setSpan(new UnderlineSpan(), 0, mComment_create.getText().length(), 0);
         mComment_create.setText(content);
@@ -115,7 +117,6 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         //SpannableString content = new SpannableString(mComment_btn.getText());
         //content.setSpan(new UnderlineSpan(), 0, mComment_btn.getText().length(), 0);
         //mComment_btn.setText(content);
-
         return view;
     }
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -149,15 +150,17 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
             case R.id.ll_like_down:
                 LikePost("blame", "up");
                 mLikeDown.setTextColor(Color.parseColor("#878787"));
-                load_GetPost();
+                load_GetPost(false);
+
                 break;
         }
     }
-    public void load_GetPost() {
+    public void load_GetPost(boolean refresh) {
         boardService.getPost(10004, document_id).enqueue(new Callback<GetPostDto>() {
             @Override
             public void onResponse(Call<GetPostDto> call, Response<GetPostDto> response) {
                 GetPostDto body = response.body();
+
 
                 if (response.code() == 201) { // 서버와 통신 성공
                     mPostValue =new PostValue(body.getContentDto());
@@ -170,10 +173,17 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                     mLikeUp.setText("추천 "+mPostValue.getVotedCount());
                     mLikeDown.setText("비추천 "+mPostValue.getBlamedCount());
                     mCommunityCommentValue=Post_CommentValue.createContactsList(body.getComments());
-                    mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext(),document_id,-1, false);
+                    Community_Callback refresh_callback=new Community_Callback() {
+                        @Override
+                        public void callback() {
+                            load_GetPost(true);
+                        }
+                    };
+                    mAdapter = new CommunityAdapter_Comment(mCommunityCommentValue, getContext(), 10004,document_id,false, refresh_callback, mNestedScroll, refresh);
                     mRecycleview.setAdapter(mAdapter);
                     mRecycleview.setLayoutManager(new LinearLayoutManager(getContext()));
                     mRecycleview.setNestedScrollingEnabled(false);
+
                 } else { // 서버에서 문제 발생
                     //likeStores = ContactShopOC._createContactsList(20);
                     //likeStoreAdapter = new LikeStoreAdapter(likeStores);
@@ -227,6 +237,12 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                 Log.d("fail", t.getMessage());
             }
         });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                load_GetPost(true);
+            }
+        }, 500);
     }
 
 }

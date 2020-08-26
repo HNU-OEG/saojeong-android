@@ -60,4 +60,7 @@ public interface BoardService {
 //api/board/{category}/content/{document_id}/comment/{comment_id}
     @PUT("/api/board/{board_id}/content/{document_id}/comment/new")
     Call<CreateComentDto> createComment(@Body CreateComentDto parameters, @Path("board_id") int board_id, @Path("document_id") int document_id);
+
+    @PUT("/api/board/{board_id}/content/{document_id}/comment/{comment_id}/new")
+    Call<CreateComentDto> createRepliesComment(@Body CreateComentDto parameters, @Path("board_id") int board_id, @Path("document_id") int document_id, @Path("comment_id") int comment_id);
 }

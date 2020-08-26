@@ -14,16 +14,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saojeong.R;
 import com.example.saojeong.auth.TokenCase;
+import com.example.saojeong.model.Community_Callback;
 import com.example.saojeong.model.Community_CommentValue;
+import com.example.saojeong.model.PostValue;
 import com.example.saojeong.model.Post_CommentValue;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.board.CreateComentDto;
 import com.example.saojeong.rest.dto.board.CreatePostDto;
+import com.example.saojeong.rest.dto.board.GetPostDto;
 import com.example.saojeong.rest.service.BoardService;
 
 
@@ -38,15 +42,19 @@ import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdapter_Comment.ViewHolder>{
 
-    int comment_id;
-    int dodocument_id;
+    int board_id;
+    int document_id;
     public RelativeLayout mLayout;
     public Context mContext;
     CommunityAdapter_Comment mAdapter;
     public boolean replies;
     private BoardService boardService;
     public static String LOG="Comment";
+    Community_Callback refresh_callback;
+    NestedScrollView nestedScroll;
+    public boolean refresh;
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public int comment_id;
         public TextView mTextView_ID;
         public TextView mTextView_Date;
         public TextView mTextView_Content;
@@ -56,6 +64,7 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         public EditText mEditView_Recomment;
         public TextView mTextView_Btn_ReComment_Write;
         public RecyclerView mRecycleview;
+        public NestedScrollView mNestedScroll;
 //
         public ViewHolder(View itemView) {
             super(itemView);
@@ -72,6 +81,7 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
             SpannableString content = new SpannableString(mTextView_Btn_ReComment.getText());
             content.setSpan(new UnderlineSpan(), 0, mTextView_Btn_ReComment.getText().length(), 0);
             mTextView_Btn_ReComment.setText(content);
+            mNestedScroll=itemView.findViewById(R.id.testscroll);
 
             mTextView_Btn_ReComment.setOnClickListener(v -> {
                 if(mCommentLayout.getVisibility()==View.VISIBLE) {
@@ -89,13 +99,13 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
             mTextView_Btn_ReComment_Write.setOnClickListener(v -> {
                 String str=mEditView_Recomment.getText().toString(); //
                 if(str.length()>0){
-                    createComment(str);
+                    createComment(str, comment_id);
                     mEditView_Recomment.setText("");
-                    notify();
+
                 }
 
             });
-            mRecycleview=itemView.findViewById(R.id.commentRecycle);
+            mRecycleview=itemView.findViewById(R.id.repliesRecycle);
             if(replies)
                 mRecycleview.setVisibility(View.GONE);
         }
@@ -103,14 +113,18 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
 
     private List<Post_CommentValue> mContacts;
 
-    public CommunityAdapter_Comment(List<Post_CommentValue> contacts, Context context, int document_id, int comment_id,boolean replies) {
+    public CommunityAdapter_Comment(List<Post_CommentValue> contacts, Context context, int board_id,int document_id, boolean replies, Community_Callback refresh_callback, NestedScrollView nestedScroll, boolean refresh) {
+        mContacts = contacts;
+        this.board_id=board_id;
         this.replies=replies;
         mContext=context;
-        mContacts = contacts;
-        this.dodocument_id=document_id;
-        this.comment_id=comment_id;
+        this.document_id=document_id;
         boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
+        this.refresh_callback=refresh_callback;
+        this.nestedScroll=nestedScroll;
+        this.refresh=refresh;
     }
+
     @Override
     public CommunityAdapter_Comment.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -128,12 +142,18 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         holder.mTextView_ID.setText(contact.getAuthor());
         holder.mTextView_Date.setText(contact.getCreatedAt());
         holder.mTextView_Content.setText(contact.getContent());
+        holder.comment_id=contact.getComment_ID();
         //holder.mTextView_Btn_ReComment.setText("["+contact.GetComment().size() + "]");
-        CheckReComment(contact.isReContent(), holder);
-        mAdapter = new CommunityAdapter_Comment(contact.getReplies(), mContext,dodocument_id,-1, true);
-        holder.mRecycleview.setAdapter(mAdapter);
-        holder.mRecycleview.setLayoutManager(new LinearLayoutManager(mContext));
-        holder.mRecycleview.setNestedScrollingEnabled(false);
+        CheckReComment(replies, holder);
+        if(contact.getReplies()!=null) {
+            mAdapter = new CommunityAdapter_Comment(contact.getReplies(), mContext, board_id, document_id, true, refresh_callback,nestedScroll, refresh);
+            holder.mRecycleview.setAdapter(mAdapter);
+            holder.mRecycleview.setLayoutManager(new LinearLayoutManager(mContext));
+            holder.mRecycleview.setNestedScrollingEnabled(false);
+            holder.mRecycleview.smoothScrollToPosition(0);
+        }
+        if(!refresh)
+            nestedScroll.fullScroll(View.FOCUS_UP);
     }
 
     @Override
@@ -154,8 +174,8 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         }
     }
 
-    public void createComment(String contents) {
-        boardService.createComment(new CreateComentDto(contents), 10004, 23).enqueue(new Callback<CreateComentDto>() {
+    public void createComment(String contents, int comment_id) {
+        boardService.createRepliesComment(new CreateComentDto(contents), 10004, document_id, comment_id).enqueue(new Callback<CreateComentDto>() {
             @Override
             public void onResponse(Call<CreateComentDto> call, Response<CreateComentDto> response) {
 
@@ -163,7 +183,13 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
                     if (response.code() == 201) {
                         CreateComentDto body = response.body();
                         Log.d(LOG, "전송완료");
-                        notifyDataSetChanged();
+                       //Handler mHandler = new Handler();
+                       //mHandler.postDelayed(new Runnable()  {
+                       //    public void run() {
+                       //        refresh_callback.callback();
+                       //    }
+                       //}, 500);
+                        refresh_callback.callback();
                     }
                     Log.d(LOG, response.message());
                 } else { // 서버에서 문제 발생
@@ -177,7 +203,12 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
                 Log.d("fail", t.getMessage());
             }
         });
+        refresh_callback.callback();
     }
+
+
+
+
 
 }
 
