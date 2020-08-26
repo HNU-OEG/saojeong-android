@@ -16,7 +16,9 @@ import androidx.fragment.app.Fragment;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.auth.TokenCase;
+import com.example.saojeong.model.PostValue;
 import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.board.CommentDto;
 import com.example.saojeong.rest.dto.board.GetPostDto;
 import com.example.saojeong.rest.service.BoardService;
 import com.example.saojeong.rest.service.StoreService;
@@ -64,7 +66,7 @@ public class MyQnAItemFragment extends Fragment {
 
         title = view.findViewById(R.id.tv_QnA_title);
         status = view.findViewById(R.id.tv_QnA_status);
-        date = view.findViewById(R.id.tv_QnA_title);
+        date = view.findViewById(R.id.tv_QnA_date);
         content = view.findViewById(R.id.tv_QnA_content);
         comment = view.findViewById(R.id.tv_QnA_comment);
 
@@ -73,18 +75,36 @@ public class MyQnAItemFragment extends Fragment {
         if (getArguments() != null) {
             int id = getArguments().getInt("id");
             Log.d("MyQnA", "ID : " + id);
-            Call<List<GetPostDto>> call = boardService.getPost(10001,id);
-            call.enqueue(new Callback<List<GetPostDto>>() {
+            Call<GetPostDto> call = boardService.getPost(10001,id);
+            call.enqueue(new Callback<GetPostDto>() {
                 @Override
-                public void onResponse(Call<List<GetPostDto>> call, Response<List<GetPostDto>> response) {
-                    List<GetPostDto> body = response.body();
-                    Log.d("MyQnA", "MyQnAItem response OK");
-                    Log.d("MyQnA", "DTO" + body.toString());
+                public void onResponse(Call<GetPostDto> call, Response<GetPostDto> response) {
+                    GetPostDto body = response.body();
 
+                    if(response.code() == 201) {
+                        PostValue mPostValue = new PostValue(body.getContentDto());
+                        String mContent = mPostValue.getContent();
+                        mContent = mContent.replace('$', '\n');
+                        title.setText(mPostValue.getTitle());
+                        date.setText(mPostValue.getCreatedAt());
+                        content.setText(mContent);
+                        List<CommentDto> mComment = body.getComments();
+
+                        String mStatus = "";
+
+                        if (mComment.size() == 0) {
+                            mStatus = "[답변전]";
+                            comment.setText("등록된 답변이 없습니다.");
+                        } else {
+                            mStatus = "[답변완료]";
+                            comment.setText(mComment.get(0).getContent());
+                        }
+                        status.setText(mStatus);
+                    }
                 }
 
                 @Override
-                public void onFailure(Call<List<GetPostDto>> call, Throwable t) {
+                public void onFailure(Call<GetPostDto> call, Throwable t) {
                     Log.d("MyQnA", "MyQnAItem FAIL " + t.getMessage());
                 }
             });

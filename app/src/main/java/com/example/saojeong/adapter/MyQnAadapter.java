@@ -15,6 +15,8 @@ import com.example.saojeong.model.OnItemClickListener;
 
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 //public class MyQnAadapter extends RecyclerView.Adapter<MyQnAadapter.ViewHolder> implements OnItemClickListener<MyQnAadapter.ViewHolder> {
 public class MyQnAadapter extends RecyclerView.Adapter<com.example.saojeong.adapter.MyQnAadapter.ViewHolder> {
 
@@ -57,6 +59,19 @@ public class MyQnAadapter extends RecyclerView.Adapter<com.example.saojeong.adap
 //                    listener.onItemClick(ViewHolder.this, v, position);
 //                }
 //            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!isNull(mListener)) {
+                        mListener.onItemClick(MyQnAadapter.ViewHolder.this);
+                    }
+                }
+
+                boolean isNull(OnItemClickListener<MyQnAadapter.ViewHolder> l) {
+                    return l == null;
+                }
+            });
         }
     }
 
