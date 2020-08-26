@@ -183,6 +183,12 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
                     if (response.code() == 201) {
                         CreateComentDto body = response.body();
                         Log.d(LOG, "전송완료");
+                       //Handler mHandler = new Handler();
+                       //mHandler.postDelayed(new Runnable()  {
+                       //    public void run() {
+                       //        refresh_callback.callback();
+                       //    }
+                       //}, 500);
                         refresh_callback.callback();
                     }
                     Log.d(LOG, response.message());
