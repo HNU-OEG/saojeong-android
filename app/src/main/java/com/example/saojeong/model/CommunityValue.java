@@ -15,7 +15,8 @@ public class CommunityValue {
     public String createdAt;
     public int commentCount;
     public int votedCount;
-
+//
+    //
     public CommunityValue(String title) {
         this.title = title;
     }
@@ -29,8 +30,8 @@ public class CommunityValue {
         this.document_id=document_id;
     }
 
-    public CommunityValue(Integer id, String title, String author, String createdAt, int commentCount, int votedCount) {
-        this.id = id;
+    public CommunityValue(Integer document_id, String title, String author, String createdAt, int commentCount, int votedCount) {
+        this.document_id = id;
         this.title = title;
         this.author = author;
         this.createdAt = createdAt;
@@ -39,7 +40,7 @@ public class CommunityValue {
     }
 
     public CommunityValue(GetPostListDto dto) {
-        this.id = dto.getDocumentId();
+        this.document_id = dto.getDocumentId();
         this.title = dto.getTitle();
         this.author = dto.getAuthor();
         this.createdAt = dto.getCreatedAt();
@@ -72,9 +73,9 @@ public class CommunityValue {
     }
 
     public static List<CommunityValue> createNewsContactsList() {
-            List<CommunityValue> contacts = new ArrayList<>();
-            contacts.add(new CommunityValue("https://saojeong-images.s3.ap-northeast-2.amazonaws.com/news/fullview.png"));
-            return contacts;
+        List<CommunityValue> contacts = new ArrayList<>();
+        contacts.add(new CommunityValue("https://saojeong-images.s3.ap-northeast-2.amazonaws.com/news/fullview.png"));
+        return contacts;
     }
 
     public static List<CommunityValue> createContactsList(List<GetPostListDto> response) {
