@@ -1,5 +1,6 @@
 package com.example.saojeong.rest.service;
 
+import com.example.saojeong.rest.dto.response.StarUnstarResponseDto;
 import com.example.saojeong.rest.dto.response.UpdateVoteGradeResponseDto;
 import com.example.saojeong.rest.dto.store.StoreDetailDto;
 import com.example.saojeong.rest.dto.store.StoreDto;
@@ -8,10 +9,11 @@ import com.example.saojeong.rest.request.UpdateVoteGradeRequestDto;
 
 import java.util.List;
 
-import lombok.Getter;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
@@ -33,4 +35,10 @@ public interface StoreService {
     @PUT("api/store/{id}/votegrade")
     Call<UpdateVoteGradeResponseDto> updateVoteGrade(@Path("id") int id,
                                                      @Body UpdateVoteGradeRequestDto ratings);
+
+    @POST("api/store/{id}/star")
+    Call<StarUnstarResponseDto> startThisStore(@Path("id") int id);
+
+    @DELETE("api/store/{id}/star")
+    Call<StarUnstarResponseDto> unstartThisStore(@Path("id") int id);
 }
