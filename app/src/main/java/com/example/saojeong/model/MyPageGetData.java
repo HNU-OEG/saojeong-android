@@ -21,7 +21,7 @@ public class MyPageGetData {
         return new LikeStore(R.drawable.logo_no_circle, codeStore, nameStore, rateStore, rateCountStore, likes);
     }
 
-    protected static StarStore getStarStoreData() {
-        return new StarStore(codeStore, nameStore, (int)rateStore);
-    }
+//    protected static StarStore getStarStoreData() {
+//        return new StarStore(codeStore, nameStore, (int)rateStore);
+//    }
 }
