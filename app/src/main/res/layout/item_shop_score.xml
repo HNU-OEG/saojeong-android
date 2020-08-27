@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context=".adapter.FruitOpenAdapter">
+    tools:context=".adapter.ShopScoreAdapter">
 
     <LinearLayout
         android:layout_width="match_parent"

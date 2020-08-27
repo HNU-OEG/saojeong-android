@@ -294,22 +294,6 @@
                                 app:layout_constraintLeft_toRightOf="parent"
                                 app:layout_constraintRight_toLeftOf="parent"
                                 app:layout_constraintTop_toBottomOf="parent" />
-
-                            <Button
-                                android:id="@+id/btn_allview"
-                                style="?android:attr/borderlessButtonStyle"
-                                android:layout_width="81dp"
-                                android:layout_height="35dp"
-                                android:background="#ffffff"
-                                android:text="전체 보기"
-                                android:textColor="#f39d53"
-                                android:textSize="13dp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toTopOf="parent"
-                                app:layout_constraintHorizontal_bias="0.95"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toBottomOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </LinearLayout>

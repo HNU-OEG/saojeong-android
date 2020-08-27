@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/iv_food"
             android:layout_width="105dp"
-            android:layout_height="102dp"
+            android:layout_height="105dp"
             android:src="@drawable/logo_start"
             android:background="@drawable/img_round"
             android:elevation="1dp"
