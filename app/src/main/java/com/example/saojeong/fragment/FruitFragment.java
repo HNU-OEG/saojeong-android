@@ -79,11 +79,9 @@ public class FruitFragment extends Fragment {
         spinner_shop.setAdapter(adapter_shopoc);
 
         //과일동 오픈 가게 Recycler View
-        recyclerOpenedShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_open); // OPEN
-//        setAdapter();
+        recyclerOpenedShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_open);
         //과일동 휴식 가게 Recycler View
-        recyclerClosedShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_close); // OPEN
-//        setAdapter();
+        recyclerClosedShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_close);
 
         storeService.getTypeStore("fruits", "count").enqueue(new Callback<TypeStoreDto>() {
             @Override
@@ -93,15 +91,11 @@ public class FruitFragment extends Fragment {
                     List<StoreDto> openedStore = body.getOpenStore();
                     List<StoreDto> closedStore = body.getClosedStore();
 
-                    Log.d("DATA", openedStore.toString());
-                    Log.d("DATA", closedStore.toString());
-
                     contactShopOCs = ContactShopOC.createContactsList(openedStore);
                     shopOpenedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactShopOCs);
 
                     contactShopOCs = ContactShopOC.createContactsList(closedStore);
                     shopClosedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactShopOCs);
-
                 } else {
                     getDefaultAdapter();
                 }
