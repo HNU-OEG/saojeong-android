@@ -1,8 +1,0 @@
-diff a/app/src/main/java/com/example/saojeong/fragment/MyPageFragment.java b/app/src/main/java/com/example/saojeong/fragment/MyPageFragment.java	(rejected hunks)
-@@ -1,6 +1,5 @@
- package com.example.saojeong.fragment;
- 
--import android.graphics.Color;
- import android.os.Bundle;
- import android.util.Log;
- import android.view.LayoutInflater;
