@@ -49,8 +49,9 @@ public class CallBackLogin implements Callback<Login_Dto> {
         else
         {
             Toast.makeText(mActivity,"접속에러", Toast.LENGTH_SHORT).show();
-            LoginToken.deleteToken(mActivity);
 
+            LoginToken.deleteToken(mActivity);
+            //평소엔 에러날일이없으므로 토큰삭제
         }
     }
 

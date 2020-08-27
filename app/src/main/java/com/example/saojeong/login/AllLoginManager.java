@@ -23,13 +23,13 @@ import java.util.HashMap;
 import javax.security.auth.callback.Callback;
 
 public class AllLoginManager {
-    final int GOOGLE_REQUESTCODE=9003;
-    final int FACEBOOK_REQUESTCODE=64206;
+    private final int GOOGLE_REQUESTCODE=9003;
+    private final int FACEBOOK_REQUESTCODE=64206;
     public static AllLoginManager inst;
     HashMap<String, LoginControl> map;
     private Login_Guest Login_GuestService;
-    Activity mActivity;
-    Context mContext;
+    private Activity mActivity;
+    private Context mContext;
     public AllLoginManager(Activity activity, Context context) {
         if(inst!=null) {
 
@@ -40,14 +40,14 @@ public class AllLoginManager {
         mActivity=activity;
         mContext=context;
         map=new HashMap<>();
-        LoginControl facelogin=new FacebookLogin(mActivity, new LoginControl.LoginHandler() {
+        LoginControl facelogin=new FacebookLogin(new LoginControl.LoginHandler() {
             @Override
             public void cancel() {
             }
             @Override
             public void success() {
                 Login_GuestService = ServiceGenerator.createService(Login_Guest.class, AccessToken.getCurrentAccessToken().getToken());
-                loadlogin(mActivity, "facebook");
+                loadlogin("facebook");
             }
 
             @Override
@@ -61,7 +61,7 @@ public class AllLoginManager {
             @Override
             public void success() {
                 Login_GuestService = ServiceGenerator.createService(Login_Guest.class, Session.getCurrentSession().getRefreshToken());
-                loadlogin(mActivity, "kakao");
+                loadlogin("kakao");
             }
             @Override
             public void error(Throwable th) {
@@ -75,7 +75,7 @@ public class AllLoginManager {
             public void success() {
                 Login_GuestService = ServiceGenerator.createService(Login_Guest.class, GoogleLogin.account.getServerAuthCode());
                 String str=GoogleLogin.account.getServerAuthCode();
-                loadlogin(mActivity, "google");
+                loadlogin("google");
             }
             @Override
             public void error(Throwable th) {
@@ -91,7 +91,7 @@ public class AllLoginManager {
             @Override
             public void success() {
                 Login_GuestService = ServiceGenerator.createService(Login_Guest.class, OAuthLogin.getInstance().getAccessToken(mContext));
-                loadlogin(mActivity, "naver");
+                loadlogin("naver");
             }
             @Override
             public void error(Throwable th) {
@@ -110,33 +110,35 @@ public class AllLoginManager {
 
         if(LoginToken.getToken()!="") {
 
-            loadlogin(mActivity, "Update");
-            if(LoginToken.getToken()!="") {
+            loadlogin("Update");
+            if(LoginToken.getToken()!="") { //업데이트후 토큰발급되었을때 홈화면으로
                 Intent intent = new Intent(mActivity, MainActivity.class);
                 mActivity.startActivity(intent);
                 mActivity.finish();
             }
+            //발급안되었으면 로그인실행
         }
     }
     public void login(String type, Activity activity){
         LoginControl login=map.get(type);
+        mActivity=activity;
         if(login==null)
         {
             if(type=="UPDATE") {
 
                 Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getGuestToken());
-                loadlogin(activity, "Update");
+                loadlogin("Update");
                 return;
             }
             Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getGuestToken());
-            loadlogin(activity, "guest");
+            loadlogin("guest");
         }else {
-            login.Login(activity);
+            login.Login(mActivity);
         }
     }
 
     public void logout(Activity activity){
-
+        mActivity=activity;
         map.get("FACEBOOK").Logout();
         map.get("KAKAO").Logout();
         map.get("GOOGLE").Logout();
@@ -151,7 +153,7 @@ public class AllLoginManager {
             map.get("FACEBOOK").onActivityResult(requestCode, resultCode, data);
     }
 
-    private void loadlogin(Activity activity, String Type) {
+    private void loadlogin(String Type) {
         if(Type=="facebook")
         {
             Login_GuestService.FaceBookLogin().enqueue(new CallBackLogin(mActivity));
