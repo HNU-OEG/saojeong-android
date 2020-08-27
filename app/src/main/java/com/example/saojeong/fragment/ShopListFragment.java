@@ -1,9 +1,11 @@
 package com.example.saojeong.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -29,6 +31,9 @@ import com.example.saojeong.rest.dto.TypeStoreDto;
 import com.example.saojeong.rest.dto.store.StoreDto;
 import com.example.saojeong.rest.service.StoreService;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -44,6 +49,9 @@ public class ShopListFragment extends Fragment {
     private ShopOCAdapter shopOpenedAdapter;
     private ShopOCAdapter shopClosedAdapter;
     List<ContactShopOC> contactShopOCs;
+
+    List<StoreDto> openedStore;
+    List<StoreDto> closedStore;
 
     private StoreService storeService;
 
@@ -105,15 +113,8 @@ public class ShopListFragment extends Fragment {
         typeImage.setImageResource(R.drawable.icon_fish_list);
 
 
-
         ((MainActivity) getActivity()).closeKeyBoard(rootView);
 
-        //순서 나열 Spinner
-        spinner_shop = (Spinner) rootView.findViewById(R.id.spinner_fruit);
-        item_shop = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
-        ArrayAdapter<String> adapter_shopoc = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, item_shop);
-        adapter_shopoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_shop.setAdapter(adapter_shopoc);
 
         //과일동 오픈 가게 Recycler View
         recyclerOpenedShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_open);
@@ -125,8 +126,8 @@ public class ShopListFragment extends Fragment {
             public void onResponse(Call<TypeStoreDto> call, Response<TypeStoreDto> response) {
                 if (response.code() == 201) {
                     TypeStoreDto body = response.body();
-                    List<StoreDto> openedStore = body.getOpenStore();
-                    List<StoreDto> closedStore = body.getClosedStore();
+                    openedStore = body.getOpenStore();
+                    closedStore = body.getClosedStore();
 
                     contactShopOCs = ContactShopOC.createContactsList(openedStore);
                     shopOpenedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactShopOCs);
@@ -143,6 +144,42 @@ public class ShopListFragment extends Fragment {
             public void onFailure(Call<TypeStoreDto> call, Throwable t) {
                 getDefaultAdapter();
                 setAdapter();
+            }
+        });
+
+
+        //순서 나열 Spinner
+        spinner_shop = (Spinner) rootView.findViewById(R.id.spinner_fruit);
+        item_shop = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
+        ArrayAdapter<String> adapter_shopoc = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, item_shop);
+        adapter_shopoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_shop.setAdapter(adapter_shopoc);
+        spinner_shop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (openedStore != null && closedStore != null) {
+                    Log.d("BEFORE", openedStore.toString());
+                    switch (i) {
+                        case 0:
+                            Collections.sort(openedStore,
+                                    (a, b) -> b.getVoteGradeAverage().compareTo(a.getVoteGradeAverage()));
+                            break;
+                        case 1:
+                            Collections.sort(openedStore,
+                                    (a, b) -> b.getVoteGradeCount().compareTo(a.getVoteGradeCount()));
+                            break;
+                        case 2:
+                            Collections.sort(openedStore,
+                                    (a, b) -> a.getStoreName().compareTo(b.getStoreName()));
+                            break;
+                    }
+                    Log.d("AFTER", openedStore.toString());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
