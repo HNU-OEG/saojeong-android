@@ -13,18 +13,18 @@ import com.facebook.login.LoginResult;
 import java.util.Arrays;
 
 public class FacebookLogin implements LoginControl  {
-    // 로그인 성공 시 호출 됩니다. Access Token 발급 성공.
+
     private CallbackManager mCallbackManager;
-    public LoginControl.LoginHandler mhandler;
+    private LoginControl.LoginHandler mhandler;
     private FacebookLoginCallback mLoginCallback;
     private String[] mPermissions = {"public_profile", "email"};
 
-    public FacebookLogin(Activity activity, LoginControl.LoginHandler loginHandler) {
+    public FacebookLogin(LoginControl.LoginHandler loginHandler) {
         mhandler = loginHandler;
-        init(activity);
+        init();
     }
 
-    private void init(Activity activity) {
+    private void init() {
         mCallbackManager = CallbackManager.Factory.create();
         mLoginCallback = new FacebookLoginCallback() {
             @Override
@@ -49,11 +49,6 @@ public class FacebookLogin implements LoginControl  {
 
     public void Login(Activity activity) {
         LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList(this.mPermissions));
-       //URL url = new URL("https://www.googleapis.com/tasks/v1/users/@me/lists?key=" + your_api_key);
-       //URLConnection conn = (HttpURLConnection) url.openConnection();
-       //conn.addRequestProperty("client_id", your client id);
-       //conn.addRequestProperty("client_secret", your client secret);
-       //conn.setRequestProperty("Authorization", "OAuth " + token);
     }
 
     public void Logout() {

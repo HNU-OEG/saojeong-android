@@ -56,7 +56,7 @@ public class TokenCase {
             String str = id.asString();
             return str;
         }
-        return "";
+        return "error";
     }
 
 }

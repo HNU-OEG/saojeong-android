@@ -14,7 +14,6 @@ import org.json.JSONObject;
 
 public class FacebookLoginCallback implements FacebookCallback<LoginResult> {
 
-    // 로그인 성공 시 호출 됩니다. Access Token 발급 성공.
     @Override
     public void onSuccess(LoginResult loginResult) {
         Log.e("Callback :: ", "onSuccess");
