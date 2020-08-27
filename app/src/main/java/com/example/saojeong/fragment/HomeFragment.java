@@ -58,9 +58,9 @@ public class HomeFragment extends Fragment {
 
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
-    private FruitFragment fruitFragment;
-    private FishFragment fishFragment;
-    private VegetableFragment vegetableFragment;
+    private ShopListFragment fruitFragment;
+    private ShopListFragment fishFragment;
+    private ShopListFragment vegetableFragment;
     private HomeFragment homeFragment;
     private ShopFragment shopFragment;
     private RecyclerView recyclerShop;
@@ -104,9 +104,9 @@ public class HomeFragment extends Fragment {
 
         imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
 
-        fruitFragment = new FruitFragment(); // 과일동 Fragment 선언
-        vegetableFragment = new VegetableFragment(); // 채소동 Fragment 선언
-        fishFragment = new FishFragment(); // 수산동 Fragment 선언
+        fruitFragment = new ShopListFragment(); // 과일동 Fragment 선언
+        vegetableFragment = new ShopListFragment(); // 채소동 Fragment 선언
+        fishFragment = new ShopListFragment(); // 수산동 Fragment 선언
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         //매장 Recycler View
@@ -193,13 +193,6 @@ public class HomeFragment extends Fragment {
                 likeStoreAdapter = new LikeStoreAdapter(likeStores);
                 recyclerShop.addItemDecoration(leftDecoration);
                 recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-//                likeStoreAdapter.setOnItemClicklistener(new OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(Object holder, View view, int position) {
-//
-//                        ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
-//                    }
-//                });
                 recyclerShop.setAdapter(likeStoreAdapter);
             }
         });
@@ -330,21 +323,21 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.btn_fruit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance());
+                ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance("fruits"));
             }
         });
 
         view.findViewById(R.id.btn_vegetable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceHomeFragment(vegetableFragment.newInstance());
+                ((MainActivity) getActivity()).replaceHomeFragment(vegetableFragment.newInstance("vegetables"));
             }
         });
 
         view.findViewById(R.id.btn_fish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceHomeFragment(fishFragment.newInstance());
+                ((MainActivity) getActivity()).replaceHomeFragment(fishFragment.newInstance("seafoods"));
             }
         });
     }
