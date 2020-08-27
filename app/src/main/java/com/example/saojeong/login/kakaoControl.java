@@ -21,7 +21,8 @@ import com.kakao.util.exception.KakaoException;
 public class kakaoControl implements ISessionCallback, LoginControl {
     private LoginControl.LoginHandler handler;
     public static void init(Application application) {
-        KakaoSDK.init(new kakaoSDKAdapter(application));
+        if(KakaoSDK.getAdapter()==null)
+            KakaoSDK.init(new kakaoSDKAdapter(application));
     }
 
     public kakaoControl(LoginControl.LoginHandler loginHandler) {
