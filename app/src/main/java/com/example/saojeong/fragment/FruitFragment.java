@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -64,10 +65,15 @@ public class FruitFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
 
+
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_fruit, container, false);
+
+        Glide.with(this)
+                .load("https://saojeong-images.s3.ap-northeast-2.amazonaws.com/4_01.png")
+                .into((ImageView) rootView.findViewById(R.id.iv_fruitmap));
 
         ((MainActivity) getActivity()).closeKeyBoard(rootView);
 
