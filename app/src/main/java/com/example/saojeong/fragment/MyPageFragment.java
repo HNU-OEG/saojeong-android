@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +45,9 @@ public class MyPageFragment extends Fragment {
     private StarStoreAdapter starStoreAdapter;
     private ShopFragment shopFragment;
 
+    private TextView tv_userId;
+    private ImageView iv_profile;
+
     List<ContactShopOC> likeStores;
     List<ContactShopOC> starStores;
 
@@ -65,16 +70,20 @@ public class MyPageFragment extends Fragment {
         Log.d(TAG, "start MyPageFragment");
         storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
 
-        int numStore = MyPageGetData.getNumStore();
+        //int numStore = MyPageGetData.getNumStore();
 
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_mypage, container, false);
 
         btn_profile = view.findViewById(R.id.btn_profile);
+        recyclerShop = view.findViewById(R.id.recycler_likeStore);
+        tv_userId = view.findViewById(R.id.tv_userId);
+        iv_profile = view.findViewById(R.id.iv_profile);
+
+
         btn_profile.setOnClickListener((v) -> {
             ((MainActivity) getActivity()).replaceFragment(ProfileFragment.newInstance());
         });
 
-        recyclerShop = view.findViewById(R.id.recycler_likeStore);
         storeService.getStarredStoreList().enqueue(new Callback<List<StoreDto>>() {
             @Override
             public void onResponse(Call<List<StoreDto>> call, Response<List<StoreDto>> response) {
