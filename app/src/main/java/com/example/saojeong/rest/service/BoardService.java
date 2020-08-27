@@ -37,6 +37,10 @@ public interface BoardService {
     @GET("/api/board/{board_id}/content")
     Call<GetPostListArrayDto> getPostList(@Path("board_id") int board_id);
 
+    //게시글 리스트 조회 + ID
+    @GET("/api/board/{board_id}/content/my")
+    Call<List<GetPostListDto>> getPostListWithID(@Path("board_id") int board_id);
+
     //게시글 생성
     //테스트 완료
     @POST("/api/board/{board_id}/content")

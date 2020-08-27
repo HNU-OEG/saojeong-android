@@ -3,6 +3,8 @@ package com.example.saojeong.rest.dto.board;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -29,5 +31,7 @@ public class GetPostListDto {
     @SerializedName("voted_count")
     @Expose
     private Integer votedCount;
+
+    private List<GetPostListDto> postList;
 
 }
