@@ -24,6 +24,9 @@ public interface StoreService {
     @GET("api/store/starred")
     Call<List<StoreDto>> getStarredStoreList();
 
+    @GET("api/store/voted")
+    Call<List<StoreDto>> getVotedStoreList();
+
     @GET("api/store/type/{type}/orderby/{orderby}")
     Call<TypeStoreDto> getTypeStore(@Path("type") String type,
                                     @Path("orderby") String orderby);

@@ -44,7 +44,7 @@ public class MyPageFragment extends Fragment {
     private ShopFragment shopFragment;
 
     List<ContactShopOC> likeStores;
-    ArrayList<StarStore> starStores;
+    List<ContactShopOC> starStores;
 
     RecyclerDecoration.LeftDecoration leftDecoration = new RecyclerDecoration.LeftDecoration(50);
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(10);
@@ -80,7 +80,6 @@ public class MyPageFragment extends Fragment {
             public void onResponse(Call<List<StoreDto>> call, Response<List<StoreDto>> response) {
                 if (response.code() == 201) {
                     List<StoreDto> body = response.body();
-                    Log.d("MYPAGE", body.toString());
                     likeStores = ContactShopOC.createContactsList(body);
                     likeStoreAdapter = new LikeStoreAdapter(Glide.with(getActivity()), likeStores);
                 } else {
@@ -109,11 +108,31 @@ public class MyPageFragment extends Fragment {
             }
         });
 
-
-
         recyclerStar = view.findViewById(R.id.recycler_starStore);
-        starStores = StarStore.createLikeStoreList(numStore);
-        starStoreAdapter = new StarStoreAdapter(starStores);
+        storeService.getVotedStoreList().enqueue(new Callback<List<StoreDto>>() {
+            @Override
+            public void onResponse(Call<List<StoreDto>> call, Response<List<StoreDto>> response) {
+                if (response.code() == 201) {
+                    List<StoreDto> body = response.body();
+                    Log.d("BODY", body.toString());
+                    starStores = ContactShopOC.createContactsList(body);
+                    starStoreAdapter = new StarStoreAdapter(starStores);
+                    recyclerStar.addItemDecoration(bottomDecoration);
+                    recyclerStar.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    recyclerStar.setAdapter(starStoreAdapter);
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<StoreDto>> call, Throwable t) {
+
+            }
+        });
+
+//        starStores = StarStore.createLikeStoreList(numStore);
+//        starStoreAdapter = new StarStoreAdapter(starStores);
 
         recyclerStar.addItemDecoration(bottomDecoration);
         recyclerStar.setLayoutManager(new LinearLayoutManager(getActivity()));
