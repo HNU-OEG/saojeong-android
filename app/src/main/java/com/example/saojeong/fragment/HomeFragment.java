@@ -290,7 +290,6 @@ public class HomeFragment extends Fragment {
                     contactCommunityValue = CommunityValue.createNewsContactsList();
                     announceAdapter = new AnnounceAdapter(Glide.with(getActivity()), contactCommunityValue);
                 }
-                recyclerAnnounce.addItemDecoration(leftDecoration);
                 recyclerAnnounce.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
                 recyclerAnnounce.setAdapter(announceAdapter);
             }
@@ -299,7 +298,6 @@ public class HomeFragment extends Fragment {
             public void onFailure(Call<List<GetPostListDto>> call, Throwable t) {
                 contactCommunityValue = CommunityValue.createNewsContactsList();
                 announceAdapter = new AnnounceAdapter(Glide.with(getActivity()), contactCommunityValue);
-                recyclerAnnounce.addItemDecoration(leftDecoration);
                 recyclerAnnounce.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
                 recyclerAnnounce.setAdapter(announceAdapter);
             }
