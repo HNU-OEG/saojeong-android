@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactShopOC;
 import com.example.saojeong.model.OnItemClickListener;
@@ -17,18 +19,15 @@ import java.util.List;
 
 //public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder> implements OnItemClickListener<ShopOCAdapter.ViewHolder> {
 public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder> {
-//    OnItemClickListener listener;
-//
-//    public void setOnItemClicklistener(OnItemClickListener listener) {
-//        this.listener = listener;
-//    }
-//
-//    @Override
-//    public void onItemClick(ViewHolder holder, View view, int position) {
-//        if(listener != null) {
-//            listener.onItemClick(holder,view,position);
-//        }
-//    }
+
+    private final RequestManager glide;
+
+    public OnItemClickListener<ShopOCAdapter.ViewHolder> mListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener<ShopOCAdapter.ViewHolder> mListener) {
+        this.mListener = mListener;
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView shopnumTextView;
@@ -39,6 +38,9 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
         public TextView selfintroductionTextView;
         public ImageView shopImageView;
         public ImageView favorateImageView;
+
+        // Store ID 추가
+        public int storeId;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -51,15 +53,19 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
             shopImageView = (ImageView) itemView.findViewById(R.id.iv_shop);
             favorateImageView = (ImageView) itemView.findViewById(R.id.iv_favorate);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    int position = getAdapterPosition();
-//                    if(listener != null) {
-//                        listener.onItemClick(ViewHolder.this, view, position);
-//                    }
-//                }
-//            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!isNull(mListener)) {
+                        mListener.onItemClick(ShopOCAdapter.ViewHolder.this);
+                    }
+                }
+
+                boolean isNull(OnItemClickListener<ShopOCAdapter.ViewHolder> l) {
+                    return l == null;
+                }
+            });
+
         }
     }
 
@@ -67,6 +73,12 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
 
     public ShopOCAdapter(List<ContactShopOC> contacts) {
         mContacts = contacts;
+        glide = null;
+    }
+
+    public ShopOCAdapter(RequestManager glide, List<ContactShopOC> contacts) {
+        mContacts = contacts;
+        this.glide = glide;
     }
 
     @Override
@@ -75,9 +87,7 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View contactView = inflater.inflate(R.layout.item_shop_oc, parent, false);
-
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     @Override
@@ -93,13 +103,20 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
         ImageView iv_shop = holder.shopImageView;
         ImageView iv_favorate = holder.favorateImageView;
 
+        // Store ID 바인딩
+        holder.storeId = contactShopOC.getMShopId();
+
         tv_shopnum.setText(contactShopOC.getMShopnum());
         tv_shopname.setText(contactShopOC.getMShopname());
         tv_star.setText(contactShopOC.getMStar());
         tv_starscore.setText(Double.toString(contactShopOC.getMStarscore()));
         tv_evaluation.setText(contactShopOC.getMEvaluation());
         tv_selfintroduction.setText(contactShopOC.getMSelfintroduction());
-        iv_shop.setImageResource(contactShopOC.getMImage());
+        if (glide == null) {
+            iv_shop.setImageResource(contactShopOC.getMImage());
+        } else {
+            glide.load(contactShopOC.get_mImage()).into(iv_shop);
+        }
         iv_favorate.setImageResource(contactShopOC.getMFImage());
     }
 

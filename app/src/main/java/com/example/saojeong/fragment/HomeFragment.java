@@ -97,7 +97,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
         boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
-//        announceService = ServiceGenerator.createService(AnnounceService.class, TokenCase.getToken());
         seasonalFoodService = ServiceGenerator.createService(SeasonalFoodService.class, TokenCase.getToken());
 
         fragmentManager = getChildFragmentManager();
