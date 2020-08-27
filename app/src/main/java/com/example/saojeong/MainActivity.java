@@ -169,11 +169,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
+            transaction = fragmentManager.beginTransaction();
         //만약 더이상의 백스택이 없다면 홈으로 돌아가기
         int backstackcount = fragmentManager.getBackStackEntryCount();
 
         if(backstackcount == 0) {
+            transaction.replace(R.id.frameLayout_main, homeFragment) // frameLayout에 홈 Fragment 호출
+                    .commitAllowingStateLoss();
+
             mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
             mprice.setImageResource(R.drawable.price);
             mcommunity.setImageResource(R.drawable.community);
