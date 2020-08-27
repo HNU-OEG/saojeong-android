@@ -60,7 +60,6 @@ public class HomeFragment extends Fragment {
     private FragmentTransaction transaction;
     private ShopListFragment fruitFragment;
     private ShopListFragment fishFragment;
-//    private ShopListFragment shopListFragment;
     private ShopListFragment vegetableFragment;
     private HomeFragment homeFragment;
     private ShopFragment shopFragment;
@@ -108,10 +107,6 @@ public class HomeFragment extends Fragment {
         fruitFragment = new ShopListFragment(); // 과일동 Fragment 선언
         vegetableFragment = new ShopListFragment(); // 채소동 Fragment 선언
         fishFragment = new ShopListFragment(); // 수산동 Fragment 선언
-
-//        fruitFragment = new ShopListFragment("fruits"); // 과일동 Fragment 선언
-//        vegetableFragment = new VegetableFragment(); // 채소동 Fragment 선언
-//        fishFragment = new FishFragment(); // 수산동 Fragment 선언
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         //매장 Recycler View
@@ -198,13 +193,6 @@ public class HomeFragment extends Fragment {
                 likeStoreAdapter = new LikeStoreAdapter(likeStores);
                 recyclerShop.addItemDecoration(leftDecoration);
                 recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-//                likeStoreAdapter.setOnItemClicklistener(new OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(Object holder, View view, int position) {
-//
-//                        ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
-//                    }
-//                });
                 recyclerShop.setAdapter(likeStoreAdapter);
             }
         });
