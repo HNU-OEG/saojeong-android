@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private Activity activity;
 
     private String activity_tag;
+    long pressedTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         };
         Timer timer=new Timer();
         timer.schedule(timerTask,0,60*1000*30);
+        pressedTime=0;
     }
     public void clickHandler(View view) {
         transaction = fragmentManager.beginTransaction();
@@ -126,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
                     mcommunity.setImageResource(R.drawable.community);
                     mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage);
-
                      }
                 break;
             case R.id.ll_community:
@@ -168,17 +169,44 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
         //만약 더이상의 백스택이 없다면 홈으로 돌아가기
-        int backstackcount = fragmentManager.getBackStackEntryCount();
+        if(activity_tag == "homeFragment") { //만약 더이상의 백스택이 없다면 홈으로 돌아가기
+            if ( pressedTime == 0 ) {
+                Toast.makeText(MainActivity.this, " 한 번 더 누르면 종료됩니다." , Toast.LENGTH_LONG).show();
+                pressedTime = System.currentTimeMillis();
+                return;
+            }
+            else
+            {
+                long second=System.currentTimeMillis();
+                if(second-pressedTime>2000)
+                {
+                    Toast.makeText(MainActivity.this, " 한 번 더 누르면 종료됩니다." , Toast.LENGTH_LONG).show();
+                    pressedTime = System.currentTimeMillis();
+                }
+                else {
+                    super.onBackPressed();
+                    AllLoginManager.inst=null;
+                    finish();
+                }
+            }
+        } else {
+            super.onBackPressed();
+            transaction = fragmentManager.beginTransaction();
 
-        if(backstackcount == 0) {
-            mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
-            mprice.setImageResource(R.drawable.price);
-            mcommunity.setImageResource(R.drawable.community);
-            mchatbot.setImageResource(R.drawable.chatbot);
-            mmypage.setImageResource(R.drawable.mypage);
+            int backstackcount = fragmentManager.getBackStackEntryCount();
+
+            if(backstackcount == 0) {
+                transaction.replace(R.id.frameLayout_main, homeFragment) // frameLayout에 홈 Fragment 호출
+                        .commitAllowingStateLoss();
+
+                mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
+                mprice.setImageResource(R.drawable.price);
+                mcommunity.setImageResource(R.drawable.community);
+                mchatbot.setImageResource(R.drawable.chatbot);
+                mmypage.setImageResource(R.drawable.mypage);
+            }
         }
     }
 
