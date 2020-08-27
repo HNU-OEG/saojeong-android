@@ -117,7 +117,10 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
         } else {
             glide.load(contactShopOC.get_mImage()).into(iv_shop);
         }
-        iv_favorate.setImageResource(contactShopOC.getMFImage());
+
+        if (contactShopOC.isMLike()) {
+            iv_favorate.setImageResource(contactShopOC.getMFImage());
+        }
     }
 
     @Override
