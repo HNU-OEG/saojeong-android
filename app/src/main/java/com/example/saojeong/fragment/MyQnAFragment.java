@@ -96,14 +96,13 @@ public class MyQnAFragment extends Fragment {
 
     private void loadData(View view) {
 
-        boardService.getPostList(10001).enqueue(new Callback<GetPostListArrayDto>() {
+        boardService.getPostListWithID(10001).enqueue(new Callback<List<GetPostListDto>>() {
             @Override
-            public void onResponse(Call<GetPostListArrayDto> call, Response<GetPostListArrayDto> response) {
+            public void onResponse(Call<List<GetPostListDto>> call, Response<List<GetPostListDto>> response) {
                 if (response.code() == 201) {
-                    GetPostListArrayDto body = response.body();
-                    myQnA = MyQnA.createMyQnA(body.getNormal());
+                    List<GetPostListDto> body = response.body();
+                    myQnA = MyQnA.createMyQnA(body);
                     myQnAadapter = new MyQnAadapter(myQnA);
-                    Log.d(LOG, "response OK");
                 } else {
                     myQnA = MyQnA._createMyQnA(20);
                     myQnAadapter = new MyQnAadapter(myQnA);
@@ -127,7 +126,7 @@ public class MyQnAFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<GetPostListArrayDto> call, Throwable t) {
+            public void onFailure(Call<List<GetPostListDto>> call, Throwable t) {
                 myQnA = MyQnA._createMyQnA(20);
                 myQnAadapter = new MyQnAadapter(myQnA);
                 recycler_myQnA.addItemDecoration(new DividerItemDecoration(view.getContext(), 1));

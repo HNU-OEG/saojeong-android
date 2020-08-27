@@ -91,7 +91,7 @@ public class MyQnAItemFragment extends Fragment {
                         List<CommentDto> mComment = body.getComments();
 
                         String mStatus = "";
-
+                        Log.d("my", "Comment.size(): " + mComment.size());
                         if (mComment.size() == 0) {
                             mStatus = "[답변전]";
                             comment.setText("등록된 답변이 없습니다.");
