@@ -31,7 +31,7 @@ public class StoreDto {
     private Integer storeId;
     @SerializedName("starred")
     @Expose
-    private Integer starred;
+    private Integer starred = 0;
     @SerializedName("store_intro")
     @Expose
     private String storeIntro;
