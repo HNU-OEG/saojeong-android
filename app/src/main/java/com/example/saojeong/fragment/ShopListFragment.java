@@ -48,7 +48,8 @@ public class ShopListFragment extends Fragment {
     private RecyclerView recyclerOpenedShop;
     private ShopOCAdapter shopOpenedAdapter;
     private ShopOCAdapter shopClosedAdapter;
-    List<ContactShopOC> contactShopOCs;
+    List<ContactShopOC> contactOpenedShop;
+    List<ContactShopOC> contactClosedShop;
 
     List<StoreDto> openedStore;
     List<StoreDto> closedStore;
@@ -121,19 +122,22 @@ public class ShopListFragment extends Fragment {
         //과일동 휴식 가게 Recycler View
         recyclerClosedShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_close);
 
-        storeService.getTypeStore(type, "count").enqueue(new Callback<TypeStoreDto>() {
+        storeService.getTypeStore(type, "grade").enqueue(new Callback<TypeStoreDto>() {
             @Override
             public void onResponse(Call<TypeStoreDto> call, Response<TypeStoreDto> response) {
                 if (response.code() == 201) {
                     TypeStoreDto body = response.body();
                     openedStore = body.getOpenStore();
                     closedStore = body.getClosedStore();
+                    Log.d("TYPE", type);
+                    Log.d("OPENED STORE", openedStore.toString());
+                    Log.d("CLOSED STORE", closedStore.toString());
 
-                    contactShopOCs = ContactShopOC.createContactsList(openedStore);
-                    shopOpenedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactShopOCs);
+                    contactOpenedShop = ContactShopOC.createContactsList(openedStore);
+                    shopOpenedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactOpenedShop);
 
-                    contactShopOCs = ContactShopOC.createContactsList(closedStore);
-                    shopClosedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactShopOCs);
+                    contactClosedShop = ContactShopOC.createContactsList(closedStore);
+                    shopClosedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactClosedShop);
                 } else {
                     getDefaultAdapter();
                 }
@@ -157,29 +161,34 @@ public class ShopListFragment extends Fragment {
         spinner_shop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (openedStore != null && closedStore != null) {
-                    Log.d("BEFORE", openedStore.toString());
+                if (contactOpenedShop != null && contactClosedShop != null) {
                     switch (i) {
                         case 0:
-                            Collections.sort(openedStore,
-                                    (a, b) -> b.getVoteGradeAverage().compareTo(a.getVoteGradeAverage()));
+                            Collections.sort(contactOpenedShop,
+                                    (a, b) -> b.getMStarscore().compareTo(a.getMStarscore()));
+                            Collections.sort(contactClosedShop,
+                                    (a, b) -> b.getMStarscore().compareTo(a.getMStarscore()));
                             break;
                         case 1:
-                            Collections.sort(openedStore,
-                                    (a, b) -> b.getVoteGradeCount().compareTo(a.getVoteGradeCount()));
+                            Collections.sort(contactOpenedShop,
+                                    (a, b) -> b.getMEvaluation().compareTo(a.getMEvaluation()));
+                            Collections.sort(contactClosedShop,
+                                    (a, b) -> b.getMEvaluation().compareTo(a.getMEvaluation()));
                             break;
                         case 2:
-                            Collections.sort(openedStore,
-                                    (a, b) -> a.getStoreName().compareTo(b.getStoreName()));
+                            Collections.sort(contactOpenedShop,
+                                    (a, b) -> a.getMShopname().compareTo(b.getMShopname()));
+                            Collections.sort(contactClosedShop,
+                                    (a, b) -> a.getMShopname().compareTo(b.getMShopname()));
                             break;
                     }
-                    Log.d("AFTER", openedStore.toString());
+                    shopOpenedAdapter.notifyDataSetChanged();
+                    shopClosedAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -187,7 +196,7 @@ public class ShopListFragment extends Fragment {
     }
 
     private void getDefaultAdapter() {
-        contactShopOCs = ContactShopOC._createContactsList(10);
+        List<ContactShopOC> contactShopOCs = ContactShopOC._createContactsList(10);
         shopOpenedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactShopOCs);
         shopClosedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactShopOCs);
     }
