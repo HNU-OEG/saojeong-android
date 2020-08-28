@@ -1,6 +1,7 @@
 package com.example.saojeong.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +106,6 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
 
         // Store ID 바인딩
         holder.storeId = contactShopOC.getMShopId();
-
         tv_shopnum.setText(contactShopOC.getMShopnum());
         tv_shopname.setText(contactShopOC.getMShopname());
         tv_star.setText(contactShopOC.getMStar());
@@ -114,6 +114,7 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
         tv_selfintroduction.setText(contactShopOC.getMSelfintroduction());
         if (glide == null) {
             iv_shop.setImageResource(contactShopOC.getMImage());
+
         } else {
             glide.load(contactShopOC.get_mImage()).into(iv_shop);
         }

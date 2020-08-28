@@ -50,6 +50,7 @@ public class ShopFragment extends Fragment {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private HomeFragment homeFragment;
+    private ShopListFragment shopListFragment;
     private RecyclerView recyclerShopDetail;
     private RecyclerView recyclerShopScore;
     private RecyclerView recyclerShopSellList;
@@ -109,6 +110,10 @@ public class ShopFragment extends Fragment {
         transaction = fragmentManager.beginTransaction();
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_shop, container, false);
+
+        TextView tvStoreNumber = rootView.findViewById(R.id.tv_shopnum);
+        TextView tvStoreName = rootView.findViewById(R.id.tv_shopname);
+
         //판매 품목
         recyclerShopSellList = (RecyclerView) rootView.findViewById(R.id.recyclershop_selllist);
         //상세 설명
@@ -130,9 +135,10 @@ public class ShopFragment extends Fragment {
 //                        Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
 //                        Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
 //                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
+                        tvStoreName.setText(body.getStoreDetail().getStoreName());
+                        tvStoreNumber.setText(body.getStoreDetail().getStoreIndexholder() + "번");
                         contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
                         shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
-
 
                         // UserType을 넘겨줘서 로그인 후 평가하기 or 평가하기 띄우기
                         contactShopScores = ContactShopScore.createContactsList(body.getStoreGrade(),
