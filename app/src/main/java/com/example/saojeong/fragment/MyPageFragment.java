@@ -1,11 +1,17 @@
 package com.example.saojeong.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,12 +34,15 @@ import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.store.StoreDto;
 import com.example.saojeong.rest.service.StoreService;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MyPageFragment extends Fragment {
 
@@ -42,6 +51,10 @@ public class MyPageFragment extends Fragment {
     private LikeStoreAdapter likeStoreAdapter;
     private StarStoreAdapter starStoreAdapter;
     private ShopFragment shopFragment;
+
+    private TextView tv_userId;
+    private ImageView iv_profile;
+    private SharedPreferences sharedPreferences;
 
     List<ContactShopOC> likeStores;
     List<ContactShopOC> starStores;
@@ -65,16 +78,34 @@ public class MyPageFragment extends Fragment {
         Log.d(TAG, "start MyPageFragment");
         storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
 
-        int numStore = MyPageGetData.getNumStore();
-
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_mypage, container, false);
 
         btn_profile = view.findViewById(R.id.btn_profile);
+        recyclerShop = view.findViewById(R.id.recycler_likeStore);
+        tv_userId = view.findViewById(R.id.tv_userId);
+        iv_profile = view.findViewById(R.id.iv_profile);
+
+        Context context = getContext();
+        sharedPreferences = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
+
+        byte[] imgByte = getImage();
+        if (imgByte == null) {
+            Log.d("profile", "이미지 호출 실패");
+        } else {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(imgByte);
+            Bitmap img = BitmapFactory.decodeStream(inputStream);
+            iv_profile.setImageBitmap(img);
+        }
+
+        String nickname = getName();
+        tv_userId.setText(nickname);
+        Log.d(TAG, "닉네임: " + nickname);
+
         btn_profile.setOnClickListener((v) -> {
             ((MainActivity) getActivity()).replaceFragment(ProfileFragment.newInstance());
         });
 
-        recyclerShop = view.findViewById(R.id.recycler_likeStore);
+
         storeService.getStarredStoreList().enqueue(new Callback<List<StoreDto>>() {
             @Override
             public void onResponse(Call<List<StoreDto>> call, Response<List<StoreDto>> response) {
@@ -117,11 +148,8 @@ public class MyPageFragment extends Fragment {
                     Log.d("BODY", body.toString());
                     starStores = ContactShopOC.createContactsList(body);
                     starStoreAdapter = new StarStoreAdapter(starStores);
-                } else {
-
                 }
             }
-
             @Override
             public void onFailure(Call<List<StoreDto>> call, Throwable t) {
 
@@ -136,5 +164,25 @@ public class MyPageFragment extends Fragment {
         recyclerStar.setAdapter(starStoreAdapter);
 
         return view;
+    }
+
+    private byte[] getImage() {
+
+        String byteString = sharedPreferences.getString("profileImage", null);
+
+        if (byteString != null) {
+            String[] split = byteString.substring(1, byteString.length()-1).split(", ");
+            byte[] imgByte = new byte[split.length];
+            for (int i = 0; i < split.length; i++) {
+                imgByte[i] = Byte.parseByte(split[i]);
+            }
+            return imgByte;
+        }
+        return null;
+    }
+
+    private String getName() {
+        String name = sharedPreferences.getString("nickname", null);
+        return name == null ? "" : name;
     }
 }
