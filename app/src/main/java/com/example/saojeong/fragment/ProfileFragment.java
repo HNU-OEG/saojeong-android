@@ -2,7 +2,9 @@ package com.example.saojeong.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,9 +36,12 @@ import com.example.saojeong.R;
 import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.mypage.Edit_ProfileDto;
+import com.example.saojeong.rest.dto.mypage.Edit_ProfileImageDto;
 import com.example.saojeong.rest.service.MyPage_Service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -44,6 +49,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileFragment extends Fragment {
 
@@ -57,7 +63,9 @@ public class ProfileFragment extends Fragment {
     private TextView tv_duplicate_err;
     private ImageView iv_profile;
 
-    private String currentName = "test";
+    byte[] byteArray;
+
+    private String currentName;
     private String newName;
     private String text1 = "*중복되는 별명입니다. 다른 닉네임으로 작성해주세요.";
     private String text2 = "*사용가능한 별명입니다.";
@@ -93,7 +101,6 @@ public class ProfileFragment extends Fragment {
 
         btn_change_picture.setOnClickListener((v) -> {
             //사진변경
-            // TODO: 2020-08-01-001 로컬에서 이미지 불러오기
 
             ((MainActivity) getActivity()).closeKeyBoard(view);
 
@@ -101,6 +108,23 @@ public class ProfileFragment extends Fragment {
             intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent, REQUEST_CODE);
+
+            //이미지 서버로 전송
+//            myPage_service.ModifiedImage(new Edit_ProfileImageDto(), TokenCase.getToken()).enqueue(new Callback<List<Edit_ProfileImageDto>>() {
+            myPage_service.ModifiedImage(new Edit_ProfileImageDto(byteArray)).enqueue(new Callback<List<Edit_ProfileImageDto>>() {
+                @Override
+                public void onResponse(Call<List<Edit_ProfileImageDto>> call, Response<List<Edit_ProfileImageDto>> response) {
+                    if (response.code() == 201) {
+                        Log.d("Profile", "이미지 전송 완료 " + response.message());
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Edit_ProfileImageDto>> call, Throwable t) {
+                    Log.d("Profile", "이미지 전송 실패");
+                }
+            });
 
         });
 
@@ -138,8 +162,6 @@ public class ProfileFragment extends Fragment {
         });
 
         btn_save.setOnClickListener((v) -> {
-            // TODO: 2020-08-01-002 서버에 이미지 전송
-            // TODO: 2020-08-01-003 서버에 변경된 이름 전송
             ((MainActivity) getActivity()).closeKeyBoard(view);
             ((Activity) view.getContext()).onBackPressed();
 
@@ -207,9 +229,17 @@ public class ProfileFragment extends Fragment {
                     Bitmap img = BitmapFactory.decodeStream(in);
                     in.close();
                     iv_profile.setImageBitmap(img);
-//                    Uri selectedImageUri = data.getData();
-//                    iv_profile.setImageURI(selectedImageUri);
 
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    img.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                    byteArray = byteArrayOutputStream.toByteArray();
+
+                    //todo response받은 JSON을 shararedPreferense에 저장
+                    Context context = getActivity();
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("profileImage", Arrays.toString(byteArray));
+                    editor.commit();
 
                 } catch (Exception e) {
                     e.printStackTrace();

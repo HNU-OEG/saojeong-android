@@ -47,7 +47,7 @@ public class SignOutFragment2 extends Fragment {
             //todo 프로필로 이동
             AllLoginManager loginManager = new AllLoginManager();
             loginManager.userDelete((MainActivity)getActivity());
-            
+
             ((MainActivity)getActivity()).replaceFragment(MyPageFragment.newInstance());
         });
 
