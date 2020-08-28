@@ -18,10 +18,12 @@ import retrofit2.Response;
 public class CallBackLogin implements Callback<Login_Dto> {
 
     Activity mActivity;
+    boolean login;
 
-    public CallBackLogin(Activity activity)
+    public CallBackLogin(Activity activity, boolean login)
     {
         mActivity=activity;
+        this.login=login;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class CallBackLogin implements Callback<Login_Dto> {
             Login_Dto body = response.body();
             SharedPreferences pref = mActivity.getSharedPreferences("SHARE_PREF", mActivity.MODE_PRIVATE);
             SharedPreferences.Editor editer = pref.edit();
-            String str1 = body.accessToken;
+            String str1 = body.AccessToken;
             editer.putString("AccessToken", str1);
             if(body.refreshToken!=null) {
                 String str2 = body.refreshToken;
@@ -42,9 +44,11 @@ public class CallBackLogin implements Callback<Login_Dto> {
             editer.apply();
             editer.commit();
             LoginToken.setToken(mActivity);
-            Intent intent = new Intent(mActivity, MainActivity.class);
-            mActivity.startActivity(intent);
-            mActivity.finish();
+            if(login) {
+                Intent intent = new Intent(mActivity, MainActivity.class);
+                mActivity.startActivity(intent);
+                mActivity.finish();
+            }
         }
         else
         {
