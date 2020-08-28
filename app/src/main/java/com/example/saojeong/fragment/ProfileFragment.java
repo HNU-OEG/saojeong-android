@@ -34,6 +34,7 @@ import androidx.fragment.app.Fragment;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.auth.TokenCase;
+import com.example.saojeong.login.AllLoginManager;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.mypage.Edit_ProfileDto;
 import com.example.saojeong.rest.dto.mypage.Edit_ProfileImageDto;
@@ -176,28 +177,31 @@ public class ProfileFragment extends Fragment {
             ((Activity) view.getContext()).onBackPressed();
 
             String new_name = et_new_name.getText().toString();
-            myPage_service.ModifiedName(new Edit_ProfileDto(new_name), TokenCase.getToken()).enqueue(new Callback<List<Edit_ProfileDto>>() {
+//            myPage_service.ModifiedName(new Edit_ProfileDto(new_name), TokenCase.getToken()).enqueue(new Callback<List<Edit_ProfileDto>>() {
+//
+//                @Override
+//                public void onResponse(Call<List<Edit_ProfileDto>> call, Response<List<Edit_ProfileDto>> response) {
+//                    if (response.code() == 201) {
+//                        List<Edit_ProfileDto> body = response.body();
+//                        Log.d("MYPAGE LOG", "이름 변경: " + body.toString());
+//                    }
+//                    editor.putString("nickname", new_name);
+//                    editor.commit();
+//                    Log.d("MYPAGE LOG", response.message());
+//
+//                }
+//
+//                @Override
+//                public void onFailure(Call<List<Edit_ProfileDto>> call, Throwable t) {
+//                    Log.d("MYPAGE LOG", "이름 변경 실패");
+//                }
+//            });
 
-                @Override
-                public void onResponse(Call<List<Edit_ProfileDto>> call, Response<List<Edit_ProfileDto>> response) {
-                    if (response.code() == 201) {
-                        List<Edit_ProfileDto> body = response.body();
-                        Log.d("MYPAGE LOG", "이름 변경: " + body.toString());
-                    }
-                    editor.putString("nickname", new_name);
-                    editor.commit();
-                    Log.d("MYPAGE LOG", response.message());
-
-                }
-
-                @Override
-                public void onFailure(Call<List<Edit_ProfileDto>> call, Throwable t) {
-                    Log.d("MYPAGE LOG", "이름 변경 실패");
-                }
-            });
+            AllLoginManager loginManager = new AllLoginManager((MainActivity)getActivity(), (MainActivity)getContext());
+            loginManager.editUsernickname((MainActivity)getActivity(), new_name);
             //((MainActivity) getActivity()).replaceFragment(MyPageFragment.newInstance());
         });
-        
+
         return view;
     }
 
