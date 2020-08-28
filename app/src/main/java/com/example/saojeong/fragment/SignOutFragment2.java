@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.login.AllLoginManager;
 
 public class SignOutFragment2 extends Fragment {
 
@@ -44,6 +45,9 @@ public class SignOutFragment2 extends Fragment {
         btn_sign_out.setOnClickListener((v) -> {
             //todo 서버로 전송
             //todo 프로필로 이동
+            AllLoginManager loginManager = new AllLoginManager();
+            loginManager.userDelete((MainActivity)getActivity());
+            
             ((MainActivity)getActivity()).replaceFragment(MyPageFragment.newInstance());
         });
 

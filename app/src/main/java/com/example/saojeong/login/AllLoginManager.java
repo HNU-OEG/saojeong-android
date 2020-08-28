@@ -122,6 +122,9 @@ public class AllLoginManager {
             //발급안되었으면 로그인실행
         }
     }
+
+    public AllLoginManager() {};
+
     public void login(String type, Activity activity){
         LoginControl login=map.get(type);
         mActivity=activity;
