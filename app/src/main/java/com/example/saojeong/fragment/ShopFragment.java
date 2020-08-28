@@ -126,10 +126,10 @@ public class ShopFragment extends Fragment {
                 public void onResponse(Call<StoreDetailDto> call, Response<StoreDetailDto> response) {
                     if (response.code() == 201) {
                         StoreDetailDto body = response.body();
-                        Log.d("DTO", body.toString());
-                        Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
-                        Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
-                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
+//                        Log.d("DTO", body.toString());
+//                        Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
+//                        Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
+//                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
                         contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
                         shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
 
