@@ -123,8 +123,6 @@ public class AllLoginManager {
         }
     }
 
-    public AllLoginManager() {};
-
     public void login(String type, Activity activity){
         LoginControl login=map.get(type);
         mActivity=activity;
