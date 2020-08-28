@@ -59,10 +59,13 @@ public class ProfileFragment extends Fragment {
     private Button btn_change_picture;
     private Button btn_save;
     private Button btn_sign_out;
+    private TextView tv_nickname;
     private EditText et_new_name;
     private TextView tv_duplicate_err;
     private ImageView iv_profile;
 
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     byte[] byteArray;
 
     private String currentName;
@@ -80,13 +83,20 @@ public class ProfileFragment extends Fragment {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
         myPage_service = ServiceGenerator.createService(MyPage_Service.class, TokenCase.getToken());
+        Context context = getActivity();
+        sharedPreferences = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         btn_change_picture = view.findViewById(R.id.btn_change_picture);
         btn_save = view.findViewById(R.id.btn_save);
         btn_sign_out = view.findViewById(R.id.btn_sign_out);
+        tv_nickname = view.findViewById(R.id.tv_nickname);
         et_new_name = view.findViewById(R.id.et_name);
         tv_duplicate_err = view.findViewById(R.id.tv_duplicate_err);
         iv_profile = view.findViewById(R.id.iv_profile);
+
+        currentName = getName();
+        tv_nickname.setText(currentName);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar_edit_profile);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
@@ -174,6 +184,8 @@ public class ProfileFragment extends Fragment {
                         List<Edit_ProfileDto> body = response.body();
                         Log.d("MYPAGE LOG", "이름 변경: " + body.toString());
                     }
+                    editor.putString("nickname", new_name);
+                    editor.commit();
                     Log.d("MYPAGE LOG", response.message());
 
                 }
@@ -183,7 +195,9 @@ public class ProfileFragment extends Fragment {
                     Log.d("MYPAGE LOG", "이름 변경 실패");
                 }
             });
+            //((MainActivity) getActivity()).replaceFragment(MyPageFragment.newInstance());
         });
+        
         return view;
     }
 
@@ -235,9 +249,6 @@ public class ProfileFragment extends Fragment {
                     byteArray = byteArrayOutputStream.toByteArray();
 
                     //todo response받은 JSON을 shararedPreferense에 저장
-                    Context context = getActivity();
-                    SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("profileImage", Arrays.toString(byteArray));
                     editor.commit();
 
@@ -246,5 +257,10 @@ public class ProfileFragment extends Fragment {
                 }
             }
         }
+    }
+
+    private String getName() {
+        String name = sharedPreferences.getString("nickname", null);
+        return name == null ? "" : name;
     }
 }

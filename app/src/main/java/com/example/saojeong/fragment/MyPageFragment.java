@@ -99,6 +99,7 @@ public class MyPageFragment extends Fragment {
 
         String nickname = getName();
         tv_userId.setText(nickname);
+        Log.d(TAG, "닉네임: " + nickname);
 
         btn_profile.setOnClickListener((v) -> {
             ((MainActivity) getActivity()).replaceFragment(ProfileFragment.newInstance());
