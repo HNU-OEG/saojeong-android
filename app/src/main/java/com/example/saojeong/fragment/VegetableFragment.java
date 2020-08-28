@@ -1,6 +1,7 @@
 package com.example.saojeong.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,12 +75,14 @@ public class VegetableFragment extends Fragment {
         //순서 나열 Spinner
         spinner_shop = (Spinner) rootView.findViewById(R.id.spinner_vegetable);
         item_shop = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
-        ArrayAdapter<String> adapter_shopoc = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, item_shop);
+        ArrayAdapter<String> adapter_shopoc = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, item_shop);
         adapter_shopoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_shop.setAdapter(adapter_shopoc);
         spinner_shop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("WHAT IS I: ", ""+i);
+                Log.d("WHAT IS l: ", ""+l);
 
             }
 
@@ -153,15 +156,7 @@ public class VegetableFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         transaction = fragmentManager.beginTransaction();
-
-//        shopOCAdapter.setOnItemClicklistener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(Object holder, View view, int position) {
-//                ((MainActivity) getActivity()).replaceFragment(shopFragment.newInstance());
-//            }
-//        });
     }
 
 }
