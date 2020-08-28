@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class StoreDto {
+public class StoreDto implements Comparable<StoreDto> {
     @SerializedName("store_number")
     @Expose
     private Integer storeNumber;
@@ -36,7 +36,22 @@ public class StoreDto {
     @Expose
     private String storeIntro;
 
+    public StoreDto (Double voteGradeAverage, Integer voteGradeCount, String storeName) {
+        this.voteGradeAverage = voteGradeAverage;
+        this.voteGradeCount = voteGradeCount;
+        this.storeName = storeName;
+    }
+
     public boolean isStarred() {
+        if (starred == null) {
+            return false;
+        }
+
         return starred == 1;
+    }
+
+    @Override
+    public int compareTo(StoreDto storeDto) {
+        return 0;
     }
 }

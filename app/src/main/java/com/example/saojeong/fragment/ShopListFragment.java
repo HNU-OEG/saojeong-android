@@ -1,9 +1,11 @@
 package com.example.saojeong.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -29,6 +31,9 @@ import com.example.saojeong.rest.dto.TypeStoreDto;
 import com.example.saojeong.rest.dto.store.StoreDto;
 import com.example.saojeong.rest.service.StoreService;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,7 +48,11 @@ public class ShopListFragment extends Fragment {
     private RecyclerView recyclerOpenedShop;
     private ShopOCAdapter shopOpenedAdapter;
     private ShopOCAdapter shopClosedAdapter;
-    List<ContactShopOC> contactShopOCs;
+    List<ContactShopOC> contactOpenedShop;
+    List<ContactShopOC> contactClosedShop;
+
+    List<StoreDto> openedStore;
+    List<StoreDto> closedStore;
 
     private StoreService storeService;
 
@@ -74,11 +83,11 @@ public class ShopListFragment extends Fragment {
 
         storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
 
-
         fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_fruit, container, false);
+
 
         Glide.with(this)
                 .load("https://saojeong-images.s3.ap-northeast-2.amazonaws.com/4_01.png")
@@ -105,34 +114,30 @@ public class ShopListFragment extends Fragment {
         typeImage.setImageResource(R.drawable.icon_fish_list);
 
 
-
         ((MainActivity) getActivity()).closeKeyBoard(rootView);
 
-        //순서 나열 Spinner
-        spinner_shop = (Spinner) rootView.findViewById(R.id.spinner_fruit);
-        item_shop = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
-        ArrayAdapter<String> adapter_shopoc = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, item_shop);
-        adapter_shopoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_shop.setAdapter(adapter_shopoc);
 
         //과일동 오픈 가게 Recycler View
         recyclerOpenedShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_open);
         //과일동 휴식 가게 Recycler View
         recyclerClosedShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_close);
 
-        storeService.getTypeStore(type, "count").enqueue(new Callback<TypeStoreDto>() {
+        storeService.getTypeStore(type, "grade").enqueue(new Callback<TypeStoreDto>() {
             @Override
             public void onResponse(Call<TypeStoreDto> call, Response<TypeStoreDto> response) {
                 if (response.code() == 201) {
                     TypeStoreDto body = response.body();
-                    List<StoreDto> openedStore = body.getOpenStore();
-                    List<StoreDto> closedStore = body.getClosedStore();
+                    openedStore = body.getOpenStore();
+                    closedStore = body.getClosedStore();
+                    Log.d("TYPE", type);
+                    Log.d("OPENED STORE", openedStore.toString());
+                    Log.d("CLOSED STORE", closedStore.toString());
 
-                    contactShopOCs = ContactShopOC.createContactsList(openedStore);
-                    shopOpenedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactShopOCs);
+                    contactOpenedShop = ContactShopOC.createContactsList(openedStore);
+                    shopOpenedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactOpenedShop);
 
-                    contactShopOCs = ContactShopOC.createContactsList(closedStore);
-                    shopClosedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactShopOCs);
+                    contactClosedShop = ContactShopOC.createContactsList(closedStore);
+                    shopClosedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactClosedShop);
                 } else {
                     getDefaultAdapter();
                 }
@@ -146,11 +151,52 @@ public class ShopListFragment extends Fragment {
             }
         });
 
+
+        //순서 나열 Spinner
+        spinner_shop = (Spinner) rootView.findViewById(R.id.spinner_fruit);
+        item_shop = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
+        ArrayAdapter<String> adapter_shopoc = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, item_shop);
+        adapter_shopoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_shop.setAdapter(adapter_shopoc);
+        spinner_shop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (contactOpenedShop != null && contactClosedShop != null) {
+                    switch (i) {
+                        case 0:
+                            Collections.sort(contactOpenedShop,
+                                    (a, b) -> b.getMStarscore().compareTo(a.getMStarscore()));
+                            Collections.sort(contactClosedShop,
+                                    (a, b) -> b.getMStarscore().compareTo(a.getMStarscore()));
+                            break;
+                        case 1:
+                            Collections.sort(contactOpenedShop,
+                                    (a, b) -> b.getMEvaluation().compareTo(a.getMEvaluation()));
+                            Collections.sort(contactClosedShop,
+                                    (a, b) -> b.getMEvaluation().compareTo(a.getMEvaluation()));
+                            break;
+                        case 2:
+                            Collections.sort(contactOpenedShop,
+                                    (a, b) -> a.getMShopname().compareTo(b.getMShopname()));
+                            Collections.sort(contactClosedShop,
+                                    (a, b) -> a.getMShopname().compareTo(b.getMShopname()));
+                            break;
+                    }
+                    shopOpenedAdapter.notifyDataSetChanged();
+                    shopClosedAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
         return rootView;
     }
 
     private void getDefaultAdapter() {
-        contactShopOCs = ContactShopOC._createContactsList(10);
+        List<ContactShopOC> contactShopOCs = ContactShopOC._createContactsList(10);
         shopOpenedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactShopOCs);
         shopClosedAdapter = new ShopOCAdapter(Glide.with(getActivity()), contactShopOCs);
     }

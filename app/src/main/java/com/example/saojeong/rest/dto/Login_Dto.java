@@ -21,7 +21,7 @@ public class Login_Dto {
 
     @SerializedName("AccessToken")
     @Expose
-    public String accessToken;
+    public String AccessToken;
     @SerializedName("RefreshToken")
     @Expose
     public String refreshToken;

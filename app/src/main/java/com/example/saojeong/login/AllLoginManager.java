@@ -9,6 +9,7 @@ import android.media.session.MediaSession;
 import androidx.annotation.Nullable;
 
 import com.example.saojeong.MainActivity;
+import com.example.saojeong.TutorialActivity;
 import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.Login_Dto;
@@ -20,7 +21,9 @@ import com.nhn.android.naverlogin.OAuthLogin;
 
 import java.util.HashMap;
 
-import javax.security.auth.callback.Callback;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AllLoginManager {
     private final int GOOGLE_REQUESTCODE=9003;
@@ -154,32 +157,65 @@ public class AllLoginManager {
     }
 
     private void loadlogin(String Type) {
+        Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getToken());
         if(Type=="facebook")
         {
-            Login_GuestService.FaceBookLogin().enqueue(new CallBackLogin(mActivity));
+            Login_GuestService.FaceBookLogin().enqueue(new CallBackLogin(mActivity, true));
         }
         else if(Type=="kakao")
         {
-            Login_GuestService.kakaoLogin(Session.getCurrentSession().getAccessToken()).enqueue(new CallBackLogin(mActivity));
+            Login_GuestService.kakaoLogin(Session.getCurrentSession().getAccessToken()).enqueue(new CallBackLogin(mActivity, true));
         }
         else if(Type=="naver")
         {
-            Login_GuestService.NaverLogin().enqueue(new CallBackLogin(mActivity));
+            Login_GuestService.NaverLogin().enqueue(new CallBackLogin(mActivity, true));
         }
         else  if(Type=="google")
         {
-            Login_GuestService.GoogleLogin().enqueue(new CallBackLogin(mActivity));
+            Login_GuestService.GoogleLogin().enqueue(new CallBackLogin(mActivity, true));
         }else  if(Type=="guest")
         {
-            Login_GuestService.CreateLogin().enqueue(new CallBackLogin(mActivity));
+            Login_GuestService.CreateLogin().enqueue(new CallBackLogin(mActivity, true));
         }
         else  if(Type=="Update")
         {
-            if(LoginToken.AccessTokenTimer()==0)
-                Login_GuestService.UpdateToken(LoginToken.getToken()).enqueue(new CallBackLogin(mActivity));
-            if(LoginToken.AccessTokenTimer()==1)
-                Login_GuestService.UpdateToken(LoginToken.getToken(), LoginToken.getRefreshToken()).enqueue(new CallBackLogin(mActivity));
+           //HashMap hash=new HashMap<>();
+           //hash.put("accesstoken", LoginToken.getToken());
+           //String str=LoginToken.getToken();
+           //    Login_GuestService.UpdateToken(hash).enqueue(new CallBackLogin(mActivity, false));
+           //if(LoginToken.AccessTokenTimer()==1)
+           //    Login_GuestService.UpdateToken(LoginToken.getToken(), LoginToken.getRefreshToken()).enqueue(new CallBackLogin(mActivity, false));
 
         }
+    }
+    public void userDelete(Activity activity) {
+        mActivity=activity;
+        Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getToken());
+        String tok=LoginToken.getToken();
+        Login_GuestService.DeleteUser(TokenCase.getUserResource("member_id")).enqueue(new Callback<Login_Dto>() {
+            @Override
+            public void onResponse(Call<Login_Dto> call, Response<Login_Dto> response) {
+                int a=response.code();
+                logout(mActivity);
+                Intent intent = new Intent(mActivity, TutorialActivity.class);
+                mActivity.startActivity(intent);
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure(Call<Login_Dto> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    public void editUsernickname(Activity activity, String nickname1) {
+        mActivity=activity;
+        HashMap hash=new HashMap<>();
+        hash.put("nickname", nickname1);
+        String str= LoginToken.getToken();
+        Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getToken());
+        Login_GuestService.editUserNickname(hash).enqueue(new CallBackLogin(mActivity, false));
     }
 }

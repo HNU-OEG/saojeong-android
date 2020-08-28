@@ -3,6 +3,7 @@ package com.example.saojeong.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.saojeong.R;
 import com.example.saojeong.login.AllLoginManager;
 import com.example.saojeong.model.TutorialValue;
+import com.example.saojeong.util.ForecdTerminationService;
+
 import java.util.List;
 import lombok.SneakyThrows;
 
@@ -51,6 +54,7 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
             login_guest.setOnClickListener(this);
             if(AllLoginManager.inst==null)
                 mAllLoginManager= new AllLoginManager(mActivity,mContext);
+            mActivity.startService(new Intent(mActivity, ForecdTerminationService.class));
         }
         @SneakyThrows
         @Override

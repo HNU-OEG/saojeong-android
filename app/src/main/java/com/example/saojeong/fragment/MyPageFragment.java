@@ -126,9 +126,6 @@ public class MyPageFragment extends Fragment {
                     Log.d("BODY", body.toString());
                     starStores = ContactShopOC.createContactsList(body);
                     starStoreAdapter = new StarStoreAdapter(starStores);
-                    recyclerStar.addItemDecoration(bottomDecoration);
-                    recyclerStar.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    recyclerStar.setAdapter(starStoreAdapter);
                 } else {
 
                 }
