@@ -1,12 +1,16 @@
 package com.example.saojeong.rest.service;
 
 import com.example.saojeong.rest.dto.Login_Dto;
-import com.example.saojeong.rest.dto.board.ModifiedPostDto;
+
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface Login_Guest {
@@ -26,10 +30,16 @@ public interface Login_Guest {
     Call<Login_Dto> GoogleLogin();
 
     @GET("auth/login")
-    Call<Login_Dto> UpdateToken(@Body String AccessToken);
+    Call<Login_Dto> UpdateToken(@Body HashMap accessToken);
     @GET("auth/login")
     Call<Login_Dto> UpdateToken(@Body String AccessToken, String RefreshToken);
     @GET("hello")
     Call<Login_Dto> hellotest();
 
+    @PUT("auth/login")
+    Call<Login_Dto> editUserNickname(@Body HashMap nickname);
+
+
+    @DELETE("admin/api/remove/guest/{member_id}.json")
+    Call<Login_Dto> DeleteUser(@Path("member_id") String member_id);
 }

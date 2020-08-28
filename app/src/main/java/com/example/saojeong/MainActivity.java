@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.ll_chatbot:
+               // AllLoginManager.inst.editUsernickname(this,"qq");
                 break;
 
             case R.id.ll_myPage:
@@ -169,9 +170,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        transaction = fragmentManager.beginTransaction();
+        int backstackcount = fragmentManager.getBackStackEntryCount();
+//
         //만약 더이상의 백스택이 없다면 홈으로 돌아가기
-        if(activity_tag == "homeFragment") { //만약 더이상의 백스택이 없다면 홈으로 돌아가기
+        if(activity_tag == "homeFragment" && backstackcount == 1) { //만약 더이상의 백스택이 없다면 홈으로 돌아가기
             if ( pressedTime == 0 ) {
                 Toast.makeText(MainActivity.this, " 한 번 더 누르면 종료됩니다." , Toast.LENGTH_LONG).show();
                 pressedTime = System.currentTimeMillis();
@@ -193,12 +196,11 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             super.onBackPressed();
-            transaction = fragmentManager.beginTransaction();
-
-            int backstackcount = fragmentManager.getBackStackEntryCount();
-
+            backstackcount = fragmentManager.getBackStackEntryCount();
             if(backstackcount == 0) {
-                transaction.replace(R.id.frameLayout_main, homeFragment) // frameLayout에 홈 Fragment 호출
+                activity_tag = "homeFragment";
+                transaction.replace(R.id.frameLayout_main, homeFragment)
+                        .addToBackStack(null)// frameLayout에 홈 Fragment 호출
                         .commitAllowingStateLoss();
 
                 mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
@@ -223,7 +225,8 @@ public class MainActivity extends AppCompatActivity {
         transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frameLayout_home, homeFragment);
         transaction.addToBackStack(null);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
+
     }
 
     public void closeKeyBoard(View view) {
@@ -264,5 +267,10 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         AllLoginManager.inst.onActivityResult(requestCode,resultCode,data);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
