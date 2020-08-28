@@ -112,10 +112,7 @@ public class ShopListFragment extends Fragment {
         }
 
         typeImage.setImageResource(R.drawable.icon_fish_list);
-
-
         ((MainActivity) getActivity()).closeKeyBoard(rootView);
-
 
         //과일동 오픈 가게 Recycler View
         recyclerOpenedShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_open);
@@ -171,9 +168,9 @@ public class ShopListFragment extends Fragment {
                             break;
                         case 1:
                             Collections.sort(contactOpenedShop,
-                                    (a, b) -> b.getMEvaluation().compareTo(a.getMEvaluation()));
+                                    (a, b) -> b.getCount().compareTo(a.getCount()));
                             Collections.sort(contactClosedShop,
-                                    (a, b) -> b.getMEvaluation().compareTo(a.getMEvaluation()));
+                                    (a, b) -> b.getCount().compareTo(a.getCount()));
                             break;
                         case 2:
                             Collections.sort(contactOpenedShop,

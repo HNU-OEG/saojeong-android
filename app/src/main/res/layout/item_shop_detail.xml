@@ -57,26 +57,41 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btn_phonenum1"
-                    android:layout_width="102dp"
-                    android:layout_height="15dp"
-                    android:gravity="center"
-                    android:background="@drawable/background_pn_rounding"
-                    android:textColor="#ffffff"
-                    android:textSize="11dp"
-                    android:text="010 - 1234 - 5678" />
+                <LinearLayout
+                    android:id="@+id/layout_phonenum1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btn_phonenum2"
-                    android:layout_width="102dp"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="8dp"
-                    android:gravity="center"
-                    android:background="@drawable/background_pn_rounding"
-                    android:textColor="#ffffff"
-                    android:textSize="11dp"
-                    android:text="010 - 1234 - 5678" />
+                    <Button
+                        android:id="@+id/btn_phonenum1"
+                        android:layout_width="102dp"
+                        android:layout_height="15dp"
+                        android:background="@drawable/background_pn_rounding"
+                        android:gravity="center"
+                        android:text="010 - 1234 - 5678"
+                        android:textColor="#ffffff"
+                        android:textSize="11dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_phonenum2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btn_phonenum2"
+                        android:layout_width="102dp"
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="8dp"
+                        android:background="@drawable/background_pn_rounding"
+                        android:gravity="center"
+                        android:text="010 - 1234 - 5678"
+                        android:textColor="#ffffff"
+                        android:textSize="11dp" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout

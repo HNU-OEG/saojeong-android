@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,13 +24,16 @@ public class ShopDetailAdapter extends RecyclerView.Adapter<ShopDetailAdapter.Vi
         public TextView timeTextView;
         public Button phonen1Button;
         public Button phonen2Button;
-
+        private LinearLayout llphoneN1;
+        private LinearLayout llphoneN2;
 
         public ViewHolder(View itemView) {
             super(itemView);
             timeTextView = (TextView) itemView.findViewById(R.id.tv_bh);
             phonen1Button = (Button) itemView.findViewById(R.id.btn_phonenum1);
             phonen2Button = (Button) itemView.findViewById(R.id.btn_phonenum2);
+            llphoneN1 = (LinearLayout) itemView.findViewById(R.id.layout_phonenum1);
+            llphoneN2 = (LinearLayout) itemView.findViewById(R.id.layout_phonenum2);
         }
     }
 
@@ -56,12 +60,16 @@ public class ShopDetailAdapter extends RecyclerView.Adapter<ShopDetailAdapter.Vi
 
         TextView tv_bh = holder.timeTextView;
         Button btn_phonen1 = holder.phonen1Button;
+        Button btn_phonen2 = holder.phonen2Button;
+        LinearLayout llphonen1 = holder.llphoneN1;
+        LinearLayout llphonen2 = holder.llphoneN2;
 
         tv_bh.setText(contactShopDetail.getmTime());
         btn_phonen1.setText(contactShopDetail.getmPhoneN1());
         if (contactShopDetail.getmPhoneN2() != null) {
-            Button btn_phonen2 = holder.phonen2Button;
             btn_phonen2.setText(contactShopDetail.getmPhoneN2());
+        } else if (contactShopDetail.getmPhoneN2() == null) {
+            llphonen2.setVisibility(View.INVISIBLE);
         }
     }
 

@@ -25,6 +25,7 @@ public class ContactShopOC {
     private int mFImage;
     private String _mImage;
     private boolean mLike;
+    private Integer count;
 
 
     public ContactShopOC(String mShopnum, String mShopname, String mStar, Double mStarscore, String mEvaluation, String mSelfintroduction,int mImage, int mFImage) {
@@ -50,6 +51,7 @@ public class ContactShopOC {
         this.mFImage = R.drawable.like;
         this._mImage = dto.getStoreImage();
         this.mLike = dto.isStarred();
+        this.count = dto.getVoteGradeCount();
     }
 
     public static List<ContactShopOC> _createContactsList(int numContacts) {

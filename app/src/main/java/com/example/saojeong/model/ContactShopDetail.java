@@ -1,5 +1,8 @@
 package com.example.saojeong.model;
 
+import android.view.View;
+import android.widget.LinearLayout;
+
 import com.example.saojeong.R;
 import com.example.saojeong.rest.dto.store.StoreDetailDto;
 import com.example.saojeong.util.StringUtils;
@@ -18,6 +21,7 @@ public class ContactShopDetail {
     private String mTime;
     private String mPhoneN1;
     private String mPhoneN2;
+
 
     public ContactShopDetail(String mTime, String mPhoneN1, String mPhoneN2) {
         this.mTime = mTime;
