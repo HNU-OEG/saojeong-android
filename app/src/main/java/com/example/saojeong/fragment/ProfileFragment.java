@@ -67,6 +67,7 @@ public class ProfileFragment extends Fragment {
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private Bitmap img;
     byte[] byteArray;
 
     private String currentName;
@@ -122,7 +123,7 @@ public class ProfileFragment extends Fragment {
 
             //이미지 서버로 전송
 //            myPage_service.ModifiedImage(new Edit_ProfileImageDto(), TokenCase.getToken()).enqueue(new Callback<List<Edit_ProfileImageDto>>() {
-            myPage_service.ModifiedImage(new Edit_ProfileImageDto(byteArray)).enqueue(new Callback<List<Edit_ProfileImageDto>>() {
+            myPage_service.ModifiedImage(new Edit_ProfileImageDto(img)).enqueue(new Callback<List<Edit_ProfileImageDto>>() {
                 @Override
                 public void onResponse(Call<List<Edit_ProfileImageDto>> call, Response<List<Edit_ProfileImageDto>> response) {
                     if (response.code() == 201) {
@@ -244,7 +245,7 @@ public class ProfileFragment extends Fragment {
                 try {
                     InputStream in = ((MainActivity) getActivity()).getContentResolver().openInputStream(data.getData());
 
-                    Bitmap img = BitmapFactory.decodeStream(in);
+                    img = BitmapFactory.decodeStream(in);
                     in.close();
                     iv_profile.setImageBitmap(img);
 
