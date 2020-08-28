@@ -43,6 +43,10 @@ public class StoreDto implements Comparable<StoreDto> {
     }
 
     public boolean isStarred() {
+        if (starred == null) {
+            return false;
+        }
+
         return starred == 1;
     }
 
