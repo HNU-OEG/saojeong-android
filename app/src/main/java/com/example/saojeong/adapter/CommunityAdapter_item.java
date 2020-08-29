@@ -77,7 +77,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
 
     @Override
     public void onBindViewHolder(CommunityAdapter_item.ViewHolder holder, int position) {
-        if(mHotContacts.size()>position)
+        if(mHotContacts.size()>position && mBoard==0)
         {
             CommunityValue contact = mHotContacts.get(position);
             holder.mTextViewTitle.setText(contact.getTitle());
@@ -90,7 +90,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
         }
         else
         {
-            CommunityValue contact = mNormalContacts.get(position-mHotContacts.size());
+            CommunityValue contact = mNormalContacts.get((mBoard*10)+position);
             holder.mTextViewTitle.setText(contact.getTitle());
             holder.mTextViewName.setText(contact.getAuthor());
             holder.mTextViewDate.setText(contact.getCreatedAt());
@@ -104,8 +104,24 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
 
     @Override
     public int getItemCount() {
+        int a=mHotContacts.size()+mNormalContacts.size();
+        if(mBoard==0) {
+            if (mHotContacts.size() + mNormalContacts.size() >= 12)
+                return 12;
+        }
+        else
+        {
+            if(mNormalContacts.size()-(mBoard*10)>=10)
+                return 10;
+            else
+                return mNormalContacts.size()%10;
+        }
         return mHotContacts.size()+mNormalContacts.size();
     }
+
+    //public int getItemCount() {
+    //    return mHotContacts.size()+mNormalContacts.size();
+    //}
 
     public void UpBoard()
     {

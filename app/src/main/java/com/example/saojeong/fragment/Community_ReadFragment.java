@@ -144,10 +144,9 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                 }
                 break;
             case R.id.ll_like_up:
-                //LikePost("vote", "up");
-                //mLikeUp.setTextColor(Color.parseColor("#ff6950"));
-                //load_GetPost();
-                AllLoginManager.inst.login("UPDATE", getActivity());
+                LikePost("vote", "up");
+                mLikeUp.setTextColor(Color.parseColor("#ff6950"));
+                load_GetPost(false);
                 break;
             case R.id.ll_like_down:
                 LikePost("blame", "up");

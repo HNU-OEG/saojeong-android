@@ -40,7 +40,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     TextView btnRight;
     TextView tvBoard;
     public static NestedScrollView scroll;
-    RecyclerView mRecyclerViewCommunity;
+    static RecyclerView mRecyclerViewCommunity;
     int board=0;
 
     private BoardService boardService;
@@ -60,7 +60,6 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
         tvBoard=view.findViewById(R.id.tv_community_board);
         tvBoard.setText(board+1+"");
 
-        boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
         load_GetPost();
 
         return view;
@@ -86,7 +85,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
                 else
                     btnLeft.setVisibility(View.VISIBLE);
 
-                if((board+1)*10>=10) {
+                if((board+1)*10>=mCommunityNormalValue.size()) {
                     btnRight.setVisibility(View.GONE);
                 }
                 else
@@ -107,12 +106,18 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
                 else
                     btnLeft.setVisibility(View.VISIBLE);
 
+                if((board+1)*10>=mCommunityNormalValue.size()) {
+                    btnRight.setVisibility(View.GONE);
+                }
+                else
+                    btnRight.setVisibility(View.VISIBLE);
                 break;
         }
     }
 
 
     public void load_GetPost() {
+        boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
         boardService.getPostList(10004).enqueue(new Callback<GetPostListArrayDto>() {
             @Override
             public void onResponse(Call<GetPostListArrayDto> call, Response<GetPostListArrayDto> response) {
@@ -137,28 +142,29 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     }
 
     //private void load_GetPost() {
-     //  Log.d("LOADSTORES HERE", "HERE");
+    //  Log.d("LOADSTORES HERE", "HERE");
 
-     //  boardService.getPostList().enqueue(new Callback<List<CommunityDto>>() {
-     //      @Override
-     //      public void onResponse(Call<List<CommunityDto>> call,
-     //                             Response<List<CommunityDto>> response) {
-     //          if (response.isSuccessful()) {
-     //              for (CommunityDto dto:response.body()) {
-     //                  CommunityValue com=new CommunityValue("제목은 두껍게! 한눈에 보이도록!","가나다라","07. 13 03:29","6",0,0, true);
+    //  boardService.getPostList().enqueue(new Callback<List<CommunityDto>>() {
+    //      @Override
+    //      public void onResponse(Call<List<CommunityDto>> call,
+    //                             Response<List<CommunityDto>> response) {
+    //          if (response.isSuccessful()) {
+    //              for (CommunityDto dto:response.body()) {
+    //                  CommunityValue com=new CommunityValue("제목은 두껍게! 한눈에 보이도록!","가나다라","07. 13 03:29","6",0,0, true);
 
-     //              }
-     //          } else {
-     //              Log.d("REST FAILED MESSAGE", response.message());
-     //          }
-     //      }
+    //              }
+    //          } else {
+    //              Log.d("REST FAILED MESSAGE", response.message());
+    //          }
+    //      }
 
-     //      @Override
-     //      public void onFailure(Call<List<CommunityDto>> call, Throwable t) {
-     //          Log.d("REST ERROR!", t.getMessage());
-     //      }
-     //  });
+    //      @Override
+    //      public void onFailure(Call<List<CommunityDto>> call, Throwable t) {
+    //          Log.d("REST ERROR!", t.getMessage());
+    //      }
+    //  });
     //}
+
 
 
 }

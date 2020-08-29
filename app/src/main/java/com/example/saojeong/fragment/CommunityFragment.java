@@ -139,6 +139,8 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
             case R.id.ll_community_home:
                 break;
             case R.id.ll_community_re:
+                mAdapter=new CommunityAdapter(getActivity());
+                viewPager2.setAdapter(mAdapter);
                 break;
             case R.id.ll_community_upscroll:
                 switch(viewPager2.getCurrentItem()) {
