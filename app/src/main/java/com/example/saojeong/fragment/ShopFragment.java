@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.FitWindowsFrameLayout;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.ShopDetailAdapter;
@@ -76,12 +78,6 @@ public class ShopFragment extends Fragment {
         return new ShopFragment();
     }
 
-    /**
-     * Activity에서 알고있는 정보를 Fragment로 전송하기 위해서 Bundle을 사용합니다.
-     * 먼저 Bundle을 생성하고 매개변수로 넘겨받은 id를 Bundle에 추가합니다. (80~81번째 줄)
-     * 새로운 Fragment를 생성하고 id가 추가된 Bundle을 등록하고 리턴합니다.
-     * 이제 다시 HomeFragment.java/189번째 줄로 와주세요.
-     */
     public static ShopFragment newInstance(int id) {
         Bundle bundle = new Bundle();
         bundle.putInt("id", id);
@@ -93,17 +89,7 @@ public class ShopFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        /**
-         * 이제 드디어 넘겨받은 id를 가지고 통신을 할 수 있습니다.
-         * 아래처럼 Service를 생성하고 그 아래에서 getArguments()로 Bundle을 넘겨받을 수 있습니다.
-         * 만약 newInstance()에서 Bundle을 생성하지 않았다면 getArguments는 null입니다.
-         * 그런데 getArguments가 null이면 앱이 종료되므로 if문을 통해 != null일 때만 통신을 하도록 설정합니다.
-         * 만약 null이 아니라면 getArguments().getInt("id")를 통해 id를 받아옵니다.
-         * id를 활용해서 /api/store/{id} 요청을 날립니다.
-         * 성공적으로 통신이 완료되고 Dto를 기반으로 각 RecyclerView들에 아이템을 할당하면 됩니다.
-         * 제 개인적인 생각이지만 통신 코드 안에서는 데이터들만 받아서 전역변수에 할당하고
-         * RecyclerView에 각 아이템들을 등록하는 것은 지금 작성된 코드처럼 enqueue() 밖에서 하는게 나을 것 같습니다.
-         */
+
         storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
 
         fragmentManager = getChildFragmentManager();
@@ -145,20 +131,22 @@ public class ShopFragment extends Fragment {
                                 body.getStoreDetail().getVoteGradeCount());
                         shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity(), id);
                         ImageView storeImage = (ImageView) getView().findViewById(R.id.iv_shopshop);
-                        Glide.with(getView()).load(body.getStoreDetail().getStoreImage()).into(storeImage);
+                        Glide.with(getView())
+                                .load(body.getStoreDetail().getStoreImage())
+                                .into(storeImage);
 
                         // 하트 로직
                         ImageView likeImage = (ImageView) getView().findViewById(R.id.iv_like);
                         likeImage.setSelected(body.getStoreDetail().getStarred());
                         likeImage.setOnClickListener(view -> {
                             if (likeImage.isSelected()) {
-                                Log.d("UNSTAR BEFORE", ""+likeImage.isSelected());
+                                Log.d("UNSTAR BEFORE", "" + likeImage.isSelected());
                                 storeService.unstartThisStore(id).enqueue(new Callback<StarUnstarResponseDto>() {
                                     @Override
                                     public void onResponse(Call<StarUnstarResponseDto> call,
                                                            Response<StarUnstarResponseDto> response) {
                                         likeImage.setSelected(!likeImage.isSelected());
-                                        Log.d("UNSTAR AFTER", ""+likeImage.isSelected());
+                                        Log.d("UNSTAR AFTER", "" + likeImage.isSelected());
                                     }
 
                                     @Override
@@ -167,13 +155,13 @@ public class ShopFragment extends Fragment {
                                     }
                                 });
                             } else {
-                                Log.d("STAR BEFORE", ""+likeImage.isSelected());
+                                Log.d("STAR BEFORE", "" + likeImage.isSelected());
                                 storeService.startThisStore(id).enqueue(new Callback<StarUnstarResponseDto>() {
                                     @Override
                                     public void onResponse(Call<StarUnstarResponseDto> call,
                                                            Response<StarUnstarResponseDto> response) {
                                         likeImage.setSelected(!likeImage.isSelected());
-                                        Log.d("STAR AFTER", ""+likeImage.isSelected());
+                                        Log.d("STAR AFTER", "" + likeImage.isSelected());
                                     }
 
                                     @Override
@@ -183,7 +171,6 @@ public class ShopFragment extends Fragment {
                                 });
                             }
                         });
-
 
 
                         getDefaultAdapters();
@@ -277,11 +264,11 @@ public class ShopFragment extends Fragment {
         contactShopSellLists = ContactShopSellList.createContactsList(10);
         shopSellListAdapter = new ShopSellListAdapter(contactShopSellLists);
 
-//        contactShopDetails = ContactShopDetail._createContactsList(1);
-//        shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
+        contactShopDetails = ContactShopDetail._createContactsList(1);
+        shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
 
-//        contactShopScores = ContactShopScore._createContactsList(1);
-//        shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity());
+        contactShopScores = ContactShopScore._createContactsList(1);
+        shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity());
     }
 
     private void setAdapters() {

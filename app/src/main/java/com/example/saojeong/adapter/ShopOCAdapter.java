@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.example.saojeong.GlideModule;
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactShopOC;
 import com.example.saojeong.model.OnItemClickListener;
@@ -116,7 +120,9 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
             iv_shop.setImageResource(contactShopOC.getMImage());
 
         } else {
-            glide.load(contactShopOC.get_mImage()).into(iv_shop);
+            glide.load(contactShopOC.get_mImage())
+                    .transform(GlideModule.getCenterCropAndRoundedCorner(50))
+                    .into(iv_shop);
         }
 
         if (contactShopOC.isMLike()) {

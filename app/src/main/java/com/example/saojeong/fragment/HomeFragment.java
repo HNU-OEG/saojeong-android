@@ -310,34 +310,19 @@ public class HomeFragment extends Fragment {
 
         transaction = fragmentManager.beginTransaction();
 
-        view.findViewById(R.id.iv_home).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceFragment(homeFragment.newInstance());
-                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
-            }
+        view.findViewById(R.id.iv_home).setOnClickListener(view1 -> {
+            ((MainActivity) getActivity()).replaceFragment(homeFragment.newInstance());
+            fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
         });
 
-        view.findViewById(R.id.btn_fruit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance("fruits"));
-            }
-        });
+        view.findViewById(R.id.btn_fruit).setOnClickListener(
+                view12 -> ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance("fruits")));
 
-        view.findViewById(R.id.btn_vegetable).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceHomeFragment(vegetableFragment.newInstance("vegetables"));
-            }
-        });
+        view.findViewById(R.id.btn_vegetable).setOnClickListener(
+                view13 -> ((MainActivity) getActivity()).replaceHomeFragment(vegetableFragment.newInstance("vegetables")));
 
-        view.findViewById(R.id.btn_fish).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceHomeFragment(fishFragment.newInstance("seafoods"));
-            }
-        });
+        view.findViewById(R.id.btn_fish).setOnClickListener(
+                view14 -> ((MainActivity) getActivity()).replaceHomeFragment(fishFragment.newInstance("seafoods")));
     }
 
     public void closeKeyBoard(View view) {
