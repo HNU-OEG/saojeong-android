@@ -110,17 +110,10 @@ public class AllLoginManager {
         LoginToken.setToken(mActivity);
         ///
 
+        loadlogin("oneUpdate");
 
-        if(LoginToken.getToken()!="") {
-
-            loadlogin("Update");
-            if(LoginToken.getToken()!="") { //업데이트후 토큰발급되었을때 홈화면으로
-                Intent intent = new Intent(mActivity, MainActivity.class);
-                mActivity.startActivity(intent);
-                mActivity.finish();
-            }
             //발급안되었으면 로그인실행
-        }
+
     }
 
     public void login(String type, Activity activity){
@@ -180,13 +173,16 @@ public class AllLoginManager {
         }
         else  if(Type=="Update")
         {
-           //HashMap hash=new HashMap<>();
-           //hash.put("accesstoken", LoginToken.getToken());
-           //String str=LoginToken.getToken();
-           //    Login_GuestService.UpdateToken(hash).enqueue(new CallBackLogin(mActivity, false));
-           //if(LoginToken.AccessTokenTimer()==1)
-           //    Login_GuestService.UpdateToken(LoginToken.getToken(), LoginToken.getRefreshToken()).enqueue(new CallBackLogin(mActivity, false));
-
+            HashMap hash=new HashMap<>();
+            hash.put("RefreshToken", LoginToken.getRefreshToken());
+            String str=LoginToken.getToken();
+            if(LoginToken.AccessTokenTimer()==1 || LoginToken.AccessTokenTimer()==2)
+                Login_GuestService.UpdateToken(hash).enqueue(new CallBackLogin(mActivity, false));
+        }else  if(Type=="oneUpdate")
+        {
+            HashMap hash=new HashMap<>();
+            hash.put("RefreshToken", LoginToken.getRefreshToken());
+            Login_GuestService.UpdateToken(hash).enqueue(new CallBackLogin(mActivity, false));
         }
     }
     public void userDelete(Activity activity) {

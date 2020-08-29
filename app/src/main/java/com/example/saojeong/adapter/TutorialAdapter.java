@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,10 @@ import android.widget.RelativeLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.login.AllLoginManager;
+import com.example.saojeong.login.LoginToken;
 import com.example.saojeong.model.TutorialValue;
 import com.example.saojeong.util.ForecdTerminationService;
 
@@ -55,6 +58,17 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
             if(AllLoginManager.inst==null)
                 mAllLoginManager= new AllLoginManager(mActivity,mContext);
             mActivity.startService(new Intent(mActivity, ForecdTerminationService.class));
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(LoginToken.getToken()!="") { //업데이트후 토큰발급되었을때 홈화면으로
+                        Intent intent = new Intent(mActivity, MainActivity.class);
+                        mActivity.startActivity(intent);
+                        mActivity.finish();
+                    }
+                }
+            }, 50);
+
         }
         @SneakyThrows
         @Override

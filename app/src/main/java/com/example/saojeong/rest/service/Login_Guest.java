@@ -29,10 +29,8 @@ public interface Login_Guest {
     @GET("auth/google/token")
     Call<Login_Dto> GoogleLogin();
 
-    @GET("auth/login")
-    Call<Login_Dto> UpdateToken(@Body HashMap accessToken);
-    @GET("auth/login")
-    Call<Login_Dto> UpdateToken(@Body String AccessToken, String RefreshToken);
+    @PUT("auth/login")
+    Call<Login_Dto> UpdateToken(@Body HashMap refreshToken);
     @GET("hello")
     Call<Login_Dto> hellotest();
 

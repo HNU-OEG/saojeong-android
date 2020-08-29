@@ -33,8 +33,14 @@ public class CallBackLogin implements Callback<Login_Dto> {
             Login_Dto body = response.body();
             SharedPreferences pref = mActivity.getSharedPreferences("SHARE_PREF", mActivity.MODE_PRIVATE);
             SharedPreferences.Editor editer = pref.edit();
-            String str1 = body.AccessToken;
-            editer.putString("AccessToken", str1);
+            if(body.accessToken!=null) {
+                String str1 = body.accessToken;
+                editer.putString("AccessToken", str1);
+            }
+            if(body.AccessToken!=null) {
+                String str1 = body.AccessToken;
+                editer.putString("AccessToken", str1);
+            }
             if(body.refreshToken!=null) {
                 String str2 = body.refreshToken;
                 editer.putString("RefreshToken", str2);
