@@ -15,6 +15,7 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.example.saojeong.GlideModule;
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactShopOC;
 import com.example.saojeong.model.OnItemClickListener;
@@ -120,7 +121,7 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
 
         } else {
             glide.load(contactShopOC.get_mImage())
-                    .transform(new MultiTransformation<>(new CenterCrop(), new RoundedCorners(50)))
+                    .transform(GlideModule.getCenterCropAndRoundedCorner(50))
                     .into(iv_shop);
         }
 

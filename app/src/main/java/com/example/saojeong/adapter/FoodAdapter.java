@@ -13,6 +13,7 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.example.saojeong.GlideModule;
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactFood;
 import com.example.saojeong.model.OnItemClickListener;
@@ -68,7 +69,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
             iv_food.setImageResource(contactSeason.getMFrImage());
         } else {
             glide.load(contactSeason.get_mFrImage())
-                    .transform(new MultiTransformation<>(new FitCenter(), new RoundedCorners(50)))
+                    .transform(GlideModule.getCenterCropAndRoundedCorner(50))
                     .into(iv_food);
         }
     }
