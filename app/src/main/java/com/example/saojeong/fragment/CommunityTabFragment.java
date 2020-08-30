@@ -33,16 +33,20 @@ import retrofit2.Response;
 
 public class CommunityTabFragment extends Fragment implements View.OnClickListener{
 
-    CommunityAdapter_item mAdapter;
-    List<CommunityValue> mCommunityNormalValue;
-    List<CommunityValue> mCommunityHotValue;
-    TextView btnLeft;
-    TextView btnRight;
-    TextView tvBoard;
+    public static CommunityTabFragment inst;
+    private CommunityAdapter_item mAdapter;
+    private List<CommunityValue> mCommunityNormalValue;
+    private List<CommunityValue> mCommunityHotValue;
+    private TextView btnLeft;
+    private TextView btnRight;
+    private TextView tvBoard;
     public static NestedScrollView scroll;
     static RecyclerView mRecyclerViewCommunity;
-    int board=0;
-
+    private int board=0;
+    public CommunityTabFragment(){
+        if(inst==null)
+            inst=this;
+    }
     private BoardService boardService;
     @Nullable
     @Override
@@ -73,44 +77,10 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
 
         switch(id) {
             case R.id.tv_community_btn_Left:
-                mAdapter.DownBoard();
-                board--;
-                tvBoard.setText(board+1+"");
-                scroll.scrollTo(0,0);
-                mRecyclerViewCommunity.setAdapter(mAdapter);
-                mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
-                if(board==0) {
-                    btnLeft.setVisibility(View.GONE);
-                }
-                else
-                    btnLeft.setVisibility(View.VISIBLE);
-
-                if((board+1)*10>=mCommunityNormalValue.size()) {
-                    btnRight.setVisibility(View.GONE);
-                }
-                else
-                    btnRight.setVisibility(View.VISIBLE);
-
+                btn_Left();
                 break;
             case R.id.tv_community_btn_Right:
-
-                mAdapter.UpBoard();
-                board++;
-                tvBoard.setText(board+1+"");
-                scroll.scrollTo(0,0);
-                mRecyclerViewCommunity.setAdapter(mAdapter);
-                mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
-                if(board==0) {
-                    btnLeft.setVisibility(View.GONE);
-                }
-                else
-                    btnLeft.setVisibility(View.VISIBLE);
-
-                if((board+1)*10>=mCommunityNormalValue.size()) {
-                    btnRight.setVisibility(View.GONE);
-                }
-                else
-                    btnRight.setVisibility(View.VISIBLE);
+                btn_Right();
                 break;
         }
     }
@@ -125,6 +95,10 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
                 if (response.code() == 201) { // 서버와 통신 성공
                     mCommunityNormalValue = CommunityValue.createContactsList(body.getNormal());
                     mCommunityHotValue = CommunityValue.createContactsList(body.getHot());
+                    btnLeft.setVisibility(View.GONE);
+                    if(mCommunityHotValue.size()+mCommunityNormalValue.size()>10) {
+                        btnRight.setVisibility(View.GONE);
+                    }
                     mAdapter = new CommunityAdapter_item( mCommunityHotValue, mCommunityNormalValue,(MainActivity)getActivity());
                 } else { // 서버에서 문제 발생
                     //likeStores = ContactShopOC._createContactsList(20);
@@ -141,30 +115,45 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
         });
     }
 
-    //private void load_GetPost() {
-    //  Log.d("LOADSTORES HERE", "HERE");
 
-    //  boardService.getPostList().enqueue(new Callback<List<CommunityDto>>() {
-    //      @Override
-    //      public void onResponse(Call<List<CommunityDto>> call,
-    //                             Response<List<CommunityDto>> response) {
-    //          if (response.isSuccessful()) {
-    //              for (CommunityDto dto:response.body()) {
-    //                  CommunityValue com=new CommunityValue("제목은 두껍게! 한눈에 보이도록!","가나다라","07. 13 03:29","6",0,0, true);
+    public void btn_Right(){
+        if((board+1)*10<mCommunityNormalValue.size()) {
+            mAdapter.UpBoard();
+            board++;
+            tvBoard.setText(board + 1 + "");
+            scroll.scrollTo(0, 0);
+            mRecyclerViewCommunity.setAdapter(mAdapter);
+            mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
+            if (board == 0) {
+                btnLeft.setVisibility(View.GONE);
+            } else
+                btnLeft.setVisibility(View.VISIBLE);
 
-    //              }
-    //          } else {
-    //              Log.d("REST FAILED MESSAGE", response.message());
-    //          }
-    //      }
+            if ((board + 1) * 10 >= mCommunityNormalValue.size()) {
+                btnRight.setVisibility(View.GONE);
+            } else
+                btnRight.setVisibility(View.VISIBLE);
+        }
+    }
 
-    //      @Override
-    //      public void onFailure(Call<List<CommunityDto>> call, Throwable t) {
-    //          Log.d("REST ERROR!", t.getMessage());
-    //      }
-    //  });
-    //}
+    public void btn_Left(){
+        if(board!=0) {
+            mAdapter.DownBoard();
+            board--;
+            tvBoard.setText(board + 1 + "");
+            scroll.scrollTo(0, 0);
+            mRecyclerViewCommunity.setAdapter(mAdapter);
+            mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
+            if (board == 0) {
+                btnLeft.setVisibility(View.GONE);
+            } else
+                btnLeft.setVisibility(View.VISIBLE);
 
-
+            if ((board + 1) * 10 >= mCommunityNormalValue.size()) {
+                btnRight.setVisibility(View.GONE);
+            } else
+                btnRight.setVisibility(View.VISIBLE);
+        }
+    }
 
 }

@@ -31,7 +31,7 @@ public class LoginToken {
             if(time2<0) {
                 return 1;
             }
-            else if(time2<60) {
+            else if(time2<15) {
                 return 0;
             }
         }

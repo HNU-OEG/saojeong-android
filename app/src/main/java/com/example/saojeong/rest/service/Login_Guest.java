@@ -4,6 +4,8 @@ import com.example.saojeong.rest.dto.Login_Dto;
 
 import java.util.HashMap;
 
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -18,26 +20,26 @@ public interface Login_Guest {
     Call<Login_Dto> CreateLogin();
 
     @GET("auth/facebook/token")
-    Call<Login_Dto> FaceBookLogin();
+    Observable<Login_Dto> FaceBookLogin();
 
     @GET("auth/kakao/token")
-    Call<Login_Dto> kakaoLogin(@Query("access_token") String title);
+    Observable<Login_Dto> kakaoLogin(@Query("access_token") String title);
 
     @GET("auth/naver/token")
-    Call<Login_Dto> NaverLogin();
+    Observable<Login_Dto> NaverLogin();
 
     @GET("auth/google/token")
-    Call<Login_Dto> GoogleLogin();
+    Observable<Login_Dto> GoogleLogin();
 
     @PUT("auth/login")
-    Call<Login_Dto> UpdateToken(@Body HashMap refreshToken);
+    Observable<Login_Dto> UpdateToken(@Body HashMap refreshToken);
     @GET("hello")
     Call<Login_Dto> hellotest();
 
-    @PUT("auth/login")
-    Call<Login_Dto> editUserNickname(@Body HashMap nickname);
+    @PUT("admin/api/edit/customers/{member_id}.json")
+    Observable<Login_Dto> editUserNickname(@Body HashMap nickname, @Path("member_id") String member_id);
 
 
     @DELETE("admin/api/remove/guest/{member_id}.json")
-    Call<Login_Dto> DeleteUser(@Path("member_id") String member_id);
+    Observable<Login_Dto> DeleteUser(@Path("member_id") String member_id);
 }
