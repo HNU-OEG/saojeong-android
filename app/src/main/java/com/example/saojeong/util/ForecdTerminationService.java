@@ -23,7 +23,7 @@ public class ForecdTerminationService extends Service {
     public void onTaskRemoved(Intent rootIntent) { //핸들링 하는 부분
 
         Toast.makeText(this, "onTaskRemoved ", Toast.LENGTH_SHORT).show();
-        AllLoginManager.inst=null;
+        AllLoginManager.inst.Destroy(null);
         stopSelf(); //서비스 종료
     }
 }

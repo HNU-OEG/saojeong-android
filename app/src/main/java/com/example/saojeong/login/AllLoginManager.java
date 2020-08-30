@@ -251,7 +251,7 @@ public class AllLoginManager {
                         //Intent intent = new Intent(mActivity, TutorialActivity.class);
                         //mActivity.startActivity(intent);
                         //mActivity.getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                        Destroy();
+                        Destroy(mActivity);
                         mActivity.finish();
                         System.exit(0);
                     }
@@ -269,6 +269,7 @@ public class AllLoginManager {
         HashMap hash=new HashMap<>();
         hash.put("nickname", nickname1);
         String str= LoginToken.getToken();
+        String ssssss=TokenCase.getUserResource("member_id");
         Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
         Login_GuestService.editUserNickname(hash, TokenCase.getUserResource("member_id")).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
                 .observeOn(AndroidSchedulers.mainThread())
