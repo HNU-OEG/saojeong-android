@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     super.onBackPressed();
-                    AllLoginManager.inst.Destroy(this);
+                    AllLoginManager.inst.Destroy();
                     finish();
                 }
             }
@@ -273,6 +273,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AllLoginManager.inst.Destroy(this);
+        AllLoginManager.inst.Destroy();
     }
 }
