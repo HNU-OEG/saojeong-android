@@ -143,8 +143,7 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
 
         View contactView = inflater.inflate(R.layout.item_shop_score, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     @Override
@@ -164,37 +163,18 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
         tv_itemscore.setText(contactShopScore.getmItemscore());
         tv_pricescore.setText(contactShopScore.getmPricescore());
 
-        btn_score.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShopStarScoreAdapter adapter = (ShopStarScoreAdapter) recyclerShopStarScore.getAdapter();
-                UpdateVoteGradeRequestDto requestBody = new UpdateVoteGradeRequestDto(
-                        adapter.getmContacts().get(0).getmRating(),
-                        adapter.getmContacts().get(1).getmRating(),
-                        adapter.getmContacts().get(2).getmRating()
-                );
+        if (contactShopScore.getUserKindScore() == -1.0F) {
+            contactShopStarScores = ContactShopStarScore.createContactsList();
+            shopStarScoreAdapter = new ShopStarScoreAdapter(contactShopStarScores);
+        } else {
+            contactShopStarScores = ContactShopStarScore.createContactsList(
+                    contactShopScore.getUserKindScore(),
+                    contactShopScore.getUserItemScore(),
+                    contactShopScore.getUserPriceScore()
+            );
+            shopStarScoreAdapter = new ShopStarScoreAdapter(contactShopStarScores);
+        }
 
-                StoreService storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
-                storeService.updateVoteGrade(id, requestBody).enqueue(new Callback<UpdateVoteGradeResponseDto>() {
-                    @Override
-                    public void onResponse(Call<UpdateVoteGradeResponseDto> call,
-                                           Response<UpdateVoteGradeResponseDto> response) {
-                        // Toast or 평가 완료 alert 띄우기
-                        Log.d("VOTE", response.body().toString());
-                    }
-
-                    @Override
-                    public void onFailure(Call<UpdateVoteGradeResponseDto> call, Throwable t) {
-                        // Toast 평가 실패 띄우기
-                        Log.d("VOTE FAILED", t.getMessage());
-                    }
-                });
-            }
-        });
-
-        //평가하기
-        contactShopStarScores = ContactShopStarScore.createContactsList(3);
-        shopStarScoreAdapter = new ShopStarScoreAdapter(contactShopStarScores);
         recyclerShopStarScore.addItemDecoration(rightDecoration);
         recyclerShopStarScore.addItemDecoration(bottomDecoration);
         recyclerShopStarScore.setLayoutManager((new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)));
@@ -213,6 +193,33 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
         markingStar(kindscore, ll_shop_kind);
         markingStar(itemscore, ll_shop_item);
         markingStar(pricescore, ll_shop_price);
+
+        btn_score.setOnClickListener(view -> {
+            ShopStarScoreAdapter adapter = (ShopStarScoreAdapter) recyclerShopStarScore.getAdapter();
+            UpdateVoteGradeRequestDto requestBody = new UpdateVoteGradeRequestDto(
+                    adapter.getmContacts().get(0).getmRating(),
+                    adapter.getmContacts().get(1).getmRating(),
+                    adapter.getmContacts().get(2).getmRating()
+            );
+
+            StoreService storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
+            storeService.updateVoteGrade(id, requestBody).enqueue(new Callback<UpdateVoteGradeResponseDto>() {
+                @Override
+                public void onResponse(Call<UpdateVoteGradeResponseDto> call,
+                                       Response<UpdateVoteGradeResponseDto> response) {
+                    // Toast or 평가 완료 alert 띄우기
+//                    Log.d("VOTE", response.body().toString());
+                }
+
+                @Override
+                public void onFailure(Call<UpdateVoteGradeResponseDto> call, Throwable t) {
+                    // Toast 평가 실패 띄우기
+//                    Log.d("VOTE FAILED", t.getMessage());
+                }
+            });
+        });
+
+
 //        //평점에 따라 별 개수 변경(친절도)
 //        if (kindscore >= 0 && kindscore < 0.5) {
 //            iv_kindstar1.setImageResource(R.drawable.star_empty);

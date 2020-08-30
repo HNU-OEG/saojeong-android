@@ -120,7 +120,7 @@ public class ShopFragment extends Fragment {
 //                        Log.d("DTO", body.toString());
 //                        Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
 //                        Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
-//                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
+                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
                         tvStoreName.setText(body.getStoreDetail().getStoreName());
                         tvStoreNumber.setText(body.getStoreDetail().getStoreIndexholder() + "번");
                         contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
@@ -291,8 +291,6 @@ public class ShopFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         transaction = fragmentManager.beginTransaction();
-
     }
 }

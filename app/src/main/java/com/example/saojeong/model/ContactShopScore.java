@@ -13,6 +13,9 @@ public class ContactShopScore {
     private String mKindscore;
     private String mItemscore;
     private String mPricescore;
+    private float userKindScore;
+    private float userItemScore;
+    private float userPriceScore;
 
     public ContactShopScore(String mEvaluate, String mKindscore, String mItemscore, String mPricescore) {
         this.mEvaluate = mEvaluate;
@@ -26,6 +29,9 @@ public class ContactShopScore {
         this.mKindscore = dto.getKindnessAverage().toString();
         this.mItemscore = dto.getMerchandiseAverage().toString();
         this.mPricescore = dto.getPriceAverage().toString();
+        this.userKindScore = dto.getMyKindness().floatValue();
+        this.userItemScore = dto.getMyMerchandise().floatValue();
+        this.userPriceScore = dto.getMyPrice().floatValue();
     }
 
     public String getmEvaluate() {
@@ -44,6 +50,17 @@ public class ContactShopScore {
         return mPricescore;
     }
 
+    public float getUserKindScore() {
+        return userKindScore;
+    }
+
+    public float getUserItemScore() {
+        return userItemScore;
+    }
+
+    public float getUserPriceScore() {
+        return userPriceScore;
+    }
 
     public static List<ContactShopScore> _createContactsList(int numContacts) {
         List<ContactShopScore> contacts = new ArrayList<>();

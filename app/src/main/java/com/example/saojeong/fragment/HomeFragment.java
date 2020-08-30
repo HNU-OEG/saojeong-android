@@ -188,7 +188,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<StoreDto>> call, Throwable t) {
-                // 안드로이드에서 문제 발생 (네트워크 환경 체크해보기)
                 likeStores = ContactShopOC._createContactsList(20);
                 likeStoreAdapter = new LikeStoreAdapter(likeStores);
                 recyclerShop.addItemDecoration(leftDecoration);
