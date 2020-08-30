@@ -221,7 +221,7 @@ public class AllLoginManager {
                 hash.put("RefreshToken", LoginToken.getRefreshToken());
                 Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new ObserveLogin(mActivity, false, "UPDATE"));
+                        .subscribe(new ObserveLogin(mActivity, false, "oneUpdate"));
             }
         }
 
