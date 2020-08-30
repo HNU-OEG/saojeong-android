@@ -19,11 +19,12 @@ public class CallBackLogin implements Callback<Login_Dto> {
 
     Activity mActivity;
     boolean login;
-
-    public CallBackLogin(Activity activity, boolean login)
+    String type;
+    public CallBackLogin(Activity activity, boolean login, String type)
     {
         mActivity=activity;
         this.login=login;
+        this.type=type;
     }
 
     @Override
@@ -57,6 +58,7 @@ public class CallBackLogin implements Callback<Login_Dto> {
         else
         {
             Toast.makeText(mActivity,"접속에러", Toast.LENGTH_SHORT).show();
+            AllLoginManager.inst.logout(mActivity,type);
             //평소엔 에러날일이없으므로 토큰삭제
         }
     }
