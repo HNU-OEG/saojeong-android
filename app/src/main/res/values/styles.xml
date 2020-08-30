@@ -13,6 +13,16 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="TextViewStyle" parent="@android:style/Widget.DeviceDefault.TextView">
+        <item name="android:fontFamily">@font/font</item>
+    </style>
+    <style name="EditTextStyle" parent="@android:style/Widget.DeviceDefault.TextView">
+        <item name="android:fontFamily">@font/font</item>
+    </style>
+    <style name="ButtonStyle" parent="@android:style/Widget.DeviceDefault.TextView">
+        <item name="android:fontFamily">@font/font</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -20,6 +30,9 @@
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:textViewStyle">@style/TextViewStyle</item>
+        <item name="android:buttonStyle">@style/ButtonStyle</item>
+        <item name="android:editTextStyle">@style/EditTextStyle</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
