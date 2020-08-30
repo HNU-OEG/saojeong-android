@@ -33,7 +33,6 @@
                 android:id="@+id/et_shopsearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="21dp"
                 android:layout_marginBottom="5dp"
@@ -41,8 +40,10 @@
                 android:layout_gravity="center"
                 android:background="@drawable/search"
                 android:hint="점포 검색"
+                android:textColorHint="#cecece"
+                android:textStyle="bold"
                 android:inputType="textPersonName"
-                android:textSize="14dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -129,33 +130,33 @@
 
                         <TextView
                             android:layout_width="78dp"
-                            android:layout_height="12dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="41dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="과일동"
-                            android:textSize="9dp"
+                            android:textSize="12dp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="78dp"
-                            android:layout_height="12dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="채소동"
-                            android:textSize="9dp"
+                            android:textSize="12dp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="78dp"
-                            android:layout_height="12dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="41dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="수산동"
-                            android:textSize="9dp"
+                            android:textSize="12dp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -170,9 +171,10 @@
                             android:layout_width="163dp"
                             android:layout_height="28dp"
                             android:layout_marginLeft="25dp"
-                            android:layout_weight="1"
+                            android:layout_marginBottom="10dp"
                             android:text="이곳이 평점이 높아요!"
-                            android:textSize="15dp"
+                            android:textColor="#5a5a5a"
+                            android:textSize="16dp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -205,7 +207,8 @@
                                     android:layout_marginTop="12dp"
                                     android:gravity="center"
                                     android:text="지금 제철이에요!"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
+                                    android:textColor="#5a5a5a"
                                     android:textStyle="bold" />
 
                                 <LinearLayout
@@ -287,7 +290,8 @@
                                 android:layout_marginLeft="25dp"
                                 android:gravity="start|center"
                                 android:text="사오정 소식"
-                                android:textSize="15dp"
+                                android:textSize="16dp"
+                                android:textColor="#5a5a5a"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toTopOf="parent"
                                 app:layout_constraintHorizontal_bias="0.7"

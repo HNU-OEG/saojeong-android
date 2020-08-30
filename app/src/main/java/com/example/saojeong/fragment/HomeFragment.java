@@ -1,6 +1,7 @@
 package com.example.saojeong.fragment;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -143,10 +144,16 @@ public class HomeFragment extends Fragment {
         //시작시 Tab Color 지정
         TextView Cfruit = (TextView) tabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
         Cfruit.setTextColor(Color.parseColor("#ffffff"));
+        Cfruit.setTextSize(16);
+        Cfruit.setTypeface(null, Typeface.BOLD);
         TextView CVegetable = (TextView) tabHost.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
         CVegetable.setTextColor(Color.parseColor("#ffd6b7"));
+        CVegetable.setTextSize(16);
+        CVegetable.setTypeface(null, Typeface.BOLD);
         TextView Cfish = (TextView) tabHost.getTabWidget().getChildAt(2).findViewById(android.R.id.title);
         Cfish.setTextColor(Color.parseColor("#ffd6b7"));
+        Cfish.setTextSize(16);
+        Cfish.setTypeface(null, Typeface.BOLD);
 
         //Tab 바꿀 때 마다 색 변경
         tabHost.setOnTabChangedListener((TabHost.OnTabChangeListener) s -> {
