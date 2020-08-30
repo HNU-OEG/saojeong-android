@@ -27,6 +27,7 @@ import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.response.UpdateVoteGradeResponseDto;
 import com.example.saojeong.rest.request.UpdateVoteGradeRequestDto;
 import com.example.saojeong.rest.service.StoreService;
+import com.example.saojeong.util.AlertBuilder;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -189,15 +190,19 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
                                            Response<UpdateVoteGradeResponseDto> response) {
                         if (response.code() == 201) {
                             btn_score.setText("수정하기");
-                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                            builder.setTitle("통신 성공").setMessage("평점 등록을 완료했습니다!");
-                            AlertDialog alertDialog = builder.create();
-                            alertDialog.show();
+                            AlertBuilder.createDialog(mContext, "통신 성공", "평점 등록을 성공했습니다!")
+                                    .show();
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                            builder.setTitle("통신 성공").setMessage("평점 등록을 완료했습니다!");
+//                            AlertDialog alertDialog = builder.create();
+//                            alertDialog.show();
                         } else {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                            builder.setTitle("서버 오류").setMessage("평점 등록을 실패했습니다!");
-                            AlertDialog alertDialog = builder.create();
-                            alertDialog.show();
+                            AlertBuilder.createDialog(mContext, "서버 오류", "평점 수정을 실패했습니다!")
+                                    .show();
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                            builder.setTitle("서버 오류").setMessage("평점 등록을 실패했습니다!");
+//                            AlertDialog alertDialog = builder.create();
+//                            alertDialog.show();
                         }
 
 
@@ -205,10 +210,12 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
 
                     @Override
                     public void onFailure(Call<UpdateVoteGradeResponseDto> call, Throwable t) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                        builder.setTitle("통신 실패").setMessage("평점 등록을 실패했습니다!");
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
+                        AlertBuilder.createDialog(mContext, "통신 실패", "평점 등록을 실패했습니다!")
+                                .show();
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                        builder.setTitle("통신 실패").setMessage("평점 등록을 실패했습니다!");
+//                        AlertDialog alertDialog = builder.create();
+//                        alertDialog.show();
                     }
                 });
             });
@@ -238,24 +245,26 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
                                            Response<UpdateVoteGradeResponseDto> response) {
                         if (response.code() == 201) {
                             btn_score.setText("수정하기");
-                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                            builder.setTitle("통신 성공").setMessage("평점 수정 성공!!");
-                            AlertDialog alertDialog = builder.create();
-                            alertDialog.show();
+                            AlertBuilder.createDialog(mContext, "통신 성공", "평점 수정 성공!!")
+                                    .show();
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                            builder.setTitle("통신 성공").setMessage("평점 수정 성공!!");
+//                            AlertDialog alertDialog = builder.create();
+//                            alertDialog.show();
                         } else {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                            builder.setTitle("서버 오류").setMessage("평점 수정을 실패했습니다!");
-                            AlertDialog alertDialog = builder.create();
-                            alertDialog.show();
+                            AlertBuilder.createDialog(mContext, "서버 오류", "평점 수정을 실패했습니다!")
+                                    .show();
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                            builder.setTitle("서버 오류").setMessage("평점 수정을 실패했습니다!");
+//                            AlertDialog alertDialog = builder.create();
+//                            alertDialog.show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<UpdateVoteGradeResponseDto> call, Throwable t) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                        builder.setTitle("통신 실패").setMessage("평점 수정을 실패했습니다!");
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
+                        AlertBuilder.createDialog(mContext, "통신 실패", "평점 수정을 실패했습니다!")
+                                .show();
                     }
                 });
             });

@@ -50,6 +50,13 @@ public class StoreDto implements Comparable<StoreDto> {
         return starred == 1;
     }
 
+    public Integer getStoreId() {
+        if (storeId == null) {
+            return 0;
+        }
+        return storeId;
+    }
+
     @Override
     public int compareTo(StoreDto storeDto) {
         return 0;
