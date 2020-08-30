@@ -37,7 +37,7 @@ public class LoginToken {
         }
         return 2;
     }
-//    public static boolean RefreshTokenTimer(Activity activity) {
+    //    public static boolean RefreshTokenTimer(Activity activity) {
 //        if(AccessToken!=null)
 //        {
 //            SharedPreferences pref = activity.getSharedPreferences("SHARE_PREF", activity.MODE_PRIVATE);

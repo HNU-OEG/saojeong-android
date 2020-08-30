@@ -67,10 +67,7 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
                     }
                 }
             }, 50);
-
-            Intent intent = new Intent(mActivity, MainActivity.class);
-            mActivity.startActivity(intent);
-            mActivity.finish();
+////
         }
         @SneakyThrows
         @Override

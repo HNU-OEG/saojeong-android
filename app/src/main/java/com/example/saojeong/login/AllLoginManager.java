@@ -127,7 +127,7 @@ public class AllLoginManager {
         if(LoginToken.getToken()!=null)
             loadlogin("oneUpdate");
 
-            //발급안되었으면 로그인실행
+        //발급안되었으면 로그인실행
 
     }
 
@@ -160,13 +160,13 @@ public class AllLoginManager {
     public void logout(Activity activity, String type){
         mActivity=activity;
         if(type=="FACEBOOK")
-        map.get("FACEBOOK").Logout();
+            map.get("FACEBOOK").Logout();
         if(type=="KAKAO")
-        map.get("KAKAO").Logout();
+            map.get("KAKAO").Logout();
         if(type=="GOOGLE")
-        map.get("GOOGLE").Logout();
+            map.get("GOOGLE").Logout();
         if(type=="NAVER")
-        map.get("NAVER").Logout();
+            map.get("NAVER").Logout();
 
         LoginToken.deleteToken(activity);
     }
@@ -208,22 +208,22 @@ public class AllLoginManager {
             HashMap hash = new HashMap<>();
             hash.put("RefreshToken", LoginToken.getRefreshToken());
             String str = LoginToken.getToken();
-                if (LoginToken.AccessTokenTimer() == 1 || LoginToken.AccessTokenTimer() == 2) {
-                    Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new ObserveLogin(mActivity, false, "UPDATE"));
-                 }
-            }
-            else  if(Type=="oneUpdate")
-            {
-                Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
-                HashMap hash=new HashMap<>();
-                hash.put("RefreshToken", LoginToken.getRefreshToken());
+            if (LoginToken.AccessTokenTimer() == 1 || LoginToken.AccessTokenTimer() == 2) {
                 Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new ObserveLogin(mActivity, false, "oneUpdate"));
+                        .subscribe(new ObserveLogin(mActivity, false, "UPDATE"));
             }
         }
+        else  if(Type=="oneUpdate")
+        {
+            Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
+            HashMap hash=new HashMap<>();
+            hash.put("RefreshToken", LoginToken.getRefreshToken());
+            Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new ObserveLogin(mActivity, false, "oneUpdate"));
+        }
+    }
 
     public void userDelete(Activity activity) {
         mActivity=activity;
