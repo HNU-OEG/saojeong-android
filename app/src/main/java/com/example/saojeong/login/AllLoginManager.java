@@ -124,7 +124,7 @@ public class AllLoginManager {
         inst=this;
         LoginToken.setToken(mActivity);
         ///
-        if(LoginToken.getToken()!=null)
+        if(LoginToken.getToken()!="")
             loadlogin("oneUpdate");
 
         //발급안되었으면 로그인실행
