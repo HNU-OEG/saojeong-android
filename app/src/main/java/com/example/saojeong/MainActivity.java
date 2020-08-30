@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         int backstackcount = fragmentManager.getBackStackEntryCount();
 //
         //만약 더이상의 백스택이 없다면 홈으로 돌아가기
-        if(activity_tag == "homeFragment" && backstackcount == 1) { //만약 더이상의 백스택이 없다면 홈으로 돌아가기
+        if(activity_tag == "homeFragment" && backstackcount == 1) {
             if ( pressedTime == 0 ) {
                 Toast.makeText(MainActivity.this, " 한 번 더 누르면 종료됩니다." , Toast.LENGTH_LONG).show();
                 pressedTime = System.currentTimeMillis();
