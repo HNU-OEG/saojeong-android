@@ -32,6 +32,7 @@ import retrofit2.Response;
 
 public class MyQnAItemFragment extends Fragment {
 
+    private final String TAG = this.getClass().getName();
     private TextView title;
     private TextView status;
     private TextView date;
@@ -74,7 +75,7 @@ public class MyQnAItemFragment extends Fragment {
 
         if (getArguments() != null) {
             int id = getArguments().getInt("id");
-            Log.d("MyQnA", "ID : " + id);
+            Log.d(TAG, "ID : " + id);
             Call<GetPostDto> call = boardService.getPost(10001,id);
             call.enqueue(new Callback<GetPostDto>() {
                 @Override
@@ -91,7 +92,7 @@ public class MyQnAItemFragment extends Fragment {
                         List<CommentDto> mComment = body.getComments();
 
                         String mStatus = "";
-                        Log.d("my", "Comment.size(): " + mComment.size());
+                        Log.d(TAG, "Comment.size(): " + mComment.size());
                         if (mComment.size() == 0) {
                             mStatus = "[답변전]";
                             comment.setText("등록된 답변이 없습니다.");
@@ -105,7 +106,7 @@ public class MyQnAItemFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<GetPostDto> call, Throwable t) {
-                    Log.d("MyQnA", "MyQnAItem FAIL " + t.getMessage());
+                    Log.d(TAG, "MyQnAItem FAIL " + t.getMessage());
                 }
             });
         } else {

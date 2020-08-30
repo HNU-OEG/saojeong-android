@@ -54,6 +54,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileFragment extends Fragment {
 
+    private final String TAG = this.getClass().getName();
     private static final int REQUEST_CODE = 0;
     private MyPage_Service myPage_service;
 
@@ -129,14 +130,14 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onResponse(Call<List<Edit_ProfileImageDto>> call, Response<List<Edit_ProfileImageDto>> response) {
                     if (response.code() == 201) {
-                        Log.d("Profile", "이미지 전송 완료 " + response.message());
+                        Log.d(TAG, "profile 이미지 전송 완료 " + response.message());
 
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<Edit_ProfileImageDto>> call, Throwable t) {
-                    Log.d("Profile", "이미지 전송 실패");
+                    Log.d(TAG, "profile 이미지 전송 실패");
                 }
             });
 
@@ -215,7 +216,7 @@ public class ProfileFragment extends Fragment {
             for (int i = 0; i < length; i++) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     // 동의
-                    Log.d("MainActivity", "권한 허용 : " + permissions[i]);
+                    Log.d(TAG, "권한 허용 : " + permissions[i]);
                 }
             }
         }

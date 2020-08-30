@@ -146,7 +146,7 @@ public class MyPageFragment extends Fragment {
             public void onResponse(Call<List<StoreDto>> call, Response<List<StoreDto>> response) {
                 if (response.code() == 201) {
                     List<StoreDto> body = response.body();
-                    Log.d("BODY", body.toString());
+                    Log.d(TAG, "BODY " + body.toString());
                     starStores = ContactShopOC.createContactsList(body);
                     starStoreAdapter = new StarStoreAdapter(starStores);
                 }

@@ -38,11 +38,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MyQnAFragment extends Fragment {
-    private final String LOG = "MyQnA";
     private BoardService boardService;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+
+    private final String TAG = this.getClass().getName();
 
     private RecyclerView recycler_myQnA;
     private MyQnAadapter myQnAadapter;
@@ -106,7 +107,7 @@ public class MyQnAFragment extends Fragment {
                 } else {
                     myQnA = MyQnA._createMyQnA(20);
                     myQnAadapter = new MyQnAadapter(myQnA);
-                    Log.d(LOG, "response Fail " + response.message());
+                    Log.d(TAG, "response Fail " + response.message());
 
                 }
 
@@ -132,7 +133,7 @@ public class MyQnAFragment extends Fragment {
                 recycler_myQnA.addItemDecoration(new DividerItemDecoration(view.getContext(), 1));
                 recycler_myQnA.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
                 recycler_myQnA.setAdapter(myQnAadapter);
-                Log.d(LOG, t.getMessage());
+                Log.d(TAG, "MyQnA " + t.getMessage());
             }
 
         });
