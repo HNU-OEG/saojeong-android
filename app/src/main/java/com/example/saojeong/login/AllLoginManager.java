@@ -248,12 +248,7 @@ public class AllLoginManager {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         logout(mActivity);
-                        //Intent intent = new Intent(mActivity, TutorialActivity.class);
-                        //mActivity.startActivity(intent);
-                        //mActivity.getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         Destroy(mActivity);
-                        mActivity.finish();
-                        System.exit(0);
                     }
 
                     @Override
@@ -275,9 +270,6 @@ public class AllLoginManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ObserveLogin(mActivity, false, "type"));
     }
-
-
-
 
 
 }
