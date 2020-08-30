@@ -138,7 +138,7 @@ public class AllLoginManager {
         {
             if(type=="UPDATE") {
 
-                Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getGuestToken());
+                Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getToken());
                 loadlogin("Update");
                 return;
             }
@@ -159,6 +159,7 @@ public class AllLoginManager {
 
     }
     public void Destroy(){
+
         map.clear();
         inst=null;
     }

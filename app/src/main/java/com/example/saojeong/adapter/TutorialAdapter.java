@@ -42,7 +42,6 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
         Button login_guest;
         public ViewHolder(View itemView) {
             super(itemView);
-            webview=itemView.findViewById(R.id.webview);
             rl_testTuto=itemView.findViewById(R.id.intro_background);
             ll_test0=itemView.findViewById(R.id.ll_test0);
             login_facebook=itemView.findViewById(R.id.login_facebook);
