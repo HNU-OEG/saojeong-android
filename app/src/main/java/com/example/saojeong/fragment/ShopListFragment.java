@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.saojeong.GlideModule;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.ShopOCAdapter;
@@ -91,6 +92,7 @@ public class ShopListFragment extends Fragment {
 
         Glide.with(this)
                 .load("https://saojeong-images.s3.ap-northeast-2.amazonaws.com/4_01.png")
+                .transform(GlideModule.getCenterCropAndRoundedCorner(50))
                 .into((ImageView) rootView.findViewById(R.id.iv_fruitmap));
 
         ImageView typeImage = rootView.findViewById(R.id.iv_store_type);

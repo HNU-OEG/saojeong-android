@@ -13,7 +13,7 @@
         android:textSize="15sp"
         android:textColor="#4e4e4e"
         android:lineSpacingExtra="5sp"
-        tools:text="제목은 두껍게! 한눈에 보이도록!"
+        tools:text="FAQ TITLE TEST"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
@@ -24,7 +24,7 @@
         android:textSize="15sp"
         android:textColor="#4e4e4e"
         android:lineSpacingExtra="5sp"
-        tools:text="가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사"
+        tools:text="FAQ CONTENT TEST / FAQ CONTENT TEST / FAQ CONTENT TEST / FAQ CONTENT TEST / FAQ CONTENT TEST / FAQ CONTENT TEST / FAQ CONTENT TEST / FAQ CONTENT TEST"
         app:layout_constraintTop_toBottomOf="@+id/tv_faq_title"/>
 
 
