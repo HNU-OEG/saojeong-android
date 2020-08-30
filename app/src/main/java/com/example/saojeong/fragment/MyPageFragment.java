@@ -122,7 +122,7 @@ public class MyPageFragment extends Fragment {
                 recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
 
                 likeStoreAdapter.setOnItemClickListener(holder -> {
-                    ShopFragment targetFragment = shopFragment.newInstance(holder.storeId);
+                    ShopFragment targetFragment = shopFragment.newInstance(holder.storeId, MyPageFragment.newInstance());
                     MainActivity activity = (MainActivity) getActivity();
                     activity.replaceFragment(targetFragment);
                 });
