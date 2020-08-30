@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
         mcommunity = findViewById(R.id.miv_community);
         mchatbot = findViewById(R.id.miv_chatbot);
         mmypage = findViewById(R.id.miv_mypage);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();

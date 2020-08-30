@@ -112,8 +112,6 @@ public class ShopListFragment extends Fragment {
                 typeImage.setImageResource(R.drawable.icon_fish_list);
                 break;
         }
-
-        typeImage.setImageResource(R.drawable.icon_fish_list);
         ((MainActivity) getActivity()).closeKeyBoard(rootView);
 
         //과일동 오픈 가게 Recycler View
