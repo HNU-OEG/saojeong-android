@@ -129,33 +129,33 @@
 
                         <TextView
                             android:layout_width="78dp"
-                            android:layout_height="12dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="41dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="과일동"
-                            android:textSize="9dp"
+                            android:textSize="12dp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="78dp"
-                            android:layout_height="12dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="채소동"
-                            android:textSize="9dp"
+                            android:textSize="12dp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="78dp"
-                            android:layout_height="12dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="41dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="수산동"
-                            android:textSize="9dp"
+                            android:textSize="12dp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
