@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <LinearLayout
         android:id="@+id/ll_community_item"
         android:layout_width="278dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="14.7dp"
         >
         <TextView
             android:id="@+id/tv_community_Title_popularity"
-            android:layout_width="48dp"
-            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="인기글  "
             android:textColor="#E93333"
             android:textSize="15sp" />
@@ -42,56 +52,65 @@
 
     </LinearLayout>
 
-    <LinearLayout
+
+        <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_toRightOf="@+id/ll_community_item"
         android:layout_marginLeft="20dp"
-        tools:ignore="NotSibling">
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13.7dp"
-            android:text="추천"
+            android:id="@+id/tv_community_name_item"
+            android:layout_width="96dp"
+            android:layout_height="18dp"
             android:textSize="9sp"
-            android:textAlignment="center" />
+            tools:text="작성자 : 가나다라" />
+
+        <TextView
+            android:id="@+id/tv_community_date_item"
+            android:layout_width="96dp"
+            android:layout_height="18dp"
+            android:textSize="9sp"
+            tools:text="07.13 03:29" />
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/c9"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        tools:ignore="NotSibling">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="13.7dp"
+                android:text="추천"
+                android:textSize="9sp" />
 
         <TextView
             android:id="@+id/tv_community_comment_vote"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:text="9"
-            android:textAlignment="center"
             android:textColor="#FF6950"
             android:textSize="23sp" />
     </LinearLayout>
+    </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/tv_community_name_item"
-        android:layout_width="96dp"
-        android:layout_height="18dp"
-        android:layout_alignLeft="@+id/ll_community_item"
-        android:layout_marginTop="50dp"
-        android:textSize="9sp"
-        tools:text="작성자 : 가나다라" />
-
-    <TextView
-        android:id="@+id/tv_community_date_item"
-        android:layout_width="96dp"
-        android:layout_height="18dp"
-        android:layout_toRightOf="@+id/tv_community_name_item"
-        android:layout_alignTop="@+id/tv_community_name_item"
-        android:textSize="9sp"
-        tools:text="07.13 03:29" />
     <View
+        android:id="@+id/community_bottomBar"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_marginHorizontal="10dp"
-        android:layout_below="@+id/tv_community_name_item"
-        android:background="#BFBBBB"/>
-</RelativeLayout>
+        android:background="#BFBBBB" />
+</LinearLayout>

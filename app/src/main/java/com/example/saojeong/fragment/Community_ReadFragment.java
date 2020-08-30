@@ -250,7 +250,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
             public void run() {
                 load_GetPost(true);
             }
-        }, 500);
+        }, 100);
     }
 
 }
