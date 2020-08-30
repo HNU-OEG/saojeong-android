@@ -51,8 +51,7 @@ public class ShopStarScoreAdapter extends RecyclerView.Adapter<ShopStarScoreAdap
 
         View contactView = inflater.inflate(R.layout.item_shop_starscore, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     @Override
@@ -62,18 +61,18 @@ public class ShopStarScoreAdapter extends RecyclerView.Adapter<ShopStarScoreAdap
         TextView tv_shop_starscore = holder.questionTextView;
         RatingBar ratingBar = holder.ratingBar_starscore;
 
+        ratingBar_rating = contactShopStarScore.getmRating();
+        ratingBar.setRating(contactShopStarScore.getmRating());
+
         tv_shop_starscore.setText(contactShopStarScore.getmQuestion());
 
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.parseColor("#f67043"), PorterDuff.Mode.SRC_ATOP);
         //레이팅 바 이벤트 처리
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                ratingBar_rating = rating;
-                tv_shop_starscore.setText(contactShopStarScore.getmQuestion()+" | " + ratingBar_rating + "점");
-                contactShopStarScore.setmRating(ratingBar_rating);
-            }
+        ratingBar.setOnRatingBarChangeListener((ratingBar1, rating, fromUser) -> {
+            ratingBar_rating = rating;
+            tv_shop_starscore.setText(contactShopStarScore.getmQuestion()+" | " + ratingBar_rating + "점");
+            contactShopStarScore.setmRating(ratingBar_rating);
         });
     }
 

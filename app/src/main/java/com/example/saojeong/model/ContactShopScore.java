@@ -1,6 +1,7 @@
 package com.example.saojeong.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.saojeong.R;
 import com.example.saojeong.rest.dto.store.StoreDetailDto;
@@ -13,6 +14,9 @@ public class ContactShopScore {
     private String mKindscore;
     private String mItemscore;
     private String mPricescore;
+    private float userKindScore;
+    private float userItemScore;
+    private float userPriceScore;
 
     public ContactShopScore(String mEvaluate, String mKindscore, String mItemscore, String mPricescore) {
         this.mEvaluate = mEvaluate;
@@ -26,6 +30,11 @@ public class ContactShopScore {
         this.mKindscore = dto.getKindnessAverage().toString();
         this.mItemscore = dto.getMerchandiseAverage().toString();
         this.mPricescore = dto.getPriceAverage().toString();
+        Log.d("VALUE", ""+dto.getMyKindness());
+        Log.d("VALUE", ""+dto.getMyKindness().floatValue());
+        this.userKindScore = dto.getMyKindness().floatValue();
+        this.userItemScore = dto.getMyMerchandise().floatValue();
+        this.userPriceScore = dto.getMyPrice().floatValue();
     }
 
     public String getmEvaluate() {
@@ -44,6 +53,17 @@ public class ContactShopScore {
         return mPricescore;
     }
 
+    public float getUserKindScore() {
+        return userKindScore;
+    }
+
+    public float getUserItemScore() {
+        return userItemScore;
+    }
+
+    public float getUserPriceScore() {
+        return userPriceScore;
+    }
 
     public static List<ContactShopScore> _createContactsList(int numContacts) {
         List<ContactShopScore> contacts = new ArrayList<>();

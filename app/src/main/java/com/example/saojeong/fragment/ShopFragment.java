@@ -120,7 +120,7 @@ public class ShopFragment extends Fragment {
 //                        Log.d("DTO", body.toString());
 //                        Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
 //                        Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
-//                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
+                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
                         tvStoreName.setText(body.getStoreDetail().getStoreName());
                         tvStoreNumber.setText(body.getStoreDetail().getStoreIndexholder() + "번");
                         contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
@@ -172,13 +172,11 @@ public class ShopFragment extends Fragment {
                             }
                         });
 
-
-                        getDefaultAdapters();
-                        setAdapters();
                     } else {
                         getDefaultAdapters();
-                        setAdapters();
                     }
+
+                    setAdapters();
                 }
 
                 @Override
@@ -243,17 +241,14 @@ public class ShopFragment extends Fragment {
         Cscore.setTextColor(Color.parseColor("#8c8c8c"));
 
         //Tab 바꿀 때 마다 색 변경
-        tabHost_Shop.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String s) {
-                for (int i = 0; i < tabHost_Shop.getTabWidget().getChildCount(); i++) {
-                    TextView tabcolor = (TextView) tabHost_Shop.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
-                    if (i == tabHost_Shop.getCurrentTab()) {
-                        tabcolor.setTextColor(Color.parseColor("#f67043"));
-                    } else
-                        tabcolor.setTextColor(Color.parseColor("#8c8c8c"));
+        tabHost_Shop.setOnTabChangedListener(s -> {
+            for (int i = 0; i < tabHost_Shop.getTabWidget().getChildCount(); i++) {
+                TextView tabcolor = (TextView) tabHost_Shop.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+                if (i == tabHost_Shop.getCurrentTab()) {
+                    tabcolor.setTextColor(Color.parseColor("#f67043"));
+                } else
+                    tabcolor.setTextColor(Color.parseColor("#8c8c8c"));
 
-                }
             }
         });
 
@@ -291,8 +286,6 @@ public class ShopFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         transaction = fragmentManager.beginTransaction();
-
     }
 }

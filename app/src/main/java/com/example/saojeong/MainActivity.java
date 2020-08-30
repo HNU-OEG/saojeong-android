@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.ll_chatbot:
-              //  AllLoginManager.inst.logout(this);
+                AllLoginManager.inst.logout(this);
                 break;
 
             case R.id.ll_myPage:
