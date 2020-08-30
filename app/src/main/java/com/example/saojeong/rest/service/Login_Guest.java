@@ -17,7 +17,7 @@ import retrofit2.http.Query;
 
 public interface Login_Guest {
     @POST("admin/api/guest/customers.json")
-    Call<Login_Dto> CreateLogin();
+    Observable<Login_Dto> CreateLogin();
 
     @GET("auth/facebook/token")
     Observable<Login_Dto> FaceBookLogin();

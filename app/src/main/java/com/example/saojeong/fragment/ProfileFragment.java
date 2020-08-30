@@ -75,7 +75,7 @@ public class ProfileFragment extends Fragment {
     private String newName;
     private String text1 = "*중복되는 별명입니다. 다른 닉네임으로 작성해주세요.";
     private String text2 = "*사용가능한 별명입니다.";
-
+    private Activity activity;
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
     }
@@ -84,7 +84,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_edit_profile, container, false);
-
+        activity=getActivity();
         myPage_service = ServiceGenerator.createService(MyPage_Service.class, TokenCase.getToken());
         Context context = getActivity();
         sharedPreferences = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
@@ -202,7 +202,7 @@ public class ProfileFragment extends Fragment {
 //            });
 
             //AllLoginManager loginManager = new AllLoginManager((MainActivity)getActivity(), (MainActivity)getContext());
-            AllLoginManager.inst.editUsernickname((MainActivity)getActivity(), new_name);
+            AllLoginManager.inst.editUsernickname(activity, new_name);
             //((MainActivity) getActivity()).replaceFragment(MyPageFragment.newInstance());
         });
 

@@ -45,13 +45,16 @@ public class ObserveLogin implements Observer<Login_Dto> {
         if (body.refreshToken != null) {
             String str2 = body.refreshToken;
             editer.putString("RefreshToken", str2);
-            long now = System.currentTimeMillis();
-            editer.putLong("LastLoginAt", now);
         }
         editer.apply();
         editer.commit();
         LoginToken.setToken(mActivity);
-
+        if(type=="oneUpdate")
+        {
+            Intent intent = new Intent(mActivity, MainActivity.class);
+            mActivity.startActivity(intent);
+            mActivity.finish();
+        }
     }
 
     @Override
