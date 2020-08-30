@@ -75,7 +75,7 @@ public class ProfileFragment extends Fragment {
     private String newName;
     private String text1 = "*중복되는 별명입니다. 다른 닉네임으로 작성해주세요.";
     private String text2 = "*사용가능한 별명입니다.";
-
+    private Activity activity;
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
     }
@@ -89,7 +89,7 @@ public class ProfileFragment extends Fragment {
         Context context = getActivity();
         sharedPreferences = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-
+        activity=getActivity();
         btn_change_picture = view.findViewById(R.id.btn_change_picture);
         btn_save = view.findViewById(R.id.btn_save);
         btn_sign_out = view.findViewById(R.id.btn_sign_out);
@@ -208,7 +208,7 @@ public class ProfileFragment extends Fragment {
 //            });
 
             //AllLoginManager loginManager = new AllLoginManager((MainActivity)getActivity(), (MainActivity)getContext());
-            AllLoginManager.inst.editUsernickname((MainActivity)getActivity(), new_name);
+            AllLoginManager.inst.editUsernickname(activity, new_name);
             //((MainActivity) getActivity()).replaceFragment(MyPageFragment.newInstance());
         });
 
