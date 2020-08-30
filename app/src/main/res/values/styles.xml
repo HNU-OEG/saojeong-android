@@ -30,9 +30,7 @@
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:textViewStyle">@style/TextViewStyle</item>
-        <item name="android:buttonStyle">@style/ButtonStyle</item>
-        <item name="android:editTextStyle">@style/EditTextStyle</item>
+
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
