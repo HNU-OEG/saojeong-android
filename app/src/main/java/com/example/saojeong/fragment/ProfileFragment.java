@@ -106,6 +106,12 @@ public class ProfileFragment extends Fragment {
         Toolbar toolbar = view.findViewById(R.id.toolbar_edit_profile);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).replaceFragment(MyPageFragment.newInstance());
+            }
+        });
         //((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.~~); // 뒤로가기 화살표 이미지 바꾸기
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);

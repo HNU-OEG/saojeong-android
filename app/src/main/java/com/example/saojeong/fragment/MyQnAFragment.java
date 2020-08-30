@@ -51,6 +51,8 @@ public class MyQnAFragment extends Fragment {
 
     List<MyQnA> myQnA;
 
+    public static MyQnAFragment newInstance() { return new MyQnAFragment(); }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,6 +66,12 @@ public class MyQnAFragment extends Fragment {
         Toolbar toolbar = view.findViewById(R.id.toolbar_myqna_list);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).replaceFragment(MyPageFragment.newInstance());
+            }
+        });
         //((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.~~); // 뒤로가기 화살표 이미지 바꾸기
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
