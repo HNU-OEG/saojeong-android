@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.saojeong.fragment.CommunityTabFragment;
 import com.example.saojeong.login.AllLoginManager;
 
 public class ForecdTerminationService extends Service {
@@ -22,7 +23,7 @@ public class ForecdTerminationService extends Service {
     public void onTaskRemoved(Intent rootIntent) { //핸들링 하는 부분
 
         Toast.makeText(this, "onTaskRemoved ", Toast.LENGTH_SHORT).show();
-        AllLoginManager.inst=null;
+        AllLoginManager.inst.Destroy();
         stopSelf(); //서비스 종료
     }
 }

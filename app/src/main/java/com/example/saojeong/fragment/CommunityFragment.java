@@ -128,19 +128,19 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                         .commitAllowingStateLoss();
                 break;
             case R.id.ll_community_left:
-                tabLayout.setScrollPosition(0,0,true);
-                viewPager2.setCurrentItem(0);
+                if(viewPager2.getCurrentItem()==0)
+                    CommunityTabFragment.inst.btn_Left();
 
                 break;
             case R.id.ll_community_right:
-                tabLayout.setScrollPosition(1,0,true);
-                viewPager2.setCurrentItem(1);
+                int a=viewPager2.getCurrentItem();
+                if(viewPager2.getCurrentItem()==0)
+                    CommunityTabFragment.inst.btn_Right();
                 break;
             case R.id.ll_community_home:
                 break;
             case R.id.ll_community_re:
-                mAdapter=new CommunityAdapter(getActivity());
-                viewPager2.setAdapter(mAdapter);
+                CommunityTabFragment.inst.load_GetPost();
                 break;
             case R.id.ll_community_upscroll:
                 switch(viewPager2.getCurrentItem()) {

@@ -4,9 +4,13 @@ package com.example.saojeong.login;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.session.MediaSession;
+import android.util.AndroidException;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.TutorialActivity;
@@ -14,13 +18,24 @@ import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.Login_Dto;
 import com.example.saojeong.rest.service.Login_Guest;
+import com.example.saojeong.rest.service.service_login;
 import com.facebook.AccessToken;
 import com.facebook.login.Login;
 import com.kakao.auth.Session;
 import com.nhn.android.naverlogin.OAuthLogin;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
+import java.io.IOException;
 import java.util.HashMap;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,7 +64,7 @@ public class AllLoginManager {
             }
             @Override
             public void success() {
-                Login_GuestService = ServiceGenerator.createService(Login_Guest.class, AccessToken.getCurrentAccessToken().getToken());
+                Login_GuestService = service_login.createService(Login_Guest.class, AccessToken.getCurrentAccessToken().getToken());
                 loadlogin("facebook");
             }
 
@@ -63,7 +78,7 @@ public class AllLoginManager {
             }
             @Override
             public void success() {
-                Login_GuestService = ServiceGenerator.createService(Login_Guest.class, Session.getCurrentSession().getRefreshToken());
+                Login_GuestService = service_login.createService(Login_Guest.class, Session.getCurrentSession().getRefreshToken());
                 loadlogin("kakao");
             }
             @Override
@@ -76,7 +91,7 @@ public class AllLoginManager {
             }
             @Override
             public void success() {
-                Login_GuestService = ServiceGenerator.createService(Login_Guest.class, GoogleLogin.account.getServerAuthCode());
+                Login_GuestService = service_login.createService(Login_Guest.class, GoogleLogin.account.getServerAuthCode());
                 String str=GoogleLogin.account.getServerAuthCode();
                 loadlogin("google");
             }
@@ -93,7 +108,7 @@ public class AllLoginManager {
             }
             @Override
             public void success() {
-                Login_GuestService = ServiceGenerator.createService(Login_Guest.class, OAuthLogin.getInstance().getAccessToken(mContext));
+                Login_GuestService = service_login.createService(Login_Guest.class, OAuthLogin.getInstance().getAccessToken(mContext));
                 loadlogin("naver");
             }
             @Override
@@ -141,6 +156,11 @@ public class AllLoginManager {
         map.get("GOOGLE").Logout();
         map.get("NAVER").Logout();
         LoginToken.deleteToken(activity);
+
+    }
+    public void Destroy(){
+        map.clear();
+        inst=null;
     }
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -150,60 +170,81 @@ public class AllLoginManager {
             map.get("FACEBOOK").onActivityResult(requestCode, resultCode, data);
     }
 
+    @SneakyThrows
     private void loadlogin(String Type) {
-        Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getToken());
-        if(Type=="facebook")
-        {
-            Login_GuestService.FaceBookLogin().enqueue(new CallBackLogin(mActivity, true));
-        }
-        else if(Type=="kakao")
-        {
-            Login_GuestService.kakaoLogin(Session.getCurrentSession().getAccessToken()).enqueue(new CallBackLogin(mActivity, true));
-        }
-        else if(Type=="naver")
-        {
-            Login_GuestService.NaverLogin().enqueue(new CallBackLogin(mActivity, true));
-        }
-        else  if(Type=="google")
-        {
-            Login_GuestService.GoogleLogin().enqueue(new CallBackLogin(mActivity, true));
-        }else  if(Type=="guest")
-        {
+        if (Type == "facebook") {
+            Login_GuestService.FaceBookLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new ObserveLogin(mActivity, true));
+        } else if (Type == "kakao") {
+            Login_GuestService.kakaoLogin(Session.getCurrentSession().getAccessToken()).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new ObserveLogin(mActivity, true));
+        } else if (Type == "naver") {
+            Login_GuestService.NaverLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new ObserveLogin(mActivity, true));
+        } else if (Type == "google") {
+            Login_GuestService.GoogleLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new ObserveLogin(mActivity, true));
+        } else if (Type == "guest") {
             Login_GuestService.CreateLogin().enqueue(new CallBackLogin(mActivity, true));
-        }
-        else  if(Type=="Update")
-        {
-            HashMap hash=new HashMap<>();
+        } else if (Type == "Update") {
+            Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
+            HashMap hash = new HashMap<>();
             hash.put("RefreshToken", LoginToken.getRefreshToken());
-            String str=LoginToken.getToken();
-            if(LoginToken.AccessTokenTimer()==1 || LoginToken.AccessTokenTimer()==2)
-                Login_GuestService.UpdateToken(hash).enqueue(new CallBackLogin(mActivity, false));
-        }else  if(Type=="oneUpdate")
-        {
-            HashMap hash=new HashMap<>();
-            hash.put("RefreshToken", LoginToken.getRefreshToken());
-            Login_GuestService.UpdateToken(hash).enqueue(new CallBackLogin(mActivity, false));
+            String str = LoginToken.getToken();
+                if (LoginToken.AccessTokenTimer() == 1 || LoginToken.AccessTokenTimer() == 2) {
+                    Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new ObserveLogin(mActivity, false));
+                 }
+            }
+            else  if(Type=="oneUpdate")
+            {
+                Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
+                HashMap hash=new HashMap<>();
+                hash.put("RefreshToken", LoginToken.getRefreshToken());
+                Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new ObserveLogin(mActivity, false));
+            }
         }
-    }
+
     public void userDelete(Activity activity) {
         mActivity=activity;
-        Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getToken());
+        Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
         String tok=LoginToken.getToken();
-        Login_GuestService.DeleteUser(TokenCase.getUserResource("member_id")).enqueue(new Callback<Login_Dto>() {
-            @Override
-            public void onResponse(Call<Login_Dto> call, Response<Login_Dto> response) {
-                int a=response.code();
-                logout(mActivity);
-                Intent intent = new Intent(mActivity, TutorialActivity.class);
-                mActivity.startActivity(intent);
-                mActivity.finish();
-            }
+        Login_GuestService.DeleteUser(TokenCase.getUserResource("member_id")).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Login_Dto>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
 
-            @Override
-            public void onFailure(Call<Login_Dto> call, Throwable t) {
+                    }
 
-            }
-        });
+                    @Override
+                    public void onNext(@NonNull Login_Dto login_dto) {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        logout(mActivity);
+                        //Intent intent = new Intent(mActivity, TutorialActivity.class);
+                        //mActivity.startActivity(intent);
+                        //mActivity.getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        Destroy();
+                        mActivity.finish();
+                        System.exit(0);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 
@@ -212,7 +253,14 @@ public class AllLoginManager {
         HashMap hash=new HashMap<>();
         hash.put("nickname", nickname1);
         String str= LoginToken.getToken();
-        Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getToken());
-        Login_GuestService.editUserNickname(hash).enqueue(new CallBackLogin(mActivity, false));
+        Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
+        Login_GuestService.editUserNickname(hash, TokenCase.getUserResource("member_id")).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ObserveLogin(mActivity, false));
     }
+
+
+
+
+
 }
