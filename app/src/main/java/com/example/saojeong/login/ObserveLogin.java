@@ -58,7 +58,6 @@ public class ObserveLogin implements Observer<Login_Dto> {
 
         Toast.makeText(mActivity,"접속에러", Toast.LENGTH_SHORT).show();
 
-        LoginToken.deleteToken(mActivity);
     }
 
     @Override

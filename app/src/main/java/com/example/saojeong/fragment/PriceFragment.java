@@ -21,6 +21,7 @@ import com.example.saojeong.R;
 import com.example.saojeong.adapter.ChartAdapter;
 import com.example.saojeong.adapter.CommunityAdapter_item;
 import com.example.saojeong.auth.TokenCase;
+import com.example.saojeong.login.AllLoginManager;
 import com.example.saojeong.model.ChartContact;
 import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.rest.ServiceGenerator;
@@ -154,21 +155,23 @@ public class PriceFragment extends Fragment implements View.OnClickListener{
 
     public void load_GetPost() {
         chartService = ServiceGenerator.createService(chartService.class, TokenCase.getToken());
-        chartService.getChartinfo("3140205").enqueue(new Callback<chart_Dto>() {
+        chartService.getChartinfo("3140205").enqueue(new Callback<List<chart_Dto>>() {
+
             @Override
-            public void onResponse(Call<chart_Dto> call, Response<chart_Dto> response) {
-                chart_Dto body = response.body();
-                if (response.code() == 201) { // 서버와 통신 성공
-                    chart_Dto a = response.body();
+            public void onResponse(Call<List<chart_Dto>> call, Response<List<chart_Dto>> response) {
+                List<chart_Dto> abc = response.body();
+                for(int i=0; i<abc.size(); ++i)
+                {
+
+                  // Entry entry1 = new Entry(i, 1000+i*10000);
+
                 }
             }
 
             @Override
-            public void onFailure(Call<chart_Dto> call, Throwable t) {
-
+            public void onFailure(Call<List<chart_Dto>> call, Throwable t) {
             }
         });
-
     }
 }
 

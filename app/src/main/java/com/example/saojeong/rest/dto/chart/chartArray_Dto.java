@@ -17,7 +17,5 @@ import lombok.ToString;
 @ToString
 public class chartArray_Dto {
 
-    @SerializedName("result")
-    @Expose
     public List<chart_Dto> result = null;
 }

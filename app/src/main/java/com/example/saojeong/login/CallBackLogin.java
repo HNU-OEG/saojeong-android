@@ -44,8 +44,6 @@ public class CallBackLogin implements Callback<Login_Dto> {
             if(body.refreshToken!=null) {
                 String str2 = body.refreshToken;
                 editer.putString("RefreshToken", str2);
-                long now = System.currentTimeMillis();
-                editer.putLong("LastLoginAt", now);
             }
             editer.apply();
             editer.commit();
@@ -58,17 +56,13 @@ public class CallBackLogin implements Callback<Login_Dto> {
         }
         else
         {
-            //평소엔 에러날일이없으므로 토큰삭제
             Toast.makeText(mActivity,"접속에러", Toast.LENGTH_SHORT).show();
-
-            LoginToken.deleteToken(mActivity);
+            //평소엔 에러날일이없으므로 토큰삭제
         }
     }
 
     @Override
     public void onFailure(Call<Login_Dto> call, Throwable t) {
         Toast.makeText(mActivity,"접속에러", Toast.LENGTH_SHORT).show();
-
-        LoginToken.deleteToken(mActivity);
     }
 }

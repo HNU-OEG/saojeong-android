@@ -138,6 +138,9 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                     CommunityTabFragment.inst.btn_Right();
                 break;
             case R.id.ll_community_home:
+                tabLayout.setScrollPosition(0,0,true);
+                viewPager2.setCurrentItem(0);
+                //mAdapter
                 break;
             case R.id.ll_community_re:
                 CommunityTabFragment.inst.load_GetPost();
