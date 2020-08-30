@@ -1,6 +1,7 @@
 package com.example.saojeong.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.saojeong.R;
 import com.example.saojeong.rest.dto.store.StoreDetailDto;
@@ -29,6 +30,8 @@ public class ContactShopScore {
         this.mKindscore = dto.getKindnessAverage().toString();
         this.mItemscore = dto.getMerchandiseAverage().toString();
         this.mPricescore = dto.getPriceAverage().toString();
+        Log.d("VALUE", ""+dto.getMyKindness());
+        Log.d("VALUE", ""+dto.getMyKindness().floatValue());
         this.userKindScore = dto.getMyKindness().floatValue();
         this.userItemScore = dto.getMyMerchandise().floatValue();
         this.userPriceScore = dto.getMyPrice().floatValue();

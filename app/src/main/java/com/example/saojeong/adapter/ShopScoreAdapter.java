@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +28,7 @@ import com.example.saojeong.rest.dto.response.UpdateVoteGradeResponseDto;
 import com.example.saojeong.rest.request.UpdateVoteGradeRequestDto;
 import com.example.saojeong.rest.service.StoreService;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,6 +137,7 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
     public ShopScoreAdapter(List<ContactShopScore> contacts, Context context) {
         mContacts = contacts;
         mContext = context;
+        this.id  = -1;
     }
 
     @Override
@@ -163,16 +167,98 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
         tv_itemscore.setText(contactShopScore.getmItemscore());
         tv_pricescore.setText(contactShopScore.getmPricescore());
 
+        Log.d("SCORE CHECK", contactShopScore.getUserItemScore()+"");
+
         if (contactShopScore.getUserKindScore() == -1.0F) {
+            Log.d("NEVER VOTED", btn_score.getText().toString());
             contactShopStarScores = ContactShopStarScore.createContactsList();
             shopStarScoreAdapter = new ShopStarScoreAdapter(contactShopStarScores);
+
+            btn_score.setOnClickListener(view -> {
+                ShopStarScoreAdapter adapter = (ShopStarScoreAdapter) recyclerShopStarScore.getAdapter();
+                UpdateVoteGradeRequestDto requestBody = new UpdateVoteGradeRequestDto(
+                        adapter.getmContacts().get(0).getmRating(),
+                        adapter.getmContacts().get(1).getmRating(),
+                        adapter.getmContacts().get(2).getmRating()
+                );
+
+                StoreService storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
+                storeService.createVoteGrade(id, requestBody).enqueue(new Callback<UpdateVoteGradeResponseDto>() {
+                    @Override
+                    public void onResponse(Call<UpdateVoteGradeResponseDto> call,
+                                           Response<UpdateVoteGradeResponseDto> response) {
+                        if (response.code() == 201) {
+                            btn_score.setText("수정하기");
+                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                            builder.setTitle("통신 성공").setMessage("평점 등록을 완료했습니다!");
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                            builder.setTitle("서버 오류").setMessage("평점 등록을 실패했습니다!");
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<UpdateVoteGradeResponseDto> call, Throwable t) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                        builder.setTitle("통신 실패").setMessage("평점 등록을 실패했습니다!");
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
+                });
+            });
+
         } else {
+            Log.d("VOTED", btn_score.getText().toString());
             contactShopStarScores = ContactShopStarScore.createContactsList(
                     contactShopScore.getUserKindScore(),
                     contactShopScore.getUserItemScore(),
                     contactShopScore.getUserPriceScore()
             );
             shopStarScoreAdapter = new ShopStarScoreAdapter(contactShopStarScores);
+            btn_score.setText("수정하기");
+
+            btn_score.setOnClickListener(view -> {
+                ShopStarScoreAdapter adapter = (ShopStarScoreAdapter) recyclerShopStarScore.getAdapter();
+                UpdateVoteGradeRequestDto requestBody = new UpdateVoteGradeRequestDto(
+                        adapter.getmContacts().get(0).getmRating(),
+                        adapter.getmContacts().get(1).getmRating(),
+                        adapter.getmContacts().get(2).getmRating()
+                );
+
+                StoreService storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
+                storeService.updateVoteGrade(id, requestBody).enqueue(new Callback<UpdateVoteGradeResponseDto>() {
+                    @Override
+                    public void onResponse(Call<UpdateVoteGradeResponseDto> call,
+                                           Response<UpdateVoteGradeResponseDto> response) {
+                        if (response.code() == 201) {
+                            btn_score.setText("수정하기");
+                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                            builder.setTitle("통신 성공").setMessage("평점 수정 성공!!");
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                            builder.setTitle("서버 오류").setMessage("평점 수정을 실패했습니다!");
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UpdateVoteGradeResponseDto> call, Throwable t) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                        builder.setTitle("통신 실패").setMessage("평점 수정을 실패했습니다!");
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
+                });
+            });
         }
 
         recyclerShopStarScore.addItemDecoration(rightDecoration);
@@ -193,31 +279,6 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
         markingStar(kindscore, ll_shop_kind);
         markingStar(itemscore, ll_shop_item);
         markingStar(pricescore, ll_shop_price);
-
-        btn_score.setOnClickListener(view -> {
-            ShopStarScoreAdapter adapter = (ShopStarScoreAdapter) recyclerShopStarScore.getAdapter();
-            UpdateVoteGradeRequestDto requestBody = new UpdateVoteGradeRequestDto(
-                    adapter.getmContacts().get(0).getmRating(),
-                    adapter.getmContacts().get(1).getmRating(),
-                    adapter.getmContacts().get(2).getmRating()
-            );
-
-            StoreService storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
-            storeService.updateVoteGrade(id, requestBody).enqueue(new Callback<UpdateVoteGradeResponseDto>() {
-                @Override
-                public void onResponse(Call<UpdateVoteGradeResponseDto> call,
-                                       Response<UpdateVoteGradeResponseDto> response) {
-                    // Toast or 평가 완료 alert 띄우기
-//                    Log.d("VOTE", response.body().toString());
-                }
-
-                @Override
-                public void onFailure(Call<UpdateVoteGradeResponseDto> call, Throwable t) {
-                    // Toast 평가 실패 띄우기
-//                    Log.d("VOTE FAILED", t.getMessage());
-                }
-            });
-        });
 
 
 //        //평점에 따라 별 개수 변경(친절도)

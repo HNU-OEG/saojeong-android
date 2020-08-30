@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.ll_chatbot:
-               // AllLoginManager.inst.editUsernickname(this,"qq");
+                AllLoginManager.inst.logout(this);
                 break;
 
             case R.id.ll_myPage:

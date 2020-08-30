@@ -34,7 +34,11 @@ public interface StoreService {
     @GET("api/store/{id}")
     Call<StoreDetailDto> getStoreDetail(@Path("id") int id);
 
-    //    localhost:3000/api/store/1/votegrade
+
+    @POST("api/store/{id}/votegrade")
+    Call<UpdateVoteGradeResponseDto> createVoteGrade(@Path("id") int id,
+                                                     @Body UpdateVoteGradeRequestDto ratings);
+
     @PUT("api/store/{id}/votegrade")
     Call<UpdateVoteGradeResponseDto> updateVoteGrade(@Path("id") int id,
                                                      @Body UpdateVoteGradeRequestDto ratings);
