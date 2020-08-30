@@ -317,7 +317,7 @@
 
                     <LinearLayout
                         android:layout_width="333dp"
-                        android:layout_height="9dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="14dp"
                         android:layout_marginTop="46dp"
                         android:orientation="horizontal">
@@ -326,37 +326,37 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="사업자정보 확인 | "
-                            android:textSize="6dp" />
+                            android:textSize="10dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="이용약관 | "
-                            android:textSize="6dp" />
+                            android:textSize="10dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="개인정보 처리방침"
-                            android:textSize="6dp" />
+                            android:textSize="10dp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="14dp"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginTop="16dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="오이지"
-                            android:textSize="8dp" />
+                            android:textSize="10dp" />
 
                         <ImageView
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
                             android:layout_gravity="start|center"
                             android:src="@android:drawable/ic_menu_more" />
                     </LinearLayout>
@@ -372,7 +372,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="36dp"
                             android:text="사오정은 ?????이며 ????의 당사자가 아닙니다.\n따라서 사오정은 상품거래정보 및 상품성에 대한 책임을 지지 않습니다."
-                            android:textSize="7dp" />
+                            android:textSize="10dp" />
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>
