@@ -35,7 +35,7 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
 public class QnAFragment extends Fragment {
-    private final String LOG = "QnA";
+    private final String TAG = this.getClass().getName();
     private BoardService boardService;
 
     private EditText et_qna;
@@ -49,7 +49,7 @@ public class QnAFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d("QnA LOG", "QnA page start");
+        Log.d(TAG, "QnA page start");
 
         boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
 
@@ -72,21 +72,21 @@ public class QnAFragment extends Fragment {
             // TODO: 2020-08-22-022 서버로 전송
             String content = et_qna.getText().toString().replace('\n', '$');
 
-            Log.d(LOG, "content: " + Arrays.toString(et_qna.getText().toString().split("\n")));
+            Log.d(TAG, "content: " + Arrays.toString(et_qna.getText().toString().split("\n")));
 
             boardService.createPost(new CreatePostDto("문의사항", content), 10001).enqueue(new Callback<CreatePostDto>() {
                 @Override
                 public void onResponse(Call<CreatePostDto> call, Response<CreatePostDto> response) {
                     if (response.code() == 201) {
                         CreatePostDto body = response.body();
-                        Log.d(LOG, "전송완료");
+                        Log.d(TAG, "전송완료");
                     }
-                    Log.d(LOG, response.message());
+                    Log.d(TAG, response.message());
                 }
 
                 @Override
                 public void onFailure(Call<CreatePostDto> call, Throwable t) {
-                    Log.d(LOG, t.getMessage());
+                    Log.d(TAG, t.getMessage());
                 }
             });
 
