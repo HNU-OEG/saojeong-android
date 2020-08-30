@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="10dp"
+            android:textSize="12dp"
             android:text="자두" />
 
     </LinearLayout>
