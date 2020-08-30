@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 public class MyQnAItemFragment extends Fragment {
 
     private final String TAG = this.getClass().getName();
@@ -38,6 +41,8 @@ public class MyQnAItemFragment extends Fragment {
     private TextView date;
     private TextView content;
     private TextView comment;
+
+    private InputMethodManager imm;
 
     private BoardService boardService;
 
@@ -55,12 +60,15 @@ public class MyQnAItemFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_myqna, container, false);
 
+        imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+
         Toolbar toolbar = view.findViewById(R.id.toolbar_myqna);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View _view) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(),0);
                 ((MainActivity) getActivity()).replaceFragment(MyQnAFragment.newInstance());
             }
         });
