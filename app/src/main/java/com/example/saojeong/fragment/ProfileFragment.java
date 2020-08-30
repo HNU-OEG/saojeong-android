@@ -97,7 +97,9 @@ public class ProfileFragment extends Fragment {
         tv_duplicate_err = view.findViewById(R.id.tv_duplicate_err);
         iv_profile = view.findViewById(R.id.iv_profile);
 
-        currentName = getName();
+        //currentName = getName();
+        currentName = TokenCase.getUserResource("nickname");
+
         tv_nickname.setText(currentName);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar_edit_profile);
@@ -198,8 +200,8 @@ public class ProfileFragment extends Fragment {
 //                }
 //            });
 
-            AllLoginManager loginManager = new AllLoginManager((MainActivity)getActivity(), (MainActivity)getContext());
-            loginManager.editUsernickname((MainActivity)getActivity(), new_name);
+            //AllLoginManager loginManager = new AllLoginManager((MainActivity)getActivity(), (MainActivity)getContext());
+            AllLoginManager.inst.editUsernickname((MainActivity)getActivity(), new_name);
             //((MainActivity) getActivity()).replaceFragment(MyPageFragment.newInstance());
         });
 

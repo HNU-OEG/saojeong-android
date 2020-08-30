@@ -97,7 +97,8 @@ public class MyPageFragment extends Fragment {
             iv_profile.setImageBitmap(img);
         }
 
-        String nickname = getName();
+        //String nickname = getName();
+        String nickname = TokenCase.getUserResource("nickname");
         tv_userId.setText(nickname);
         Log.d(TAG, "닉네임: " + nickname);
 

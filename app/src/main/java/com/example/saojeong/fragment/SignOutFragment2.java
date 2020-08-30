@@ -45,8 +45,7 @@ public class SignOutFragment2 extends Fragment {
         btn_sign_out.setOnClickListener((v) -> {
             //todo 서버로 전송
             //todo 프로필로 이동
-            AllLoginManager loginManager = new AllLoginManager((MainActivity)getActivity(), (MainActivity)getContext());
-            loginManager.userDelete((MainActivity)getActivity());
+            AllLoginManager.inst.userDelete((MainActivity)getActivity());
 
             ((MainActivity)getActivity()).replaceFragment(MyPageFragment.newInstance());
         });
