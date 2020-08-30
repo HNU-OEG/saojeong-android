@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.saojeong.fragment.CommunityTabFragment;
 import com.example.saojeong.fragment.FAQFragment;
 import com.example.saojeong.fragment.MyQnAFragment;
 import com.example.saojeong.fragment.PriceFragment;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         Timer timer=new Timer();
-        timer.schedule(timerTask,0,60*1000*30);
+        timer.schedule(timerTask,60*1000*5,60*1000*5);
         pressedTime=0;
     }
     public void clickHandler(View view) {
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.ll_chatbot:
-               // AllLoginManager.inst.editUsernickname(this,"qq");
+              //  AllLoginManager.inst.logout(this);
                 break;
 
             case R.id.ll_myPage:
@@ -190,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     super.onBackPressed();
-                    AllLoginManager.inst=null;
+                    AllLoginManager.inst.Destroy();
                     finish();
                 }
             }
@@ -272,5 +273,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        AllLoginManager.inst.Destroy();
     }
 }

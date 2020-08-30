@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +16,26 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.ChartAdapter;
+import com.example.saojeong.adapter.CommunityAdapter_item;
+import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.model.ChartContact;
+import com.example.saojeong.model.CommunityValue;
+import com.example.saojeong.rest.ServiceGenerator;
+import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
+import com.example.saojeong.rest.dto.chart.chart_Dto;
+import com.example.saojeong.rest.service.BoardService;
+import com.example.saojeong.rest.service.chartService;
 import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PriceFragment extends Fragment implements View.OnClickListener{
 
@@ -39,6 +53,7 @@ public class PriceFragment extends Fragment implements View.OnClickListener{
     TextView mFrultBackground;
     TextView mVegetableBackground;
     TextView mFishBackground;
+    private chartService chartService;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,7 +107,7 @@ public class PriceFragment extends Fragment implements View.OnClickListener{
         mChartContact.add(new ChartContact("포도", list_ChartValue));
         mChartContact.add(new ChartContact("수박", list_ChartValue));
 
-
+        load_GetPost();
         mAdapter = new ChartAdapter(this.getContext(), mChartContact, 1);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
@@ -137,6 +152,24 @@ public class PriceFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    public void load_GetPost() {
+        chartService = ServiceGenerator.createService(chartService.class, TokenCase.getToken());
+        chartService.getChartinfo("3140205").enqueue(new Callback<chart_Dto>() {
+            @Override
+            public void onResponse(Call<chart_Dto> call, Response<chart_Dto> response) {
+                chart_Dto body = response.body();
+                if (response.code() == 201) { // 서버와 통신 성공
+                    chart_Dto a = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<chart_Dto> call, Throwable t) {
+
+            }
+        });
+
+    }
 }
 
 
