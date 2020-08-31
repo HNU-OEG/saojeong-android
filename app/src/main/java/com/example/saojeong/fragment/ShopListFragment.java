@@ -60,6 +60,7 @@ public class ShopListFragment extends Fragment {
 
     Spinner spinner_shop;
     String[] item_shop;
+    private String type;
 
     RecyclerDecoration.BottomDecoration bottomDecoration = new RecyclerDecoration.BottomDecoration(50);
 
@@ -81,7 +82,7 @@ public class ShopListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         assert getArguments() != null;
-        String type = getArguments().getString("type");
+        type = getArguments().getString("type");
 
         storeService = ServiceGenerator.createService(StoreService.class, TokenCase.getToken());
 
@@ -204,7 +205,7 @@ public class ShopListFragment extends Fragment {
         recyclerOpenedShop.addItemDecoration(bottomDecoration);
         recyclerOpenedShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         shopOpenedAdapter.setOnItemClickListener(holder -> {
-            ShopFragment targetFragment = shopFragment.newInstance(holder.storeId);
+            ShopFragment targetFragment = shopFragment.newInstance(holder.storeId, ShopListFragment.newInstance(type));
             MainActivity activity = (MainActivity) getActivity();
             activity.replaceFragment(targetFragment);
         });
@@ -213,7 +214,7 @@ public class ShopListFragment extends Fragment {
         recyclerClosedShop.addItemDecoration(bottomDecoration);
         recyclerClosedShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         shopClosedAdapter.setOnItemClickListener(holder -> {
-            ShopFragment targetFragment = shopFragment.newInstance(holder.storeId);
+            ShopFragment targetFragment = shopFragment.newInstance(holder.storeId, ShopListFragment.newInstance(type));
             MainActivity activity = (MainActivity) getActivity();
             activity.replaceFragment(targetFragment);
         });
