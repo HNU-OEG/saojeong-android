@@ -1,6 +1,8 @@
 package com.example.saojeong.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +73,26 @@ public class ShopDetailAdapter extends RecyclerView.Adapter<ShopDetailAdapter.Vi
         } else if (contactShopDetail.getmPhoneN2() == null) {
             llphonen2.setVisibility(View.INVISIBLE);
         }
+        btn_phonen1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_DIAL);
+                Uri uriPhoneNumber = Uri.parse("tel:"+btn_phonen1.getText().toString());
+                intent.setData(uriPhoneNumber);
+                view.getContext().startActivity(intent);
+            }
+        });
+        btn_phonen2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_DIAL);
+                Uri uriPhoneNumber = Uri.parse("tel:"+btn_phonen2.getText().toString());
+                intent.setData(uriPhoneNumber);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
