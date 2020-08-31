@@ -2,15 +2,17 @@ package com.example.saojeong.rest;
 
 import android.text.TextUtils;
 
+import com.example.saojeong.rest.AuthenticationInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ServiceGenerator {
-    public static final String API_BASE_URL = "https://saojeong-dev.hnulinc.c11.kr/ ";
+public class service_login {
+    public static final String API_BASE_URL = "https://saojeong-dev.hnulinc.c11.kr/";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -21,6 +23,7 @@ public class ServiceGenerator {
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(API_BASE_URL)
+                    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson));
 
     private static Retrofit retrofit = builder.build();
