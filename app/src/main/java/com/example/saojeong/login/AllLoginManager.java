@@ -18,7 +18,7 @@ import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.Login_Dto;
 import com.example.saojeong.rest.service.Login_Guest;
-import com.example.saojeong.rest.service.service_login;
+import com.example.saojeong.rest.service_login;
 import com.facebook.AccessToken;
 import com.facebook.login.Login;
 import com.kakao.auth.Session;

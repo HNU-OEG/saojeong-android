@@ -75,6 +75,8 @@ public class ShopFragment extends Fragment {
 
     private StoreService storeService;
 
+    private static Fragment preFragment;
+
     public static ShopFragment newInstance() {
         return new ShopFragment();
     }
@@ -82,6 +84,16 @@ public class ShopFragment extends Fragment {
     public static ShopFragment newInstance(int id) {
         Bundle bundle = new Bundle();
         bundle.putInt("id", id);
+
+        ShopFragment fragment = new ShopFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    public static ShopFragment newInstance(int id, Fragment mFragment) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+        preFragment = mFragment;
 
         ShopFragment fragment = new ShopFragment();
         fragment.setArguments(bundle);
@@ -201,7 +213,7 @@ public class ShopFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceFragment(homeFragment.newInstance());
+                ((MainActivity) getActivity()).replaceFragment(preFragment);
             }
         });
         //((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.~~); // 뒤로가기 화살표 이미지 바꾸기
