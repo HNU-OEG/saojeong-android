@@ -82,6 +82,7 @@ public class MyPageFragment extends Fragment {
 
         btn_profile = view.findViewById(R.id.btn_profile);
         recyclerShop = view.findViewById(R.id.recycler_likeStore);
+        recyclerStar = view.findViewById(R.id.recycler_starStore);
         tv_userId = view.findViewById(R.id.tv_userId);
         iv_profile = view.findViewById(R.id.iv_profile);
 
@@ -118,53 +119,59 @@ public class MyPageFragment extends Fragment {
                     likeStores = ContactShopOC._createContactsList(20);
                     likeStoreAdapter = new LikeStoreAdapter(likeStores);
                 }
-                recyclerShop.addItemDecoration(leftDecoration);
-                recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
 
+                setStarredAdapter();
                 likeStoreAdapter.setOnItemClickListener(holder -> {
                     ShopFragment targetFragment = shopFragment.newInstance(holder.storeId, MyPageFragment.newInstance());
                     MainActivity activity = (MainActivity) getActivity();
                     activity.replaceFragment(targetFragment);
                 });
-
-                recyclerShop.setAdapter(likeStoreAdapter);
             }
 
             @Override
             public void onFailure(Call<List<StoreDto>> call, Throwable t) {
                 likeStores = ContactShopOC._createContactsList(20);
                 likeStoreAdapter = new LikeStoreAdapter(likeStores);
-                recyclerShop.addItemDecoration(leftDecoration);
-                recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
-                recyclerShop.setAdapter(likeStoreAdapter);
+                setStarredAdapter();
             }
         });
 
-        recyclerStar = view.findViewById(R.id.recycler_starStore);
+
         storeService.getVotedStoreList().enqueue(new Callback<List<StoreDto>>() {
             @Override
             public void onResponse(Call<List<StoreDto>> call, Response<List<StoreDto>> response) {
                 if (response.code() == 201) {
                     List<StoreDto> body = response.body();
-                    Log.d(TAG, "BODY " + body.toString());
                     starStores = ContactShopOC.createContactsList(body);
                     starStoreAdapter = new StarStoreAdapter(starStores);
+                } else {
+                    starStores = ContactShopOC._createContactsList(20);
+                    starStoreAdapter = new StarStoreAdapter(starStores);
                 }
+                setVotedAdapter();
             }
             @Override
             public void onFailure(Call<List<StoreDto>> call, Throwable t) {
-
+                Log.d("FAILED1", "FAILED2!!!");
+                starStores = ContactShopOC._createContactsList(20);
+                starStoreAdapter = new StarStoreAdapter(starStores);
+                setVotedAdapter();
             }
         });
 
-//        starStores = StarStore.createLikeStoreList(numStore);
-//        starStoreAdapter = new StarStoreAdapter(starStores);
+        return view;
+    }
 
+    private void setVotedAdapter() {
         recyclerStar.addItemDecoration(bottomDecoration);
         recyclerStar.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerStar.setAdapter(starStoreAdapter);
+    }
 
-        return view;
+    private void setStarredAdapter() {
+        recyclerShop.addItemDecoration(leftDecoration);
+        recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
+        recyclerShop.setAdapter(likeStoreAdapter);
     }
 
     private byte[] getImage() {
