@@ -371,7 +371,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="36dp"
-                            android:text="사오정은 ?????이며 ????의 당사자가 아닙니다.\n따라서 사오정은 상품거래정보 및 상품성에 대한 책임을 지지 않습니다."
+                            android:text="사오정은 마케팅 어플이며 오정농수산물시장의 당사자(판매자)가 아닙니다.\n따라서 사오정은 상품거래정보 및 상품성에 대한 책임을 지지 않습니다."
                             android:textSize="10dp" />
                     </LinearLayout>
                 </LinearLayout>
