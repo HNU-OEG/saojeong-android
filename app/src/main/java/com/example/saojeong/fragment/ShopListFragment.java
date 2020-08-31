@@ -1,5 +1,6 @@
 package com.example.saojeong.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -158,6 +159,7 @@ public class ShopListFragment extends Fragment {
         spinner_shop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((TextView)adapterView.getChildAt(0)).setTextColor(Color.parseColor("#969696"));
                 if (contactOpenedShop != null && contactClosedShop != null) {
                     switch (i) {
                         case 0:

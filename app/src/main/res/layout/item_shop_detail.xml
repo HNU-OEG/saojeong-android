@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context=".adapter.FruitOpenAdapter">
+    tools:context=".adapter.ShopDetailAdapter">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="15dp"
+            android:textSize="18dp"
             android:textColor="#f67043"
             android:text="영업시간" />
 
@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
+            android:textSize="16dp"
             android:text="월요일 : 09:00 ~ 20:00\n화요일 : 09:00 ~ 20:00\n수요일 : 09:00 ~ 20:00\n목요일 : 09:00 ~ 20:00\n금요일 : 09:00 ~ 20:00\n토요일 : 09:00 ~ 20:00\n일요일 : 09:00 ~ 20:00" />
     </LinearLayout>
 
@@ -42,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="15dp"
+            android:textSize="18dp"
             android:textColor="#f67043"
             android:text="전화번호" />
 
@@ -65,13 +66,13 @@
 
                     <Button
                         android:id="@+id/btn_phonenum1"
-                        android:layout_width="102dp"
-                        android:layout_height="15dp"
+                        android:layout_width="130dp"
+                        android:layout_height="20dp"
                         android:background="@drawable/background_pn_rounding"
                         android:gravity="center"
                         android:text="010 - 1234 - 5678"
                         android:textColor="#ffffff"
-                        android:textSize="11dp" />
+                        android:textSize="14dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -82,14 +83,14 @@
 
                     <Button
                         android:id="@+id/btn_phonenum2"
-                        android:layout_width="102dp"
-                        android:layout_height="15dp"
+                        android:layout_width="130dp"
+                        android:layout_height="20dp"
                         android:layout_marginLeft="8dp"
                         android:background="@drawable/background_pn_rounding"
                         android:gravity="center"
                         android:text="010 - 1234 - 5678"
                         android:textColor="#ffffff"
-                        android:textSize="11dp" />
+                        android:textSize="14dp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -103,7 +104,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="9dp"
+                    android:textSize="11dp"
                     android:text="통화 후 '사오정 보고 전화드립니다.' 라고 말씀 해 주세요." />
             </LinearLayout>
 

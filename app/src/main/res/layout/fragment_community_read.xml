@@ -38,6 +38,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="커뮤니티"
+                        android:textSize="18dp"
                         android:textColor="#000000" />
                 </androidx.appcompat.widget.Toolbar>
 
@@ -143,7 +144,7 @@
                                 android:gravity="center"
                                 android:drawableLeft="@drawable/likeup"
                                 android:text="추천 0"
-                                android:textSize="16sp" />
+                                android:textSize="16dp" />
 
                         </LinearLayout>
 
@@ -169,7 +170,7 @@
                                 android:gravity="center"
                                 android:drawableLeft="@drawable/likedown"
                                 android:text="비추천 0"
-                                android:textSize="16sp" />
+                                android:textSize="16dp" />
 
                         </LinearLayout>
 
@@ -206,7 +207,7 @@
                                     android:id="@+id/tv_create_comment"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="13.5sp"
+                                    android:textSize="14dp"
                                     android:textColor="#ff6950"
                                     android:lineSpacingExtra="5.5sp"
                                     android:layout_alignParentRight="true"
@@ -227,7 +228,7 @@
                                 android:hint="내용을 입력하세요"
                                 android:inputType="textMultiLine"
                                 android:lineSpacingExtra="5sp"
-                                android:textSize="13sp" />
+                                android:textSize="14dp" />
 
                         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.example.saojeong.fragment;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -247,10 +248,16 @@ public class ShopFragment extends Fragment {
         //시작시 Tab Color 지정
         TextView Cselllist = (TextView) tabHost_Shop.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
         Cselllist.setTextColor(Color.parseColor("#f67043"));
+        Cselllist.setTextSize(16);
+        Cselllist.setTypeface(null,Typeface.BOLD);
         TextView Cdetail = (TextView) tabHost_Shop.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
         Cdetail.setTextColor(Color.parseColor("#8c8c8c"));
+        Cdetail.setTextSize(16);
+        Cdetail.setTypeface(null,Typeface.BOLD);
         TextView Cscore = (TextView) tabHost_Shop.getTabWidget().getChildAt(2).findViewById(android.R.id.title);
         Cscore.setTextColor(Color.parseColor("#8c8c8c"));
+        Cscore.setTextSize(16);
+        Cscore.setTypeface(null,Typeface.BOLD);
 
         //Tab 바꿀 때 마다 색 변경
         tabHost_Shop.setOnTabChangedListener(s -> {
