@@ -12,6 +12,11 @@ public class ContactShopStarScore {
         this.mQuestion = mQuestion;
     }
 
+    public ContactShopStarScore(String mQuestion, float rating) {
+        this.mQuestion = mQuestion;
+        this.mRating = rating;
+    }
+
     public String getmQuestion() {
         return mQuestion;
     }
@@ -24,12 +29,22 @@ public class ContactShopStarScore {
         this.mRating = mRating;
     }
 
-    public static ArrayList<ContactShopStarScore> createContactsList(int numContacts) {
-        ArrayList<ContactShopStarScore> contacts = new ArrayList<ContactShopStarScore>();
+    public static ArrayList<ContactShopStarScore> createContactsList() {
+        ArrayList<ContactShopStarScore> contacts = new ArrayList<>();
 
-        for(int i = 1; i <= numContacts; i++) {
-            contacts.add(new ContactShopStarScore("사장님은 친절하신가요?"));
-        }
+        contacts.add(new ContactShopStarScore("사장님은 친절하신가요?"));
+        contacts.add(new ContactShopStarScore("상품의 품질은 어땠나요?"));
+        contacts.add(new ContactShopStarScore("품질 대비 가격은 어땠나요?"));
+
+        return contacts;
+    }
+
+    public static ArrayList<ContactShopStarScore> createContactsList(float kind, float item, float price) {
+        ArrayList<ContactShopStarScore> contacts = new ArrayList<>();
+
+        contacts.add(new ContactShopStarScore("사장님은 친절하신가요?", kind));
+        contacts.add(new ContactShopStarScore("상품의 품질은 어땠나요?", item));
+        contacts.add(new ContactShopStarScore("품질 대비 가격은 어땠나요?", price));
 
         return contacts;
     }

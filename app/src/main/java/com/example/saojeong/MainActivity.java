@@ -6,15 +6,22 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.saojeong.fragment.CommunityFragment;
+
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.saojeong.fragment.CommunityTabFragment;
 import com.example.saojeong.fragment.FAQFragment;
 import com.example.saojeong.fragment.MyQnAFragment;
 import com.example.saojeong.fragment.PriceFragment;
@@ -30,6 +37,10 @@ import com.example.saojeong.fragment.HomeFragment;
 import com.example.saojeong.fragment.PriceFragment;
 import com.example.saojeong.fragment.MyPageFragment;
 import com.example.saojeong.fragment.QnAFragment;
+import com.example.saojeong.login.AllLoginManager;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +57,10 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mmypage;
 
     private InputMethodManager imm;
+    private Activity activity;
 
+    private String activity_tag;
+    long pressedTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         mchatbot = findViewById(R.id.miv_chatbot);
         mmypage = findViewById(R.id.miv_mypage);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
         homeFragment = new HomeFragment(); // 홈 Fragment 선언
@@ -67,88 +83,135 @@ public class MainActivity extends AppCompatActivity {
         communityFragment = new CommunityFragment(); // 커뮤니티 Fragment 선언
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
-        transaction.replace(R.id.frameLayout_main, homeFragment)
-                .commitAllowingStateLoss(); //시작화면에 Home 띄우기
+        transaction.replace(R.id.frameLayout_main, homeFragment).addToBackStack(null)
+                .commitAllowingStateLoss();; //시작화면에 Home 띄우기
         mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
+        activity_tag="homeFragment";
+        activity=this;
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                AllLoginManager.inst.login("UPDATE", activity);
+            }
+        };
+        Timer timer=new Timer();
+        timer.schedule(timerTask,60*1000*5,60*1000*5);
+        pressedTime=0;
     }
     public void clickHandler(View view) {
         transaction = fragmentManager.beginTransaction();
         switch (view.getId())
         {
             case R.id.ll_home:
-                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
-                transaction.replace(R.id.frameLayout_main, homeFragment) // frameLayout에 홈 Fragment 호출
-                        .addToBackStack(null)
-                        .commitAllowingStateLoss();
+                if(activity_tag!="homeFragment") {
+                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+                    transaction.replace(R.id.frameLayout_main, homeFragment) // frameLayout에 홈 Fragment 호출
+                            .addToBackStack(null)
+                            .commitAllowingStateLoss();
+                    activity_tag="homeFragment";
 
-                mhome.setImageResource(R.drawable.home_orange);
-                mprice.setImageResource(R.drawable.price);
-                mcommunity.setImageResource(R.drawable.community);
-                mchatbot.setImageResource(R.drawable.chatbot);
-                mmypage.setImageResource(R.drawable.mypage);
+                    mhome.setImageResource(R.drawable.home_orange);
+                    mprice.setImageResource(R.drawable.price);
+                    mcommunity.setImageResource(R.drawable.community);
+                    mchatbot.setImageResource(R.drawable.chatbot);
+                    mmypage.setImageResource(R.drawable.mypage);
 
+                }
                 break;
-
             case R.id.ll_price:
-                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
-                transaction.replace(R.id.frameLayout_main, priceFragment) // frameLayout에 시세 Fragment 호출
-                        .addToBackStack(null)
-                        .commitAllowingStateLoss();
+                if(activity_tag!="priceFragment") {
+                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+                    transaction.replace(R.id.frameLayout_main, priceFragment) // frameLayout에 시세 Fragment 호출
+                            .addToBackStack(null)
+                            .commitAllowingStateLoss();
+                    activity_tag="priceFragment";
 
-                mhome.setImageResource(R.drawable.home);
-                mprice.setImageResource(R.drawable.price_orange);
-                mcommunity.setImageResource(R.drawable.community);
-                mchatbot.setImageResource(R.drawable.chatbot);
-                mmypage.setImageResource(R.drawable.mypage);
-
+                    mhome.setImageResource(R.drawable.home);
+                    mprice.setImageResource(R.drawable.price_orange);
+                    mcommunity.setImageResource(R.drawable.community);
+                    mchatbot.setImageResource(R.drawable.chatbot);
+                    mmypage.setImageResource(R.drawable.mypage);
+                }
                 break;
-
             case R.id.ll_community:
-                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
-                transaction.replace(R.id.frameLayout_main, communityFragment) // frameLayout에 커뮤니티 Fragment 호출
-                        .addToBackStack(null)
-                        .commitAllowingStateLoss();
+                if(activity_tag!="communityFragment") {
+                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+                    transaction.replace(R.id.frameLayout_main, communityFragment) // frameLayout에 커뮤니티 Fragment 호출
+                            .addToBackStack(null)
+                            .commitAllowingStateLoss();
+                    activity_tag="communityFragment";
 
-                mhome.setImageResource(R.drawable.home);
-                mprice.setImageResource(R.drawable.price);
-                mcommunity.setImageResource(R.drawable.community_orange);
-                mchatbot.setImageResource(R.drawable.chatbot);
-                mmypage.setImageResource(R.drawable.mypage);
+                    mhome.setImageResource(R.drawable.home);
+                    mprice.setImageResource(R.drawable.price);
+                    mcommunity.setImageResource(R.drawable.community_orange);
+                    mchatbot.setImageResource(R.drawable.chatbot);
+                    mmypage.setImageResource(R.drawable.mypage);
 
+                }
                 break;
-
             case R.id.ll_chatbot:
+                AllLoginManager.inst.logout(this);
                 break;
 
             case R.id.ll_myPage:
-                fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
-                transaction.replace(R.id.frameLayout_main, myPageFragment) // frameLayout에 MyPage Fragment 호출
-                        .addToBackStack(null)
-                        .commitAllowingStateLoss();
+                if(activity_tag!="myPageFragment") {
+                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
+                    transaction.replace(R.id.frameLayout_main, myPageFragment) // frameLayout에 MyPage Fragment 호출
+                            .addToBackStack(null)
+                            .commitAllowingStateLoss();
+                    activity_tag="myPageFragment";
+                    mhome.setImageResource(R.drawable.home);
+                    mprice.setImageResource(R.drawable.price);
+                    mcommunity.setImageResource(R.drawable.community);
+                    mchatbot.setImageResource(R.drawable.chatbot);
+                    mmypage.setImageResource(R.drawable.mypage_orange);
 
-                mhome.setImageResource(R.drawable.home);
-                mprice.setImageResource(R.drawable.price);
-                mcommunity.setImageResource(R.drawable.community);
-                mchatbot.setImageResource(R.drawable.chatbot);
-                mmypage.setImageResource(R.drawable.mypage_orange);
-
-                break;
+                    break;
+                }
         }
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
-        //만약 더이상의 백스택이 없다면 홈으로 돌아가기
+        transaction = fragmentManager.beginTransaction();
         int backstackcount = fragmentManager.getBackStackEntryCount();
+//
+        //만약 더이상의 백스택이 없다면 홈으로 돌아가기
+        if(activity_tag == "homeFragment" && backstackcount == 1) { //만약 더이상의 백스택이 없다면 홈으로 돌아가기
+            if ( pressedTime == 0 ) {
+                Toast.makeText(MainActivity.this, " 한 번 더 누르면 종료됩니다." , Toast.LENGTH_LONG).show();
+                pressedTime = System.currentTimeMillis();
+                return;
+            }
+            else
+            {
+                long second=System.currentTimeMillis();
+                if(second-pressedTime>2000)
+                {
+                    Toast.makeText(MainActivity.this, " 한 번 더 누르면 종료됩니다." , Toast.LENGTH_LONG).show();
+                    pressedTime = System.currentTimeMillis();
+                }
+                else {
+                    super.onBackPressed();
+                    finish();
+                }
+            }
+        } else {
+            super.onBackPressed();
+            backstackcount = fragmentManager.getBackStackEntryCount();
+            if(backstackcount == 0) {
+                activity_tag = "homeFragment";
+                transaction.replace(R.id.frameLayout_main, homeFragment)
+                        .addToBackStack(null)// frameLayout에 홈 Fragment 호출
+                        .commitAllowingStateLoss();
 
-        if(backstackcount == 0) {
-            mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
-            mprice.setImageResource(R.drawable.price);
-            mcommunity.setImageResource(R.drawable.community);
-            mchatbot.setImageResource(R.drawable.chatbot);
-            mmypage.setImageResource(R.drawable.mypage);
+                mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
+                mprice.setImageResource(R.drawable.price);
+                mcommunity.setImageResource(R.drawable.community);
+                mchatbot.setImageResource(R.drawable.chatbot);
+                mmypage.setImageResource(R.drawable.mypage);
+            }
         }
     }
 
@@ -165,7 +228,8 @@ public class MainActivity extends AppCompatActivity {
         transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frameLayout_home, homeFragment);
         transaction.addToBackStack(null);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
+
     }
 
     public void closeKeyBoard(View view) {
@@ -199,5 +263,18 @@ public class MainActivity extends AppCompatActivity {
                 transaction.commit();
                 break;
         }
+    }
+
+    @Override //로그인 받아오기
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        AllLoginManager.inst.onActivityResult(requestCode,resultCode,data);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AllLoginManager.inst.Destroy(this);
     }
 }

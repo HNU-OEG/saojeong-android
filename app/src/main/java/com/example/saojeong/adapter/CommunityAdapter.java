@@ -33,6 +33,8 @@ public class CommunityAdapter extends FragmentStateAdapter {
     public long getItemId(int position) {
         return super.getItemId(position);
     }
+
+
     public Fragment setFragment(int position) {
         position++;
         switch(position){

@@ -12,15 +12,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.example.saojeong.GlideModule;
 import com.example.saojeong.R;
 import com.example.saojeong.model.ContactShopOC;
 import com.example.saojeong.model.LikeStore;
+import com.example.saojeong.model.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.ViewHolder> {
     private final RequestManager glide;
+
+    public OnItemClickListener<LikeStoreAdapter.ViewHolder> mListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener<LikeStoreAdapter.ViewHolder> mListener) {
+        this.mListener = mListener;
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
@@ -30,6 +41,9 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         public TextView rateStore;
         public TextView rateCountStore;
 
+        // Store ID 추가
+        public int storeId;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.image = itemView.findViewById(R.id.iv_shop);
@@ -38,6 +52,18 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
             this.nameStore = itemView.findViewById(R.id.tv_shopname);
             this.rateStore = itemView.findViewById(R.id.tv_starscore);
             this.rateCountStore = itemView.findViewById(R.id.tv_evaluation);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!isNull(mListener)) {
+                        mListener.onItemClick(LikeStoreAdapter.ViewHolder.this);
+                    }
+                }
+
+                boolean isNull(OnItemClickListener<LikeStoreAdapter.ViewHolder> l) {
+                    return l == null;
+                }
+            });
         }
     }
 
@@ -73,10 +99,16 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.View
         TextView rateStore = holder.rateStore;
         TextView rateCountStore = holder.rateCountStore;
 
+        // Store ID 바인딩
+        holder.storeId = likeStore.getMShopId();
+
+
         if (glide == null) {
             image.setImageResource(likeStore.getMImage());
         } else {
-            glide.load(likeStore.get_mImage()).into((image));
+            glide.load(likeStore.get_mImage())
+                    .transform(GlideModule.getCenterCropAndRoundedCorner(50))
+                    .into((image));
         }
         img_like.setImageResource(likeStore.isMLike()? R.drawable.like : R.drawable.unlike);
         codeStore.setText(likeStore.getMShopnum());

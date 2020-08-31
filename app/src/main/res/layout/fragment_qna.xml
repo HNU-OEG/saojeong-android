@@ -39,72 +39,72 @@
         android:layout_height="wrap_content" >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
-    <LinearLayout
-        android:id="@+id/layout_top"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:gravity="center"
-        android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/layout_top"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="23dp"
-            android:textSize="20sp"
-            android:textColor="#4e4e4e"
-            android:lineSpacingExtra="-9sp"
-            android:textStyle="bold"
-            android:text="정확한 문의 파악을 위해 아래정보를\n작성해주세요!"
-            />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="23dp"
+                    android:textSize="20sp"
+                    android:textColor="#4e4e4e"
+                    android:lineSpacingExtra="-9sp"
+                    android:textStyle="bold"
+                    android:text="정확한 문의 파악을 위해 아래정보를\n작성해주세요!"
+                    />
 
-        <EditText
-            android:id="@+id/et_qna"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="13dp"
-            android:background="@drawable/square_box"
-            android:text="@string/qna"/>
+                <EditText
+                    android:id="@+id/et_qna"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="13dp"
+                    android:background="@drawable/square_box"
+                    android:text="@string/qna"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layout_middle"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/layout_middle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="35dp"
-            android:textSize="11sp"
-            android:textColor="#4d4d4d"
-            android:lineSpacingExtra="-3sp"
-            android:gravity="right"
-            android:text="문의 사항은 내 문의 내역에서 확인 가능합니다."
-            />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="35dp"
+                    android:textSize="11sp"
+                    android:textColor="#4d4d4d"
+                    android:lineSpacingExtra="-3sp"
+                    android:gravity="right"
+                    android:text="문의 사항은 내 문의 내역에서 확인 가능합니다."
+                    />
 
-        <Button
-            android:id="@+id/btn_qna_submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:background="@drawable/btn_round_tmp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#ffffff"
-            android:lineSpacingExtra="-12sp"
-            android:gravity="center"
-            android:text="문의하기"/>
+                <Button
+                    android:id="@+id/btn_qna_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@drawable/btn_round_tmp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:lineSpacingExtra="-12sp"
+                    android:gravity="center"
+                    android:text="문의하기"/>
 
-    </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

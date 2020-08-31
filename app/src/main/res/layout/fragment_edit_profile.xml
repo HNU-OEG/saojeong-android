@@ -60,12 +60,13 @@
             android:paddingBottom="17dp">
 
             <TextView
+                android:id="@+id/tv_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:lineSpacingExtra="3sp"
-                android:text="가나다라님"
+                tools:text="가나다라님"
                 android:textColor="#4e4e4e"
                 android:textSize="23sp" />
 

@@ -14,12 +14,15 @@ import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.fragment.Community_ReadFragment;
 import com.example.saojeong.model.CommunityValue;
+import com.example.saojeong.model.PostValue;
+import com.example.saojeong.rest.service.BoardService;
 
 import java.util.List;
 
 public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder>{
     public MainActivity RootActivity;
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public int document_Id;
         public TextView mTextViewTitle_Popularity;
         public TextView mTextViewTitle;
         public TextView mTextViewName;
@@ -38,7 +41,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Community_ReadFragment fragment= new Community_ReadFragment();
+                    Community_ReadFragment fragment= new Community_ReadFragment(document_Id);
                     //RootActivity.getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
                     RootActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment) // frameLayout에 커뮤니티 Fragment 호출
                             .addToBackStack(null)
@@ -74,34 +77,51 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
 
     @Override
     public void onBindViewHolder(CommunityAdapter_item.ViewHolder holder, int position) {
-        if(mHotContacts.size()>position)
+        if(mHotContacts.size()>position && mBoard==0)
         {
             CommunityValue contact = mHotContacts.get(position);
             holder.mTextViewTitle.setText(contact.getTitle());
             holder.mTextViewName.setText(contact.getAuthor());
             holder.mTextViewDate.setText(contact.getCreatedAt());
             holder.mTextViewComment.setText("["+contact.getCommentCount() + "]");
-            holder.mTextViewvote.setText(contact.votedCount+ "");
+            holder.mTextViewvote.setText(contact.getVotedCount()+ "");
             CheckPopularity(true, holder);
+            holder.document_Id=contact.getDocument_id();
         }
         else
         {
-            CommunityValue contact = mNormalContacts.get(position-mHotContacts.size());
+            CommunityValue contact = mNormalContacts.get((mBoard*10)+position);
             holder.mTextViewTitle.setText(contact.getTitle());
             holder.mTextViewName.setText(contact.getAuthor());
             holder.mTextViewDate.setText(contact.getCreatedAt());
             holder.mTextViewComment.setText("["+contact.getCommentCount() + "]");
-            holder.mTextViewvote.setText(contact.votedCount+ "");
+            holder.mTextViewvote.setText(contact.getVotedCount()+ "");
             CheckPopularity(false, holder);
+            holder.document_Id=contact.getDocument_id();
         }
 
     }
 
     @Override
     public int getItemCount() {
-
+        int a=mHotContacts.size()+mNormalContacts.size();
+        if(mBoard==0) {
+            if (mHotContacts.size() + mNormalContacts.size() >= 12)
+                return 12;
+        }
+        else
+        {
+            if(mNormalContacts.size()-(mBoard*10)>=10)
+                return 10;
+            else
+                return mNormalContacts.size()%10;
+        }
         return mHotContacts.size()+mNormalContacts.size();
     }
+
+    //public int getItemCount() {
+    //    return mHotContacts.size()+mNormalContacts.size();
+    //}
 
     public void UpBoard()
     {
@@ -119,4 +139,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
             holder.mTextViewTitle_Popularity.setVisibility(View.GONE);
         }
     }
+
+
+
 }

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.login.AllLoginManager;
 
 public class SignOutFragment2 extends Fragment {
 
@@ -34,6 +35,12 @@ public class SignOutFragment2 extends Fragment {
         Toolbar toolbar = view.findViewById(R.id.toolbar_sign_out2);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).replaceFragment(MyPageFragment.newInstance());
+            }
+        });
         //((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.~~); // 뒤로가기 화살표 이미지 바꾸기
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -44,6 +51,8 @@ public class SignOutFragment2 extends Fragment {
         btn_sign_out.setOnClickListener((v) -> {
             //todo 서버로 전송
             //todo 프로필로 이동
+            AllLoginManager.inst.userDelete((MainActivity)getActivity());
+
             ((MainActivity)getActivity()).replaceFragment(MyPageFragment.newInstance());
         });
 

@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.saojeong"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -60,4 +60,37 @@ dependencies {
 
     //인디케이터 오픈소스
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+
+
+    //구글로그인
+    //https://firebase.google.com/docs/auth/android/google-signin?hl=ko
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    //카카오
+    // 카카오 로그인
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
+
+    // 카카오톡
+    implementation group: 'com.kakao.sdk', name: 'kakaotalk', version: '1.30.0'
+
+    // 카카오스토리
+    implementation group: 'com.kakao.sdk', name: 'kakaostory', version: '1.30.0'
+
+    // 카카오링크
+    implementation group: 'com.kakao.sdk', name: 'kakaolink', version: '1.30.0'
+
+    // 카카오내비
+    implementation group: 'com.kakao.sdk', name: 'kakaonavi', version: '1.30.0'
+
+    //naver,facebook
+    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'   // import from jcenter
+    implementation 'com.facebook.android:facebook-login:[5,6)'
+
+    implementation 'com.auth0.android:jwtdecode:2.0.0'
+
+    //동기
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
+
 }

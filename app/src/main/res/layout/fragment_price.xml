@@ -80,8 +80,8 @@
                 android:layout_marginLeft="41dp"
                 android:gravity="center"
                 android:text="과일시세"
-
-                android:textSize="8sp" />
+                android:textStyle="bold"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/tv_price_vegetable_not"
@@ -92,19 +92,19 @@
                 android:layout_marginRight="20dp"
                 android:gravity="center"
                 android:text="채소시세"
-
-                android:textSize="8sp" />
+                android:textStyle="bold"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/tv_price_fish_not"
                 android:layout_width="match_parent"
                 android:layout_marginRight="41dp"
-                android:layout_height="10dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="수산시세"
-
-                android:textSize="8sp" />
+                android:textStyle="bold"
+                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -121,13 +121,14 @@
             <EditText
                 android:id="@+id/et_price_shopsearch"
                 android:layout_width="250dp"
-                android:layout_height="15dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="5dp"
                 android:background="@null"
+                android:textStyle="bold"
                 android:hint="어느 과일의 시세가 궁금하신가요?"
                 android:inputType="textPersonName"
-                android:textSize="13sp" />
+                android:textSize="14dp" />
 
 
         </FrameLayout>

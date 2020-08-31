@@ -13,24 +13,36 @@ import com.example.saojeong.R;
 import com.example.saojeong.model.MyQnA;
 import com.example.saojeong.model.OnItemClickListener;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class MyQnAadapter extends RecyclerView.Adapter<MyQnAadapter.ViewHolder> implements OnItemClickListener<MyQnAadapter.ViewHolder> {
+import static java.util.Objects.isNull;
 
-    OnItemClickListener listener;
+//public class MyQnAadapter extends RecyclerView.Adapter<MyQnAadapter.ViewHolder> implements OnItemClickListener<MyQnAadapter.ViewHolder> {
+public class MyQnAadapter extends RecyclerView.Adapter<com.example.saojeong.adapter.MyQnAadapter.ViewHolder> {
 
-    public void setOnItemClicklistener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
 
-    @Override
-    public void onItemClick(ViewHolder holder, View view, int position) {
-        if(listener != null) {
-            listener.onItemClick(holder,view,position);
-        }
+//    OnItemClickListener listener;
+//
+//    public void setOnItemClicklistener(OnItemClickListener listener) {
+//        this.listener = listener;
+//    }
+//
+//    @Override
+//    public void onItemClick(ViewHolder holder, View view, int position) {
+//        if (listener != null) {
+//            listener.onItemClick(holder, view, position);
+//        }
+//    }
+
+    public OnItemClickListener<MyQnAadapter.ViewHolder> mListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener<MyQnAadapter.ViewHolder> mListener) {
+        this.mListener = mListener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+        public int documentId;
         public TextView title;
         public TextView status;
         public TextView date;
@@ -41,18 +53,31 @@ public class MyQnAadapter extends RecyclerView.Adapter<MyQnAadapter.ViewHolder> 
             this.status = itemView.findViewById(R.id.tv_QnA_status_list);
             this.date = itemView.findViewById(R.id.tv_QnA_date_list);
 
-            itemView.setOnClickListener((v) -> {
-                int position = getAdapterPosition();
-                if(listener != null) {
-                    listener.onItemClick(ViewHolder.this, v, position);
+//            itemView.setOnClickListener((v) -> {
+//                int position = getAdapterPosition();
+//                if (listener != null) {
+//                    listener.onItemClick(ViewHolder.this, v, position);
+//                }
+//            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!isNull(mListener)) {
+                        mListener.onItemClick(MyQnAadapter.ViewHolder.this);
+                    }
+                }
+
+                boolean isNull(OnItemClickListener<MyQnAadapter.ViewHolder> l) {
+                    return l == null;
                 }
             });
         }
     }
 
-    private ArrayList<MyQnA> mMyQnA;
+    private List<MyQnA> mMyQnA;
 
-    public MyQnAadapter(ArrayList<MyQnA> mMyQnA) { this.mMyQnA = mMyQnA; }
+    public MyQnAadapter(List<MyQnA> mMyQnA) { this.mMyQnA = mMyQnA; }
 
     @NonNull
     @Override
@@ -71,11 +96,15 @@ public class MyQnAadapter extends RecyclerView.Adapter<MyQnAadapter.ViewHolder> 
         TextView status = holder.status;
         TextView date = holder.date;
 
-        title.setText(myQnA.getmTitle());
-        status.setText(myQnA.getmStatus());
-        date.setText(myQnA.getmDate());
+        holder.documentId = myQnA.getId();
+
+        title.setText(myQnA.getMTitle());
+        if (myQnA.getMStatus() == 0) status.setText("[답변 전]");
+        date.setText(myQnA.getMDate());
     }
 
     @Override
-    public int getItemCount() { return mMyQnA.size(); }
+    public int getItemCount() {
+        return mMyQnA.size();
+    }
 }

@@ -19,7 +19,7 @@ public class FAQ {
         ArrayList<FAQ> FAQs = new ArrayList<FAQ>();
 
         for (int i = 1; i <= numFAQ; i++) {
-            FAQs.add(new FAQ("제목", "가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사"));
+            FAQs.add(new FAQ("FAQ TITLE TEST", "FAQ CONTENT TEST / FAQ CONTENT TEST / FAQ CONTENT TEST / FAQ CONTENT TEST / FAQ CONTENT TEST / FAQ CONTENT TEST / FAQ CONTENT TEST / FAQ CONTENT TEST"));
         }
 
         return FAQs;

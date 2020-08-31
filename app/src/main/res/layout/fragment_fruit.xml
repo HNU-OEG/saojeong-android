@@ -42,12 +42,14 @@
                     app:layout_constraintTop_toBottomOf="parent">
 
                     <ImageView
+                        android:id="@+id/iv_store_type"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="22dp"
                         app:srcCompat="@drawable/icon_fruit_list" />
 
                     <TextView
+                        android:id="@+id/tv_store_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -55,13 +57,6 @@
                         android:textSize="18dp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/selected_fruit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -76,8 +71,10 @@
 
                     <Spinner
                         android:id="@+id/spinner_fruit"
+                        android:background="@drawable/background_spinner"
                         android:layout_width="150dp"
-                        android:layout_height="28dp" />
+                        android:layout_height="28dp"
+                        android:dropDownWidth="200dp"/>
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -88,17 +85,17 @@
                 android:layout_marginTop="29dp"
                 android:layout_marginLeft="25dp"
                 android:text="오픈한 가게"
-                android:textColor="#000000"
+                android:textColor="#414141"
                 android:textStyle="bold"
-                android:textSize="15dp"/>
+                android:textSize="18dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclershop_open"
-                android:layout_marginTop="7dp"
-                android:layout_marginLeft="22dp"
-                android:layout_marginRight="22dp"
                 android:layout_width="match_parent"
-                android:layout_height="346dp" />
+                android:layout_height="346dp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="22dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -118,9 +115,9 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginBottom="9dp"
                     android:text="휴식 중인 가게"
-                    android:textColor="#000000"
+                    android:textColor="#414141"
                     android:textStyle="bold"
-                    android:textSize="15dp"/>
+                    android:textSize="18dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclershop_close"

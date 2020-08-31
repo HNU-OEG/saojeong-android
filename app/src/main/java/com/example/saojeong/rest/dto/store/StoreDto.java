@@ -1,4 +1,4 @@
-package com.example.saojeong.rest.dto;
+package com.example.saojeong.rest.dto.store;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class StoreDto {
+public class StoreDto implements Comparable<StoreDto> {
     @SerializedName("store_number")
     @Expose
     private Integer storeNumber;
@@ -31,12 +31,34 @@ public class StoreDto {
     private Integer storeId;
     @SerializedName("starred")
     @Expose
-    private Integer starred;
+    private Integer starred = 0;
     @SerializedName("store_intro")
     @Expose
     private String storeIntro;
 
+    public StoreDto (Double voteGradeAverage, Integer voteGradeCount, String storeName) {
+        this.voteGradeAverage = voteGradeAverage;
+        this.voteGradeCount = voteGradeCount;
+        this.storeName = storeName;
+    }
+
     public boolean isStarred() {
+        if (starred == null) {
+            return false;
+        }
+
         return starred == 1;
+    }
+
+    public Integer getStoreId() {
+        if (storeId == null) {
+            return 0;
+        }
+        return storeId;
+    }
+
+    @Override
+    public int compareTo(StoreDto storeDto) {
+        return 0;
     }
 }

@@ -116,25 +116,34 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
             case R.id.tv_community_btn_notice:
                 mFreeboard.setTextColor(Color.parseColor("#000000"));
                 mNotice.setTextColor(Color.parseColor("#fa8f68"));
-                break;
-            case R.id.tv_community_btn_write:
                 Community_WriteFragment fragment=new Community_WriteFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment) // frameLayout에 커뮤니티 Fragment 호출
                         .addToBackStack(null)
                         .commitAllowingStateLoss();
                 break;
+            case R.id.tv_community_btn_write:
+                Community_WriteFragment fragment1=new Community_WriteFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment1) // frameLayout에 커뮤니티 Fragment 호출
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss();
+                break;
             case R.id.ll_community_left:
-                tabLayout.setScrollPosition(0,0,true);
-                viewPager2.setCurrentItem(0);
+                if(viewPager2.getCurrentItem()==0)
+                    CommunityTabFragment.inst.btn_Left();
 
                 break;
             case R.id.ll_community_right:
-                tabLayout.setScrollPosition(1,0,true);
-                viewPager2.setCurrentItem(1);
+                int a=viewPager2.getCurrentItem();
+                if(viewPager2.getCurrentItem()==0)
+                    CommunityTabFragment.inst.btn_Right();
                 break;
             case R.id.ll_community_home:
+                tabLayout.setScrollPosition(0,0,true);
+                viewPager2.setCurrentItem(0);
+                //mAdapter
                 break;
             case R.id.ll_community_re:
+                CommunityTabFragment.inst.load_GetPost();
                 break;
             case R.id.ll_community_upscroll:
                 switch(viewPager2.getCurrentItem()) {

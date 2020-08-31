@@ -1,6 +1,7 @@
 package com.example.saojeong.rest.service;
 
 import com.example.saojeong.rest.dto.mypage.Edit_ProfileDto;
+import com.example.saojeong.rest.dto.mypage.Edit_ProfileImageDto;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface MyPage_Service {
     @PUT("/admin/api/edit/customers/{member_id}.json")
     Call<List<Edit_ProfileDto>> ModifiedName(@Body Edit_ProfileDto parameters,
                                              @Path("member_id") String id);
+    @PUT("/admin/api/edit/customers/image")
+    Call<List<Edit_ProfileImageDto>> ModifiedImage(@Body Edit_ProfileImageDto parameters);
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <ScrollView
@@ -38,12 +38,14 @@
                     android:paddingBottom="17dp">
 
                     <TextView
+                        android:id="@+id/tv_userId"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:baselineAligned="false"
                         android:lineSpacingExtra="3sp"
-                        android:text="가나다라님"
+                        tools:text="가나다라님"
+                        android:textStyle="bold"
                         android:textColor="#4e4e4e"
                         android:textSize="23sp" />
 
@@ -74,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     android:textColor="#414141"
                     android:lineSpacingExtra="7sp"
                     android:text="좋아하는 점포"/>
@@ -99,6 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     android:textColor="#414141"
                     android:lineSpacingExtra="7sp"
                     android:text="내가 평가한 점포"/>
@@ -124,6 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     android:textColor="#414141"
                     android:lineSpacingExtra="7sp"
                     android:text="고객센터"/>

@@ -34,6 +34,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="커뮤니티"
+                    android:textSize="18dp"
                     android:textColor="#000000" />
             </androidx.appcompat.widget.Toolbar>
 
@@ -62,6 +63,7 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:text="자유게시판"
+                    android:textSize="16dp"
                     android:textColor="@color/colorMain"
                     android:textStyle="bold" />
 
@@ -74,6 +76,7 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:text="공지사항"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -98,7 +101,7 @@
             <EditText
                 android:id="@+id/et_community_boardsearch"
                 android:layout_width="match_parent"
-                android:layout_height="19dp"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginHorizontal="50dp"
@@ -147,6 +150,7 @@
                 android:background="#ffffff"
                 android:foreground="?attr/selectableItemBackground"
                 android:text="작성"
+                android:textSize="16dp"
                 android:textColor="#ff6950"
                 android:textStyle="bold"
                 app:elevation="0dp" />
@@ -167,11 +171,13 @@
                 android:layout_marginVertical="20dp"/>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_community_bottom"
         android:layout_width="match_parent"
         android:layout_height="39dp"
         android:orientation="horizontal"
+        android:background="#FCFCFC"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
@@ -180,7 +186,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:background="#FFFFFF"
+            android:background="#FCFCFC"
             android:foreground="?attr/selectableItemBackground"
             >
 
@@ -200,7 +206,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:background="#FFFFFF"
+            android:background="#FCFCFC"
             android:foreground="?attr/selectableItemBackground"
             >
 
@@ -221,7 +227,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:background="#FFFFFF"
+            android:background="#FCFCFC"
             android:foreground="?attr/selectableItemBackground"
             >
 
@@ -241,7 +247,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:background="#FFFFFF"
+            android:background="#FCFCFC"
             android:foreground="?attr/selectableItemBackground"
             >
 
@@ -261,7 +267,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:background="#FFFFFF"
+            android:background="#FCFCFC"
             android:foreground="?attr/selectableItemBackground"
             >
 
@@ -274,6 +280,7 @@
                 />
 
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

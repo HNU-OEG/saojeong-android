@@ -1,17 +1,16 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fcfcfc">
+    android:background="#fcfcfc"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        >
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -39,6 +38,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="커뮤니티"
+                        android:textSize="18dp"
                         android:textColor="#000000" />
                 </androidx.appcompat.widget.Toolbar>
 
@@ -47,7 +47,6 @@
         </RelativeLayout>
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -63,10 +62,12 @@
                 android:fillViewport="true">
 
                 <LinearLayout
+                    android:id="@+id/testLi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:orientation="vertical"
+                    android:descendantFocusability="blocksDescendants"
                     android:background="@null">
 
                     <TextView
@@ -74,7 +75,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="30dp"
-                        android:text="제목은 두껍게! 한눈에 보이도록!"
                         android:textColor="#4e4e4e"
                         android:textSize="19sp" />
 
@@ -89,20 +89,17 @@
                         <TextView
                             android:id="@+id/tv_community_read_board"
                             android:layout_width="91dp"
-                            android:layout_height="21dp"
-                            android:text="자유게시판" />
+                            android:layout_height="21dp" />
 
                         <TextView
                             android:id="@+id/tv_community_read_date"
                             android:layout_width="106dp"
-                            android:layout_height="18dp"
-                            android:text="07. 13   03:29" />
+                            android:layout_height="18dp"/>
 
                         <TextView
                             android:id="@+id/tv_community_read_name"
                             android:layout_width="106dp"
-                            android:layout_height="18dp"
-                            android:text="가나다라" />
+                            android:layout_height="18dp" />
                     </LinearLayout>
 
                     <View
@@ -117,16 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="30dp"
                         android:layout_marginTop="30dp"
-                        android:text="내가 가본 한남대 맛집 리스트 소개해드림\n\n
-    1. 쓰촨\n
-    : 일단 중국집은 무조건 쓰촨임. 반박불가. 반박하는 사람 쓰촨 안가본 사람. 안 가본 사람은 있어도 한번만 간 적은 없을거라는 그 쓰촨. 무조건 가보셈\n\n
-    2. 오늘은 닭\n
-    : 말해뭐해\n\n
-    3. 시나브로\n
-    : 그저 갓성비, 2~3000원만으로도 배불리 맛나게 먹고 나올 수 있는 곳. 여길 안 이후로 돈 없어도 편의점은 가지 않는다.\n\n
-    4. 먹소리\n
-    : 내 최애 떡볶이집이었는데 요즘 문 안여는 것 같음.. 수업하다말고 강의실에 가방 놓고 교수님 몰래 먹소리가서 먹방하다가 다시 수업 갔을 정도로 맛있음(그 수업 B+받음 ㅎ)\n
-    " />
+                        />
 
 
                     <RelativeLayout
@@ -136,7 +124,7 @@
                         android:gravity="center_horizontal">
 
                         <LinearLayout
-                            android:id="@+id/ll_community_like_up"
+                            android:id="@+id/ll_like_up"
                             android:layout_width="138dp"
                             android:layout_height="36dp"
                             android:layout_marginLeft="5dp"
@@ -156,13 +144,13 @@
                                 android:gravity="center"
                                 android:drawableLeft="@drawable/likeup"
                                 android:text="추천 0"
-                                android:textSize="16sp" />
+                                android:textSize="16dp" />
 
                         </LinearLayout>
 
 
                         <LinearLayout
-                            android:id="@+id/ll_community_like_down"
+                            android:id="@+id/ll_like_down"
                             android:layout_width="138dp"
                             android:layout_height="36dp"
                             android:layout_marginLeft="170dp"
@@ -182,7 +170,7 @@
                                 android:gravity="center"
                                 android:drawableLeft="@drawable/likedown"
                                 android:text="비추천 0"
-                                android:textSize="16sp" />
+                                android:textSize="16dp" />
 
                         </LinearLayout>
 
@@ -207,7 +195,7 @@
                                 android:layout_marginHorizontal="25dp"
                                 android:layout_marginTop="24dp">
                                 <TextView
-                                    android:id="@+id/tv_community_read_commentname"
+                                    android:id="@+id/tv_comment_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:lineSpacingExtra="6sp"
@@ -216,10 +204,10 @@
                                     android:text="가나다라">
                                 </TextView>
                                 <TextView
-                                    android:id="@+id/tv_community_btn_inputcomment"
+                                    android:id="@+id/tv_create_comment"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="13.5sp"
+                                    android:textSize="14dp"
                                     android:textColor="#ff6950"
                                     android:lineSpacingExtra="5.5sp"
                                     android:layout_alignParentRight="true"
@@ -228,9 +216,9 @@
                                     android:textStyle="bold"
 
                                     ></TextView>
-                             </RelativeLayout>
+                            </RelativeLayout>
                             <EditText
-                                android:id="@+id/tv_community_comment_comment"
+                                android:id="@+id/tv_comment_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="121dp"
                                 android:layout_marginHorizontal="25dp"
@@ -240,7 +228,7 @@
                                 android:hint="내용을 입력하세요"
                                 android:inputType="textMultiLine"
                                 android:lineSpacingExtra="5sp"
-                                android:textSize="13sp" />
+                                android:textSize="14dp" />
 
                         </LinearLayout>
 
@@ -249,7 +237,7 @@
 
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/testRecycle"
+                        android:id="@+id/commentRecycle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="18dp"
@@ -267,4 +255,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
