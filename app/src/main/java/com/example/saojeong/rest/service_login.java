@@ -6,6 +6,8 @@ import com.example.saojeong.rest.AuthenticationInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
@@ -40,7 +42,9 @@ public class service_login {
 
             if (!httpClient.interceptors().contains(interceptor)) {
                 httpClient.addInterceptor(interceptor);
-
+                httpClient.connectTimeout(1, TimeUnit.SECONDS);
+                httpClient.readTimeout(5, TimeUnit.SECONDS);
+                httpClient.writeTimeout(3, TimeUnit.SECONDS);
                 builder.client(httpClient.build());
                 retrofit = builder.build();
             }

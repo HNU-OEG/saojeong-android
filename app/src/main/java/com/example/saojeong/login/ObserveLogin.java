@@ -51,7 +51,6 @@ public class ObserveLogin implements Observer<Login_Dto> {
         editer.apply();
         editer.commit();
         LoginToken.setToken(mActivity);
-
     }
 
     @Override
@@ -61,6 +60,7 @@ public class ObserveLogin implements Observer<Login_Dto> {
         if(type=="oneUpdate")
             AllLoginManager.inst.logout(mActivity);
         AllLoginManager.inst.logout(mActivity, type);
+        AllLoginManager.inst.NetworkCheck=false;
     }
 
     @Override
@@ -71,6 +71,9 @@ public class ObserveLogin implements Observer<Login_Dto> {
             mActivity.startActivity(intent);
             mActivity.finish();
         }
+        if(type=="oneUpdate")
+            AllLoginManager.inst.oneUpdate=true;
+        AllLoginManager.inst.NetworkCheck=false;
 
     }
 }

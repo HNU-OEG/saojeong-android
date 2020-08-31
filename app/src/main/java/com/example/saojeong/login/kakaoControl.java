@@ -52,7 +52,6 @@ public class kakaoControl implements ISessionCallback, LoginControl {
         UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
             public void onCompleteLogout() {
                 Log.i("KAKAO_API", "로그아웃 완료");
-                System.exit(0);
             }
         });
     }

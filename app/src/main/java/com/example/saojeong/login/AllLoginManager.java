@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.session.MediaSession;
 import android.util.AndroidException;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -41,6 +42,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AllLoginManager {
+
+    private final String TAG="AllLoginManager Error";
     private final int GOOGLE_REQUESTCODE=9003;
     private final int FACEBOOK_REQUESTCODE=64206;
     public static AllLoginManager inst;
@@ -48,6 +51,8 @@ public class AllLoginManager {
     private Login_Guest Login_GuestService;
     private Activity mActivity;
     private Context mContext;
+    public Boolean NetworkCheck;
+    public Boolean oneUpdate;
     public AllLoginManager(Activity activity, Context context) {
         if(inst!=null) {
 
@@ -55,6 +60,8 @@ public class AllLoginManager {
             inst.mContext=context;
             return;
         }
+        oneUpdate=false;
+        NetworkCheck=false;
         mActivity=activity;
         mContext=context;
         map=new HashMap<>();
@@ -127,38 +134,43 @@ public class AllLoginManager {
         if(LoginToken.getToken()!="")
             loadlogin("oneUpdate");
 
-        //발급안되었으면 로그인실행
-
     }
 
     public void login(String type, Activity activity){
-        LoginControl login=map.get(type);
-        mActivity=activity;
-        if(login==null)
-        {
-            if(type=="UPDATE") {
+        if(!NetworkCheck) { //만약 네트워크 사용안했을때(페이스북누르고 바로 게스트누르는작업 막기)
+            NetworkCheck = true;
+            LoginControl login = map.get(type);
+            mActivity = activity;
+            if (login == null) {
+                if (type == "UPDATE") {
 
-                Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getToken());
-                loadlogin("Update");
-                return;
+                    Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getToken());
+                    loadlogin("Update");
+                    return;
+                }
+                Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getGuestToken());
+                loadlogin("guest");
+            } else {
+                login.Login(mActivity);
             }
-            Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getGuestToken());
-            loadlogin("guest");
-        }else {
-            login.Login(mActivity);
         }
     }
 
+    //전체로그아웃할때 호출하는 함수입니다.
     public void logout(Activity activity){
         mActivity=activity;
+        LoginToken.deleteToken(activity);
         map.get("FACEBOOK").Logout();
         map.get("KAKAO").Logout();
         map.get("GOOGLE").Logout();
         map.get("NAVER").Logout();
-        LoginToken.deleteToken(activity);
+
+        ThreadNetworkSleepSync();
     }
+    //로그인 실패했을때 호출하는 함수입니다.
     public void logout(Activity activity, String type){
         mActivity=activity;
+        LoginToken.deleteToken(activity);
         if(type=="FACEBOOK")
             map.get("FACEBOOK").Logout();
         if(type=="KAKAO")
@@ -168,8 +180,8 @@ public class AllLoginManager {
         if(type=="NAVER")
             map.get("NAVER").Logout();
 
-        LoginToken.deleteToken(activity);
     }
+    //종료할때 불러오는 함수입니다.
     public void Destroy(Activity activity){
         if(activity!=null)
             mActivity=activity;
@@ -217,6 +229,7 @@ public class AllLoginManager {
                         .subscribe(new ObserveLogin(mActivity, false, "UPDATE"));
             }
         }
+        //oneUpdate는 첫실행시 호출되는 함수입니다.
         else  if(Type=="oneUpdate")
         {
             Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
@@ -224,8 +237,9 @@ public class AllLoginManager {
             hash.put("RefreshToken", LoginToken.getRefreshToken());
             Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new ObserveLogin(mActivity, true, "oneUpdate"));
+                    .subscribe(new ObserveLogin(mActivity, false, "oneUpdate"));
         }
+        ThreadNetworkSleepSync();
     }
 
     public void userDelete(Activity activity) {
@@ -247,19 +261,22 @@ public class AllLoginManager {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        //유저가 삭제되면 에러메세지호출
                         logout(mActivity);
                         Destroy(mActivity);
+                        NetworkCheck=false;
                     }
 
                     @Override
                     public void onComplete() {
-
+                        NetworkCheck=false;
                     }
                 });
-
+        ThreadNetworkSleepSync();
     }
 
-    public void editUsernickname(Activity activity, String nickname1) {
+    public void editUsernickname(Activity activity, String nickname1){
+        NetworkCheck=true;
         mActivity=activity;
         HashMap hash=new HashMap<>();
         hash.put("nickname", nickname1);
@@ -269,7 +286,19 @@ public class AllLoginManager {
         Login_GuestService.editUserNickname(hash, TokenCase.getUserResource("member_id")).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ObserveLogin(mActivity, false, "type"));
+        ThreadNetworkSleepSync();
     }
 
-
+    public void ThreadNetworkSleepSync(){
+        //로그인관련 스레드작동후 메인UI스레드 작동할수있게 사용 (메인스레드슬립)
+        try {
+            Thread.sleep(1000);
+            AllLoginManager.inst.NetworkCheck=false;
+        }
+        catch(Exception e) {
+            Log.d(TAG,"쓰레드에러");
+        }
+        if(NetworkCheck==true)
+            ThreadNetworkSleepSync();
+    }
 }
