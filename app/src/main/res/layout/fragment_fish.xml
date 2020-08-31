@@ -90,7 +90,7 @@
                 android:text="오픈한 가게"
                 android:textColor="#000000"
                 android:textStyle="bold"
-                android:textSize="15dp"/>
+                android:textSize="18dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclershop_open"
@@ -120,7 +120,7 @@
                     android:text="휴식 중인 가게"
                     android:textColor="#000000"
                     android:textStyle="bold"
-                    android:textSize="15dp"/>
+                    android:textSize="18dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclershop_close"

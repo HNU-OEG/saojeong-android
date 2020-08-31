@@ -12,7 +12,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class service_login {
-    public static final String API_BASE_URL = "https://saojeong.hnulinc.c11.kr/";
+    public static final String API_BASE_URL = "https://saojeong-dev.hnulinc.c11.kr/";
 
         private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
