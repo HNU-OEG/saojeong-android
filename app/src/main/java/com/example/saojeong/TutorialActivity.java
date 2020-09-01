@@ -33,7 +33,6 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
         setupItems();
-        kakaoControl.init(getApplication());
 
         viewPager=findViewById(R.id.my_intro_view_pager);
         dotsIndicator=findViewById(R.id.dots_indicator);

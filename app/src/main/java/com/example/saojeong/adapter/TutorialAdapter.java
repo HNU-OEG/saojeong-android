@@ -29,8 +29,6 @@ import lombok.SneakyThrows;
 public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHolder>{
     private Activity mActivity;
     private Context mContext;
-    private AllLoginManager mAllLoginManager;
-    WebView webview;
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RelativeLayout rl_testTuto;
         LinearLayout ll_test0;
@@ -54,9 +52,6 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
             login_naver.setOnClickListener(this);
             login_google.setOnClickListener(this);
             login_guest.setOnClickListener(this);
-            if(AllLoginManager.inst==null)
-                mAllLoginManager= new AllLoginManager(mActivity,mContext);
-            mActivity.startService(new Intent(mActivity, ForecdTerminationService.class));
 
         }
         @SneakyThrows
@@ -65,23 +60,21 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
             switch(view.getId())
             {
                 case R.id.login_facebook:
-                    mAllLoginManager.login("FACEBOOK", mActivity);
-                    //Intent intent = new Intent(mActivity, MainActivity.class);
-                    //mActivity.startActivity(intent);
-                    //mActivity.finish();
+                    AllLoginManager.inst.login("FACEBOOK", mActivity);
+
                     break;
                 case R.id.login_kakaotalk:
-                    mAllLoginManager.login("KAKAO", mActivity);
+                    AllLoginManager.inst.login("KAKAO", mActivity);
                     break;
                 case R.id.login_naver:
                     //loadStores(mActivity, "1");
                     break;
                 case R.id.login_google:
-                    mAllLoginManager.login("GOOGLE", mActivity);
+                    AllLoginManager.inst.login("GOOGLE", mActivity);
                     // loadStores(mActivity, "1");
                     break;
                 case R.id.login_guest:
-                    mAllLoginManager.login("guest", mActivity);
+                    AllLoginManager.inst.login("guest", mActivity);
                     // loadStores(mActivity, "1");
                     break;
             }

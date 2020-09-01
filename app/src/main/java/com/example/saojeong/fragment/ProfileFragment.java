@@ -184,8 +184,6 @@ public class ProfileFragment extends Fragment {
 
         btn_save.setOnClickListener((v) -> {
             ((MainActivity) getActivity()).closeKeyBoard(view);
-            ((Activity) view.getContext()).onBackPressed();
-
             String new_name = et_new_name.getText().toString();
 //            myPage_service.ModifiedName(new Edit_ProfileDto(new_name), TokenCase.getToken()).enqueue(new Callback<List<Edit_ProfileDto>>() {
 //
@@ -209,6 +207,8 @@ public class ProfileFragment extends Fragment {
 
             //AllLoginManager loginManager = new AllLoginManager((MainActivity)getActivity(), (MainActivity)getContext());
             AllLoginManager.inst.editUsernickname(activity, new_name);
+
+            ((Activity) view.getContext()).onBackPressed();
             //((MainActivity) getActivity()).replaceFragment(MyPageFragment.newInstance());
         });
 
