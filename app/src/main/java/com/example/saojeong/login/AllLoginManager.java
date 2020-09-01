@@ -71,6 +71,7 @@ public class AllLoginManager{
         LoginControl facelogin=new FacebookLogin(new LoginControl.LoginHandler() {
             @Override
             public void cancel() {
+                AllLoginManager.inst.NetworkCheck=false;
             }
             @Override
             public void success() {
@@ -80,11 +81,13 @@ public class AllLoginManager{
 
             @Override
             public void error(Throwable th) {
+                AllLoginManager.inst.NetworkCheck=false;
             }
         });
         LoginControl kakaologin=new kakaoControl(new LoginControl.LoginHandler() {
             @Override
             public void cancel() {
+                AllLoginManager.inst.NetworkCheck=false;
             }
             @Override
             public void success() {
@@ -93,11 +96,13 @@ public class AllLoginManager{
             }
             @Override
             public void error(Throwable th) {
+                AllLoginManager.inst.NetworkCheck=false;
             }
         });
         LoginControl googlelogin=new GoogleLogin(mActivity, mContext, new LoginControl.LoginHandler() {
             @Override
             public void cancel() {
+                AllLoginManager.inst.NetworkCheck=false;
             }
             @Override
             public void success() {
@@ -107,6 +112,7 @@ public class AllLoginManager{
             }
             @Override
             public void error(Throwable th) {
+                AllLoginManager.inst.NetworkCheck=false;
             }
         });
         String ID="";
@@ -115,6 +121,7 @@ public class AllLoginManager{
         LoginControl naverlogin=new NaverLogin(mContext,ID,Secret,Name ,activity,new LoginControl.LoginHandler() {
             @Override
             public void cancel() {
+                AllLoginManager.inst.NetworkCheck=false;
             }
             @Override
             public void success() {
@@ -123,6 +130,7 @@ public class AllLoginManager{
             }
             @Override
             public void error(Throwable th) {
+                AllLoginManager.inst.NetworkCheck=false;
             }
         });
         //네이버미구현
