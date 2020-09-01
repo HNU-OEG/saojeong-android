@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.session.MediaSession;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AndroidException;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.saojeong.IntroPage;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.TutorialActivity;
 import com.example.saojeong.auth.TokenCase;
@@ -41,7 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AllLoginManager {
+public class AllLoginManager{
 
     private final String TAG="AllLoginManager Error";
     private final int GOOGLE_REQUESTCODE=9003;
@@ -137,8 +140,8 @@ public class AllLoginManager {
     }
 
     public void login(String type, Activity activity){
-        if(!NetworkCheck) { //만약 네트워크 사용안했을때(페이스북누르고 바로 게스트누르는작업 막기)
-            NetworkCheck = true;
+        if(!inst.NetworkCheck) { //만약 네트워크 사용안했을때(페이스북누르고 바로 게스트누르는작업 막기)
+            inst.NetworkCheck = true;
             LoginControl login = map.get(type);
             mActivity = activity;
             if (login == null) {
@@ -165,7 +168,7 @@ public class AllLoginManager {
         map.get("GOOGLE").Logout();
         map.get("NAVER").Logout();
 
-        ThreadNetworkSleepSync();
+        inst.ThreadNetworkSleepSync();
     }
     //로그인 실패했을때 호출하는 함수입니다.
     public void logout(Activity activity, String type){
@@ -200,23 +203,18 @@ public class AllLoginManager {
     private void loadlogin(String Type) {
         if (Type == "facebook") {
             Login_GuestService.FaceBookLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new ObserveLogin(mActivity, true, "FACEBOOK"));
         } else if (Type == "kakao") {
             Login_GuestService.kakaoLogin(Session.getCurrentSession().getAccessToken()).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new ObserveLogin(mActivity, true, "KAKAO"));
         } else if (Type == "naver") {
             Login_GuestService.NaverLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new ObserveLogin(mActivity, true, "NAVER"));
         } else if (Type == "google") {
             Login_GuestService.GoogleLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new ObserveLogin(mActivity, true, "GOOGLE"));
         } else if (Type == "guest") {
             Login_GuestService.CreateLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new ObserveLogin(mActivity, true, "GUEST"));
         } else if (Type == "Update") {
             Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
@@ -225,7 +223,6 @@ public class AllLoginManager {
             String str = LoginToken.getToken();
             if (LoginToken.AccessTokenTimer() == 1 || LoginToken.AccessTokenTimer() == 2) {
                 Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new ObserveLogin(mActivity, false, "UPDATE"));
             }
         }
@@ -236,10 +233,9 @@ public class AllLoginManager {
             HashMap hash=new HashMap<>();
             hash.put("RefreshToken", LoginToken.getRefreshToken());
             Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new ObserveLogin(mActivity, false, "oneUpdate"));
         }
-        ThreadNetworkSleepSync();
+        inst.ThreadNetworkSleepSync();
     }
 
     public void userDelete(Activity activity) {
@@ -247,7 +243,6 @@ public class AllLoginManager {
         Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
         String tok=LoginToken.getToken();
         Login_GuestService.DeleteUser(TokenCase.getUserResource("member_id")).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Login_Dto>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
@@ -264,41 +259,39 @@ public class AllLoginManager {
                         //유저가 삭제되면 에러메세지호출
                         logout(mActivity);
                         Destroy(mActivity);
-                        NetworkCheck=false;
+                        inst.NetworkCheck=false;
                     }
 
                     @Override
                     public void onComplete() {
-                        NetworkCheck=false;
+                        inst.NetworkCheck=false;
                     }
                 });
-        ThreadNetworkSleepSync();
+        inst.ThreadNetworkSleepSync();
     }
-
     public void editUsernickname(Activity activity, String nickname1){
-        NetworkCheck=true;
+        inst.NetworkCheck=true;
         mActivity=activity;
         HashMap hash=new HashMap<>();
         hash.put("nickname", nickname1);
         String str= LoginToken.getToken();
         String ssssss=TokenCase.getUserResource("member_id");
         Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
+
         Login_GuestService.editUserNickname(hash, TokenCase.getUserResource("member_id")).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ObserveLogin(mActivity, false, "type"));
-        ThreadNetworkSleepSync();
+        inst.ThreadNetworkSleepSync();
     }
 
     public void ThreadNetworkSleepSync(){
-        //로그인관련 스레드작동후 메인UI스레드 작동할수있게 사용 (메인스레드슬립)
         try {
-            Thread.sleep(1000);
-            AllLoginManager.inst.NetworkCheck=false;
+            Thread.sleep(400);
         }
-        catch(Exception e) {
-            Log.d(TAG,"쓰레드에러");
+        catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        if(NetworkCheck==true)
+        if(inst.NetworkCheck)
             ThreadNetworkSleepSync();
+
     }
 }
