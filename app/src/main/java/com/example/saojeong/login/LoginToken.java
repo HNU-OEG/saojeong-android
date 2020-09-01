@@ -9,8 +9,8 @@ import java.util.Date;
 
 
 public class LoginToken {
-    private static String AccessToken = null;
-    private static String RefreshToken = null;
+    private static String AccessToken = "";
+    private static String RefreshToken = "";
 
     public static void setToken(Activity activity){
         SharedPreferences pref = activity.getSharedPreferences("SHARE_PREF", activity.MODE_PRIVATE);
