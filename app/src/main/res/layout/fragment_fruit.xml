@@ -31,7 +31,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -39,7 +38,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="parent">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
                         android:id="@+id/iv_store_type"
@@ -71,10 +70,10 @@
 
                     <Spinner
                         android:id="@+id/spinner_fruit"
-                        android:background="@drawable/background_spinner"
                         android:layout_width="150dp"
                         android:layout_height="28dp"
-                        android:dropDownWidth="200dp"/>
+                        android:background="@drawable/background_spinner"
+                        android:dropDownWidth="200dp" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
