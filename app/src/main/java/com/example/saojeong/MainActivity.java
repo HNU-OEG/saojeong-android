@@ -12,6 +12,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -43,7 +44,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private HomeFragment homeFragment;
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String activity_tag;
     long pressedTime;
+    int hiddenlogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +152,15 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.ll_chatbot:
-                AllLoginManager.inst.logout(this);
+                if(hiddenlogout == 7)
+                {
+                    AllLoginManager.inst.logout(this);
+                    hiddenlogout = 0;
+                    Intent intentTutorial = new Intent(this, TutorialActivity.class);
+                    startActivity(intentTutorial);
+                } else {
+                    hiddenlogout++;
+                }
                 break;
 
             case R.id.ll_myPage:
