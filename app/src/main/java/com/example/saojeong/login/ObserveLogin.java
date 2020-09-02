@@ -17,11 +17,11 @@ public class ObserveLogin implements Observer<Login_Dto> {
     Activity mActivity;
     boolean login;
     String type;
-    public ObserveLogin(Activity activity, boolean login, String type)
-    {
-        mActivity=activity;
-        this.login=login;
-        this.type=type;
+
+    public ObserveLogin(Activity activity, boolean login, String type) {
+        mActivity = activity;
+        this.login = login;
+        this.type = type;
     }
 
     @Override
@@ -56,24 +56,23 @@ public class ObserveLogin implements Observer<Login_Dto> {
     @Override
     public void onError(@NonNull Throwable e) {
 
-        Toast.makeText(mActivity,"접속에러", Toast.LENGTH_SHORT).show();
-        if(type.equals("oneUpdate"))
+        Toast.makeText(mActivity, "접속에러", Toast.LENGTH_SHORT).show();
+        if (type.equals("oneUpdate"))
             AllLoginManager.inst.logout(mActivity);
         AllLoginManager.inst.logout(mActivity, type);
-        AllLoginManager.inst.NetworkCheck=false;
+        AllLoginManager.inst.NetworkCheck = false;
     }
 
     @Override
     public void onComplete() {
-        if(login)
-        {
+        if (login) {
             Intent intent = new Intent(mActivity, MainActivity.class);
             mActivity.startActivity(intent);
             mActivity.finish();
         }
-        if(type=="oneUpdate")
-            AllLoginManager.inst.oneUpdate=true;
-        AllLoginManager.inst.NetworkCheck=false;
+        if (type.equals("oneUpdate"))
+            AllLoginManager.inst.oneUpdate = true;
+        AllLoginManager.inst.NetworkCheck = false;
 
     }
 }
