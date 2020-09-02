@@ -12,6 +12,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -43,7 +44,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private HomeFragment homeFragment;
@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mhome;
     private ImageView mprice;
     private ImageView mcommunity;
-    private ImageView mchatbot;
     private ImageView mmypage;
 
     private InputMethodManager imm;
@@ -61,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String activity_tag;
     long pressedTime;
+
+    int hiddenlogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         mhome = findViewById(R.id.miv_home);
         mprice = findViewById(R.id.miv_price);
         mcommunity = findViewById(R.id.miv_community);
-        mchatbot = findViewById(R.id.miv_chatbot);
         mmypage = findViewById(R.id.miv_mypage);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
                     mhome.setImageResource(R.drawable.home_orange);
                     mprice.setImageResource(R.drawable.price);
                     mcommunity.setImageResource(R.drawable.community);
-                    mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage);
 
                 }
@@ -132,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
                     mhome.setImageResource(R.drawable.home);
                     mprice.setImageResource(R.drawable.price_orange);
                     mcommunity.setImageResource(R.drawable.community);
-                    mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage);
                 }
                 break;
@@ -147,13 +145,9 @@ public class MainActivity extends AppCompatActivity {
                     mhome.setImageResource(R.drawable.home);
                     mprice.setImageResource(R.drawable.price);
                     mcommunity.setImageResource(R.drawable.community_orange);
-                    mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage);
 
                 }
-                break;
-            case R.id.ll_chatbot:
-                AllLoginManager.inst.logout(this);
                 break;
 
             case R.id.ll_myPage:
@@ -166,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
                     mhome.setImageResource(R.drawable.home);
                     mprice.setImageResource(R.drawable.price);
                     mcommunity.setImageResource(R.drawable.community);
-                    mchatbot.setImageResource(R.drawable.chatbot);
                     mmypage.setImageResource(R.drawable.mypage_orange);
 
                     break;
@@ -207,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
                 mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
                 mprice.setImageResource(R.drawable.price);
                 mcommunity.setImageResource(R.drawable.community);
-                mchatbot.setImageResource(R.drawable.chatbot);
                 mmypage.setImageResource(R.drawable.mypage);
             }
         }

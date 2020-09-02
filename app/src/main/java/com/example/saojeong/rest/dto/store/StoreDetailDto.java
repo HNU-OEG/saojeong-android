@@ -77,6 +77,7 @@ public class StoreDetailDto {
             @SerializedName("start_hour")
             @Expose
             public String startHour;
+
             @SerializedName("end_hour")
             @Expose
             public String endHour;
@@ -118,8 +119,8 @@ public class StoreDetailDto {
 
             public String getJoinedString() {
                 return WeekDay.getView(weekday)
-                        + " " + startHour
-                        + " ~ " + endHour;
+                        + " " + startHour.substring(0,5)
+                        + " ~ " + endHour.substring(0,5);
             }
 
         }
