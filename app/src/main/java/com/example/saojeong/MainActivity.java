@@ -152,15 +152,15 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.ll_chatbot:
-                if(hiddenlogout == 7)
-                {
-                    AllLoginManager.inst.logout(this);
-                    hiddenlogout = 0;
-                    Intent intentTutorial = new Intent(this, TutorialActivity.class);
-                    startActivity(intentTutorial);
-                } else {
-                    hiddenlogout++;
-                }
+//                if(hiddenlogout == 7)
+//                {
+//                    AllLoginManager.inst.logout(this);
+//                    hiddenlogout = 0;
+//                    Intent intentTutorial = new Intent(this, TutorialActivity.class);
+//                    startActivity(intentTutorial);
+//                } else {
+//                    hiddenlogout++;
+//                }
                 break;
 
             case R.id.ll_myPage:

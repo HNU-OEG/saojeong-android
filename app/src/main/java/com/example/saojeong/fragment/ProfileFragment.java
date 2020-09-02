@@ -33,6 +33,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.TutorialActivity;
 import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.login.AllLoginManager;
 import com.example.saojeong.rest.ServiceGenerator;
@@ -61,6 +62,7 @@ public class ProfileFragment extends Fragment {
     private Button btn_change_picture;
     private Button btn_save;
     private Button btn_sign_out;
+    private Button btn_log_out;
     private TextView tv_nickname;
     private EditText et_new_name;
     private TextView tv_duplicate_err;
@@ -93,6 +95,7 @@ public class ProfileFragment extends Fragment {
         btn_change_picture = view.findViewById(R.id.btn_change_picture);
         btn_save = view.findViewById(R.id.btn_save);
         btn_sign_out = view.findViewById(R.id.btn_sign_out);
+        btn_log_out = view.findViewById(R.id.btn_log_out);
         tv_nickname = view.findViewById(R.id.tv_nickname);
         et_new_name = view.findViewById(R.id.et_name);
         tv_duplicate_err = view.findViewById(R.id.tv_duplicate_err);
@@ -152,6 +155,12 @@ public class ProfileFragment extends Fragment {
         btn_sign_out.setOnClickListener((V) -> {
             ((MainActivity) getActivity()).replaceFragment(SignOutFragment1.newInstance());
 
+        });
+
+        btn_log_out.setOnClickListener((v) -> {
+            AllLoginManager.inst.logout((MainActivity)getActivity());
+            Intent intentTutorial = new Intent((MainActivity)getActivity(), TutorialActivity.class);
+            startActivity(intentTutorial);
         });
 
         et_new_name.addTextChangedListener(new TextWatcher() {
