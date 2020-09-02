@@ -70,6 +70,6 @@ public class kakaoControl implements ISessionCallback, LoginControl {
     public void onSessionOpenFailed(KakaoException kakaoException) {
         kakaoControl.this.handler.error(kakaoException);
         Log.e("KAKAO_SESSION", "로그인 실패", kakaoException);
-    }
+}
 
 }
