@@ -7,6 +7,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
@@ -39,7 +42,9 @@ import com.example.saojeong.fragment.PriceFragment;
 import com.example.saojeong.fragment.MyPageFragment;
 import com.example.saojeong.fragment.QnAFragment;
 import com.example.saojeong.login.AllLoginManager;
+import com.example.saojeong.util.AlertBuilder;
 
+import java.io.InterruptedIOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -58,9 +63,13 @@ public class MainActivity extends AppCompatActivity {
     private InputMethodManager imm;
     private Activity activity;
 
+    private TimerTask mTask;
+    private Timer mTimer;
+
     private String activity_tag;
     long pressedTime;
     int hiddenlogout;
+    Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,15 +109,14 @@ public class MainActivity extends AppCompatActivity {
     }
     public void clickHandler(View view) {
         transaction = fragmentManager.beginTransaction();
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.ll_home:
-                if(activity_tag!="homeFragment") {
+                if (activity_tag != "homeFragment") {
                     fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
                     transaction.replace(R.id.frameLayout_main, homeFragment) // frameLayout에 홈 Fragment 호출
                             .addToBackStack(null)
                             .commitAllowingStateLoss();
-                    activity_tag="homeFragment";
+                    activity_tag = "homeFragment";
 
                     mhome.setImageResource(R.drawable.home_orange);
                     mprice.setImageResource(R.drawable.price);
@@ -123,12 +131,38 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.frameLayout_main, priceFragment) // frameLayout에 시세 Fragment 호출
                             .addToBackStack(null)
                             .commitAllowingStateLoss();
-                    activity_tag="priceFragment";
+                    activity_tag = "priceFragment";
 
                     mhome.setImageResource(R.drawable.home);
                     mprice.setImageResource(R.drawable.price_orange);
                     mcommunity.setImageResource(R.drawable.community);
                     mmypage.setImageResource(R.drawable.mypage);
+
+                    AlertDialog.Builder pricebuilder = new AlertDialog.Builder(this);
+                    pricebuilder.setTitle("시세정보").setMessage("데이터 수집중입니다.");
+                    pricebuilder.setPositiveButton("홈으로 돌아가기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            onBackPressed();
+                        }
+                    });
+//                    pricebuilder.setNegativeButton("", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                        }
+//                    });
+//                    pricebuilder.setNeutralButton("", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                        }
+//                    });
+                    AlertDialog priceDialog = pricebuilder.create();
+                    priceDialog.show();
+//                    AlertBuilder.createDialog(this, "사오정 정보", "데이터 수집중입니다.")
+//                            .show();
+//                    onBackPressed();
                 }
                 break;
             case R.id.ll_community:
