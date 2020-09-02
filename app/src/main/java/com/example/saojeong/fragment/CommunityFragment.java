@@ -116,10 +116,6 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
             case R.id.tv_community_btn_notice:
                 mFreeboard.setTextColor(Color.parseColor("#000000"));
                 mNotice.setTextColor(Color.parseColor("#fa8f68"));
-                Community_WriteFragment fragment=new Community_WriteFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment) // frameLayout에 커뮤니티 Fragment 호출
-                        .addToBackStack(null)
-                        .commitAllowingStateLoss();
                 break;
             case R.id.tv_community_btn_write:
                 Community_WriteFragment fragment1=new Community_WriteFragment();
