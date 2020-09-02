@@ -147,7 +147,23 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_log_out"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_gravity="end"
+        android:background="#00ff0000"
+        android:lineSpacingExtra="4sp"
+        android:text="로그아웃"
+        android:textColor="#c2c2c2"
+        android:textSize="12sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/layout_bottom"
+        app:layout_constraintRight_toRightOf="parent"/>
+
     <LinearLayout
+        android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
