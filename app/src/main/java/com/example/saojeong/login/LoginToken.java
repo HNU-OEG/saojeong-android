@@ -35,25 +35,6 @@ public class LoginToken {
         return 2;
     }
 
-    //    public static boolean RefreshTokenTimer(Activity activity) {
-//        if(AccessToken!=null)
-//        {
-//            SharedPreferences pref = activity.getSharedPreferences("SHARE_PREF", activity.MODE_PRIVATE);
-//            long LastLoginAt=pref.getLong("LastLoginAt", 0);
-//            if(LastLoginAt==0)
-//                return false;
-//            long now = System.currentTimeMillis();
-//            Date dateNow = new Date(now);
-//            Date Last = new Date(LastLoginAt);
-//            long timer=Last.getTime()-dateNow.getTime();
-//            long time2 = timer / (60*1000);
-//            time2=Math.abs(time2);
-//            if(time2<60) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
     public static void deleteToken(Activity activity) {
         SharedPreferences pref = activity.getSharedPreferences("SHARE_PREF", activity.MODE_PRIVATE);
         AccessToken = null;

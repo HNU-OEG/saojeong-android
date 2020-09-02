@@ -37,7 +37,6 @@ public class TutorialActivity extends AppCompatActivity {
         viewPager=findViewById(R.id.my_intro_view_pager);
         dotsIndicator=findViewById(R.id.dots_indicator);
         viewPager.setAdapter(pageradapter);
-
         dotsIndicator.setViewPager2(viewPager);
     }
 
@@ -59,9 +58,9 @@ public class TutorialActivity extends AppCompatActivity {
         itemTuto.add(itemThreePage);
         pageradapter=new TutorialAdapter(itemTuto, this, this);
     }
+
     @Nullable
     public static String getHashKey(Context context) {
-
         final String TAG = "KeyHash";
         String keyHash = null;
         try {

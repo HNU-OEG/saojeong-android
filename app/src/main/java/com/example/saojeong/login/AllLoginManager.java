@@ -58,16 +58,13 @@ public class AllLoginManager {
     public Boolean oneUpdate;
 
     public AllLoginManager(Activity activity, Context context) {
-        if (inst != null) {
-            inst.mActivity = activity;
-            inst.mContext = context;
-            return;
-        }
-        oneUpdate = false;
-        NetworkCheck = false;
+
         mActivity = activity;
         mContext = context;
+        oneUpdate = false;
+        NetworkCheck = false;
         map = new HashMap<>();
+
         LoginControl facelogin = new FacebookLogin(new LoginControl.LoginHandler() {
             @Override
             public void cancel() {
@@ -85,6 +82,7 @@ public class AllLoginManager {
                 AllLoginManager.inst.NetworkCheck = false;
             }
         });
+
         LoginControl kakaologin = new kakaoControl(new LoginControl.LoginHandler() {
             @Override
             public void cancel() {
@@ -102,6 +100,7 @@ public class AllLoginManager {
                 AllLoginManager.inst.NetworkCheck = false;
             }
         });
+
         LoginControl googlelogin = new GoogleLogin(mActivity, mContext, new LoginControl.LoginHandler() {
             @Override
             public void cancel() {
@@ -111,7 +110,6 @@ public class AllLoginManager {
             @Override
             public void success() {
                 Login_GuestService = service_login.createService(Login_Guest.class, GoogleLogin.account.getServerAuthCode());
-                String str = GoogleLogin.account.getServerAuthCode();
                 loadlogin("google");
             }
 
@@ -120,9 +118,11 @@ public class AllLoginManager {
                 AllLoginManager.inst.NetworkCheck = false;
             }
         });
+
         String ID = "";
         String Secret = "";
         String Name = "";
+
         LoginControl naverlogin = new NaverLogin(mContext, ID, Secret, Name, activity, new LoginControl.LoginHandler() {
             @Override
             public void cancel() {
@@ -148,10 +148,6 @@ public class AllLoginManager {
 
         inst = this;
         LoginToken.setToken(mActivity);
-        ///
-        if (!LoginToken.getToken().equals(""))
-            loadlogin("oneUpdate");
-
     }
 
     public void login(String type, Activity activity) {
@@ -161,7 +157,6 @@ public class AllLoginManager {
             mActivity = activity;
             if (login == null) {
                 if (type.equals("UPDATE")) {
-
                     Login_GuestService = ServiceGenerator.createService(Login_Guest.class, TokenCase.getToken());
                     loadlogin("Update");
                     return;
@@ -198,7 +193,6 @@ public class AllLoginManager {
             map.get("GOOGLE").Logout();
         if (type.equals("NAVER"))
             map.get("NAVER").Logout();
-
     }
 
     //종료할때 불러오는 함수입니다.
@@ -219,38 +213,47 @@ public class AllLoginManager {
 
     @SneakyThrows
     private void loadlogin(String Type) {
-        if (Type.equals("facebook")) {
-            Login_GuestService.FaceBookLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                    .subscribe(new ObserveLogin(mActivity, true, "FACEBOOK"));
-        } else if (Type.equals("kakao")) {
-            Login_GuestService.kakaoLogin(Session.getCurrentSession().getAccessToken()).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                    .subscribe(new ObserveLogin(mActivity, true, "KAKAO"));
-        } else if (Type.equals("naver")) {
-            Login_GuestService.NaverLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                    .subscribe(new ObserveLogin(mActivity, true, "NAVER"));
-        } else if (Type.equals("google")) {
-            Login_GuestService.GoogleLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                    .subscribe(new ObserveLogin(mActivity, true, "GOOGLE"));
-        } else if (Type.equals("guest")) {
-            Login_GuestService.CreateLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                    .subscribe(new ObserveLogin(mActivity, true, "GUEST"));
-        } else if (Type.equals("Update")) {
-            Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
-            HashMap hash = new HashMap<>();
-            hash.put("RefreshToken", LoginToken.getRefreshToken());
-            String str = LoginToken.getToken();
-            if (LoginToken.AccessTokenTimer() == 1 || LoginToken.AccessTokenTimer() == 2) {
-                Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                        .subscribe(new ObserveLogin(mActivity, false, "UPDATE"));
+        switch (Type) {
+            case "facebook":
+                Login_GuestService.FaceBookLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                        .subscribe(new ObserveLogin(mActivity, true, "FACEBOOK"));
+                break;
+            case "kakao":
+                Login_GuestService.kakaoLogin(Session.getCurrentSession().getAccessToken()).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                        .subscribe(new ObserveLogin(mActivity, true, "KAKAO"));
+                break;
+            case "naver":
+                Login_GuestService.NaverLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                        .subscribe(new ObserveLogin(mActivity, true, "NAVER"));
+                break;
+            case "google":
+                Login_GuestService.GoogleLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                        .subscribe(new ObserveLogin(mActivity, true, "GOOGLE"));
+                break;
+            case "guest":
+                Login_GuestService.CreateLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                        .subscribe(new ObserveLogin(mActivity, true, "GUEST"));
+                break;
+            case "Update": {
+                Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
+                HashMap hash = new HashMap<>();
+                hash.put("RefreshToken", LoginToken.getRefreshToken());
+                String str = LoginToken.getToken();
+                if (LoginToken.AccessTokenTimer() == 1 || LoginToken.AccessTokenTimer() == 2) {
+                    Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                            .subscribe(new ObserveLogin(mActivity, false, "UPDATE"));
+                }
+                break;
             }
-        }
-        //oneUpdate는 첫실행시 호출되는 함수입니다.
-        else if (Type.equals("oneUpdate")) {
-            Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
-            HashMap hash = new HashMap<>();
-            hash.put("RefreshToken", LoginToken.getRefreshToken());
-            Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
-                    .subscribe(new ObserveLogin(mActivity, false, "oneUpdate"));
+            //oneUpdate는 첫실행시 호출되는 함수입니다.
+            case "oneUpdate": {
+                Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
+                HashMap hash = new HashMap<>();
+                hash.put("RefreshToken", LoginToken.getRefreshToken());
+                Login_GuestService.UpdateToken(hash).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
+                        .subscribe(new ObserveLogin(mActivity, false, "oneUpdate"));
+                break;
+            }
         }
         inst.ThreadNetworkSleepSync();
     }
@@ -258,7 +261,7 @@ public class AllLoginManager {
     public void userDelete(Activity activity) {
         mActivity = activity;
         Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
-        String tok = LoginToken.getToken();
+
         Login_GuestService.DeleteUser(TokenCase.getUserResource("member_id")).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
                 .subscribe(new Observer<Login_Dto>() {
                     @Override
@@ -292,10 +295,8 @@ public class AllLoginManager {
         mActivity = activity;
         HashMap hash = new HashMap<>();
         hash.put("nickname", nickname1);
-        String str = LoginToken.getToken();
-        String ssssss = TokenCase.getUserResource("member_id");
-        Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
 
+        Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
         Login_GuestService.editUserNickname(hash, TokenCase.getUserResource("member_id")).subscribeOn(Schedulers.io()) // the observable is emitted on io thread
                 .subscribe(new ObserveLogin(mActivity, false, "type"));
         inst.ThreadNetworkSleepSync();

@@ -24,7 +24,7 @@ public class IntroPage extends AppCompatActivity {
 
         kakaoControl.init(getApplication());
         AllLoginManager allLoginManager = new AllLoginManager(this, this);
-
+        AllLoginManager.inst=allLoginManager;
         SharedPreferences shared = getApplicationContext().getSharedPreferences("SHARE_PREF", Context.MODE_PRIVATE);
         String accessToken = shared.getString("AccessToken", "");
 
