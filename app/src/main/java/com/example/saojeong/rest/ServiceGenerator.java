@@ -25,10 +25,6 @@ public class ServiceGenerator {
 
     private static Retrofit retrofit = builder.build();
 
-    public static <S> S createService(Class<S> serviceClass) {
-        return createService(serviceClass, null);
-    }
-
     public static <S> S createService(
             Class<S> serviceClass, final String authToken) {
         if (!TextUtils.isEmpty(authToken)) {
@@ -44,5 +40,10 @@ public class ServiceGenerator {
         }
 
         return retrofit.create(serviceClass);
+    }
+
+    public static <S> S createServiceWithOutToken(Class<S> serviceClass) {
+        return builder.build()
+                .create(serviceClass);
     }
 }

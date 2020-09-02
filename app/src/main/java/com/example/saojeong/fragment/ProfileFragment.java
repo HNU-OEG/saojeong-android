@@ -247,7 +247,7 @@ public class ProfileFragment extends Fragment {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
         }
-        if (TextUtils.isEmpty(temp) == false) {
+        if (!TextUtils.isEmpty(temp)) {
             // 권한 요청
             ActivityCompat.requestPermissions(activity, temp.trim().split(" "), 1);
         } else {
