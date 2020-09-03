@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,15 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.fragment.CommunityTabFragment;
 import com.example.saojeong.fragment.Community_ReadFragment;
+import com.example.saojeong.model.ChartContact;
 import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.model.PostValue;
 import com.example.saojeong.rest.service.BoardService;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder>{
+public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder> implements Filterable {
     public MainActivity RootActivity;
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public int document_Id;
         public TextView mTextViewTitle_Popularity;
@@ -42,8 +50,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
                 @Override
                 public void onClick(View v) {
                     Community_ReadFragment fragment= new Community_ReadFragment(document_Id);
-                    //RootActivity.getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
-                    RootActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment) // frameLayout에 커뮤니티 Fragment 호출
+                    RootActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment)
                             .addToBackStack(null)
                             .commitAllowingStateLoss();
 
@@ -53,6 +60,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
         }
     }
 
+    private List<CommunityValue> mNormalListAll;
     private List<CommunityValue> mHotContacts;
     private List<CommunityValue> mNormalContacts;
     private int mBoard;
@@ -62,7 +70,40 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
             mHotContacts = HotContact;
         mNormalContacts = NormalContact;
         RootActivity=activity;
+        mNormalListAll=new ArrayList<>(mNormalContacts);
     }
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter= new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<CommunityValue> filteredList=new ArrayList<>();
+            if(charSequence.toString().isEmpty()) {
+                filteredList.addAll(CommunityTabFragment.inst.mCommunityNormalValue);
+            }
+            else{
+                for(CommunityValue communitylist:CommunityTabFragment.inst.mCommunityNormalValue){
+                    if(communitylist.getTitle().toLowerCase().contains(charSequence.toString().toLowerCase()))
+                        filteredList.add(communitylist);
+                }
+            }
+            FilterResults filterResults=new FilterResults();
+            filterResults.values=filteredList;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            mNormalListAll.clear();
+            mNormalListAll.addAll((Collection<? extends CommunityValue>) filterResults.values);
+            notifyDataSetChanged();
+
+        }
+    };
+
 
     @Override
     public CommunityAdapter_item.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -119,10 +160,6 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
         return mHotContacts.size()+mNormalContacts.size();
     }
 
-    //public int getItemCount() {
-    //    return mHotContacts.size()+mNormalContacts.size();
-    //}
-
     public void UpBoard()
     {
         ++mBoard;
@@ -139,6 +176,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
             holder.mTextViewTitle_Popularity.setVisibility(View.GONE);
         }
     }
+
 
 
 

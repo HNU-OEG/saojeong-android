@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,12 +20,14 @@ import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.CommunityAdapter_item;
 import com.example.saojeong.auth.TokenCase;
+import com.example.saojeong.model.ChartContact;
 import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
 import com.example.saojeong.rest.service.BoardService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;
@@ -31,18 +35,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class CommunityTabFragment extends Fragment implements View.OnClickListener{
+public class CommunityTabFragment extends Fragment implements View.OnClickListener {
 
     public static CommunityTabFragment inst;
-    private CommunityAdapter_item mAdapter;
-    private List<CommunityValue> mCommunityNormalValue;
+    public CommunityAdapter_item mAdapter;
+    public List<CommunityValue> mCommunityNormalValue;
     private List<CommunityValue> mCommunityHotValue;
     private TextView btnLeft;
     private TextView btnRight;
     private TextView tvBoard;
     public static NestedScrollView scroll;
-    static RecyclerView mRecyclerViewCommunity;
+    public RecyclerView mRecyclerViewCommunity;
     private int board=0;
+    private TextView SearchString;
     public CommunityTabFragment(){
         if(inst==null)
             inst=this;
@@ -63,7 +68,6 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
         scroll=view.findViewById(R.id.scrollns_community);
         tvBoard=view.findViewById(R.id.tv_community_board);
         tvBoard.setText(board+1+"");
-
         load_GetPost();
 
         return view;
@@ -92,17 +96,17 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
             @Override
             public void onResponse(Call<GetPostListArrayDto> call, Response<GetPostListArrayDto> response) {
                 GetPostListArrayDto body = response.body();
-                if (response.code() == 201) { // 서버와 통신 성공
+                if (response.code() == 201) {
                     mCommunityNormalValue = CommunityValue.createContactsList(body.getNormal());
                     mCommunityHotValue = CommunityValue.createContactsList(body.getHot());
                     btnLeft.setVisibility(View.GONE);
                     if(mCommunityHotValue.size()+mCommunityNormalValue.size()>10) {
-                        btnRight.setVisibility(View.GONE);
+                        btnRight.setVisibility(View.VISIBLE);
                     }
-                    mAdapter = new CommunityAdapter_item( mCommunityHotValue, mCommunityNormalValue,(MainActivity)getActivity());
-                } else { // 서버에서 문제 발생
-                    //likeStores = ContactShopOC._createContactsList(20);
-                    //likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                    else
+                        btnRight.setVisibility(View.GONE);
+                    mAdapter = new CommunityAdapter_item(mCommunityHotValue, mCommunityNormalValue,(MainActivity)getActivity());
+                } else {
                 }
                 mRecyclerViewCommunity.setAdapter(mAdapter);
                 mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));

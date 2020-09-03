@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.saojeong.fragment.CommunityTabFragment;
-import com.example.saojeong.fragment.Community_Popularity_Fragment;
-import com.example.saojeong.fragment.Community_User_Fragment;
+import com.example.saojeong.fragment.CommunityFragment_Freeboard;
+import com.example.saojeong.fragment.CommunityFragment_Notice;
 
-public class CommunityAdapter extends FragmentStateAdapter {
-    public CommunityAdapter(FragmentActivity fa){
+public class CommunityAdapter_fragment extends FragmentStateAdapter {
+    public CommunityAdapter_fragment(FragmentActivity fa){
         super(fa);
     }
 
@@ -20,11 +19,9 @@ public class CommunityAdapter extends FragmentStateAdapter {
         position++;
         switch(position){
             case 1:
-                return new CommunityTabFragment();
-            case 2:
-                return new Community_Popularity_Fragment();
+                return new CommunityFragment_Freeboard();
             default:
-                return new Community_User_Fragment();
+                return new CommunityFragment_Notice();
         }
 
     }
@@ -36,8 +33,9 @@ public class CommunityAdapter extends FragmentStateAdapter {
 
 
 
+
     @Override
     public int getItemCount() {
-        return 3;
+        return 2;
     }
 }
