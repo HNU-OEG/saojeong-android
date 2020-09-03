@@ -54,6 +54,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
             toolbar.setTitleTextColor(Color.BLACK);
             return view;
         }
+
         @Override
         public void onClick(View view) {
             int id=view.getId();

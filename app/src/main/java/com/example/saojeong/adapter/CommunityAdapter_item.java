@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,15 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.fragment.CommunityTabFragment;
 import com.example.saojeong.fragment.Community_ReadFragment;
+import com.example.saojeong.model.ChartContact;
 import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.model.PostValue;
 import com.example.saojeong.rest.service.BoardService;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder>{
+public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder> implements Filterable {
     public MainActivity RootActivity;
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public int document_Id;
         public TextView mTextViewTitle_Popularity;
@@ -53,6 +61,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
         }
     }
 
+    private List<CommunityValue> mNormalListAll;
     private List<CommunityValue> mHotContacts;
     private List<CommunityValue> mNormalContacts;
     private int mBoard;
@@ -62,7 +71,41 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
             mHotContacts = HotContact;
         mNormalContacts = NormalContact;
         RootActivity=activity;
+        mNormalListAll=new ArrayList<>(mNormalContacts);
     }
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter= new Filter() {
+        //백그라운드 스레드동작
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<CommunityValue> filteredList=new ArrayList<>();
+            if(charSequence.toString().isEmpty()) {
+                filteredList.addAll(CommunityTabFragment.inst.mCommunityNormalValue);
+            }
+            else{
+                for(CommunityValue communitylist:CommunityTabFragment.inst.mCommunityNormalValue){
+                    if(communitylist.getTitle().toLowerCase().contains(charSequence.toString().toLowerCase()))
+                        filteredList.add(communitylist);
+                }
+            }
+            FilterResults filterResults=new FilterResults();
+            filterResults.values=filteredList;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            mNormalListAll.clear();
+            mNormalListAll.addAll((Collection<? extends CommunityValue>) filterResults.values);
+            notifyDataSetChanged();
+
+        }
+    };
+
 
     @Override
     public CommunityAdapter_item.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -139,6 +182,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
             holder.mTextViewTitle_Popularity.setVisibility(View.GONE);
         }
     }
+
 
 
 

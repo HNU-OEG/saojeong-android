@@ -2,7 +2,9 @@ package com.example.saojeong.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.text.style.UnderlineSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,10 +24,16 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.CommunityAdapter;
+import com.example.saojeong.model.ChartContact;
+import com.example.saojeong.model.CommunityValue;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class CommunityFragment_Freeboard extends Fragment implements View.OnClickListener, View.OnKeyListener , Filterable {
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+public class CommunityFragment_Freeboard extends Fragment implements View.OnClickListener, View.OnKeyListener  {
 
     CommunityAdapter mAdapter;
     ViewPager2 viewPager2;
@@ -58,6 +66,22 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
         mWrite.setOnClickListener(this);
         mBoardSearch=view.findViewById(R.id.et_community_boardsearch);
         mBoardSearch.setOnKeyListener(this);
+
+        mBoardSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
 
         //밑줄
@@ -107,13 +131,25 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
     @Override
     public boolean onKey(View view, int i, KeyEvent keyEvent) {
         if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
+            if(viewPager2.getCurrentItem()==0)
+            {
+                if(mBoardSearch.getText().toString()!="")
+                  CommunityTabFragment.inst.mAdapter.getFilter().filter(mBoardSearch.getText().toString());
+            }
+
+            if(viewPager2.getCurrentItem()==1)
+            {
+
+            }
+
+            if(viewPager2.getCurrentItem()==2)
+            {
+
+            }
             return true;
         }
         return false;
     }
 
-    @Override
-    public Filter getFilter() {
-        return null;
-    }
+
 }
