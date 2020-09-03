@@ -45,7 +45,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     private TextView btnRight;
     private TextView tvBoard;
     public static NestedScrollView scroll;
-    static RecyclerView mRecyclerViewCommunity;
+    public RecyclerView mRecyclerViewCommunity;
     private int board=0;
     private TextView SearchString;
     public CommunityTabFragment(){
@@ -101,8 +101,10 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
                     mCommunityHotValue = CommunityValue.createContactsList(body.getHot());
                     btnLeft.setVisibility(View.GONE);
                     if(mCommunityHotValue.size()+mCommunityNormalValue.size()>10) {
-                        btnRight.setVisibility(View.GONE);
+                        btnRight.setVisibility(View.VISIBLE);
                     }
+                    else
+                        btnRight.setVisibility(View.GONE);
                     mAdapter = new CommunityAdapter_item(mCommunityHotValue, mCommunityNormalValue,(MainActivity)getActivity());
                 } else {
                 }

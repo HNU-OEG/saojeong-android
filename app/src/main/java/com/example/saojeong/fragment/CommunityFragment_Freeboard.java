@@ -75,6 +75,20 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
 
             @Override
             public void afterTextChanged(Editable editable) {
+                if(viewPager2.getCurrentItem()==0)
+                {
+
+                }
+
+                if(viewPager2.getCurrentItem()==1)
+                {
+
+                }
+
+                if(viewPager2.getCurrentItem()==2)
+                {
+
+                }
             }
         });
 
@@ -123,24 +137,10 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
 
     }
 
+    //엔터키
     @Override
     public boolean onKey(View view, int i, KeyEvent keyEvent) {
         if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
-            if(viewPager2.getCurrentItem()==0)
-            {
-                if(mBoardSearch.getText().toString()!="")
-                  CommunityTabFragment.inst.mAdapter.getFilter().filter(mBoardSearch.getText().toString());
-            }
-
-            if(viewPager2.getCurrentItem()==1)
-            {
-
-            }
-
-            if(viewPager2.getCurrentItem()==2)
-            {
-
-            }
             return true;
         }
         return false;

@@ -49,7 +49,6 @@ public class CommunityFragment_Notice extends Fragment{
         mCommunityNormalValue= new ArrayList<>();
         mCommunityHotValue= new ArrayList<>();
         scroll=view.findViewById(R.id.scrollns_community);
-
         load_GetPost();
 
         return view;

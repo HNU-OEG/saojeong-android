@@ -6,6 +6,7 @@ import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -32,6 +33,13 @@ import com.google.android.material.tabs.TabLayoutMediator;
         TextView mFreeboard;
         TextView mNotice;
         LinearLayout llBottombutton;
+
+
+        LinearLayout mBottomLeft;
+        LinearLayout mBottomRight;
+        LinearLayout mBottomHome;
+        LinearLayout mBottomRe;
+        LinearLayout mBottomUpScroll;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -40,13 +48,22 @@ import com.google.android.material.tabs.TabLayoutMediator;
             mAdapter = new CommunityAdapter_fragment(getActivity());
             viewPager2 = view.findViewById(R.id.viewpager);
             viewPager2.setAdapter(mAdapter);
-
+            viewPager2.setUserInputEnabled(false);
             llBottombutton = view.findViewById(R.id.ll_community_bottom);
             mFreeboard = view.findViewById(R.id.tv_community_btn_freeboard);
             mFreeboard.setOnClickListener(this);
             mNotice = view.findViewById(R.id.tv_community_btn_notice);
             mNotice.setOnClickListener(this);
-
+            mBottomLeft=view.findViewById(R.id.ll_community_left);
+            mBottomLeft.setOnClickListener(this);
+            mBottomRight=view.findViewById(R.id.ll_community_right);
+            mBottomRight.setOnClickListener(this);
+            mBottomHome=view.findViewById(R.id.ll_community_home);
+            mBottomHome.setOnClickListener(this);
+            mBottomRe=view.findViewById(R.id.ll_community_re);
+            mBottomRe.setOnClickListener(this);
+            mBottomUpScroll=view.findViewById(R.id.ll_community_upscroll);
+            mBottomUpScroll.setOnClickListener(this);
 
             Toolbar toolbar = view.findViewById(R.id.toolbar);
             ((MainActivity) getActivity()).setSupportActionBar(toolbar);
