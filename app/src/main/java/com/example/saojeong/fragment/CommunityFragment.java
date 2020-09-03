@@ -46,6 +46,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
             final View view = (ViewGroup) inflater.inflate(R.layout.fragment_community, container, false);
             mAdapter = new CommunityAdapter_fragment(getActivity());
+
             viewPager2 = view.findViewById(R.id.viewpager);
             viewPager2.setAdapter(mAdapter);
             viewPager2.setUserInputEnabled(false);
@@ -69,7 +70,24 @@ import com.google.android.material.tabs.TabLayoutMediator;
             ((MainActivity) getActivity()).setSupportActionBar(toolbar);
             ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
             toolbar.setTitleTextColor(Color.BLACK);
+
+
             return view;
+        }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+            if(viewPager2.getCurrentItem()==0)
+            {
+                mFreeboard.setTextColor(Color.parseColor("#fa8f68"));
+                mNotice.setTextColor(Color.parseColor("#000000"));
+            }
+            else if(viewPager2.getCurrentItem()==1)
+            {
+                mFreeboard.setTextColor(Color.parseColor("#000000"));
+                mNotice.setTextColor(Color.parseColor("#fa8f68"));
+            }
         }
 
         @Override
