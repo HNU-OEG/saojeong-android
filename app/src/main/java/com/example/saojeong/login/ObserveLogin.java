@@ -53,12 +53,11 @@ public class ObserveLogin implements Observer<Login_Dto> {
 
     @Override
     public void onError(@NonNull Throwable e) {
-//
-     //   Toast.makeText(mActivity, "접속에러", Toast.LENGTH_SHORT).show();
-     //   if (type.equals("oneUpdate"))
-     //       AllLoginManager.inst.logout(mActivity);
-     //   AllLoginManager.inst.logout(mActivity, type);
-     //   AllLoginManager.inst.NetworkCheck = false;
+
+        if (type.equals("oneUpdate"))
+            AllLoginManager.inst.logout(mActivity);
+        AllLoginManager.inst.logout(mActivity, type);
+        AllLoginManager.inst.NetworkCheck = false;
     }
 
     @Override
