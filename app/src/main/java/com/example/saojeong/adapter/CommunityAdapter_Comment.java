@@ -67,11 +67,11 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
 //
         public ViewHolder(View itemView) {
             super(itemView);
-            mTextView_ID = (TextView) itemView.findViewById(R.id.tv_community_comment_id);
-            mTextView_Date = (TextView) itemView.findViewById(R.id.tv_community_comment_date);
-            mTextView_Content = (TextView) itemView.findViewById(R.id.tv_community_comment_contents);
-            mTextView_Btn_ReComment = (TextView) itemView.findViewById(R.id.tv_community_comment_btn_recomment);
-            mImageView_Image=(ImageView)itemView.findViewById(R.id.iv_community_comment_image);
+            mTextView_ID = itemView.findViewById(R.id.tv_community_comment_id);
+            mTextView_Date = itemView.findViewById(R.id.tv_community_comment_date);
+            mTextView_Content = itemView.findViewById(R.id.tv_community_comment_contents);
+            mTextView_Btn_ReComment = itemView.findViewById(R.id.tv_community_comment_btn_recomment);
+            mImageView_Image= itemView.findViewById(R.id.iv_community_comment_image);
             mEditView_Recomment=itemView.findViewById(R.id.et_community_comment_recomment);
             mTextView_Btn_ReComment_Write=itemView.findViewById(R.id.tv_community_btn_comment_write);
             mLayout=itemView.findViewById(R.id.item_community_layout);

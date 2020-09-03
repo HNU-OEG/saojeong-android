@@ -8,11 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
 
     <style name="TextViewStyle" parent="@android:style/Widget.DeviceDefault.TextView">
         <item name="android:fontFamily">@font/font</item>
@@ -22,17 +17,6 @@
     </style>
     <style name="ButtonStyle" parent="@android:style/Widget.DeviceDefault.Button">
         <item name="android:fontFamily">@font/font</item>
-    </style>
-
-    <style name="SpinnerDivideStyle" parent="android:style/Widget.ListView.DropDown">
-        <item name="android:divider">#000000</item>
-        <item name="android:dividerHeight">2dp</item>
-    </style>
-
-    <style name="ThemeSpinner" parent="AppTheme">
-        <item name="colorAccent">#ffa000</item>
-        <item name="colorControlNormal">#ffc107</item>
-        <item name="android:dropDownListViewStyle">@style/SpinnerDivideStyle</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="@style/Theme.AppCompat.Light.NoActionBar">

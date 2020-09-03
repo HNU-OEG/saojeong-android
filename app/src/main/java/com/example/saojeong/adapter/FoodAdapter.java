@@ -29,8 +29,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
 
         public ViewHolder(View itemView) {
             super(itemView);
-            FoodTextView = (TextView) itemView.findViewById(R.id.tv_food);
-            FoodImageView = (ImageView) itemView.findViewById(R.id.iv_food);
+            FoodTextView = itemView.findViewById(R.id.tv_food);
+            FoodImageView = itemView.findViewById(R.id.iv_food);
         }
     }
 

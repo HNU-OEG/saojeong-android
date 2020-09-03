@@ -31,8 +31,8 @@ public class ShopStarScoreAdapter extends RecyclerView.Adapter<ShopStarScoreAdap
 
         public ViewHolder(View itemView) {
             super(itemView);
-            questionTextView = (TextView) itemView.findViewById(R.id.tv_shop_starscore);
-            ratingBar_starscore = (RatingBar) itemView.findViewById(R.id.ratingBar_starscore);
+            questionTextView = itemView.findViewById(R.id.tv_shop_starscore);
+            ratingBar_starscore = itemView.findViewById(R.id.ratingBar_starscore);
         }
     }
 

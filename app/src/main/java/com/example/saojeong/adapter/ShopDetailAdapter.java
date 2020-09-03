@@ -31,11 +31,11 @@ public class ShopDetailAdapter extends RecyclerView.Adapter<ShopDetailAdapter.Vi
 
         public ViewHolder(View itemView) {
             super(itemView);
-            timeTextView = (TextView) itemView.findViewById(R.id.tv_bh);
-            phonen1Button = (Button) itemView.findViewById(R.id.btn_phonenum1);
-            phonen2Button = (Button) itemView.findViewById(R.id.btn_phonenum2);
-            llphoneN1 = (LinearLayout) itemView.findViewById(R.id.layout_phonenum1);
-            llphoneN2 = (LinearLayout) itemView.findViewById(R.id.layout_phonenum2);
+            timeTextView = itemView.findViewById(R.id.tv_bh);
+            phonen1Button = itemView.findViewById(R.id.btn_phonenum1);
+            phonen2Button = itemView.findViewById(R.id.btn_phonenum2);
+            llphoneN1 = itemView.findViewById(R.id.layout_phonenum1);
+            llphoneN2 = itemView.findViewById(R.id.layout_phonenum2);
         }
     }
 

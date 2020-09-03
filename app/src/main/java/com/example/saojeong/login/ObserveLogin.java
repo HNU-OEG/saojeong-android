@@ -1,6 +1,7 @@
 package com.example.saojeong.login;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -34,7 +35,7 @@ public class ObserveLogin implements Observer<Login_Dto> {
     public void onNext(@NonNull Login_Dto login_dto) {
         Login_Dto body = login_dto;
         Log.d("LOGIN DTO", body.toString());
-        SharedPreferences pref = mActivity.getSharedPreferences("SHARE_PREF", mActivity.MODE_PRIVATE);
+        SharedPreferences pref = mActivity.getSharedPreferences("SHARE_PREF", Context.MODE_PRIVATE);
         SharedPreferences.Editor editer = pref.edit();
         if (body.AccessToken != null) {
             String str1 = body.AccessToken;
@@ -54,7 +55,7 @@ public class ObserveLogin implements Observer<Login_Dto> {
     @Override
     public void onError(@NonNull Throwable e) {
 
-        Toast.makeText(mActivity, "접속에러", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mActivity, "접속에러", Toast.LENGTH_SHORT).show();
         if (type.equals("oneUpdate"))
             AllLoginManager.inst.logout(mActivity);
         AllLoginManager.inst.logout(mActivity, type);

@@ -27,13 +27,13 @@ public class ShopSellListAdapter extends RecyclerView.Adapter<ShopSellListAdapte
 
         public ViewHolder(View itemView) {
             super(itemView);
-            itemnameTextView = (TextView) itemView.findViewById(R.id.tv_shopname);
-            weight1TextView = (TextView) itemView.findViewById(R.id.tv_weight1);
-            weight2TextView = (TextView) itemView.findViewById(R.id.tv_weight2);
-            weight3TextView = (TextView) itemView.findViewById(R.id.tv_weight3);
-            price1TextView = (TextView) itemView.findViewById(R.id.tv_price_shop_shop1);
-            price2TextView = (TextView) itemView.findViewById(R.id.tv_price_shop_shop2);
-            shopImageView = (ImageView) itemView.findViewById(R.id.iv_shop);
+            itemnameTextView = itemView.findViewById(R.id.tv_shopname);
+            weight1TextView = itemView.findViewById(R.id.tv_weight1);
+            weight2TextView = itemView.findViewById(R.id.tv_weight2);
+            weight3TextView = itemView.findViewById(R.id.tv_weight3);
+            price1TextView = itemView.findViewById(R.id.tv_price_shop_shop1);
+            price2TextView = itemView.findViewById(R.id.tv_price_shop_shop2);
+            shopImageView = itemView.findViewById(R.id.iv_shop);
         }
     }
 

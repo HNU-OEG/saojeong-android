@@ -72,16 +72,16 @@ public class FishFragment extends Fragment {
         ((MainActivity) getActivity()).closeKeyBoard(rootView);
 
         //순서 나열 Spinner
-        spinner_shop = (Spinner) rootView.findViewById(R.id.spinner_fish);
+        spinner_shop = rootView.findViewById(R.id.spinner_fish);
         item_shop = new String[]{"평점 높은 순", "평점 많은 순", "이름 순"};
         ArrayAdapter<String> adapter_shopoc = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, item_shop);
         adapter_shopoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_shop.setAdapter(adapter_shopoc);
 
         //과일동 오픈 가게 Recycler View
-        recyclerOpenedShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_open);
+        recyclerOpenedShop = rootView.findViewById(R.id.recyclershop_open);
         //과일동 휴식 가게 Recycler View
-        recyclerClosedShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_close);
+        recyclerClosedShop = rootView.findViewById(R.id.recyclershop_close);
 
         storeService.getTypeStore("seafoods", "count").enqueue(new Callback<TypeStoreDto>() {
             @Override
@@ -123,7 +123,7 @@ public class FishFragment extends Fragment {
         recyclerOpenedShop.addItemDecoration(bottomDecoration);
         recyclerOpenedShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         shopOpenedAdapter.setOnItemClickListener(holder -> {
-            ShopFragment targetFragment = shopFragment.newInstance(holder.storeId);
+            ShopFragment targetFragment = ShopFragment.newInstance(holder.storeId);
             MainActivity activity = (MainActivity) getActivity();
             activity.replaceFragment(targetFragment);
         });
@@ -132,7 +132,7 @@ public class FishFragment extends Fragment {
         recyclerClosedShop.addItemDecoration(bottomDecoration);
         recyclerClosedShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         shopClosedAdapter.setOnItemClickListener(holder -> {
-            ShopFragment targetFragment = shopFragment.newInstance(holder.storeId);
+            ShopFragment targetFragment = ShopFragment.newInstance(holder.storeId);
             MainActivity activity = (MainActivity) getActivity();
             activity.replaceFragment(targetFragment);
         });

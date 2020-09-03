@@ -122,7 +122,7 @@ public class MyPageFragment extends Fragment {
 
                 setStarredAdapter();
                 likeStoreAdapter.setOnItemClickListener(holder -> {
-                    ShopFragment targetFragment = shopFragment.newInstance(holder.storeId, MyPageFragment.newInstance());
+                    ShopFragment targetFragment = ShopFragment.newInstance(holder.storeId, MyPageFragment.newInstance());
                     MainActivity activity = (MainActivity) getActivity();
                     activity.replaceFragment(targetFragment);
                 });

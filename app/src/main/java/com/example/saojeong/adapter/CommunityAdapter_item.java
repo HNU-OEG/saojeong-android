@@ -31,12 +31,12 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
         public TextView mTextViewvote;
         public ViewHolder(View itemView) {
             super(itemView);
-            mTextViewTitle_Popularity = (TextView) itemView.findViewById(R.id.tv_community_Title_popularity);
-            mTextViewTitle = (TextView) itemView.findViewById(R.id.tv_community_Title_item);
-            mTextViewName = (TextView) itemView.findViewById(R.id.tv_community_name_item);
-            mTextViewDate = (TextView) itemView.findViewById(R.id.tv_community_date_item);
-            mTextViewComment = (TextView) itemView.findViewById(R.id.tv_community_Title_comment);
-            mTextViewvote = (TextView) itemView.findViewById(R.id.tv_community_comment_vote);
+            mTextViewTitle_Popularity = itemView.findViewById(R.id.tv_community_Title_popularity);
+            mTextViewTitle = itemView.findViewById(R.id.tv_community_Title_item);
+            mTextViewName = itemView.findViewById(R.id.tv_community_name_item);
+            mTextViewDate = itemView.findViewById(R.id.tv_community_date_item);
+            mTextViewComment = itemView.findViewById(R.id.tv_community_Title_comment);
+            mTextViewvote = itemView.findViewById(R.id.tv_community_comment_vote);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

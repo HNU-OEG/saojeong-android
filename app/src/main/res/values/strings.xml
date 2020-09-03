@@ -8,7 +8,6 @@
     <string name="kakao_app_key">063b26941ca66e3f49e7010ec12a589b</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_out"><u>회원탈퇴</u></string>
     <string name="qna">1. 문의 제목 :\n\n
 2. 문의 내용 :\n\n

@@ -43,7 +43,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View view = (ViewGroup) inflater.inflate(R.layout.fragment_community, container, false);
+        final View view = inflater.inflate(R.layout.fragment_community, container, false);
         mAdapter=new CommunityAdapter(getActivity());
         viewPager2=view.findViewById(R.id.viewPager);
         viewPager2.setAdapter(mAdapter);
@@ -170,9 +170,6 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public boolean onKey(View view, int i, KeyEvent keyEvent) {
-        if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
-            return true;
-        }
-        return false;
+        return (keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER);
     }
 }

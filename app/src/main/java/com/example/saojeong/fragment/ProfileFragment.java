@@ -158,8 +158,8 @@ public class ProfileFragment extends Fragment {
         });
 
         btn_log_out.setOnClickListener((v) -> {
-            AllLoginManager.inst.logout((MainActivity)getActivity());
-            Intent intentTutorial = new Intent((MainActivity)getActivity(), TutorialActivity.class);
+            AllLoginManager.inst.logout(getActivity());
+            Intent intentTutorial = new Intent(getActivity(), TutorialActivity.class);
             startActivity(intentTutorial);
         });
 
@@ -261,7 +261,7 @@ public class ProfileFragment extends Fragment {
         if (requestCode == REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 try {
-                    InputStream in = ((MainActivity) getActivity()).getContentResolver().openInputStream(data.getData());
+                    InputStream in = getActivity().getContentResolver().openInputStream(data.getData());
 
                     img = BitmapFactory.decodeStream(in);
                     in.close();

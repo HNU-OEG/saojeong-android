@@ -61,7 +61,7 @@ public class GoogleLogin implements LoginControl, GoogleApiClient.OnConnectionFa
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account1 = task.getResult(ApiException.class);
-                this.account=account1;
+                account=account1;
                 mhandler.success();
                 // Show signed-un UI
                 // TODO(developer): send code to server and exchange for access/refresh/ID tokens

@@ -25,7 +25,7 @@ public class AnnounceAdapter extends RecyclerView.Adapter<AnnounceAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            AnnounceImageView = (ImageView) itemView.findViewById(R.id.iv_announce);
+            AnnounceImageView = itemView.findViewById(R.id.iv_announce);
         }
     }
 

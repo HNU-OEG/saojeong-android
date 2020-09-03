@@ -76,23 +76,23 @@ public class ShopScoreAdapter extends RecyclerView.Adapter<ShopScoreAdapter.View
 
         public ViewHolder(View itemView) {
             super(itemView);
-            evaluateTextView = (TextView) itemView.findViewById(R.id.tv_shop_evaluate);
-            kindscoreTextView = (TextView) itemView.findViewById(R.id.tv_shop_kindscore);
-            itemscoreTextView = (TextView) itemView.findViewById(R.id.tv_shop_itemscore);
-            pricescoreTextView = (TextView) itemView.findViewById(R.id.tv_shop_pricescore);
+            evaluateTextView = itemView.findViewById(R.id.tv_shop_evaluate);
+            kindscoreTextView = itemView.findViewById(R.id.tv_shop_kindscore);
+            itemscoreTextView = itemView.findViewById(R.id.tv_shop_itemscore);
+            pricescoreTextView = itemView.findViewById(R.id.tv_shop_pricescore);
 
-            scoreButton = (Button) itemView.findViewById(R.id.btn_shop_score);
+            scoreButton = itemView.findViewById(R.id.btn_shop_score);
 
             //평점에 따라 변경되는 별 갯수
             //Id 불러오기
-            tv_kindscore = (TextView) itemView.findViewById(R.id.tv_shop_kindscore);
-            tv_itemscore = (TextView) itemView.findViewById(R.id.tv_shop_itemscore);
-            tv_pricescore = (TextView) itemView.findViewById(R.id.tv_shop_pricescore);
+            tv_kindscore = itemView.findViewById(R.id.tv_shop_kindscore);
+            tv_itemscore = itemView.findViewById(R.id.tv_shop_itemscore);
+            tv_pricescore = itemView.findViewById(R.id.tv_shop_pricescore);
             ll_shop_kind = itemView.findViewById(R.id.ll_shop_kind);
             ll_shop_item = itemView.findViewById(R.id.ll_shop_item);
             ll_shop_price = itemView.findViewById(R.id.ll_shop_price);
 
-            recyclerShopStarScore = (RecyclerView) itemView.findViewById(R.id.recycler_shop_score);
+            recyclerShopStarScore = itemView.findViewById(R.id.recycler_shop_score);
         }
     }
 

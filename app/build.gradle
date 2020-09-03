@@ -18,6 +18,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            shrinkResources true
         }
     }
     compileOptions {
@@ -64,7 +65,7 @@ dependencies {
 
     //구글로그인
     //https://firebase.google.com/docs/auth/android/google-signin?hl=ko
-    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+//    implementation 'com.google.android.gms:play-services-auth:18.1.0'
     //카카오
     // 카카오 로그인
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
@@ -73,16 +74,16 @@ dependencies {
     implementation group: 'com.kakao.sdk', name: 'kakaotalk', version: '1.30.0'
 
     // 카카오스토리
-    implementation group: 'com.kakao.sdk', name: 'kakaostory', version: '1.30.0'
-
-    // 카카오링크
-    implementation group: 'com.kakao.sdk', name: 'kakaolink', version: '1.30.0'
-
-    // 카카오내비
-    implementation group: 'com.kakao.sdk', name: 'kakaonavi', version: '1.30.0'
+//    implementation group: 'com.kakao.sdk', name: 'kakaostory', version: '1.30.0'
+//
+//    // 카카오링크
+//    implementation group: 'com.kakao.sdk', name: 'kakaolink', version: '1.30.0'
+//
+//    // 카카오내비
+//    implementation group: 'com.kakao.sdk', name: 'kakaonavi', version: '1.30.0'
 
     //naver,facebook
-    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'   // import from jcenter
+//    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'   // import from jcenter
     implementation 'com.facebook.android:facebook-login:[5,6)'
 
     implementation 'com.auth0.android:jwtdecode:2.0.0'

@@ -111,20 +111,20 @@ public class HomeFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         //매장 Recycler View
-        recyclerShop = (RecyclerView) rootView.findViewById(R.id.recyclershop_fragment);
+        recyclerShop = rootView.findViewById(R.id.recyclershop_fragment);
         loadStores(this);
 
         //과일 Recycler View
-        recyclerFruits = (RecyclerView) rootView.findViewById(R.id.recyclerfruit_fragment);
-        recyclerVegetables = (RecyclerView) rootView.findViewById(R.id.recyclervegetable_fragment);
-        recyclerSeafoods = (RecyclerView) rootView.findViewById(R.id.recyclerfish_fragment);
+        recyclerFruits = rootView.findViewById(R.id.recyclerfruit_fragment);
+        recyclerVegetables = rootView.findViewById(R.id.recyclervegetable_fragment);
+        recyclerSeafoods = rootView.findViewById(R.id.recyclerfish_fragment);
         loadFoods(this);
 
         //전체 보기(공지) Recycler View
-        recyclerAnnounce = (RecyclerView) rootView.findViewById(R.id.recyclerannounce_fragment);
+        recyclerAnnounce = rootView.findViewById(R.id.recyclerannounce_fragment);
         loadAnnounces(this);
 
-        tabHost = (TabHost) rootView.findViewById(R.id.tabhost);
+        tabHost = rootView.findViewById(R.id.tabhost);
         tabHost.setup();
 
         TabHost.TabSpec fruit = tabHost.newTabSpec("과일");
@@ -142,23 +142,23 @@ public class HomeFragment extends Fragment {
         tabHost.addTab(fish);
 
         //시작시 Tab Color 지정
-        TextView Cfruit = (TextView) tabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
+        TextView Cfruit = tabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
         Cfruit.setTextColor(Color.parseColor("#ffffff"));
         Cfruit.setTextSize(16);
         Cfruit.setTypeface(null, Typeface.BOLD);
-        TextView CVegetable = (TextView) tabHost.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
+        TextView CVegetable = tabHost.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
         CVegetable.setTextColor(Color.parseColor("#ffd6b7"));
         CVegetable.setTextSize(16);
         CVegetable.setTypeface(null, Typeface.BOLD);
-        TextView Cfish = (TextView) tabHost.getTabWidget().getChildAt(2).findViewById(android.R.id.title);
+        TextView Cfish = tabHost.getTabWidget().getChildAt(2).findViewById(android.R.id.title);
         Cfish.setTextColor(Color.parseColor("#ffd6b7"));
         Cfish.setTextSize(16);
         Cfish.setTypeface(null, Typeface.BOLD);
 
         //Tab 바꿀 때 마다 색 변경
-        tabHost.setOnTabChangedListener((TabHost.OnTabChangeListener) s -> {
+        tabHost.setOnTabChangedListener(s -> {
             for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
-                TextView tabcolor = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+                TextView tabcolor = tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
                 if (i == tabHost.getCurrentTab()) {
                     tabcolor.setTextColor(Color.parseColor("#ffffff"));
                 } else
@@ -184,7 +184,7 @@ public class HomeFragment extends Fragment {
                 recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
 
                 likeStoreAdapter.setOnItemClickListener(holder -> {
-                    ShopFragment targetFragment = shopFragment.newInstance(holder.storeId, HomeFragment.newInstance());
+                    ShopFragment targetFragment = ShopFragment.newInstance(holder.storeId, HomeFragment.newInstance());
                     MainActivity activity = (MainActivity) getActivity();
                     activity.replaceFragment(targetFragment);
                 });
@@ -317,18 +317,18 @@ public class HomeFragment extends Fragment {
         transaction = fragmentManager.beginTransaction();
 
         view.findViewById(R.id.iv_home).setOnClickListener(view1 -> {
-            ((MainActivity) getActivity()).replaceFragment(homeFragment.newInstance());
+            ((MainActivity) getActivity()).replaceFragment(newInstance());
             fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
         });
 
         view.findViewById(R.id.btn_fruit).setOnClickListener(
-                view12 -> ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance("fruits")));
+                view12 -> ((MainActivity) getActivity()).replaceHomeFragment(ShopListFragment.newInstance("fruits")));
 
         view.findViewById(R.id.btn_vegetable).setOnClickListener(
-                view13 -> ((MainActivity) getActivity()).replaceHomeFragment(vegetableFragment.newInstance("vegetables")));
+                view13 -> ((MainActivity) getActivity()).replaceHomeFragment(ShopListFragment.newInstance("vegetables")));
 
         view.findViewById(R.id.btn_fish).setOnClickListener(
-                view14 -> ((MainActivity) getActivity()).replaceHomeFragment(fishFragment.newInstance("seafoods")));
+                view14 -> ((MainActivity) getActivity()).replaceHomeFragment(ShopListFragment.newInstance("seafoods")));
     }
 
     public void closeKeyBoard(View view) {

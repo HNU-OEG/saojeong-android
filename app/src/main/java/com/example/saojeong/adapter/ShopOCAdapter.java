@@ -49,14 +49,14 @@ public class ShopOCAdapter extends RecyclerView.Adapter<ShopOCAdapter.ViewHolder
 
         public ViewHolder(View itemView) {
             super(itemView);
-            shopnumTextView = (TextView) itemView.findViewById(R.id.tv_shopnum);
-            shopnameTextView = (TextView) itemView.findViewById(R.id.tv_shopname);
-            starTextView = (TextView) itemView.findViewById(R.id.tv_star);
-            starscoreTextView = (TextView) itemView.findViewById(R.id.tv_starscore);
-            evaluationTextView = (TextView) itemView.findViewById(R.id.tv_evaluation);
-            selfintroductionTextView = (TextView) itemView.findViewById(R.id.tv_self_introduction);
-            shopImageView = (ImageView) itemView.findViewById(R.id.iv_shop);
-            favorateImageView = (ImageView) itemView.findViewById(R.id.iv_favorate);
+            shopnumTextView = itemView.findViewById(R.id.tv_shopnum);
+            shopnameTextView = itemView.findViewById(R.id.tv_shopname);
+            starTextView = itemView.findViewById(R.id.tv_star);
+            starscoreTextView = itemView.findViewById(R.id.tv_starscore);
+            evaluationTextView = itemView.findViewById(R.id.tv_evaluation);
+            selfintroductionTextView = itemView.findViewById(R.id.tv_self_introduction);
+            shopImageView = itemView.findViewById(R.id.iv_shop);
+            favorateImageView = itemView.findViewById(R.id.iv_favorate);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

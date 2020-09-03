@@ -85,7 +85,7 @@ public class ChartAdapter extends  RecyclerView.Adapter<ChartAdapter.ViewHolder>
         public Button messageButton;
         public ViewHolder(View itemView) {
             super(itemView);
-            mLineChart = (LineChart) itemView.findViewById(R.id.chart);
+            mLineChart = itemView.findViewById(R.id.chart);
             text = itemView.findViewById(R.id.tv_chart_name);
             //getAdapterPosition(); 이쪽으로 위치 확인해서 클릭리스너구현
 

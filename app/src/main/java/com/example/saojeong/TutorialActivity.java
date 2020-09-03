@@ -75,11 +75,7 @@ public class TutorialActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("name not found", e.toString());
         }
-        if (keyHash != null) {
-            return keyHash;
-        } else {
-            return null;
-        }
+        return keyHash;
     }
 }
 

@@ -114,11 +114,11 @@ public class ShopFragment extends Fragment {
         TextView tvStoreName = rootView.findViewById(R.id.tv_shopname);
 
         //판매 품목
-        recyclerShopSellList = (RecyclerView) rootView.findViewById(R.id.recyclershop_selllist);
+        recyclerShopSellList = rootView.findViewById(R.id.recyclershop_selllist);
         //상세 설명
-        recyclerShopDetail = (RecyclerView) rootView.findViewById(R.id.recyclershop_detail);
+        recyclerShopDetail = rootView.findViewById(R.id.recyclershop_detail);
         //평점
-        recyclerShopScore = (RecyclerView) rootView.findViewById(R.id.recyclershop_score);
+        recyclerShopScore = rootView.findViewById(R.id.recyclershop_score);
 
 
         if (getArguments() != null) {
@@ -143,13 +143,13 @@ public class ShopFragment extends Fragment {
                         contactShopScores = ContactShopScore.createContactsList(body.getStoreGrade(),
                                 body.getStoreDetail().getVoteGradeCount());
                         shopScoreAdapter = new ShopScoreAdapter(contactShopScores, getActivity(), id);
-                        ImageView storeImage = (ImageView) getView().findViewById(R.id.iv_shopshop);
+                        ImageView storeImage = getView().findViewById(R.id.iv_shopshop);
                         Glide.with(getView())
                                 .load(body.getStoreDetail().getStoreImage())
                                 .into(storeImage);
 
                         // 하트 로직
-                        ImageView likeImage = (ImageView) getView().findViewById(R.id.iv_like);
+                        ImageView likeImage = getView().findViewById(R.id.iv_like);
                         likeImage.setSelected(body.getStoreDetail().getStarred());
                         likeImage.setOnClickListener(view -> {
                             if (likeImage.isSelected()) {
@@ -222,7 +222,7 @@ public class ShopFragment extends Fragment {
         toolbar.setTitleTextColor(Color.BLACK);
 
         //탭 호스트
-        tabHost_Shop = (TabHost) rootView.findViewById(R.id.tabhost_shop);
+        tabHost_Shop = rootView.findViewById(R.id.tabhost_shop);
         tabHost_Shop.setup();
 
         TabHost.TabSpec detail = tabHost_Shop.newTabSpec("상세 정보");
@@ -241,11 +241,11 @@ public class ShopFragment extends Fragment {
             tabHost_Shop.getTabWidget().setStripEnabled(false);
         }
 
-        TextView Cdetail = (TextView) tabHost_Shop.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
+        TextView Cdetail = tabHost_Shop.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
         Cdetail.setTextColor(Color.parseColor("#8c8c8c"));
         Cdetail.setTextSize(16);
         Cdetail.setTypeface(null, Typeface.BOLD);
-        TextView Cscore = (TextView) tabHost_Shop.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
+        TextView Cscore = tabHost_Shop.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
         Cscore.setTextColor(Color.parseColor("#8c8c8c"));
         Cscore.setTextSize(16);
         Cscore.setTypeface(null, Typeface.BOLD);
@@ -253,7 +253,7 @@ public class ShopFragment extends Fragment {
         //Tab 바꿀 때 마다 색 변경
         tabHost_Shop.setOnTabChangedListener(s -> {
             for (int i = 0; i < tabHost_Shop.getTabWidget().getChildCount(); i++) {
-                TextView tabcolor = (TextView) tabHost_Shop.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+                TextView tabcolor = tabHost_Shop.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
                 if (i == tabHost_Shop.getCurrentTab()) {
                     tabcolor.setTextColor(Color.parseColor("#f67043"));
                 } else
