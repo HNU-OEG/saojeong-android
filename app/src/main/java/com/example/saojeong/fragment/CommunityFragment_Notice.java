@@ -44,7 +44,7 @@ public class CommunityFragment_Notice extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
-        view=inflater.inflate(R.layout.viewpaper_community, container, false);
+        view=inflater.inflate(R.layout.viewpager_notice, container, false);
         mRecyclerViewCommunity = view.findViewById(R.id.community_recycler);
         mCommunityNormalValue= new ArrayList<>();
         mCommunityHotValue= new ArrayList<>();

@@ -31,16 +31,17 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
         TextView mFreeboard;
         TextView mNotice;
-
+        LinearLayout llBottombutton;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
             final View view = (ViewGroup) inflater.inflate(R.layout.fragment_community, container, false);
             mAdapter = new CommunityAdapter_fragment(getActivity());
-            viewPager2 = view.findViewById(R.id.viewPager);
+            viewPager2 = view.findViewById(R.id.viewpager);
             viewPager2.setAdapter(mAdapter);
 
+            llBottombutton = view.findViewById(R.id.ll_community_bottom);
             mFreeboard = view.findViewById(R.id.tv_community_btn_freeboard);
             mFreeboard.setOnClickListener(this);
             mNotice = view.findViewById(R.id.tv_community_btn_notice);
@@ -61,14 +62,52 @@ import com.google.android.material.tabs.TabLayoutMediator;
                 case R.id.tv_community_btn_freeboard:
                     mFreeboard.setTextColor(Color.parseColor("#fa8f68"));
                     mNotice.setTextColor(Color.parseColor("#000000"));
+                    llBottombutton.setVisibility(View.VISIBLE);
                     viewPager2.setCurrentItem(0);
                     break;
                 case R.id.tv_community_btn_notice:
                     mFreeboard.setTextColor(Color.parseColor("#000000"));
                     mNotice.setTextColor(Color.parseColor("#fa8f68"));
                     viewPager2.setCurrentItem(1);
+                    llBottombutton.setVisibility(View.GONE);
                     break;
+                case R.id.ll_community_left:
+                    if(viewPager2.getCurrentItem()==0)
+                        CommunityTabFragment.inst.btn_Left();
 
+                    break;
+                case R.id.ll_community_right:
+                    int a=viewPager2.getCurrentItem();
+                    if(viewPager2.getCurrentItem()==0)
+                        CommunityTabFragment.inst.btn_Right();
+                    break;
+                case R.id.ll_community_home:
+                    CommunityFragment_Freeboard.inst.tabLayout.setScrollPosition(0,0,true);
+                    viewPager2.setCurrentItem(0);
+                    //mAdapter
+                    break;
+                case R.id.ll_community_re:
+                    CommunityTabFragment.inst.load_GetPost();
+                    break;
+                case R.id.ll_community_upscroll:
+                    switch(viewPager2.getCurrentItem()) {
+                        case 0:
+                            if (CommunityTabFragment.scroll != null) {
+                                CommunityTabFragment.scroll.fullScroll(View.FOCUS_UP);
+                            }
+                            break;
+                        case 1:
+                            if (Community_Popularity_Fragment.scroll != null) {
+                                Community_Popularity_Fragment.scroll.fullScroll(View.FOCUS_UP);
+                            }
+                            break;
+                        case 2:
+                            if (Community_User_Fragment.scroll != null) {
+                                Community_User_Fragment.scroll.fullScroll(View.FOCUS_UP);
+                            }
+                            break;
+                    }
+                    break;
             }
 
         }

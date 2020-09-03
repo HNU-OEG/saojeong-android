@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,14 +25,12 @@ import com.example.saojeong.adapter.CommunityAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class CommunityFragment_Freeboard extends Fragment implements View.OnClickListener, View.OnKeyListener{
+public class CommunityFragment_Freeboard extends Fragment implements View.OnClickListener, View.OnKeyListener , Filterable {
 
     CommunityAdapter mAdapter;
     ViewPager2 viewPager2;
     TabLayout tabLayout;
-
-    TextView mFreeboard;
-    TextView mNotice;
+    static CommunityFragment_Freeboard inst;
     TextView mWrite;
     EditText mBoardSearch;
 
@@ -39,42 +39,26 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
     LinearLayout mBottomHome;
     LinearLayout mBottomRe;
     LinearLayout mBottomUpScroll;
+    public CommunityFragment_Freeboard()
+    {
+        inst=this;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View view = (ViewGroup) inflater.inflate(R.layout.fragment_community, container, false);
+        final View view = (ViewGroup) inflater.inflate(R.layout.item_community_fragment, container, false);
         mAdapter=new CommunityAdapter(getActivity());
         viewPager2=view.findViewById(R.id.viewPager);
         viewPager2.setAdapter(mAdapter);
 
 
         tabLayout = view.findViewById(R.id.tablayout);
-        mFreeboard=view.findViewById(R.id.tv_community_btn_freeboard);
-        mFreeboard.setOnClickListener(this);
-        mNotice=view.findViewById(R.id.tv_community_btn_notice);
-        mNotice.setOnClickListener(this);
-
-        mBottomLeft=view.findViewById(R.id.ll_community_left);
-        mBottomLeft.setOnClickListener(this);
-        mBottomRight=view.findViewById(R.id.ll_community_right);
-        mBottomRight.setOnClickListener(this);
-        mBottomHome=view.findViewById(R.id.ll_community_home);
-        mBottomHome.setOnClickListener(this);
-        mBottomRe=view.findViewById(R.id.ll_community_re);
-        mBottomRe.setOnClickListener(this);
-        mBottomUpScroll=view.findViewById(R.id.ll_community_upscroll);
-        mBottomUpScroll.setOnClickListener(this);
-
         mWrite=view.findViewById(R.id.tv_community_btn_write);
         mWrite.setOnClickListener(this);
         mBoardSearch=view.findViewById(R.id.et_community_boardsearch);
         mBoardSearch.setOnKeyListener(this);
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
-        toolbar.setTitleTextColor(Color.BLACK);
 
         //밑줄
         SpannableString content = new SpannableString(mWrite.getText());
@@ -109,57 +93,13 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
         int id=view.getId();
 
         switch(id) {
-            case R.id.tv_community_btn_freeboard:
-                mFreeboard.setTextColor(Color.parseColor("#fa8f68"));
-                mNotice.setTextColor(Color.parseColor("#000000"));
-                break;
-            case R.id.tv_community_btn_notice:
-                mFreeboard.setTextColor(Color.parseColor("#000000"));
-                mNotice.setTextColor(Color.parseColor("#fa8f68"));
-                break;
             case R.id.tv_community_btn_write:
                 Community_WriteFragment fragment1=new Community_WriteFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment1) // frameLayout에 커뮤니티 Fragment 호출
                         .addToBackStack(null)
                         .commitAllowingStateLoss();
                 break;
-            case R.id.ll_community_left:
-                if(viewPager2.getCurrentItem()==0)
-                    CommunityTabFragment.inst.btn_Left();
 
-                break;
-            case R.id.ll_community_right:
-                int a=viewPager2.getCurrentItem();
-                if(viewPager2.getCurrentItem()==0)
-                    CommunityTabFragment.inst.btn_Right();
-                break;
-            case R.id.ll_community_home:
-                tabLayout.setScrollPosition(0,0,true);
-                viewPager2.setCurrentItem(0);
-                //mAdapter
-                break;
-            case R.id.ll_community_re:
-                CommunityTabFragment.inst.load_GetPost();
-                break;
-            case R.id.ll_community_upscroll:
-                switch(viewPager2.getCurrentItem()) {
-                    case 0:
-                        if (CommunityTabFragment.scroll != null) {
-                            CommunityTabFragment.scroll.fullScroll(View.FOCUS_UP);
-                        }
-                        break;
-                    case 1:
-                        if (Community_Popularity_Fragment.scroll != null) {
-                            Community_Popularity_Fragment.scroll.fullScroll(View.FOCUS_UP);
-                        }
-                        break;
-                    case 2:
-                        if (Community_User_Fragment.scroll != null) {
-                            Community_User_Fragment.scroll.fullScroll(View.FOCUS_UP);
-                        }
-                        break;
-                }
-                break;
         }
 
     }
@@ -170,5 +110,10 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 }

@@ -9,6 +9,39 @@
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_height="69dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:id="@+id/et_community_board"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="40dp"
+                android:background="@drawable/rounded_edittext_gray"></TextView>
+
+            <EditText
+                android:id="@+id/et_community_boardsearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="50dp"
+                android:background="@null"
+                android:hint="게시글을 검색하세요"
+                android:drawableRight="@drawable/search1"
+                android:inputType="textPersonName" />
+
+
+        </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal">
 
@@ -59,114 +92,7 @@
                 android:layout_marginVertical="20dp"/>
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_community_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="39dp"
-        android:orientation="horizontal"
-        android:background="#FCFCFC"
-        app:layout_constraintBottom_toBottomOf="parent">
 
-        <LinearLayout
-            android:id="@+id/ll_community_left"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:background="#FCFCFC"
-            android:foreground="?attr/selectableItemBackground"
-            >
-
-            <ImageView
-                android:src="@drawable/community_left"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:layout_marginTop="9dp"
-                android:layout_gravity="center"
-
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_community_right"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:background="#FCFCFC"
-            android:foreground="?attr/selectableItemBackground"
-            >
-
-            <ImageView
-                android:src="@drawable/community_right"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:layout_marginTop="9dp"
-                android:layout_gravity="center"
-                />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_community_home"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:background="#FCFCFC"
-            android:foreground="?attr/selectableItemBackground"
-            >
-
-            <ImageView
-                android:src="@drawable/community_home"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:layout_marginTop="9dp"
-                android:layout_gravity="center"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_community_re"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:background="#FCFCFC"
-            android:foreground="?attr/selectableItemBackground"
-            >
-
-            <ImageView
-                android:src="@drawable/community_re"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:layout_marginTop="9dp"
-                android:layout_gravity="center"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_community_upscroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:background="#FCFCFC"
-            android:foreground="?attr/selectableItemBackground"
-            >
-
-            <ImageView
-                android:src="@drawable/community_upscroll"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:layout_marginTop="9dp"
-                android:layout_gravity="center"
-                />
-
-        </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

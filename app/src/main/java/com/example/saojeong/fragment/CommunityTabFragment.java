@@ -43,6 +43,8 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     public static NestedScrollView scroll;
     static RecyclerView mRecyclerViewCommunity;
     private int board=0;
+
+    private TextView SearchString;
     public CommunityTabFragment(){
         if(inst==null)
             inst=this;
@@ -92,7 +94,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
             @Override
             public void onResponse(Call<GetPostListArrayDto> call, Response<GetPostListArrayDto> response) {
                 GetPostListArrayDto body = response.body();
-                if (response.code() == 201) { // 서버와 통신 성공
+                if (response.code() == 201) {
                     mCommunityNormalValue = CommunityValue.createContactsList(body.getNormal());
                     mCommunityHotValue = CommunityValue.createContactsList(body.getHot());
                     btnLeft.setVisibility(View.GONE);
@@ -100,9 +102,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
                         btnRight.setVisibility(View.GONE);
                     }
                     mAdapter = new CommunityAdapter_item( mCommunityHotValue, mCommunityNormalValue,(MainActivity)getActivity());
-                } else { // 서버에서 문제 발생
-                    //likeStores = ContactShopOC._createContactsList(20);
-                    //likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                } else {
                 }
                 mRecyclerViewCommunity.setAdapter(mAdapter);
                 mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
