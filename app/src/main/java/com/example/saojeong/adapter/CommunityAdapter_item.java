@@ -50,8 +50,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
                 @Override
                 public void onClick(View v) {
                     Community_ReadFragment fragment= new Community_ReadFragment(document_Id);
-                    //RootActivity.getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
-                    RootActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment) // frameLayout에 커뮤니티 Fragment 호출
+                    RootActivity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_main, fragment)
                             .addToBackStack(null)
                             .commitAllowingStateLoss();
 
@@ -79,7 +78,6 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
     }
 
     Filter filter= new Filter() {
-        //백그라운드 스레드동작
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             List<CommunityValue> filteredList=new ArrayList<>();
@@ -161,10 +159,6 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
         }
         return mHotContacts.size()+mNormalContacts.size();
     }
-
-    //public int getItemCount() {
-    //    return mHotContacts.size()+mNormalContacts.size();
-    //}
 
     public void UpBoard()
     {

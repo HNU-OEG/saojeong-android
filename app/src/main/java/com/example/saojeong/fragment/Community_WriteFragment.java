@@ -51,21 +51,15 @@ public class Community_WriteFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
-        view = inflater.inflate(R.layout.fragment_community_write, container, false); //0,2,외 이탭
-
+        view = inflater.inflate(R.layout.fragment_community_write, container, false);
         boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
-        //    community_Service = ServiceGenerator.createService(Community_Service.class, "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLk9qZW9uZ2RvbmcuRWNvbm9taWNzLkd1YXJkaWFucyIsImV4cCI6MTU5NzU4ODU3MSwibWVtYmVyX2lkIjoiMEJSNGkwTU92SnA5SzdNWlJCdWNsYWFpWjdFQiIsIm5pY2tuYW1lIjoi7J2166qF7J2YIOuRkOuNlOyngCIsInVzZXJ0eXBlIjoxfQ.G0SdapZG7h9Lr5kJf0P8ecl71DXiLFHicq6805RHDvY");
-
         imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-
 
         Toolbar toolbar = view.findViewById(R.id.community_write_toolbar);
         et_Title = view.findViewById(R.id.et_community_write_title);
         et_Content = view.findViewById(R.id.et_community_write_content);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        //((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //((MainActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
         setHasOptionsMenu(true);
         return view;
@@ -90,7 +84,6 @@ public class Community_WriteFragment extends Fragment {
                 return true;
             case android.R.id.home:
                 getActivity().onBackPressed();
-                //뒤로가기버튼
                 return true;
         }
         return super.onOptionsItemSelected(item);

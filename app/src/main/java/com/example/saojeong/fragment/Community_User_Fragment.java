@@ -93,9 +93,6 @@ public class Community_User_Fragment extends Fragment {
 
 
         tvBoard.setText(board+1+"");
-
-        //test
-
         return view;
     }
 }

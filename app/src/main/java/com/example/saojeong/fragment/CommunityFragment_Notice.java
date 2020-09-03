@@ -69,9 +69,7 @@ public class CommunityFragment_Notice extends Fragment{
                     mCommunityNormalValue = CommunityValue.createContactsList(body.getNormal());
                     mCommunityHotValue = CommunityValue.createContactsList(body.getHot());
                     mAdapter = new CommunityAdapter_item( mCommunityHotValue, mCommunityNormalValue,(MainActivity)getActivity());
-                } else { // 서버에서 문제 발생
-                    //likeStores = ContactShopOC._createContactsList(20);
-                    //likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                } else {
                 }
                 mRecyclerViewCommunity.setAdapter(mAdapter);
                 mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));

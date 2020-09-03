@@ -93,7 +93,6 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
                     InputMethodManager  inputMananger = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputMananger.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                 }
-                //답글쓰기버튼클릭시 작동
             });
 
             mTextView_Btn_ReComment_Write.setOnClickListener(v -> {
@@ -142,7 +141,6 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         holder.mTextView_Content.setText(contact.getContent());
         holder.comment_id=contact.getComment_ID();
         holder.mTextView_RecommentID.setText(TokenCase.getUserResource("nickname"));
-        //holder.mTextView_Btn_ReComment.setText("["+contact.GetComment().size() + "]");
         CheckReComment(replies, holder);
         if(contact.getReplies()!=null) {
             mAdapter = new CommunityAdapter_Comment(contact.getReplies(), mContext, board_id, document_id, true, refresh_callback);
@@ -175,23 +173,14 @@ public class CommunityAdapter_Comment extends RecyclerView.Adapter<CommunityAdap
         boardService.createRepliesComment(new CreateComentDto(contents), 10004, document_id, comment_id).enqueue(new Callback<CreateComentDto>() {
             @Override
             public void onResponse(Call<CreateComentDto> call, Response<CreateComentDto> response) {
-
                 if (response.code() == 201) {
-                    if (response.code() == 201) {
-                        CreateComentDto body = response.body();
-                        Log.d(LOG, "전송완료");
-                       //Handler mHandler = new Handler();
-                       //mHandler.postDelayed(new Runnable()  {
-                       //    public void run() {
-                       //        refresh_callback.callback();
-                       //    }
-                       //}, 500);
-                        refresh_callback.callback();
+                    Log.d(LOG, "전송완료");
+                    refresh_callback.callback();
+                    try{
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    Log.d(LOG, response.message());
-                } else { // 서버에서 문제 발생
-                    //likeStores = ContactShopOC._createContactsList(20);
-                    //likeStoreAdapter = new LikeStoreAdapter(likeStores);
                 }
             }
 

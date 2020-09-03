@@ -103,7 +103,7 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
             }
 
         });
-        tabLayoutMediator.attach(); //붙임
+        tabLayoutMediator.attach();
         return view;
     }
 
