@@ -42,11 +42,6 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
     TextView mWrite;
     EditText mBoardSearch;
 
-    LinearLayout mBottomLeft;
-    LinearLayout mBottomRight;
-    LinearLayout mBottomHome;
-    LinearLayout mBottomRe;
-    LinearLayout mBottomUpScroll;
     public CommunityFragment_Freeboard()
     {
         inst=this;
