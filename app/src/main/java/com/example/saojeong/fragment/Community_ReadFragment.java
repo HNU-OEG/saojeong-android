@@ -154,8 +154,6 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
             @Override
             public void onResponse(Call<GetPostDto> call, Response<GetPostDto> response) {
                 GetPostDto body = response.body();
-
-
                 if (response.code() == 201) {
                     mPostValue =new PostValue(body.getContentDto());
                     mtitle.setText(mPostValue.getTitle());
@@ -239,5 +237,6 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
             }
         }, 800);
     }
+
 
 }
