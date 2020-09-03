@@ -60,7 +60,7 @@ public class CommunityFragment_Notice extends Fragment{
 
     public void load_GetPost() {
         boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
-        boardService.getPostList(10004).enqueue(new Callback<GetPostListArrayDto>() {
+        boardService.getPostList(10003).enqueue(new Callback<GetPostListArrayDto>() {
             @Override
             public void onResponse(Call<GetPostListArrayDto> call, Response<GetPostListArrayDto> response) {
                 GetPostListArrayDto body = response.body();
