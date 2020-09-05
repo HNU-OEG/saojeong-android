@@ -35,9 +35,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class CommunityTabFragment extends Fragment implements View.OnClickListener {
+public class CommunitySearchFragment extends Fragment implements View.OnClickListener {
 
-    public static CommunityTabFragment inst;
+    public static CommunitySearchFragment inst;
     public CommunityAdapter_item mAdapter;
     public List<CommunityValue> mCommunityNormalValue;
     private List<CommunityValue> mCommunityHotValue;
@@ -48,11 +48,10 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
     public RecyclerView mRecyclerViewCommunity;
     private int board=0;
     private TextView SearchString;
-    public CommunityTabFragment(){
+    public CommunitySearchFragment(){
         if(inst==null)
             inst=this;
     }
-
     private BoardService boardService;
     @Nullable
     @Override
@@ -69,10 +68,10 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
         scroll=view.findViewById(R.id.scrollns_community);
         tvBoard=view.findViewById(R.id.tv_community_board);
         tvBoard.setText(board+1+"");
-        load_GetPost();
-
         return view;
     }
+
+
 
     @Override
     public void onClick(View view) {
@@ -88,34 +87,7 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    public void load_GetPost() {
-        boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
-        boardService.getPostList(10004).enqueue(new Callback<GetPostListArrayDto>() {
-            @Override
-            public void onResponse(Call<GetPostListArrayDto> call, Response<GetPostListArrayDto> response) {
-                GetPostListArrayDto body = response.body();
-                if (response.code() == 201) {
-                    mCommunityNormalValue = CommunityValue.createContactsList(body.getNormal());
-                    mCommunityHotValue = CommunityValue.createContactsList(body.getHot());
-                    btnLeft.setVisibility(View.GONE);
-                    if(mCommunityHotValue.size()+mCommunityNormalValue.size()>10) {
-                        btnRight.setVisibility(View.VISIBLE);
-                    }
-                    else
-                        btnRight.setVisibility(View.GONE);
-                    mAdapter = new CommunityAdapter_item(mCommunityHotValue, mCommunityNormalValue,(MainActivity)getActivity());
-                } else {
-                }
-                mRecyclerViewCommunity.setAdapter(mAdapter);
-                mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
-            }
 
-            @Override
-            public void onFailure(Call<GetPostListArrayDto> call, Throwable t) {
-                Log.d("fail", t.getMessage());
-            }
-        });
-    }
 
     public void btn_Right(){
         if((board+1)*10<mCommunityNormalValue.size()) {
@@ -137,6 +109,40 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
         }
     }
 
+    public void ListUpdate(String search) {
+        boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
+        boardService.searchBoard(search).enqueue(new Callback<GetPostListArrayDto>() {
+            @Override
+            public void onResponse(Call<GetPostListArrayDto> call, Response<GetPostListArrayDto> response) {
+                GetPostListArrayDto body = response.body();
+                if (response.code() == 201|| response.code() == 200) {
+                    if (body.getNormal() != null) {
+                        mCommunityNormalValue = CommunityValue.createContactsList(body.getNormal());
+                        mCommunityHotValue.clear();
+                        btnLeft.setVisibility(View.GONE);
+                        if (mCommunityHotValue.size() + mCommunityNormalValue.size() > 10) {
+                            btnRight.setVisibility(View.VISIBLE);
+                        } else
+                            btnRight.setVisibility(View.GONE);
+                        mAdapter = new CommunityAdapter_item(mCommunityHotValue, mCommunityNormalValue, (MainActivity) getActivity());
+
+
+                    }
+
+                    else {
+                        mCommunityNormalValue.clear();
+                    }
+                    mRecyclerViewCommunity.setAdapter(mAdapter);
+                    mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetPostListArrayDto> call, Throwable t) {
+                Log.d("fail", t.getMessage());
+            }
+        });
+    }
 
     public void btn_Left(){
         if(board!=0) {

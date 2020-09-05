@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         Timer timer = new Timer();
-        timer.schedule(timerTask, 60 * 1000 * 5, 60 * 1000 * 5);
+        timer.schedule(timerTask, 0, 60 * 1000 * 5);
         pressedTime = 0;
     }
 
