@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class CommunityFragment_Freeboard extends Fragment implements View.OnClickListener, View.OnKeyListener  {
+public class CommunityFragment_Freeboard extends Fragment implements View.OnClickListener  {
 
     CommunityAdapter mAdapter;
     ViewPager2 viewPager2;
@@ -60,38 +61,22 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
         mWrite=view.findViewById(R.id.tv_community_btn_write);
         mWrite.setOnClickListener(this);
         mBoardSearch=view.findViewById(R.id.et_community_boardsearch);
-        mBoardSearch.setOnKeyListener(this);
 
-        mBoardSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        mBoardSearch.setOnEditorActionListener((v, actionId, event) -> {
+            switch (actionId) {
+                case EditorInfo.IME_ACTION_SEARCH:
+                    tabLayout.setScrollPosition(1,0,true);
+                    viewPager2.setCurrentItem(1);
+                    CommunitySearchFragment.inst.ListUpdate(mBoardSearch.getText().toString());
+                    break;
+                default:
+                    tabLayout.setScrollPosition(1,0,true);
+                    viewPager2.setCurrentItem(1);
+                    CommunitySearchFragment.inst.ListUpdate(mBoardSearch.getText().toString());
+                    break;
             }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if(viewPager2.getCurrentItem()==0)
-                {
-
-                }
-
-                if(viewPager2.getCurrentItem()==1)
-                {
-
-                }
-
-                if(viewPager2.getCurrentItem()==2)
-                {
-
-                }
-            }
+            return true;
         });
-
 
         //밑줄
         SpannableString content = new SpannableString(mWrite.getText());
@@ -102,11 +87,11 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) { //탭 목록
                 switch(position){
                     case 0:{
-                        tab.setText("최신"); //
+                        tab.setText("최신");
                         break;
                     }
                     case 1:{
-                        tab.setText("인기");
+                        tab.setText("검색");
                         break;
                     }
                     case 2:{
@@ -136,15 +121,5 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
         }
 
     }
-
-    //엔터키
-    @Override
-    public boolean onKey(View view, int i, KeyEvent keyEvent) {
-        if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
-            return true;
-        }
-        return false;
-    }
-
 
 }

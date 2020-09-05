@@ -5,13 +5,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.saojeong.fragment.CommunitySearchFragment;
 import com.example.saojeong.fragment.CommunityTabFragment;
-import com.example.saojeong.fragment.Community_Popularity_Fragment;
 import com.example.saojeong.fragment.Community_User_Fragment;
 
 public class CommunityAdapter extends FragmentStateAdapter {
     public CommunityAdapter(FragmentActivity fa){
         super(fa);
+        new CommunityTabFragment();
+        new CommunitySearchFragment();
+        new Community_User_Fragment();
+
+
     }
 
     @NonNull
@@ -20,11 +25,11 @@ public class CommunityAdapter extends FragmentStateAdapter {
         position++;
         switch(position){
             case 1:
-                return new CommunityTabFragment();
+                return  CommunityTabFragment.inst;
             case 2:
-                return new Community_Popularity_Fragment();
+                return  CommunitySearchFragment.inst;
             default:
-                return new Community_User_Fragment();
+                return  new Community_User_Fragment();
         }
 
     }

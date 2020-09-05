@@ -119,7 +119,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
                     break;
                 case R.id.ll_community_home:
                     CommunityFragment_Freeboard.inst.tabLayout.setScrollPosition(0,0,true);
-                    viewPager2.setCurrentItem(0);
                     break;
                 case R.id.ll_community_re:
                     CommunityTabFragment.inst.load_GetPost();
@@ -132,8 +131,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
                             }
                             break;
                         case 1:
-                            if (Community_Popularity_Fragment.scroll != null) {
-                                Community_Popularity_Fragment.scroll.fullScroll(View.FOCUS_UP);
+                            if (CommunitySearchFragment.scroll != null) {
+                                CommunitySearchFragment.scroll.fullScroll(View.FOCUS_UP);
                             }
                             break;
                         case 2:
