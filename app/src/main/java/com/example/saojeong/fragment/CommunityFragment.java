@@ -122,6 +122,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
                     break;
                 case R.id.ll_community_re:
                     CommunityTabFragment.inst.load_GetPost();
+                    CommunityUserFragment.inst.load_GetPost();
                     break;
                 case R.id.ll_community_upscroll:
                     switch( CommunityFragment_Freeboard.inst.viewPager2.getCurrentItem()) {
@@ -136,8 +137,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
                             }
                             break;
                         case 2:
-                            if (Community_User_Fragment.scroll != null) {
-                                Community_User_Fragment.scroll.fullScroll(View.FOCUS_UP);
+                            if (CommunityUserFragment.scroll != null) {
+                                CommunityUserFragment.scroll.fullScroll(View.FOCUS_UP);
                             }
                             break;
                     }

@@ -66,7 +66,7 @@ public class CommunityFragment_Notice extends Fragment{
                 GetPostListArrayDto body = response.body();
                 if (response.code() == 201) { // 서버와 통신 성공
                     mCommunityNormalValue = CommunityValue.createContactsList(body.getNormal());
-                    mCommunityHotValue = CommunityValue.createContactsList(body.getHot());
+                    mCommunityHotValue.clear();
                     mAdapter = new CommunityAdapter_item( mCommunityHotValue, mCommunityNormalValue,(MainActivity)getActivity());
                 } else {
                 }
