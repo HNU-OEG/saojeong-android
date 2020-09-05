@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder> implements Filterable {
+public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter_item.ViewHolder> {
     public MainActivity RootActivity;
 
 
@@ -72,37 +72,6 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
         RootActivity=activity;
         mNormalListAll=new ArrayList<>(mNormalContacts);
     }
-    @Override
-    public Filter getFilter() {
-        return filter;
-    }
-
-    Filter filter= new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<CommunityValue> filteredList=new ArrayList<>();
-            if(charSequence.toString().isEmpty()) {
-                filteredList.addAll(CommunityTabFragment.inst.mCommunityNormalValue);
-            }
-            else{
-                for(CommunityValue communitylist:CommunityTabFragment.inst.mCommunityNormalValue){
-                    if(communitylist.getTitle().toLowerCase().contains(charSequence.toString().toLowerCase()))
-                        filteredList.add(communitylist);
-                }
-            }
-            FilterResults filterResults=new FilterResults();
-            filterResults.values=filteredList;
-            return filterResults;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            mNormalListAll.clear();
-            mNormalListAll.addAll((Collection<? extends CommunityValue>) filterResults.values);
-            notifyDataSetChanged();
-
-        }
-    };
 
 
     @Override
@@ -157,7 +126,7 @@ public class CommunityAdapter_item extends RecyclerView.Adapter<CommunityAdapter
             else
                 return mNormalContacts.size()%10;
         }
-        return mHotContacts.size()+mNormalContacts.size();
+        return mNormalContacts.size();
     }
 
     public void UpBoard()

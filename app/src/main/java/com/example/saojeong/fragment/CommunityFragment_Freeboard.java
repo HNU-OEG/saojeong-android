@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -62,35 +63,21 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
         mBoardSearch=view.findViewById(R.id.et_community_boardsearch);
         mBoardSearch.setOnKeyListener(this);
 
-        mBoardSearch.addTextChangedListener(new TextWatcher() {
+        mBoardSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if(viewPager2.getCurrentItem()==0)
-                {
-
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                switch (actionId) {
+                    case EditorInfo.IME_ACTION_SEARCH:
+                        CommunityTabFragment.inst.ListUpdate(mBoardSearch.getText().toString());
+                        break;
+                    default:
+                        // 기본 엔터키 동작
+                        return false;
                 }
-
-                if(viewPager2.getCurrentItem()==1)
-                {
-
-                }
-
-                if(viewPager2.getCurrentItem()==2)
-                {
-
-                }
+                return true;
             }
         });
+
 
 
         //밑줄

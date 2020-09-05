@@ -139,7 +139,34 @@ public class CommunityTabFragment extends Fragment implements View.OnClickListen
                 btnRight.setVisibility(View.VISIBLE);
         }
     }
+    public void ListUpdate(String str) {
+        boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
+        boardService.getPostList(10004).enqueue(new Callback<GetPostListArrayDto>() {
+            @Override
+            public void onResponse(Call<GetPostListArrayDto> call, Response<GetPostListArrayDto> response) {
+                GetPostListArrayDto body = response.body();
+                if (response.code() == 201) {
+                    mCommunityNormalValue = CommunityValue.createContactsList(body.getNormal());
+                    mCommunityHotValue.clear();
+                    btnLeft.setVisibility(View.GONE);
+                    if(mCommunityHotValue.size()+mCommunityNormalValue.size()>10) {
+                        btnRight.setVisibility(View.VISIBLE);
+                    }
+                    else
+                        btnRight.setVisibility(View.GONE);
+                    mAdapter = new CommunityAdapter_item(mCommunityHotValue, mCommunityNormalValue,(MainActivity)getActivity());
+                } else {
+                }
+                mRecyclerViewCommunity.setAdapter(mAdapter);
+                mRecyclerViewCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
+            }
 
+            @Override
+            public void onFailure(Call<GetPostListArrayDto> call, Throwable t) {
+                Log.d("fail", t.getMessage());
+            }
+        });
+    }
     public void btn_Left(){
         if(board!=0) {
             mAdapter.DownBoard();
