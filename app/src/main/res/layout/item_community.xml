@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
     <LinearLayout
-        android:id="@+id/ll_community_item"
         android:layout_width="278dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -86,7 +85,6 @@
         tools:ignore="NotSibling">
 
             <TextView
-                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -106,7 +104,6 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/community_bottomBar"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_centerHorizontal="true"

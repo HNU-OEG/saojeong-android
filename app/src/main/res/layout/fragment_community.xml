@@ -136,7 +136,6 @@
                 app:popupTheme="@style/AppTheme.AppBarOverlay">
 
                 <TextView
-                    android:id="@+id/tool11bar"
                     android:layout_width="wrap_content"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_gravity="center"

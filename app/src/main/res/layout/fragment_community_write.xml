@@ -27,7 +27,6 @@
                 >
 
                 <TextView
-                    android:id="@+id/tool11bar"
                     android:layout_width="wrap_content"
                     android:layout_height="?attr/actionBarSize"
                     android:text="커뮤니티"
