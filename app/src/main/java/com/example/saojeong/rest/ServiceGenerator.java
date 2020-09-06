@@ -1,8 +1,6 @@
 package com.example.saojeong.rest;
 
 import android.text.TextUtils;
-
-import com.example.saojeong.R;
 import com.example.saojeong.util.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

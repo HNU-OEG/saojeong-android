@@ -1,11 +1,8 @@
 package com.example.saojeong.rest.service;
 
 import com.example.saojeong.rest.dto.Login_Dto;
-
 import java.util.HashMap;
-
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Observer;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

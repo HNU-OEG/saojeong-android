@@ -2,10 +2,7 @@ package com.example.saojeong.login;
 
 import android.app.Activity;
 import android.content.Intent;
-
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
@@ -23,7 +20,6 @@ public class FacebookLogin implements LoginControl  {
         mhandler = loginHandler;
         init();
     }
-
     private void init() {
         mCallbackManager = CallbackManager.Factory.create();
         mLoginCallback = new FacebookLoginCallback() {
@@ -42,19 +38,14 @@ public class FacebookLogin implements LoginControl  {
                 FacebookLogin.this.mhandler.error(error);
             }
         };
-
         LoginManager.getInstance().registerCallback(mCallbackManager,mLoginCallback);
-
     }
-
     public void Login(Activity activity) {
         LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList(this.mPermissions));
     }
-
     public void Logout() {
         LoginManager.getInstance().logOut();
     }
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         this.mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
