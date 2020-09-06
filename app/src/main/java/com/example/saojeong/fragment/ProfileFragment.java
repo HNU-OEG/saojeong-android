@@ -158,7 +158,7 @@ public class ProfileFragment extends Fragment {
         });
 
         btn_log_out.setOnClickListener((v) -> {
-            AllLoginManager.inst.logout((MainActivity)getActivity());
+            AllLoginManager.getInstance().logout((MainActivity)getActivity());
             Intent intentTutorial = new Intent((MainActivity)getActivity(), TutorialActivity.class);
             startActivity(intentTutorial);
         });
@@ -215,7 +215,7 @@ public class ProfileFragment extends Fragment {
 //            });
 
             //AllLoginManager loginManager = new AllLoginManager((MainActivity)getActivity(), (MainActivity)getContext());
-            AllLoginManager.inst.editUsernickname(activity, new_name);
+            AllLoginManager.getInstance().editUsernickname(activity, new_name);
 
             ((Activity) view.getContext()).onBackPressed();
             //((MainActivity) getActivity()).replaceFragment(MyPageFragment.newInstance());

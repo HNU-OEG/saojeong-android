@@ -43,7 +43,7 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        AllLoginManager.inst.onActivityResult(requestCode,resultCode,data);
+        AllLoginManager.getInstance().onActivityResult(requestCode,resultCode,data);
 
     }
 

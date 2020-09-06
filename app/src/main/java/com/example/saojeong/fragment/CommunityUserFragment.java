@@ -39,22 +39,22 @@ import retrofit2.Response;
 
 public class CommunityUserFragment extends Fragment implements View.OnClickListener {
 
-    public static CommunityUserFragment inst;
     public CommunityAdapter_item mAdapter;
     public List<CommunityValue> mCommunityNormalValue;
     private List<CommunityValue> mCommunityHotValue;
     private TextView btnLeft;
     private TextView btnRight;
     private TextView tvBoard;
-    public static NestedScrollView scroll;
+    private static NestedScrollView scroll;
     public RecyclerView mRecyclerViewCommunity;
     private int board=0;
     private TextView SearchString;
     public CommunityUserFragment(){
-        if(inst==null)
-            inst=this;
     }
 
+    public NestedScrollView getScroll(){
+        return scroll;
+    }
     private BoardService boardService;
     @Nullable
     @Override

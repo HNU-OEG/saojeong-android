@@ -64,11 +64,11 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.login_facebook:
-                    AllLoginManager.inst.login("FACEBOOK", mActivity);
+                    AllLoginManager.getInstance().login("FACEBOOK", mActivity);
 
                     break;
                 case R.id.login_kakaotalk:
-                    AllLoginManager.inst.login("KAKAO", mActivity);
+                    AllLoginManager.getInstance().login("KAKAO", mActivity);
                     break;
                 case R.id.login_naver:
                     AlertBuilder.createDialog(mActivity, "죄송합니다", "네이버와 협의중입니다.")
@@ -81,7 +81,7 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
 //                    AllLoginManager.inst.login("GOOGLE", mActivity);
                     break;
                 case R.id.login_guest:
-                    AllLoginManager.inst.login("guest", mActivity);
+                    AllLoginManager.getInstance().login("guest", mActivity);
                     break;
             }
         }

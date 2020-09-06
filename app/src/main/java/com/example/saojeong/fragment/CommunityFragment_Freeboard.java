@@ -24,6 +24,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.SingletonClass;
 import com.example.saojeong.adapter.CommunityAdapter;
 import com.example.saojeong.model.ChartContact;
 import com.example.saojeong.model.CommunityValue;
@@ -67,12 +68,12 @@ public class CommunityFragment_Freeboard extends Fragment implements View.OnClic
                 case EditorInfo.IME_ACTION_SEARCH:
                     tabLayout.setScrollPosition(1,0,true);
                     viewPager2.setCurrentItem(1);
-                    CommunitySearchFragment.inst.ListUpdate(mBoardSearch.getText().toString());
+                    SingletonClass.getCommunitySearchInstance().ListUpdate(mBoardSearch.getText().toString());
                     break;
                 default:
                     tabLayout.setScrollPosition(1,0,true);
                     viewPager2.setCurrentItem(1);
-                    CommunitySearchFragment.inst.ListUpdate(mBoardSearch.getText().toString());
+                    SingletonClass.getCommunitySearchInstance().ListUpdate(mBoardSearch.getText().toString());
                     break;
             }
             return true;

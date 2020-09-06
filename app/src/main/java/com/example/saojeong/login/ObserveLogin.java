@@ -55,9 +55,9 @@ public class ObserveLogin implements Observer<Login_Dto> {
     public void onError(@NonNull Throwable e) {
 
         if (type.equals("oneUpdate"))
-            AllLoginManager.inst.logout(mActivity);
-        AllLoginManager.inst.logout(mActivity, type);
-        AllLoginManager.inst.NetworkCheck = false;
+            AllLoginManager.getInstance().logout(mActivity);
+        AllLoginManager.getInstance().logout(mActivity, type);
+        AllLoginManager.getInstance().NetworkCheck = false;
     }
 
     @Override
@@ -68,8 +68,8 @@ public class ObserveLogin implements Observer<Login_Dto> {
             mActivity.finish();
         }
         if (type.equals("oneUpdate"))
-            AllLoginManager.inst.oneUpdate = true;
-        AllLoginManager.inst.NetworkCheck = false;
+            AllLoginManager.getInstance().oneUpdate = true;
+        AllLoginManager.getInstance().NetworkCheck = false;
 
     }
 }

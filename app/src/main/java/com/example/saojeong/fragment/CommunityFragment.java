@@ -20,6 +20,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.SingletonClass;
 import com.example.saojeong.adapter.CommunityAdapter;
 import com.example.saojeong.adapter.CommunityAdapter_fragment;
 import com.google.android.material.tabs.TabLayout;
@@ -109,36 +110,36 @@ import com.google.android.material.tabs.TabLayoutMediator;
                     break;
                 case R.id.ll_community_left:
                     if( CommunityFragment_Freeboard.inst.viewPager2.getCurrentItem()==0)
-                        CommunityTabFragment.inst.btn_Left();
+                        SingletonClass.getCommunityTabInstance().btn_Left();
 
                     break;
                 case R.id.ll_community_right:
                     int a=viewPager2.getCurrentItem();
                     if( CommunityFragment_Freeboard.inst.viewPager2.getCurrentItem()==0)
-                        CommunityTabFragment.inst.btn_Right();
+                        SingletonClass.getCommunityTabInstance().btn_Right();
                     break;
                 case R.id.ll_community_home:
                     CommunityFragment_Freeboard.inst.tabLayout.setScrollPosition(0,0,true);
                     break;
                 case R.id.ll_community_re:
-                    CommunityTabFragment.inst.load_GetPost();
-                    CommunityUserFragment.inst.load_GetPost();
+                    SingletonClass.getCommunityTabInstance().load_GetPost();
+                    SingletonClass.getCommunityUserInstance().load_GetPost();
                     break;
                 case R.id.ll_community_upscroll:
                     switch( CommunityFragment_Freeboard.inst.viewPager2.getCurrentItem()) {
                         case 0:
-                            if (CommunityTabFragment.scroll != null) {
-                                CommunityTabFragment.scroll.fullScroll(View.FOCUS_UP);
+                            if (SingletonClass.getCommunityTabInstance().getScroll() != null) {
+                                SingletonClass.getCommunityTabInstance().getScroll().fullScroll(View.FOCUS_UP);
                             }
                             break;
                         case 1:
-                            if (CommunitySearchFragment.scroll != null) {
-                                CommunitySearchFragment.scroll.fullScroll(View.FOCUS_UP);
+                            if (SingletonClass.getCommunitySearchInstance().getScroll() != null) {
+                                SingletonClass.getCommunitySearchInstance().getScroll().fullScroll(View.FOCUS_UP);
                             }
                             break;
                         case 2:
-                            if (CommunityUserFragment.scroll != null) {
-                                CommunityUserFragment.scroll.fullScroll(View.FOCUS_UP);
+                            if (SingletonClass.getCommunityUserInstance().getScroll() != null) {
+                                SingletonClass.getCommunityUserInstance().getScroll().fullScroll(View.FOCUS_UP);
                             }
                             break;
                     }

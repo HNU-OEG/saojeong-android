@@ -102,11 +102,11 @@ public class MainActivity extends AppCompatActivity {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                AllLoginManager.inst.login("UPDATE", activity);
+                AllLoginManager.getInstance().login("UPDATE", activity);
             }
         };
         Timer timer = new Timer();
-        timer.schedule(timerTask, 0, 60 * 1000 * 5);
+        timer.schedule(timerTask, 60 * 1000 * 5, 60 * 1000 * 5);
         pressedTime = 0;
     }
 
@@ -292,13 +292,13 @@ public class MainActivity extends AppCompatActivity {
     @Override //로그인 받아오기
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        AllLoginManager.inst.onActivityResult(requestCode, resultCode, data);
+        AllLoginManager.getInstance().onActivityResult(requestCode, resultCode, data);
 
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AllLoginManager.inst.Destroy(this);
+        AllLoginManager.getInstance().Destroy(this);
     }
 }
