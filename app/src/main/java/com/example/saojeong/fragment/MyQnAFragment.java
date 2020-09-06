@@ -125,7 +125,7 @@ public class MyQnAFragment extends Fragment {
                 myQnAadapter.setOnItemClickListener(new OnItemClickListener<MyQnAadapter.ViewHolder>() {
                     @Override
                     public void onItemClick(MyQnAadapter.ViewHolder holder) {
-                        MyQnAItemFragment targetFragment = myQnAItemFragment.newInstance(holder.documentId);
+                        MyQnAItemFragment targetFragment = MyQnAItemFragment.newInstance(holder.documentId);
                         MainActivity activity = (MainActivity) getActivity();
                         activity.replaceFragment(targetFragment);
                     }

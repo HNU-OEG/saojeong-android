@@ -205,7 +205,7 @@ public class ShopListFragment extends Fragment {
         recyclerOpenedShop.addItemDecoration(bottomDecoration);
         recyclerOpenedShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         shopOpenedAdapter.setOnItemClickListener(holder -> {
-            ShopFragment targetFragment = shopFragment.newInstance(holder.storeId, ShopListFragment.newInstance(type));
+            ShopFragment targetFragment = ShopFragment.newInstance(holder.storeId, ShopListFragment.newInstance(type));
             MainActivity activity = (MainActivity) getActivity();
             activity.replaceFragment(targetFragment);
         });
@@ -214,7 +214,7 @@ public class ShopListFragment extends Fragment {
         recyclerClosedShop.addItemDecoration(bottomDecoration);
         recyclerClosedShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         shopClosedAdapter.setOnItemClickListener(holder -> {
-            ShopFragment targetFragment = shopFragment.newInstance(holder.storeId, ShopListFragment.newInstance(type));
+            ShopFragment targetFragment = ShopFragment.newInstance(holder.storeId, ShopListFragment.newInstance(type));
             MainActivity activity = (MainActivity) getActivity();
             activity.replaceFragment(targetFragment);
         });

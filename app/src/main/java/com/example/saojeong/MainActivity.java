@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         transaction.replace(R.id.frameLayout_main, homeFragment).addToBackStack(null)
                 .commitAllowingStateLoss();
-        ; //시작화면에 Home 띄우기
+        //시작화면에 Home 띄우기
         mhome.setImageResource(R.drawable.home_orange); //시작과 동시에 홈 오렌지색으로 변경
         activity_tag = "homeFragment";
         activity = this;

@@ -1,6 +1,7 @@
 package com.example.saojeong.login;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ public class CallBackLogin implements Callback<Login_Dto> {
         int a=response.code();
         if(response.code()==200 ||response.code()== 201) {
             Login_Dto body = response.body();
-            SharedPreferences pref = mActivity.getSharedPreferences("SHARE_PREF", mActivity.MODE_PRIVATE);
+            SharedPreferences pref = mActivity.getSharedPreferences("SHARE_PREF", Context.MODE_PRIVATE);
             SharedPreferences.Editor editer = pref.edit();
             if(body.accessToken!=null) {
                 String str1 = body.accessToken;

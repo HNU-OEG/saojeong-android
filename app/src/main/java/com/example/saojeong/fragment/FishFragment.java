@@ -123,7 +123,7 @@ public class FishFragment extends Fragment {
         recyclerOpenedShop.addItemDecoration(bottomDecoration);
         recyclerOpenedShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         shopOpenedAdapter.setOnItemClickListener(holder -> {
-            ShopFragment targetFragment = shopFragment.newInstance(holder.storeId);
+            ShopFragment targetFragment = ShopFragment.newInstance(holder.storeId);
             MainActivity activity = (MainActivity) getActivity();
             activity.replaceFragment(targetFragment);
         });
@@ -132,7 +132,7 @@ public class FishFragment extends Fragment {
         recyclerClosedShop.addItemDecoration(bottomDecoration);
         recyclerClosedShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
         shopClosedAdapter.setOnItemClickListener(holder -> {
-            ShopFragment targetFragment = shopFragment.newInstance(holder.storeId);
+            ShopFragment targetFragment = ShopFragment.newInstance(holder.storeId);
             MainActivity activity = (MainActivity) getActivity();
             activity.replaceFragment(targetFragment);
         });

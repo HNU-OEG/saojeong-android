@@ -1,6 +1,7 @@
 package com.example.saojeong.login;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.saojeong.auth.TokenCase;
@@ -13,7 +14,7 @@ public class LoginToken {
     private static String RefreshToken = "";
 
     public static void setToken(Activity activity) {
-        SharedPreferences pref = activity.getSharedPreferences("SHARE_PREF", activity.MODE_PRIVATE);
+        SharedPreferences pref = activity.getSharedPreferences("SHARE_PREF", Context.MODE_PRIVATE);
         AccessToken = pref.getString("AccessToken", "");
         RefreshToken = pref.getString("RefreshToken", "");
     }
@@ -36,7 +37,7 @@ public class LoginToken {
     }
 
     public static void deleteToken(Activity activity) {
-        SharedPreferences pref = activity.getSharedPreferences("SHARE_PREF", activity.MODE_PRIVATE);
+        SharedPreferences pref = activity.getSharedPreferences("SHARE_PREF", Context.MODE_PRIVATE);
         AccessToken = null;
         RefreshToken = null;
         SharedPreferences.Editor editer = pref.edit();
