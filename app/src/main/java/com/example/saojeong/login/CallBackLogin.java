@@ -49,7 +49,7 @@ public class CallBackLogin implements Callback<Login_Dto> {
             editer.apply();
             editer.commit();
             LoginToken.setToken(mActivity);
-            AllLoginManager.inst.NetworkCheck=false;
+            AllLoginManager.getInstance().NetworkCheck=false;
             if(login) {
                 Intent intent = new Intent(mActivity, MainActivity.class);
                 mActivity.startActivity(intent);
@@ -59,15 +59,15 @@ public class CallBackLogin implements Callback<Login_Dto> {
         else
         {
             Toast.makeText(mActivity,"접속에러", Toast.LENGTH_SHORT).show();
-            AllLoginManager.inst.logout(mActivity,type);
+            AllLoginManager.getInstance().logout(mActivity,type);
             //평소엔 에러날일이없으므로 토큰삭제
-            AllLoginManager.inst.NetworkCheck=false;
+            AllLoginManager.getInstance().NetworkCheck=false;
         }
     }
 
     @Override
     public void onFailure(Call<Login_Dto> call, Throwable t) {
         Toast.makeText(mActivity,"접속에러", Toast.LENGTH_SHORT).show();
-        AllLoginManager.inst.NetworkCheck=false;
+        AllLoginManager.getInstance().NetworkCheck=false;
     }
 }

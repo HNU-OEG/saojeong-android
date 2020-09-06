@@ -17,8 +17,10 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.saojeong.IntroPage;
 import com.example.saojeong.MainActivity;
+import com.example.saojeong.SingletonClass;
 import com.example.saojeong.TutorialActivity;
 import com.example.saojeong.auth.TokenCase;
+import com.example.saojeong.fragment.CommunityTabFragment;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.Login_Dto;
 import com.example.saojeong.rest.service.Login_Guest;
@@ -49,7 +51,7 @@ public class AllLoginManager {
     private final String TAG = "AllLoginManager Error";
     private final int GOOGLE_REQUESTCODE = 9003;
     private final int FACEBOOK_REQUESTCODE = 64206;
-    public static AllLoginManager inst;
+    private static AllLoginManager inst;
     HashMap<String, LoginControl> map;
     private Login_Guest Login_GuestService;
     private Activity mActivity;
@@ -57,6 +59,13 @@ public class AllLoginManager {
     public Boolean NetworkCheck;
     public Boolean oneUpdate;
 
+
+    public static AllLoginManager getInstance(){
+        if(inst == null){
+            Log.d("LoginEror", "LoginSingleton NULL");
+        }
+        return inst;
+    }
     public AllLoginManager(Activity activity, Context context) {
 
         mActivity = activity;
@@ -213,6 +222,7 @@ public class AllLoginManager {
 
     @SneakyThrows
     private void loadlogin(String Type) {
+        AllLoginManager.getInstance().NetworkCheck = true;
         switch (Type) {
             case "facebook":
                 Login_GuestService.FaceBookLogin().subscribeOn(Schedulers.io()) // the observable is emitted on io thread

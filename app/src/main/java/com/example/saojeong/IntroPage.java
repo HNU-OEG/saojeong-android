@@ -23,11 +23,10 @@ public class IntroPage extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         kakaoControl.init(getApplication());
-        AllLoginManager allLoginManager = new AllLoginManager(this, this);
-        AllLoginManager.inst=allLoginManager;
+        new AllLoginManager(this, this);
         SharedPreferences shared = getApplicationContext().getSharedPreferences("SHARE_PREF", Context.MODE_PRIVATE);
         String accessToken = shared.getString("AccessToken", "");
-
+        AllLoginManager.getInstance().login("UPDATE", this);
         Intent intent;
         if (accessToken.equals("")) {
             intent = new Intent(IntroPage.this, TutorialActivity.class);
