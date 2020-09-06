@@ -1,35 +1,26 @@
 package com.example.saojeong.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.CommunityAdapter_item;
 import com.example.saojeong.auth.TokenCase;
-import com.example.saojeong.model.ChartContact;
 import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
 import com.example.saojeong.rest.service.BoardService;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,16 +28,15 @@ import retrofit2.Response;
 
 public class CommunitySearchFragment extends Fragment implements View.OnClickListener {
 
-    public CommunityAdapter_item mAdapter;
-    public List<CommunityValue> mCommunityNormalValue;
+    private CommunityAdapter_item mAdapter;
+    private List<CommunityValue> mCommunityNormalValue;
     private List<CommunityValue> mCommunityHotValue;
     private TextView btnLeft;
     private TextView btnRight;
     private TextView tvBoard;
     private static NestedScrollView scroll;
-    public RecyclerView mRecyclerViewCommunity;
+    private RecyclerView mRecyclerViewCommunity;
     private int board=0;
-    private TextView SearchString;
     public CommunitySearchFragment(){
     }
 
@@ -71,13 +61,9 @@ public class CommunitySearchFragment extends Fragment implements View.OnClickLis
         tvBoard.setText(board+1+"");
         return view;
     }
-
-
-
     @Override
     public void onClick(View view) {
         int id=view.getId();
-
         switch(id) {
             case R.id.tv_community_btn_Left:
                 btn_Left();
@@ -87,8 +73,6 @@ public class CommunitySearchFragment extends Fragment implements View.OnClickLis
                 break;
         }
     }
-
-
 
     public void btn_Right(){
         if((board+1)*10<mCommunityNormalValue.size()) {
@@ -126,10 +110,7 @@ public class CommunitySearchFragment extends Fragment implements View.OnClickLis
                         } else
                             btnRight.setVisibility(View.GONE);
                         mAdapter = new CommunityAdapter_item(mCommunityHotValue, mCommunityNormalValue, (MainActivity) getActivity());
-
-
                     }
-
                     else {
                         mCommunityNormalValue.clear();
                     }
@@ -140,11 +121,9 @@ public class CommunitySearchFragment extends Fragment implements View.OnClickLis
 
             @Override
             public void onFailure(Call<GetPostListArrayDto> call, Throwable t) {
-                Log.d("fail", t.getMessage());
             }
         });
     }
-
     public void btn_Left(){
         if(board!=0) {
             mAdapter.DownBoard();

@@ -7,7 +7,6 @@ import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,22 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.board.CreatePostDto;
-import com.example.saojeong.rest.dto.board.GetPostDto;
 import com.example.saojeong.rest.service.BoardService;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,13 +32,9 @@ import retrofit2.Response;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class Community_WriteFragment extends Fragment {
-
-    //   private Community_Service community_Service;
     private InputMethodManager imm;
-    private final String LOG = "CommunityWrite";
-
-    EditText et_Title;
-    EditText et_Content;
+    private EditText et_Title;
+    private EditText et_Content;
     private BoardService boardService;
     @Nullable
     @Override
@@ -55,7 +44,6 @@ public class Community_WriteFragment extends Fragment {
         boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
         imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-
         Toolbar toolbar = view.findViewById(R.id.community_write_toolbar);
         et_Title = view.findViewById(R.id.et_community_write_title);
         et_Content = view.findViewById(R.id.et_community_write_content);
@@ -74,7 +62,6 @@ public class Community_WriteFragment extends Fragment {
         s.setSpan(new AbsoluteSizeSpan(30), 0, s.length(),  Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         s.setSpan(new UnderlineSpan(), 0, s.length(),0);
         item.setTitle(s);
-
         super.onCreateOptionsMenu(menu,inflater);
     }
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -93,13 +80,13 @@ public class Community_WriteFragment extends Fragment {
         String strTitle=et_Title.getText().toString();
         if(strTitle.length()==0)
         {
-            //제목을 입력하세요
+            //제목
             return;
         }
         String strContent=et_Content.getText().toString();
         if(strContent.length()==0)
         {
-            //내용을 입력하세요
+            //내용
             return;
         }
         createPost(strTitle,strContent);
@@ -112,11 +99,8 @@ public class Community_WriteFragment extends Fragment {
 
                 if (response.code() == 201) {
                     if (response.code() == 201) {
-                    CreatePostDto body = response.body();
-                    Log.d(LOG, "전송완료");
-                    getActivity().onBackPressed();
-                }
-                    Log.d(LOG, response.message());
+                        getActivity().onBackPressed();
+                    }
                 } else {
 
                 }
@@ -124,7 +108,6 @@ public class Community_WriteFragment extends Fragment {
 
             @Override
             public void onFailure(Call<CreatePostDto> call, Throwable t) {
-                Log.d("fail", t.getMessage());
             }
         });
     }

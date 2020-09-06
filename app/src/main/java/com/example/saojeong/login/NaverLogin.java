@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
-
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 
@@ -54,19 +53,13 @@ public class NaverLogin implements LoginControl {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
     }
-
     @Override
     public void Login(Activity activity) {
         OAuthLogin.getInstance().startOauthLoginActivity(activity, mOAuthLoginHandler);
     }
-
     @Override
     public void Logout() {
-        //토큰삭제
-        //mOAuthLoginInstance.logoutAndDeleteToken(mContext);
         OAuthLogin.getInstance().logout(mContext);
     }
-
-
 }
 

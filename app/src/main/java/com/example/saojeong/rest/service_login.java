@@ -1,8 +1,6 @@
 package com.example.saojeong.rest;
 
 import android.text.TextUtils;
-
-import com.example.saojeong.rest.AuthenticationInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

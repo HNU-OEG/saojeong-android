@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.util.Log;
-
 import androidx.annotation.Nullable;
-
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.KakaoSDK;
@@ -51,7 +49,6 @@ public class kakaoControl implements ISessionCallback, LoginControl {
     public void Logout() {
         UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
             public void onCompleteLogout() {
-                Log.i("KAKAO_API", "로그아웃 완료");
             }
         });
     }
@@ -63,13 +60,11 @@ public class kakaoControl implements ISessionCallback, LoginControl {
     }
 
     public void onSessionOpened() { //콜백
-        Log.i("KAKAO_SESSION", "로그인 성공");
         kakaoControl.this.handler.success();
     }
 
     public void onSessionOpenFailed(KakaoException kakaoException) {
         kakaoControl.this.handler.error(kakaoException);
-        Log.e("KAKAO_SESSION", "로그인 실패", kakaoException);
-}
+    }
 
 }
