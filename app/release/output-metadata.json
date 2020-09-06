@@ -21,34 +21,6 @@
       "filters": [
         {
           "filterType": "DENSITY",
-          "value": "hdpi"
-        }
-      ],
-      "properties": [],
-      "versionCode": 1,
-      "versionName": "1.0",
-      "enabled": true,
-      "outputFile": "app-hdpi-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "DENSITY",
-          "value": "xxxhdpi"
-        }
-      ],
-      "properties": [],
-      "versionCode": 1,
-      "versionName": "1.0",
-      "enabled": true,
-      "outputFile": "app-xxxhdpi-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "DENSITY",
           "value": "xhdpi"
         }
       ],
@@ -71,6 +43,34 @@
       "versionName": "1.0",
       "enabled": true,
       "outputFile": "app-xxhdpi-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "DENSITY",
+          "value": "xxxhdpi"
+        }
+      ],
+      "properties": [],
+      "versionCode": 1,
+      "versionName": "1.0",
+      "enabled": true,
+      "outputFile": "app-xxxhdpi-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "DENSITY",
+          "value": "hdpi"
+        }
+      ],
+      "properties": [],
+      "versionCode": 1,
+      "versionName": "1.0",
+      "enabled": true,
+      "outputFile": "app-hdpi-release.apk"
     }
   ]
 }
