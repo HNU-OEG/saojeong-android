@@ -1,6 +1,8 @@
 package com.example.saojeong.rest;
 
 import android.text.TextUtils;
+
+import com.example.saojeong.util.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -12,7 +14,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class service_login {
-    public static final String API_BASE_URL = "https://saojeong-dev.hnulinc.c11.kr/";
+    public static final String API_BASE_URL = StringUtils.getServerUrl();
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -40,7 +42,7 @@ public class service_login {
 
             if (!httpClient.interceptors().contains(interceptor)) {
                 httpClient.addInterceptor(interceptor);
-                httpClient.connectTimeout(1, TimeUnit.SECONDS);
+                httpClient.connectTimeout(3, TimeUnit.SECONDS);
                 httpClient.readTimeout(5, TimeUnit.SECONDS);
                 httpClient.writeTimeout(3, TimeUnit.SECONDS);
                 builder.client(httpClient.build());
