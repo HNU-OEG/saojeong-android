@@ -133,7 +133,7 @@ public class ShopFragment extends Fragment {
 //                        Log.d("DTO", body.toString());
 //                        Log.d("DTO.MERCHANDISE", body.getStoreMerchandise().toString());
 //                        Log.d("DTO.STORE_DETAIL", body.getStoreDetail().toString());
-                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
+//                        Log.d("DTO.STORE_DETAIL", body.getStoreGrade().toString());
                         tvStoreName.setText(body.getStoreDetail().getStoreName());
                         tvStoreNumber.setText(body.getStoreDetail().getStoreIndexholder() + "번");
                         contactShopDetails = ContactShopDetail.createContactsList(body.getStoreDetail());
@@ -216,7 +216,7 @@ public class ShopFragment extends Fragment {
                 ((MainActivity) getActivity()).replaceFragment(preFragment);
             }
         });
-        //((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.~~); // 뒤로가기 화살표 이미지 바꾸기
+
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitleTextColor(Color.BLACK);
@@ -225,9 +225,6 @@ public class ShopFragment extends Fragment {
         tabHost_Shop = (TabHost) rootView.findViewById(R.id.tabhost_shop);
         tabHost_Shop.setup();
 
-        TabHost.TabSpec selllist = tabHost_Shop.newTabSpec("판매 품목");
-        selllist.setContent(R.id.tabSl);
-        selllist.setIndicator("판매 품목"); //Tab Name
         TabHost.TabSpec detail = tabHost_Shop.newTabSpec("상세 정보");
         detail.setContent(R.id.tabDe);
         detail.setIndicator("상세 정보"); //Tab Name
@@ -235,7 +232,6 @@ public class ShopFragment extends Fragment {
         score.setContent(R.id.tabSc);
         score.setIndicator("평점"); //Tab Name
 
-        tabHost_Shop.addTab(selllist);
         tabHost_Shop.addTab(detail);
         tabHost_Shop.addTab(score);
 
@@ -245,19 +241,14 @@ public class ShopFragment extends Fragment {
             tabHost_Shop.getTabWidget().setStripEnabled(false);
         }
 
-        //시작시 Tab Color 지정
-        TextView Cselllist = (TextView) tabHost_Shop.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
-        Cselllist.setTextColor(Color.parseColor("#f67043"));
-        Cselllist.setTextSize(16);
-        Cselllist.setTypeface(null,Typeface.BOLD);
-        TextView Cdetail = (TextView) tabHost_Shop.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
+        TextView Cdetail = (TextView) tabHost_Shop.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
         Cdetail.setTextColor(Color.parseColor("#8c8c8c"));
         Cdetail.setTextSize(16);
-        Cdetail.setTypeface(null,Typeface.BOLD);
-        TextView Cscore = (TextView) tabHost_Shop.getTabWidget().getChildAt(2).findViewById(android.R.id.title);
+        Cdetail.setTypeface(null, Typeface.BOLD);
+        TextView Cscore = (TextView) tabHost_Shop.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
         Cscore.setTextColor(Color.parseColor("#8c8c8c"));
         Cscore.setTextSize(16);
-        Cscore.setTypeface(null,Typeface.BOLD);
+        Cscore.setTypeface(null, Typeface.BOLD);
 
         //Tab 바꿀 때 마다 색 변경
         tabHost_Shop.setOnTabChangedListener(s -> {
@@ -275,9 +266,6 @@ public class ShopFragment extends Fragment {
     }
 
     private void getDefaultAdapters() {
-        contactShopSellLists = ContactShopSellList.createContactsList(10);
-        shopSellListAdapter = new ShopSellListAdapter(contactShopSellLists);
-
         contactShopDetails = ContactShopDetail._createContactsList(1);
         shopDetailAdapter = new ShopDetailAdapter(contactShopDetails);
 
@@ -286,10 +274,6 @@ public class ShopFragment extends Fragment {
     }
 
     private void setAdapters() {
-        recyclerShopSellList.addItemDecoration(leftDecoration);
-        recyclerShopSellList.addItemDecoration(bottomDecoration);
-        recyclerShopSellList.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-        recyclerShopSellList.setAdapter(shopSellListAdapter);
 
         recyclerShopDetail.addItemDecoration(leftDecoration);
         recyclerShopDetail.addItemDecoration(bottomDecoration);

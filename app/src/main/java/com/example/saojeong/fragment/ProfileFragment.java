@@ -33,6 +33,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
+import com.example.saojeong.TutorialActivity;
 import com.example.saojeong.auth.TokenCase;
 import com.example.saojeong.login.AllLoginManager;
 import com.example.saojeong.rest.ServiceGenerator;
@@ -61,6 +62,7 @@ public class ProfileFragment extends Fragment {
     private Button btn_change_picture;
     private Button btn_save;
     private Button btn_sign_out;
+    private Button btn_log_out;
     private TextView tv_nickname;
     private EditText et_new_name;
     private TextView tv_duplicate_err;
@@ -93,6 +95,7 @@ public class ProfileFragment extends Fragment {
         btn_change_picture = view.findViewById(R.id.btn_change_picture);
         btn_save = view.findViewById(R.id.btn_save);
         btn_sign_out = view.findViewById(R.id.btn_sign_out);
+        btn_log_out = view.findViewById(R.id.btn_log_out);
         tv_nickname = view.findViewById(R.id.tv_nickname);
         et_new_name = view.findViewById(R.id.et_name);
         tv_duplicate_err = view.findViewById(R.id.tv_duplicate_err);
@@ -154,6 +157,12 @@ public class ProfileFragment extends Fragment {
 
         });
 
+        btn_log_out.setOnClickListener((v) -> {
+            AllLoginManager.getInstance().logout((MainActivity)getActivity());
+            Intent intentTutorial = new Intent((MainActivity)getActivity(), TutorialActivity.class);
+            startActivity(intentTutorial);
+        });
+
         et_new_name.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -184,8 +193,6 @@ public class ProfileFragment extends Fragment {
 
         btn_save.setOnClickListener((v) -> {
             ((MainActivity) getActivity()).closeKeyBoard(view);
-            ((Activity) view.getContext()).onBackPressed();
-
             String new_name = et_new_name.getText().toString();
 //            myPage_service.ModifiedName(new Edit_ProfileDto(new_name), TokenCase.getToken()).enqueue(new Callback<List<Edit_ProfileDto>>() {
 //
@@ -208,7 +215,9 @@ public class ProfileFragment extends Fragment {
 //            });
 
             //AllLoginManager loginManager = new AllLoginManager((MainActivity)getActivity(), (MainActivity)getContext());
-            AllLoginManager.inst.editUsernickname(activity, new_name);
+            AllLoginManager.getInstance().editUsernickname(activity, new_name);
+
+            ((Activity) view.getContext()).onBackPressed();
             //((MainActivity) getActivity()).replaceFragment(MyPageFragment.newInstance());
         });
 
@@ -238,7 +247,7 @@ public class ProfileFragment extends Fragment {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
         }
-        if (TextUtils.isEmpty(temp) == false) {
+        if (!TextUtils.isEmpty(temp)) {
             // 권한 요청
             ActivityCompat.requestPermissions(activity, temp.trim().split(" "), 1);
         } else {

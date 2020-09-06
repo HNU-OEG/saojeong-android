@@ -68,7 +68,6 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
     LinearLayout liLikeDown;
 
     LinearLayout testli;
-    // private Community_Service community_Service;
     public static String LOG="Comment";
     private BoardService boardService;
 
@@ -82,14 +81,12 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
-        view=inflater.inflate(R.layout.fragment_community_read, container, false); //0,2,외 이탭
+        view=inflater.inflate(R.layout.fragment_community_read, container, false);
 
         boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
 
-        //((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //((MainActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
         mtitle = view.findViewById(R.id.tv_community_read_title);
         mboard = view.findViewById(R.id.tv_community_read_board);
@@ -115,10 +112,6 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
         mComment_create.setText(content);
 
 
-
-        //SpannableString content = new SpannableString(mComment_btn.getText());
-        //content.setSpan(new UnderlineSpan(), 0, mComment_btn.getText().length(), 0);
-        //mComment_btn.setText(content);
         return view;
     }
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -161,9 +154,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
             @Override
             public void onResponse(Call<GetPostDto> call, Response<GetPostDto> response) {
                 GetPostDto body = response.body();
-
-
-                if (response.code() == 201) { // 서버와 통신 성공
+                if (response.code() == 201) {
                     mPostValue =new PostValue(body.getContentDto());
                     mtitle.setText(mPostValue.getTitle());
                     mboard.setText(mPostValue.getCategory());
@@ -185,9 +176,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                     mRecycleview.setLayoutManager(new LinearLayoutManager(getContext()));
                     mRecycleview.setNestedScrollingEnabled(false);
 
-                } else { // 서버에서 문제 발생
-                    //likeStores = ContactShopOC._createContactsList(20);
-                    //likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                } else {
                 }
             }
 
@@ -212,9 +201,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
 
                 if (response.code() == 201) {
                     // 서버와 통신 성공
-                } else { // 서버에서 문제 발생
-                    //likeStores = ContactShopOC._createContactsList(20);
-                    //likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                } else {
                 }
             }
 
@@ -234,9 +221,7 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
                     onResume();
                     Log.d(LOG, "전송완료");
                     Log.d(LOG, response.message());
-                } else { // 서버에서 문제 발생
-                    //likeStores = ContactShopOC._createContactsList(20);
-                    //likeStoreAdapter = new LikeStoreAdapter(likeStores);
+                } else {
                 }
             }
 
@@ -250,7 +235,8 @@ public class Community_ReadFragment extends Fragment implements View.OnClickList
             public void run() {
                 load_GetPost(true);
             }
-        }, 100);
+        }, 800);
     }
+
 
 }

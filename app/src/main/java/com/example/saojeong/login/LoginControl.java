@@ -5,7 +5,7 @@ import android.content.Intent;
 
 public interface LoginControl {
 
-    public interface LoginHandler {
+    interface LoginHandler {
         void cancel();
 
         void success();

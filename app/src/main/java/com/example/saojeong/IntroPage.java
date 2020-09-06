@@ -1,11 +1,19 @@
 package com.example.saojeong;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.saojeong.auth.TokenCase;
+import com.example.saojeong.login.AllLoginManager;
+import com.example.saojeong.login.kakaoControl;
+import com.example.saojeong.util.ForecdTerminationService;
 
 public class IntroPage extends AppCompatActivity {
 
@@ -14,14 +22,20 @@ public class IntroPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        Handler handler;
-        handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                Intent intent = new Intent(IntroPage.this, TutorialActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }, 3000); //3000은 3초를 의미함
+        kakaoControl.init(getApplication());
+        new AllLoginManager(this, this);
+        SharedPreferences shared = getApplicationContext().getSharedPreferences("SHARE_PREF", Context.MODE_PRIVATE);
+        String accessToken = shared.getString("AccessToken", "");
+        AllLoginManager.getInstance().login("UPDATE", this);
+        Intent intent;
+        if (accessToken.equals("")) {
+            intent = new Intent(IntroPage.this, TutorialActivity.class);
+        } else {
+            intent = new Intent(IntroPage.this, MainActivity.class);
+        }
+
+        startActivity(intent);
+        finish();
+
     }
 }

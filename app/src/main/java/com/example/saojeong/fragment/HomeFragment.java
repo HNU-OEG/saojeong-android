@@ -184,7 +184,7 @@ public class HomeFragment extends Fragment {
                 recyclerShop.setLayoutManager((new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)));
 
                 likeStoreAdapter.setOnItemClickListener(holder -> {
-                    ShopFragment targetFragment = shopFragment.newInstance(holder.storeId, HomeFragment.newInstance());
+                    ShopFragment targetFragment = ShopFragment.newInstance(holder.storeId, HomeFragment.newInstance());
                     MainActivity activity = (MainActivity) getActivity();
                     activity.replaceFragment(targetFragment);
                 });
@@ -317,18 +317,18 @@ public class HomeFragment extends Fragment {
         transaction = fragmentManager.beginTransaction();
 
         view.findViewById(R.id.iv_home).setOnClickListener(view1 -> {
-            ((MainActivity) getActivity()).replaceFragment(homeFragment.newInstance());
+            ((MainActivity) getActivity()).replaceFragment(newInstance());
             fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); // 백스택 모두 지우기
         });
 
         view.findViewById(R.id.btn_fruit).setOnClickListener(
-                view12 -> ((MainActivity) getActivity()).replaceHomeFragment(fruitFragment.newInstance("fruits")));
+                view12 -> ((MainActivity) getActivity()).replaceHomeFragment(ShopListFragment.newInstance("fruits")));
 
         view.findViewById(R.id.btn_vegetable).setOnClickListener(
-                view13 -> ((MainActivity) getActivity()).replaceHomeFragment(vegetableFragment.newInstance("vegetables")));
+                view13 -> ((MainActivity) getActivity()).replaceHomeFragment(ShopListFragment.newInstance("vegetables")));
 
         view.findViewById(R.id.btn_fish).setOnClickListener(
-                view14 -> ((MainActivity) getActivity()).replaceHomeFragment(fishFragment.newInstance("seafoods")));
+                view14 -> ((MainActivity) getActivity()).replaceHomeFragment(ShopListFragment.newInstance("seafoods")));
     }
 
     public void closeKeyBoard(View view) {

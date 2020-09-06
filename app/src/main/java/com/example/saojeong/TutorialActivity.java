@@ -33,19 +33,17 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
         setupItems();
-        kakaoControl.init(getApplication());
 
         viewPager=findViewById(R.id.my_intro_view_pager);
         dotsIndicator=findViewById(R.id.dots_indicator);
         viewPager.setAdapter(pageradapter);
-
         dotsIndicator.setViewPager2(viewPager);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        AllLoginManager.inst.onActivityResult(requestCode,resultCode,data);
+        AllLoginManager.getInstance().onActivityResult(requestCode,resultCode,data);
 
     }
 
@@ -60,9 +58,9 @@ public class TutorialActivity extends AppCompatActivity {
         itemTuto.add(itemThreePage);
         pageradapter=new TutorialAdapter(itemTuto, this, this);
     }
+
     @Nullable
     public static String getHashKey(Context context) {
-
         final String TAG = "KeyHash";
         String keyHash = null;
         try {
@@ -77,11 +75,7 @@ public class TutorialActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("name not found", e.toString());
         }
-        if (keyHash != null) {
-            return keyHash;
-        } else {
-            return null;
-        }
+        return keyHash;
     }
 }
 

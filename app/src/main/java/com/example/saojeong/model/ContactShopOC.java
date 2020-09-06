@@ -38,6 +38,7 @@ public class ContactShopOC {
         this.mImage = mImage;
         this.mFImage = mFImage;
         this.mLike = true;
+        this.mShopId = 0;
     }
 
     public ContactShopOC(StoreDto dto) {

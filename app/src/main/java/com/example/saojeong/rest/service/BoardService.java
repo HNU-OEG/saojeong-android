@@ -25,6 +25,13 @@ public interface BoardService {
 
     //게시글 조회
     //테스트 X
+    @GET("/api/board/10004/content/user")
+    Call<GetPostListArrayDto> userBoard();
+
+    @GET("/search/?type=board&category=10004")
+    Call<GetPostListArrayDto> searchBoard(@Query("value") String search);
+
+
     @GET("/api/board/{board_id}/content/{document_id}")
     Call<GetPostDto> getPost(@Path("board_id") int board_id, @Path("document_id") int document_id);
 

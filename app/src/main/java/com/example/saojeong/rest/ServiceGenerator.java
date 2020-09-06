@@ -2,6 +2,8 @@ package com.example.saojeong.rest;
 
 import android.text.TextUtils;
 
+import com.example.saojeong.R;
+import com.example.saojeong.util.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -10,7 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
-    public static final String API_BASE_URL = "https://saojeong-dev.hnulinc.c11.kr/ ";
+    public static final String API_BASE_URL = StringUtils.getServerUrl();
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -24,10 +26,6 @@ public class ServiceGenerator {
                     .addConverterFactory(GsonConverterFactory.create(gson));
 
     private static Retrofit retrofit = builder.build();
-
-    public static <S> S createService(Class<S> serviceClass) {
-        return createService(serviceClass, null);
-    }
 
     public static <S> S createService(
             Class<S> serviceClass, final String authToken) {
@@ -44,5 +42,10 @@ public class ServiceGenerator {
         }
 
         return retrofit.create(serviceClass);
+    }
+
+    public static <S> S createServiceWithOutToken(Class<S> serviceClass) {
+        return builder.build()
+                .create(serviceClass);
     }
 }

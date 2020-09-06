@@ -1,8 +1,10 @@
 package com.example.saojeong.login;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.saojeong.MainActivity;
@@ -17,11 +19,11 @@ public class ObserveLogin implements Observer<Login_Dto> {
     Activity mActivity;
     boolean login;
     String type;
-    public ObserveLogin(Activity activity, boolean login, String type)
-    {
-        mActivity=activity;
-        this.login=login;
-        this.type=type;
+
+    public ObserveLogin(Activity activity, boolean login, String type) {
+        mActivity = activity;
+        this.login = login;
+        this.type = type;
     }
 
     @Override
@@ -32,12 +34,9 @@ public class ObserveLogin implements Observer<Login_Dto> {
     @Override
     public void onNext(@NonNull Login_Dto login_dto) {
         Login_Dto body = login_dto;
-        SharedPreferences pref = mActivity.getSharedPreferences("SHARE_PREF", mActivity.MODE_PRIVATE);
+        Log.d("LOGIN DTO", body.toString());
+        SharedPreferences pref = mActivity.getSharedPreferences("SHARE_PREF", Context.MODE_PRIVATE);
         SharedPreferences.Editor editer = pref.edit();
-        if (body.accessToken != null) {
-            String str1 = body.accessToken;
-            editer.putString("AccessToken", str1);
-        }
         if (body.AccessToken != null) {
             String str1 = body.AccessToken;
             editer.putString("AccessToken", str1);
@@ -51,26 +50,27 @@ public class ObserveLogin implements Observer<Login_Dto> {
         editer.apply();
         editer.commit();
         LoginToken.setToken(mActivity);
-
     }
 
     @Override
     public void onError(@NonNull Throwable e) {
 
-        Toast.makeText(mActivity,"접속에러", Toast.LENGTH_SHORT).show();
-        if(type=="oneUpdate")
-            AllLoginManager.inst.logout(mActivity);
-        AllLoginManager.inst.logout(mActivity, type);
+        if (type.equals("oneUpdate"))
+            AllLoginManager.getInstance().logout(mActivity);
+        AllLoginManager.getInstance().logout(mActivity, type);
+        AllLoginManager.getInstance().NetworkCheck = false;
     }
 
     @Override
     public void onComplete() {
-        if(login)
-        {
+        if (login) {
             Intent intent = new Intent(mActivity, MainActivity.class);
             mActivity.startActivity(intent);
             mActivity.finish();
         }
+        if (type.equals("oneUpdate"))
+            AllLoginManager.getInstance().oneUpdate = true;
+        AllLoginManager.getInstance().NetworkCheck = false;
 
     }
 }
