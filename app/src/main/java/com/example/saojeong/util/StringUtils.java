@@ -1,5 +1,7 @@
 package com.example.saojeong.util;
 
+import com.example.saojeong.R;
+
 import java.util.List;
 
 public class StringUtils {
@@ -11,5 +13,9 @@ public class StringUtils {
             builder.append(delimeter);
         }
         return builder.toString();
+    }
+
+    public static String getServerUrl() {
+        return String.valueOf(R.string.dev_url);
     }
 }
