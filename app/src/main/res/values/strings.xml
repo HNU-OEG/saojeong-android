@@ -15,6 +15,4 @@
 3. 사용자 닉네임 :\n\n
 (마이페이지 탭에서 확인 가능)\n\n\n\n
 *사오정은 문의에 포함된 개인정보를 수집, 이용할 수 있습니다. 다만 이러한 정보는 답변을 위한 목적으로만 처리됩니다.</string>
-    <string name="dev_url">https://saojeong-dev.hnulinc.c11.kr/</string>
-    <string name="production_url">https://saojeong.hnulinc.c11.kr/</string>
 </resources>

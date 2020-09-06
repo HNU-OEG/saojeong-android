@@ -16,6 +16,6 @@ public class StringUtils {
     }
 
     public static String getServerUrl() {
-        return String.valueOf(R.string.dev_url);
+        return "https://saojeong-dev.hnulinc.c11.kr/";
     }
 }
