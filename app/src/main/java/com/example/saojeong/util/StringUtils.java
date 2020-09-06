@@ -16,6 +16,6 @@ public class StringUtils {
     }
 
     public static String getServerUrl() {
-        return "https://saojeong-dev.hnulinc.c11.kr/";
+        return "https://saojeong.hnulinc.c11.kr/";
     }
 }

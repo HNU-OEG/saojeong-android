@@ -58,17 +58,6 @@ public class PostValue {
         return documentId;
     }
 
-    public PostValue(int documentId, String title, String content, String createdAt, int blamedCount , int votedCount, String category, String author)
-    {
-        this.documentId=documentId;
-        this.title=title;
-        this.content=content;
-        this.createdAt=createdAt;
-        this.blamedCount=blamedCount;
-        this.votedCount=votedCount;
-        this.category=category;
-        this.author=author;
-    }
     public PostValue(GetContentDto dto) {
         this.documentId = dto.getDocumentId();
         this.title = dto.getTitle();

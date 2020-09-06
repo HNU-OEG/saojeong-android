@@ -46,7 +46,6 @@ public class GoogleLogin implements LoginControl, GoogleApiClient.OnConnectionFa
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
                 .requestServerAuthCode(serverClientId)
-                //requestIdToken() 서버용 토큰?
                 .requestEmail()
                 .build();
 
@@ -61,7 +60,7 @@ public class GoogleLogin implements LoginControl, GoogleApiClient.OnConnectionFa
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account1 = task.getResult(ApiException.class);
-                account=account1;
+                this.account=account1;
                 mhandler.success();
                 // Show signed-un UI
                 // TODO(developer): send code to server and exchange for access/refresh/ID tokens

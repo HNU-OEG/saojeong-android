@@ -1,37 +1,25 @@
 package com.example.saojeong.fragment;
-
-import android.media.session.MediaSession;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.saojeong.MainActivity;
 import com.example.saojeong.R;
 import com.example.saojeong.adapter.CommunityAdapter_item;
 import com.example.saojeong.auth.TokenCase;
-import com.example.saojeong.model.ChartContact;
 import com.example.saojeong.model.CommunityValue;
 import com.example.saojeong.rest.ServiceGenerator;
 import com.example.saojeong.rest.dto.board.GetPostListArrayDto;
 import com.example.saojeong.rest.service.BoardService;
-import com.facebook.login.Login;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,19 +27,17 @@ import retrofit2.Response;
 
 public class CommunityUserFragment extends Fragment implements View.OnClickListener {
 
-    public CommunityAdapter_item mAdapter;
-    public List<CommunityValue> mCommunityNormalValue;
+    private CommunityAdapter_item mAdapter;
+    private List<CommunityValue> mCommunityNormalValue;
     private List<CommunityValue> mCommunityHotValue;
     private TextView btnLeft;
     private TextView btnRight;
     private TextView tvBoard;
     private static NestedScrollView scroll;
-    public RecyclerView mRecyclerViewCommunity;
+    private RecyclerView mRecyclerViewCommunity;
     private int board=0;
-    private TextView SearchString;
     public CommunityUserFragment(){
     }
-
     public NestedScrollView getScroll(){
         return scroll;
     }
@@ -75,7 +61,6 @@ public class CommunityUserFragment extends Fragment implements View.OnClickListe
 
         return view;
     }
-
     @Override
     public void onClick(View view) {
         int id=view.getId();
@@ -89,7 +74,6 @@ public class CommunityUserFragment extends Fragment implements View.OnClickListe
                 break;
         }
     }
-
     public void load_GetPost() {
         boardService = ServiceGenerator.createService(BoardService.class, TokenCase.getToken());
         boardService.userBoard().enqueue(new Callback<GetPostListArrayDto>() {
@@ -106,10 +90,7 @@ public class CommunityUserFragment extends Fragment implements View.OnClickListe
                         } else
                             btnRight.setVisibility(View.GONE);
                         mAdapter = new CommunityAdapter_item(mCommunityHotValue, mCommunityNormalValue, (MainActivity) getActivity());
-
-
                     }
-
                     else {
                         mCommunityNormalValue.clear();
                     }
@@ -120,7 +101,6 @@ public class CommunityUserFragment extends Fragment implements View.OnClickListe
 
             @Override
             public void onFailure(Call<GetPostListArrayDto> call, Throwable t) {
-                Log.d("fail", t.getMessage());
             }
         });
     }

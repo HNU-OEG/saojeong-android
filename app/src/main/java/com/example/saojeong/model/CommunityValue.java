@@ -15,30 +15,9 @@ public class CommunityValue {
     public String createdAt;
     public int commentCount;
     public int votedCount;
-//
-    //
     public CommunityValue(String title) {
         this.title = title;
     }
-    public CommunityValue(String title, String author, String createdAt, int commentCount, int votedCount, int document_id)
-    {
-        this.title=title;
-        this.author=author;
-        this.createdAt=createdAt;
-        this.commentCount=commentCount;
-        this.votedCount=votedCount;
-        this.document_id=document_id;
-    }
-
-    public CommunityValue(Integer document_id, String title, String author, String createdAt, int commentCount, int votedCount) {
-        this.document_id = id;
-        this.title = title;
-        this.author = author;
-        this.createdAt = createdAt;
-        this.commentCount = commentCount;
-        this.votedCount = votedCount;
-    }
-
     public CommunityValue(GetPostListDto dto) {
         this.document_id = dto.getDocumentId();
         this.title = dto.getTitle();

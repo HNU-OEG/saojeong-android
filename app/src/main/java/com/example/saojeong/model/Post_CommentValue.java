@@ -47,15 +47,6 @@ public class Post_CommentValue {
         return reContent;
     }
 
-    public Post_CommentValue(String memberID, String author, String content, String createdAt, List<Post_CommentValue> replies)
-    {
-        this.memberID=memberID;
-        this.author=author;
-        this.content=content;
-        this.createdAt=createdAt;
-        this.replies=replies;
-    }
-
     public Post_CommentValue(RepliesDto dto) {
         this.comment_ID = dto.getReply_id();
         this.memberID = dto.getMemberId();
