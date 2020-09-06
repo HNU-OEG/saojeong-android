@@ -24,6 +24,16 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    splits {
+        density {
+            enable true
+
+            exclude 'ldpi', 'mdpi'
+
+            compatibleScreens 'small', 'normal', 'large', 'xlarge'
+        }
+    }
 }
 
 dependencies {
