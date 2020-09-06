@@ -210,8 +210,10 @@ public class AllLoginManager {
                         .subscribe(new ObserveLogin(mActivity, true, "GUEST"));
                 break;
             case "Update":
-                if( TokenCase.getToken()=="")
+                if( TokenCase.getToken()=="") {
+                    AllLoginManager.getInstance().NetworkCheck=false;
                     break;
+                }
                 Login_GuestService = service_login.createService(Login_Guest.class, TokenCase.getToken());
                 HashMap hash = new HashMap<>();
                 hash.put("RefreshToken", LoginToken.getRefreshToken());
@@ -219,6 +221,7 @@ public class AllLoginManager {
                         .subscribe(new ObserveLogin(mActivity, false, "UPDATE"));
                 break;
         }
+
         inst.ThreadNetworkSleepSync();
     }
 
