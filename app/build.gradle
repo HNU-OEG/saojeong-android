@@ -10,19 +10,8 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-        resConfigs 'ko', 'en'
-        ndk {
-            abiFilters 'x86', 'x86_64', 'arm64-v8a', 'armeabi-v7a'
-        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources true
-        }
     }
 
     compileOptions {
@@ -30,22 +19,13 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    splits {
-        density {
-            enable true
-
-            exclude 'ldpi', 'mdpi'
-
-            compatibleScreens 'small', 'normal', 'large', 'xlarge'
-        }
-    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation 'com.google.android.material:material:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'androidx.navigation:navigation-fragment:2.3.0'
