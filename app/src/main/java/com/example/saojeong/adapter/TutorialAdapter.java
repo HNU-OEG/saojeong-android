@@ -33,8 +33,7 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
         RelativeLayout rl_testTuto;
         LinearLayout ll_test0;
         LinearLayout ll_test1;
-        Button login_facebook;
-        Button login_kakaotalk;
+        Button login_facebook
         Button login_naver;
         Button login_google;
         Button login_guest;
