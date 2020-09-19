@@ -93,7 +93,7 @@ public class ShopListFragment extends Fragment {
 
 
         Glide.with(this)
-                .load("https://saojeong-images.s3.ap-northeast-2.amazonaws.com/4_01.png")
+                .load("https://images.velog.io/images/prayme/post/c2da8dfa-226d-4144-be00-9e4db352ecac/4_01.png")
                 .transform(GlideModule.getCenterCropAndRoundedCorner(50))
                 .into((ImageView) rootView.findViewById(R.id.iv_fruitmap));
 

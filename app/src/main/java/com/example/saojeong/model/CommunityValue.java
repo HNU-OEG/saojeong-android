@@ -53,7 +53,7 @@ public class CommunityValue {
 
     public static List<CommunityValue> createNewsContactsList() {
         List<CommunityValue> contacts = new ArrayList<>();
-        contacts.add(new CommunityValue("https://saojeong-images.s3.ap-northeast-2.amazonaws.com/news/fullview.png"));
+        contacts.add(new CommunityValue("https://images.velog.io/images/prayme/post/015ace80-1ad3-40ac-9bc8-e0f5fba7c298/fullview.png"));
         return contacts;
     }
 
